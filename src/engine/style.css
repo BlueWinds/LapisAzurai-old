@@ -1,0 +1,528 @@
+html {
+  background-image: linear-gradient(transparent, rgba(0, 0, 0, 0.9), black), url("./background.jpg");
+  background-position: 0 66px;
+}
+
+body.container {
+  background: none;
+  color: #ccc;
+  height: 100%;
+  overflow-x: hidden;
+  position: relative;
+}
+
+.navbar-default {
+  background: black;
+}
+
+@media (max-width: 639px) {
+  .navbar:after {
+    content: "Your screen or window is too small for this game.       (><)      Try expanding it or playing on a different device (or rotate to landscape - that may work).";
+    margin-top: 10em;
+    text-align: center;
+  }
+  .navbar-nav:nth-child(2) {
+    display: none;
+  }
+  #nav-arrows,
+  #content { display: none; }
+}
+@media (max-height: 359px) {
+  .navbar:after {
+    content: "Your screen or window is too small for this game.       (><)      Try expanding it or playing on a different device.";
+    margin-top: 10em;
+    text-align: center;
+  }
+  .navbar-nav:nth-child(2) {
+    display: none;
+  }
+  #nav-arrows, #content { display: none; }
+}
+
+@media (max-width: 640px) {
+  body.container {
+    padding: 0;
+  }
+}
+
+* {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+
+.navbar {
+  border: none;
+  margin: 0;
+}
+.navbar-nav {
+  float: left;
+  margin: 7.5px 0;
+}
+.navbar-right {
+  float: right;
+}
+
+.nav a {
+  cursor: pointer;
+}
+
+.nav > li {
+  float: left;
+}
+.navbar-header {
+  float: left;
+}
+@media (max-width: 768px) {
+  .navbar {
+    min-height: 20px;
+  }
+  .navbar-brand {
+    height: 25px;
+    padding: 0 15px;
+  }
+  .navbar-nav {
+    margin: 0;
+  }
+  .navbar-nav > li > a {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+  .well {
+    padding: 5px;
+  }
+  .shorten {
+    display: none;
+  }
+}
+
+#content {
+  background: #000;
+  position: relative;
+}
+
+#content > div {
+  height: 100%;
+  overflow: hidden;
+  position: absolute;
+  width: 100%;
+}
+
+#content .well {
+  border-radius: 6px 6px 0 0;
+  bottom: 0;
+  margin: 0;
+  min-height: 33%;
+  opacity: 0.85;
+  position: absolute;
+  width: 100%;
+}
+
+#content img {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  margin: auto;
+}
+
+.person {
+  bottom: 33%;
+  left: 50%;
+  height: 33%;
+  position: absolute;
+}
+#content .person img {
+  height: 100%;
+  margin-left: -50%;
+  position: relative;
+}
+.person.lg {
+  height: 50%;
+}
+.person.sm {
+  height: 25%;
+}
+
+.person.right {
+  left: 75%;
+}
+.person.right-lead {
+  left: 85%;
+}
+
+/* Medium devices (desktops, 992px and up) */
+@media (max-width: 992px) {
+  #content .well {
+    min-height: 40%;
+  }
+  .person {
+    bottom: 40%;
+  }
+}
+
+/* Small devices (tablets, 768px and up) */
+@media (max-width: 768px) {
+  #content .well {
+    min-height: 50%;
+  }
+  .person {
+    bottom: 50%;
+  }
+}
+
+
+#content .well.full {
+  border: none;
+  border-radius: 0;
+  height: 100%;
+}
+#content .well.short {
+  height: auto;
+  min-height: 0;
+}
+
+
+#content img + .well {
+  background-color: #15151566;
+}
+
+#nav-arrows {
+  position: absolute;
+  right: -1em;
+  z-index: 10;
+}
+
+@media (max-width: 820px) {
+  #nav-arrows {
+    right: 0.5em;
+  }
+}
+
+#nav-arrows .glyphicon {
+  cursor: pointer;
+  display: block;
+  padding: 10px 5px;
+}
+
+#nav-arrows .glyphicon.disabled,
+#nav-arrows .glyphicon.disabled:hover {
+  color: #666;
+  cursor: default;
+}
+
+#nav-arrows .glyphicon:hover {
+  color: #fff;
+}
+
+#next {
+  left: 0.083em;
+}
+
+.well blockquote {
+  border-left: 5px solid #282828;
+  font-size: 1em;
+  margin: 0 0 10px;
+  padding: 10px 20px;
+
+}
+
+#content .full-background {
+  left: -20%;
+  max-height: none;
+  max-width: 240%;
+  opacity: 0.3;
+  position: absolute;
+  top: -20%;
+}
+
+#content .full-background + .well {
+  background: none;
+  opacity: 1;
+}
+
+button:active,
+button:focus, a:active,
+a:focus {
+  outline: none !important;
+}
+
+.toggle input {
+  display: none;
+}
+
+input.inline,
+button.inline {
+  background-color: #222;
+  border: 1px solid #666;
+  border-radius: 6px;
+  color: #fff;
+  padding: 2px 7px;
+}
+
+input.inline:disabled {
+  color: #aaa;
+}
+
+.dropdown-toggle.inline.active {
+  background: #222;
+  border-color: #666;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-top: none;
+  padding-top: 3px;
+  position: relative;
+  z-index: 1001;
+}
+.dropdown-menu.inline {
+  border: 1px solid #666666;
+  border-bottom-left-radius: 0;
+  min-width: 110px;
+  padding: 0;
+}
+.dropdown-menu.inline span {
+  display: block;
+}
+.dropdown-menu.inline label {
+  cursor: pointer;
+  font-size: 0.9em;
+  font-weight: 300;
+  padding-left: 7px;
+  width: 100%;
+}
+.dropdown-menu.inline input:checked + label {
+  background: #666;
+  color: #fff;
+  cursor: default;
+}
+
+.dropdown-menu.inline input {
+  display: none;
+}
+
+.toggle {
+  background-color: #222;
+  border: 1px solid #666;
+  border-radius: 6px;
+  color: #fff;
+  padding: 0;
+}
+.toggle label {
+  border-left: 1px solid #666;
+  border-radius: 0 6px 6px 0;
+  cursor: pointer;
+  font-weight: 300;
+  margin: 0;
+  padding: 2px 7px;
+}
+
+.toggle label:nth-child(2) {
+  border: none;
+  border-radius: 6px 0 0 6px;
+}
+
+.toggle input:checked + label {
+  background: #2A9FD6;
+  cursor: default;
+}
+
+.toggle input:disabled + label {
+  color: #aaa;
+  cursor: default;
+}
+
+.bigOptions {
+  margin-bottom: 20px;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.bigOptions > div {
+  display: inline-block;
+  float: none;
+  min-width: 200px;
+  white-space: normal;
+}
+
+.bigOptions input {
+  display: none;
+}
+
+.bigOptions label {
+  background-color: #222;
+  border: 1px solid #222;
+  border-radius: 4px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
+  width: 100%;
+  padding: 1em;
+}
+
+.bigOptions input:checked + label {
+  background: #333;
+  border-color: #666;
+}
+
+.center-block {
+  position: relative;
+}
+
+#save-game .glyphicon {
+  position: absolute;
+  opacity: 0;
+  right: -2px;
+  top: 15px;
+}
+
+.port > button {
+  clear: both;
+}
+
+.job {
+  background: none repeat scroll 0 0 #000;
+  border: 1px solid #666;
+  border-radius: 10px;
+  margin: 10px 0;
+  position: relative;
+}
+.job.ready,
+.job.ready .job-label,
+.job.ready:hover,
+.job.ready:hover .job-label {
+  border-color: #2a9fd6;
+}
+
+.job > div:first-child {
+  padding-left: 0;
+}
+
+.job-label {
+  border-bottom: 1px solid #666;
+  border-bottom-right-radius: 10px;
+  border-right: 1px solid #666;
+  padding: 5px 8px;
+}
+
+.job-workers {
+  margin: 0;
+  list-style: none;
+}
+
+.job-description {
+  display: none;
+}
+
+.worker-requirements .name {
+  color: #666;
+}
+
+.person-info, .worker-requirements {
+  background: #000;
+  border: 1px solid #666;
+  border-radius: 6px;
+  height: 55px;
+}
+
+.worker-requirements {
+  opacity: 0.75;
+}
+.worker-requirements:hover,
+.worker-requirements:hover .person-name {
+  border-color: #aaa;
+}
+.person-info:hover,
+.person-info:hover .person-name,
+.job:hover,
+.job:hover .job-label,
+.crew:hover {
+  border-color: #777;
+}
+
+.job-workers li {
+  margin: 8px 0;
+}
+
+.person-info.active, .person-info.active .person-name {
+  background-color: #040f14;
+  border-color: #2a9fd6;
+}
+
+.person-name {
+  border-bottom: 1px solid #666666;
+  border-bottom-right-radius: 10px;
+  border-right: 1px solid #666666;
+  float: left;
+  padding: 2px 16px;
+}
+
+.person-level {
+  font-size: 2em;
+  line-height: 1em;
+  margin-bottom: -3px;
+  text-align: center;
+}
+
+.person-stats span,
+.worker-requirements span {
+  display: inline-block;
+  padding: 5px 0;
+  text-align: center;
+  width: 25%;
+}
+
+.screen {
+  background-position: center;
+  background-size: 100%;
+  height: 100%;
+}
+.screen form {
+  cursor: default;
+}
+.screen button {
+  clear: both;
+  font-weight: 700;
+}
+
+.person-info + .worker-requirements {
+  display: none;
+}
+
+.crew, .hires {
+  background: #000;
+  border: 1px solid #666666;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  min-height: 73px;
+}
+
+.person-info {
+  cursor: pointer;
+}
+
+.crew .person-info, .hires .person-info {
+  float: left;
+  margin: 8px 15px;
+  width: calc(50% - 30px);
+}
+
+.person-stats .happiness,
+.person-stats .endurance {
+  display: none;
+}
+
+.center {
+  text-align: center;
+}
+
+.job-requirements span {
+  display: inline-block;
+  padding: 5px 0;
+  text-align: center;
+  width: 25%;
+}
+
+.business { color: #ff8500; }
+.diplomacy { color: #ffb600; }
+.stealth { color: #ff2c00; }
+.combat { color: #a65600; }
+.person-level { color: #fff; }
+.unmet { font-weight: 700; }

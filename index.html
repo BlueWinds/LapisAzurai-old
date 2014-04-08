@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <title>Lapis Azuri</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+
+    <script src="game/engine/lib.js"></script>
+    <script src="game/compiled.js"></script>
+
+    <link href="game/engine/bootstrap.css" rel="stylesheet">
+    <link href="game/engine/style.css" rel="stylesheet">
+  </head>
+  <body class="container">
+    <div class="navbar navbar-default">
+      <div class="navbar-header">
+        <span class="navbar-brand">Lapis Azurai</span>
+      </div>
+      <ul class="nav navbar-nav">
+        <li id="new-game"><a>New</a></li>
+        <li id="save-game"><a>Save<span class="glyphicon glyphicon-ok text-success"></span></a></li>
+        <li id="load-game"><a>Load</a></li>
+        <li id="config-game"><a>Config</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="http://site.brothels.im">Site</a></li>
+      </ul>
+    </div>
+  </div>
+  <div id="nav-arrows">
+    <span class="glyphicon glyphicon-arrow-up disabled" id="prev"></span>
+    <span class="glyphicon glyphicon-arrow-down disabled" id="next"></span>
+  </div>
+  <div id="content"></div>
+  </body>
+</html>
