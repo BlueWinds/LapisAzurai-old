@@ -1,6 +1,7 @@
-window.Place = class Place extends Contextual
-  @schema: $.extend true, {}, Contextual.schema,
+window.Place = class Place extends GameObject
+  @schema:
     type: @
+    strict: true
     properties:
       name:
         type: 'string'
@@ -9,27 +10,23 @@ window.Place = class Place extends Contextual
       images:
         # Required images for every location
         properties:
-          port: {}
-          business: {}
-      people:
-        type: 'object'
-        items:
-          type: Person
+          day: {}
+          night: {}
+          storm: {}
       jobs:
-        type: 'object'
+        type: Collection
         items:
           type: Job
 
-  toString: -> return @name
+  jobs: new Collection
 
-  people: new CopyOnCreate
-  jobs: new CopyOnCreate
+  image: (tag)-> "<img src='#{@images[tag]}'>"
+
+Game::map = new Collection
+Game.schema.properties.map =
+  type: Collection
+  items:
+    type: Place
 
 Game.schema.properties.location =
   type: Place
-
-Game::map = new CopyOnCreate
-Game.schema.properties.map =
-  type: 'object'
-  items:
-    type: Place

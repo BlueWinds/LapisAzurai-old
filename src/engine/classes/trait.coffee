@@ -1,25 +1,34 @@
-window.Trait = class Trait extends Validated
-  @schema: $.extend true, {}, Validated.schema,
+window.Trait = class Trait extends GameObject
+  @schema:
+    strict: true
     type: @
     properties:
-      text:
+      description:
         type: ['string', 'function']
         description: 'A string describing the flavor of the trait, or a function taking (person) returning the same.'
 
-  constructor: (base, data, type = Trait)->
-    return super base, data, type
+  renderBlock: (person)->"""<div class="trait clearfix">
+    <div class="name col-xs-2">#{@constructor.name}</div>
+    <div class="description col-xs-10">#{@description?(person) or @description}</div>
+  </div>"""
 
-for key in Person.stats
-  Trait.schema[key] =
-    type: ['integer', 'function']
-    gte: -100
-    lte: 100
-    description: "An amount to add to the stat, or a function that takes (object, context, number) and returns an adjusted number."
-  Trait.schema[key + 'Set'] =
-    type: ['integer', 'function']
-    gte: -10
-    lte: 10
-    description: "A rate to multiply changes to the stat by, or a function that takes (object, delta) and returns a new delta."
+  for key in Person.stats
+    @schema[key] =
+      type: ['integer', 'function']
+      gte: -100
+      lte: 100
+      description: "An amount to add to the stat, or a function that takes (object, context, number) and returns an adjusted number."
+    @schema[key + 'Set'] =
+      type: ['integer', 'function']
+      gte: -10
+      lte: 10
+      description: "A rate to multiply changes to the stat by, or a function that takes (object, delta) and returns a new delta."
+
+Person.schema.properties.traits =
+  type: Collection
+  optional: true
+  items:
+    type: Trait
 
 Person::get = (stat, context)->
   value = @[stat]
@@ -30,9 +39,3 @@ Person::get = (stat, context)->
       else
         value + trait[name]
   return value
-
-Person.schema.properties.traits =
-  type: 'array'
-  optional: true
-  items:
-    type: Trait

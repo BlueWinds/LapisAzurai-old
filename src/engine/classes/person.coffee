@@ -1,30 +1,10 @@
-color =
-  type: 'array'
-  items: [
-    {type: 'number', gte: -180, lte: 180}
-    {type: 'number', gte: -100, lte: 100}
-    {type: 'number', gte: -100, lte: 100}
-  ]
-  exactLength: 3
-  optional: true
-
-imgLayer =
-  type: ['string', 'array']
-  optional: true
-  items: [
-    {type: 'string'} # A reference to the file
-    {type: 'integer', gte: 0} # x-start
-    {type: 'integer', gte: 0} # y-start
-    {type: 'integer', gte: 1} # width
-    {type: 'integer', gte: 1} # height
-  ]
-
-window.Person = class Person extends Validated
-  @stats: ['business', 'diplomacy', 'stealth', 'combat', 'happiness', 'endurance']
+window.Person = class Person extends GameObject
+  @stats: ['happiness', 'business', 'diplomacy', 'stealth', 'combat', 'endurance', 'fatigue']
   @mainStats: ['business', 'diplomacy', 'stealth', 'combat']
   @imgLayers: ['base', 'skin', 'eyes', 'hair', 'top']
-  @schema: $.extend true, {}, Validated.schema,
+  @schema:
     type: @
+    strict: true
     properties:
       name:
         type: 'string'
@@ -35,142 +15,151 @@ window.Person = class Person extends Validated
         type: 'integer'
         gte: 1
         lte: 100
-      growth: {}
+      money:
+        type: 'integer'
+        optional: true
+      text:
+        type: 'string'
+        pattern: /^#[0-9A-F]{6}$/
+      # Optional color names for each layer, looked up in {PersonClass}.colors
       color:
-        type: 'object'
-        strict: true
-        properties:
-          text:
-            type: 'string'
-            pattern: /^#[0-9A-F]{6}$/
-          # Optional HSL arrays to recolor images
-          hair: color
-          eyes: color
-          skin: color
-      images:
-        type: 'object'
+        type: 'array'
         items:
-          # Can be either a single image path, or an object containing layers
-          type: ['string', 'object']
-          exact: true
-          someKeys: @imgLayers
-          properties: {}
+          type: 'string'
+        optional: true
+      description:
+        # description can be a string so that random characters can have one chosen for them.
+        type: ['string', 'function']
   for stat in @stats
-    @schema.properties[stat] = {type: 'number', gte: -100, lte: 100}
-    @schema.properties.growth[stat] = {type: 'number', gte: -1, lte: 10, optional: true}
-  for layer in @imgLayers
-    @schema.properties.images.items[layer] = imgLayer
+    @schema.properties[stat] = {type: 'number', gte: 0, lte: 100}
+  for stat in @mainStats
+    @schema.properties[stat + 'Growth'] = {type: 'number', gte: 0, lte: 10, optional: true}
 
-  @base: {}
-  constructor: (base, data, type = Person)->
-    return super base, data, type
+  # Each Person subclass should have @images and optionally @colors.
 
-  renderedCache = {}
-  image: (label, classes = '', cache = true)->
-    src = @images[label]
+  happiness: 0
+  business: 0
+  businessGrowth: 0
+  diplomacy: 0
+  diplomacyGrowth: 0
+  stealth: 0
+  stealthGrowth: 0
+  combat: 0
+  combatGrowth: 0
+  fatigue: 0
+  endurance: 0
+  level: 1
+  description: 'If you see this in-game, it is a bug.'
+  text: '#FFFFFF'
+
+  constructor: (data, objects, path, imagesReady)->
+    Object.defineProperty @, 'imgCache', {value: {}, enumerable: false}
+    Object.defineProperty @, 'spriteCache', {value: {}, enumerable: false}
+    if window.document
+      for image of @constructor.images when image isnt 'path'
+        @spriteCache[image] = sprite = new Image
+        sprite.src = "game/sprites/#{@name}-#{image}.png"
+        $(sprite).load Game.waitForInit()
+    super data, objects, path
+
+  image: (label, classes = '', useCache = true)->
+    src = @constructor.images[label]
     if typeof src is 'string'
       return "<div class='person #{classes}'><img src='#{src}'></div>"
     unless src
-      throw new Error "Can't find image \"#{label}\" for #{@}"
+      throw new Error "Can't find image '#{label}' for #{@}"
 
-    unless cache and renderedCache[@id]?[label]
-      renderedCache[@id] or= {}
-      layers = []
-      for layer in Person.imgLayers when src[layer]
-        layers.push {
-          src: src[layer]
-          color: @color[layer]
-        }
-      renderedCache[@id][label] = renderLayers(layers)
+    unless @imgCache[label] and useCache
+      if @constructor.colors
+        layers = []
+        colorCount = @constructor.colors.map (l)->l.length or 1
+        layerHeight = @spriteCache[label].height / Math.max.apply(@, colorCount)
+        for layer, path of src
+          colors = @constructor.colors[layer]
+          y = if colors and @color
+            colors.findIndex (color)=> @color[layer] is color[0]
+          else
+            0
+          if y is -1 then throw new Error
+          layers.push {
+            x: layer * 400
+            y: y * layerHeight
+          }
+        @imgCache[label] = renderLayers @spriteCache[label], layers, layerHeight
+        unless @imgCache[label].length > 10
+          delete @imgCache[label]
+      else
+        @imgCache[label] = @spriteCache[label].src
 
-    return "<div class='#{classes} person'>" + renderedCache[@id][label] + '</div>'
+    return "<div class='#{classes} person'><img src='#{@imgCache[label]}'></div>"
 
-  match: (conditions)->
-    if conditions.base and not @ instanceof conditions.base
-      return false
-    if conditions.path and (@ isnt g.getItem conditions.path)
-      return false
-    for stat in Person.stats
-      if conditions[stat]?.gte > @[stat]
-        return false
-      if conditions[stat]?.lte < @[stat]
-        return false
-    return @
-
-  renderBlock: (context, key, classes = '')->
-    stats = for stat in Person.mainStats
+  renderBlock: (key, classes = '')->
+    stats = for stat in Person.stats
       "<span class='#{stat}'>#{@[stat]}</span>"
+    stats.push """<span class='money'>
+      <span class="wages" title="Weekly Wages">#{@wages()}</span>
+      #{if @money? then "<span class='savings' title='Total Savings'>" + @money + "</span>" else ''}
+    </span>"""
+    traits = for trait in (@traits?.keys() or [])
+      @traits[trait].renderBlock(@)
 
-    return """<div data-key="#{key}" class="person-info #{classes}"
-    style="color: #{@color.text};">
-      <div class="person-name">#{@name}</div>
-      <div class="person-level">#{@level}</div>
-      <div class="person-stats">#{stats.join ''}</div>
+    return """<div data-key="#{key}" class="person-info #{classes}">
+      <div class="name" style="color: #{@text};">#{@name}</div>
+      <div class="level">#{@level}</div>
+      <div class="stats">#{stats.join ''}</div>
+      <div class="full">
+        <div class="name">#{@name}</div>
+        <div class="level">#{@level}</div>
+        <div class="stats">#{stats.join ''}</div>
+        #{@image 'normal'}
+        <div class="description">#{@description?() or @description}</div>
+        <div class="traits">#{traits.join ''}</div>
+      </div>
     </div>"""
 
-  toString: -> return @name
+  toString: ->@name
 
-Game.schema.properties.player =
-  type: Person
+  wages: ->
+    wage = @level / 10
+    for stat in Person.mainStats
+      wage += @[stat] / 30
+    return Math.round wage
+
+  isStory: -> @name is @constructor::name
 
 Game.schema.properties.crew =
-  type: 'object'
+  type: Collection
   items:
     type: Person
-
-conditions = Contextual.schema.properties.context.items.properties
-for stat in Person.stats
-  conditions[stat] =
-    type: 'object'
-    strict: true
-    optional: true
-    properties:
-      gte: {type: 'number'}
-      lte: {type: 'number'}
-
-Person.imageLocations = (base, width, height, labels)->
-  images = {}
-  for i, label of labels
-    images[label] =
-      base: [base + 'Base.png', 0, 0, width, height]
-      skin: [base + 'Skin.png', i * width, 0, width, height]
-      eyes: [base + 'Eyes.png', i * width, 0, width, height]
-      hair: [base + 'Hair.png', i * width, 0, width, height]
-      top: [base + 'Top.png', i * width, 0, width, height]
-  return images
+Game.schema.properties.people =
+  type: Collection
+  items:
+    type: Person
+Game::crew = new Collection
+Game::people = new Collection
 
 $ ->
-  srcs = {}
-  for id, person of Person when person?.prototype instanceof Person
-    for label, image of person::images when typeof image is 'object'
-      for layer, value of image when typeof value[0] is 'string'
-        src = value[0]
-        unless srcs[src]
-          img = new Image
-          img.src = src
-          srcs[src] = img
-        value[0] = srcs[src]
-  return
+  c = $ '#content'
+  # Bail out if we're not in the live game page
+  unless c.length then return
 
-renderLayers = (layers)->
-  width = layers[0].src[3]
-  height = layers[0].src[4]
-  canvas = $ "<canvas width='#{width}' height='#{height}'></canvas>"
-  baseCtx = canvas[0].getContext '2d'
-
-  for {src, color} in layers
-    img = if color
-      color =
-        hue: color[0]
-        saturation: color[1]
-        lightness: color[2]
-      Pixastic.process(src[0], "hsl", color)
+  c.on 'mouseenter', '.person-info', ->
+    parentWidth = $(@).parent().width()
+    if $(@).position().left < parentWidth / 2
+      $('.full', @).removeClass 'right'
     else
-      src[0]
+      $('.full', @).addClass 'right'
+
+
+renderLayers = (sprite, layers, height)->
+  baseCanvas = $ "<canvas width='400' height='#{height}'></canvas>"
+  baseCtx = baseCanvas[0].getContext '2d'
+
+  for {x, y} in layers
     baseCtx.drawImage(
-      img,
-      src[1], src[2], # x, y
-      src[3], src[4], # width, height
-      0, 0, width, height # paste onto full canvas
+      sprite,
+      x, y, 400, height, # source x, y, width, height
+      0, 0, 400, height # destination x, y, width, height
     )
-  return "<img src='#{canvas[0].toDataURL()}'>"
+
+  return baseCanvas[0].toDataURL()

@@ -16,69 +16,64 @@ String.rate = (string)-> switch string
   when 10 then 'ten times'
   else string
 
-$.fn.winkIn = (speed, done = $.noop)->
-  div = $ @
-  height = div.outerHeight()
-  width = div.outerWidth()
+Object.defineProperty Number.prototype, 'toWord', { value: -> switch Number(@)
+  when 1 then 'one'
+  when 2 then 'two'
+  when 3 then 'three'
+  when 4 then 'four'
+  when 5 then 'five'
+  when 6 then 'six'
+  else Number(@)
+}
 
-  start = "rect(#{height * 0.5}px #{width}px #{height * 0.5}px 0px)"
-  end = "rect(0px #{width}px #{height}px 0px)"
+Object.defineProperty String.prototype, 'capitalize', { value: ->
+  @charAt(0).toUpperCase() + @slice(1)
+}
 
-  div.css {clip: start}
-  div.show().animate {clip: end}, speed, ->
-    div.css {width: "", height: "", clip: "", position: ""}
-    done()
+Object.defineProperty Array.prototype, 'wordJoin', {value: ->
+  str = @slice(0, -1).join(', ')
+  str += ' and ' + @[@length - 1]
+  return str
+}
 
-$.fn.winkOut = (speed, done = $.noop)->
-  div = $ @
-  height = div.outerHeight()
-  width = div.outerWidth()
-
-  start = "rect(0px #{width}px #{height}px 0px)"
-  end = "rect(#{height * 0.5}px #{width}px #{height * 0.5}px 0px)"
-
-  div.css {clip: start}
-  div.animate {clip: end}, speed, ->
-    div.hide().css {width: "", height: "", clip: "", position: ""}
-    done()
-
-Math.sumProperty = (property, items)->
+Math.sum = (items)->
   sum = 0
-  for key, val of items when typeof val[property] is 'number'
-    sum += val[property]
+  for val in items
+    sum += val
   return sum
 
 Math.choice = (items)->
   choice = Math.floor(Math.random() * items.length)
   return items[choice]
 
-window.randomName = (chains, maxLength = 7)->
-  if chains instanceof Array
-    chains = randomName.chains chains
+window.randomName = (names, maxLength = 7)->
+  [chains, start] = randomName.chains(names)
 
-  string = Math.choice(Object.keys(chains)).split ''
+  string = Math.choice(start).split('')
 
   newLetter = ->
     last = string[string.length - 3] + string[string.length - 2] + string[string.length - 1]
-    next = Math.choice chains[last]
+    next = Math.choice(chains[last])
     return next
 
   while string[string.length - 1] and string.length <= maxLength
-    string.push newLetter()
+    string.push(newLetter())
 
   string.pop()
   string[0] = string[0].toUpperCase()
   return string.join('')
 
-randomName.chains = (names)->
+window.randomName.chains = (names)->
   # Building the Markov chains
   chains = {}
+  start = []
 
   names.forEach (name)->
+    start.push(name.substr(0, 3).toLowerCase())
     for i in [0 .. name.length - 3]
       token = name.substr(i, 3).toLowerCase()
       next = name[i + 3]
       chains[token] or= []
-      chains[token].push next?.toLowerCase()
+      chains[token].push(next?.toLowerCase())
 
-  return chains
+  return [chains, start]

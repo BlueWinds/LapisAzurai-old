@@ -1,5 +1,5 @@
 html {
-  background-image: linear-gradient(transparent, rgba(0, 0, 0, 0.9), black), url("./background.jpg");
+  background-image: linear-gradient(transparent, rgba(0, 0, 0, 0.9), black), url("../content/misc/background.jpg");
   background-position: 0 66px;
 }
 
@@ -27,6 +27,7 @@ body.container {
   #nav-arrows,
   #content { display: none; }
 }
+
 @media (max-height: 359px) {
   .navbar:after {
     content: "Your screen or window is too small for this game.       (><)      Try expanding it or playing on a different device.";
@@ -73,6 +74,12 @@ body.container {
 .navbar-header {
   float: left;
 }
+
+.navbar-brand {
+  height: 65px;
+  padding: 10px 0 15px;
+}
+
 @media (max-width: 768px) {
   .navbar {
     min-height: 20px;
@@ -88,7 +95,7 @@ body.container {
     padding-top: 0;
     padding-bottom: 0;
   }
-  .well {
+  text {
     padding: 5px;
   }
   .shorten {
@@ -99,60 +106,96 @@ body.container {
 #content {
   background: #000;
   position: relative;
+  overflow: hidden;
 }
 
-#content > div {
+page {
+  background-position: 50% 50%;
+  background-size: 100% auto;
   height: 100%;
-  overflow: hidden;
+  opacity: 0;
   position: absolute;
+  transition-delay: 0.5s;
   width: 100%;
 }
+.backscroll page {
+/*   transition-duration: 0 !important; */
+}
 
-#content .well {
+page.slowFadeIn.active, page.slowFadeOut {
+  transition: opacity 1.5s ease;
+}
+
+page.verySlowFadeIn.active, page.verySlowFadeOut {
+  transition: opacity 5s ease;
+}
+
+page.active {
+  display: block;
+  opacity: 1;
+  transition: opacity 0.5s ease;
+  z-index: 1000;
+}
+
+text {
+  background-color: #151515;
+  border: 1px solid #030303;
   border-radius: 6px 6px 0 0;
   bottom: 0;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
   margin: 0;
   min-height: 33%;
   opacity: 0.85;
+  padding: 19px;
   position: absolute;
   width: 100%;
 }
 
-#content img {
+#content img,
+#content canvas {
   display: block;
   max-width: 100%;
   max-height: 100%;
   margin: auto;
 }
 
+
 .person {
   bottom: 33%;
   left: 50%;
-  height: 33%;
+  height: 50%;
   position: absolute;
 }
-#content .person img {
+
+#content .person img.transparent,
+#content .person canvas.transparent {
+  opacity: 0;
+}
+#content .person img,
+#content .person canvas {
   height: 100%;
   margin-left: -50%;
+  opacity: 1;
+  transition: opacity 0.5s ease 0.2s;
   position: relative;
 }
-.person.lg {
-  height: 50%;
-}
 .person.sm {
-  height: 25%;
+  height: 33%;
 }
 
-.person.right {
-  left: 75%;
-}
-.person.right-lead {
-  left: 85%;
+.person.left {left: 25%; }
+.person.mid-left {left: 40%; }
+.person.mid-right { left: 60%; }
+.person.right { left: 75%; }
+.person.reversed img,
+.person.reversed canvas {
+  transform: scaleX(-1);
 }
 
 /* Medium devices (desktops, 992px and up) */
 @media (max-width: 992px) {
-  #content .well {
+  text {
     min-height: 40%;
   }
   .person {
@@ -162,7 +205,7 @@ body.container {
 
 /* Small devices (tablets, 768px and up) */
 @media (max-width: 768px) {
-  #content .well {
+  text {
     min-height: 50%;
   }
   .person {
@@ -171,18 +214,19 @@ body.container {
 }
 
 
-#content .well.full {
+text.full {
   border: none;
   border-radius: 0;
   height: 100%;
 }
-#content .well.short {
+text.short {
   height: auto;
   min-height: 0;
 }
 
 
-#content img + .well {
+img + text,
+canvas + text {
   background-color: #15151566;
 }
 
@@ -218,12 +262,11 @@ body.container {
   left: 0.083em;
 }
 
-.well blockquote {
-  border-left: 5px solid #282828;
+blockquote {
+  border-left: 4px solid #282828;
   font-size: 1em;
   margin: 0 0 10px;
-  padding: 10px 20px;
-
+  padding: 0px 10px;
 }
 
 #content .full-background {
@@ -235,7 +278,7 @@ body.container {
   top: -20%;
 }
 
-#content .full-background + .well {
+.full-background + text {
   background: none;
   opacity: 1;
 }
@@ -273,12 +316,17 @@ input.inline:disabled {
   position: relative;
   z-index: 1001;
 }
+
 .dropdown-menu.inline {
   border: 1px solid #666666;
   border-bottom-left-radius: 0;
   min-width: 110px;
   padding: 0;
 }
+.dropdown-toggle.inline.active + .dropdown-menu {
+  display: block;
+}
+
 .dropdown-menu.inline span {
   display: block;
 }
@@ -376,17 +424,52 @@ input.inline:disabled {
   clear: both;
 }
 
-.job {
-  background: none repeat scroll 0 0 #000;
-  border: 1px solid #666;
+.crew, .hires, .jobs {
+  background: #000;
+  border: 1px solid #666666;
   border-radius: 10px;
-  margin: 10px 0;
-  position: relative;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  min-height: 73px;
 }
+
+.job-tabs {
+  margin: 10px -31px 0 30px;
+  position: relative;
+  z-index: 1;
+}
+.job-tabs li {
+  background: #000;
+  border-bottom-right-radius: 0 !important;
+  border: 1px solid #666;
+  border-top-right-radius: 0 !important;
+}
+
+.job-tabs li:hover {
+  background: #222;
+}
+
+.job-tabs li.active {
+  border-right: none;
+  color: #FFF;
+  font-weight: 700;
+}
+
+.jobs {
+  border-top-left-radius: 0;
+}
+
+.job {
+  display: none;
+}
+.job.active {
+  display: block;
+}
+
 .job.ready,
-.job.ready .job-label,
+.job.ready .block-label,
 .job.ready:hover,
-.job.ready:hover .job-label {
+.job.ready:hover .block-label {
   border-color: #2a9fd6;
 }
 
@@ -394,10 +477,8 @@ input.inline:disabled {
   padding-left: 0;
 }
 
-.job-label {
+.block-label {
   border-bottom: 1px solid #666;
-  border-bottom-right-radius: 10px;
-  border-right: 1px solid #666;
   padding: 5px 8px;
 }
 
@@ -407,7 +488,8 @@ input.inline:disabled {
 }
 
 .job-description {
-  display: none;
+  font-size: 0.9em;
+  margin: 10px 0 10px 10px;
 }
 
 .worker-requirements .name {
@@ -425,13 +507,13 @@ input.inline:disabled {
   opacity: 0.75;
 }
 .worker-requirements:hover,
-.worker-requirements:hover .person-name {
+.worker-requirements:hover .name {
   border-color: #aaa;
 }
 .person-info:hover,
-.person-info:hover .person-name,
+.person-info:hover .name,
 .job:hover,
-.job:hover .job-label,
+.job:hover .block-label,
 .crew:hover {
   border-color: #777;
 }
@@ -440,12 +522,12 @@ input.inline:disabled {
   margin: 8px 0;
 }
 
-.person-info.active, .person-info.active .person-name {
+.person-info.active, .person-info.active .name {
   background-color: #040f14;
   border-color: #2a9fd6;
 }
 
-.person-name {
+.name {
   border-bottom: 1px solid #666666;
   border-bottom-right-radius: 10px;
   border-right: 1px solid #666666;
@@ -453,14 +535,14 @@ input.inline:disabled {
   padding: 2px 16px;
 }
 
-.person-level {
+.level {
   font-size: 2em;
   line-height: 1em;
   margin-bottom: -3px;
   text-align: center;
 }
 
-.person-stats span,
+.stats span,
 .worker-requirements span {
   display: inline-block;
   padding: 5px 0;
@@ -470,6 +552,7 @@ input.inline:disabled {
 
 .screen {
   background-position: center;
+  background-repeat: none;
   background-size: 100%;
   height: 100%;
 }
@@ -485,17 +568,9 @@ input.inline:disabled {
   display: none;
 }
 
-.crew, .hires {
-  background: #000;
-  border: 1px solid #666666;
-  border-radius: 10px;
-  margin-bottom: 10px;
-  margin-top: 10px;
-  min-height: 73px;
-}
-
 .person-info {
   cursor: pointer;
+  position: relative;
 }
 
 .crew .person-info, .hires .person-info {
@@ -504,8 +579,10 @@ input.inline:disabled {
   width: calc(50% - 30px);
 }
 
-.person-stats .happiness,
-.person-stats .endurance {
+.stats .happiness,
+.stats .endurance,
+.stats .fatigue,
+.stats .money {
   display: none;
 }
 
@@ -517,6 +594,7 @@ input.inline:disabled {
   display: inline-block;
   padding: 5px 0;
   text-align: center;
+  text-decoration: line-through;
   width: 25%;
 }
 
@@ -524,5 +602,199 @@ input.inline:disabled {
 .diplomacy { color: #ffb600; }
 .stealth { color: #ff2c00; }
 .combat { color: #a65600; }
-.person-level { color: #fff; }
-.unmet { font-weight: 700; }
+.level { color: #fff; }
+.job-requirements .unmet {
+  font-weight: 700;
+  text-decoration: none;
+}
+
+
+.person-info .full {
+  clip: rect(-40px, 450px, -40px, 0);
+  background: #000;
+  border: 1px solid #666;
+  border-radius: 0 6px 6px 6px;
+  cursor: default;
+  left: -1px;
+  padding: 0 15px 15px;
+  position: absolute;
+  transition: clip 0.5s ease 0s;
+  top: 40px;
+  width: 250%;
+  z-index: 1;
+}
+
+.person-info:hover .full {
+  border-color: #777;
+  clip: rect(-40px, 450px, 450px, 0);
+  transition: clip 0.5s ease 0.75s;
+}
+
+.person-info.active .full, .person-info.active:hover .full {
+  border-color: #2a9fd6;
+  background-color: #040f14;
+}
+.person-info.active .full .name, .person-info.active:hover .full .name {
+  background: #040F14;
+}
+
+.full > .name {
+  background: #000;
+  border: medium none;
+  border-radius: 6px 6px 0 0;
+  cursor: pointer;
+  font-size: 1.5em;
+  height: 55px;
+  left: 0;
+  line-height: 40px;
+  padding: 0;
+  position: absolute;
+  text-align: center;
+  top: -40px;
+  width: calc(40% + 1px);
+}
+
+
+.full .stats {
+  clear: left;
+  margin-bottom: 5px;
+}
+
+.full .stats, .full .level {
+  float: left;
+  margin-right: 15px;
+}
+
+.full .level:before, .full .stats span:before {
+  float: left;
+}
+
+.full .level, .full .stats span {
+  display: block;
+  padding: 0;
+  text-align: right;
+  width: 7em;
+}
+
+.full .level {
+  font-size: 1em;
+  font-weight: 700;
+  margin-bottom: 0;
+  margin-top: 15px;
+}
+
+.money span:after,
+.wages span:after {
+  content: "β";
+  font-size: 0.8em;
+}
+
+.full .level:before { content: "Level"; }
+.full .happiness:before { content: "Happiness"; }
+.full .business:before { content: "Business"; }
+.full .diplomacy:before { content: "Diplomacy"; }
+.full .stealth:before { content: "Stealth"; }
+.full .combat:before { content: "Combat"; }
+.full .fatigue:before { content: "Fatigue"; }
+.full .money:before { content: "Wage"; }
+
+.full .stats .endurance {
+  float: right;
+  width: auto;
+}
+
+.full .stats .endurance:before {
+  content: "/";
+  float: none;
+}
+
+.full .person {
+  height: 12em;
+  position: static;
+  width: 100%;
+}
+
+#content .full .person img,
+#content .full .person canvas {
+  margin: auto;
+}
+
+.full .description {
+  color: #CCC;
+  margin-top: 10px;
+}
+
+.person-info .full.right {
+  border-radius: 6px 0 6px 6px;
+  left: calc(-150% + 1px);
+}
+
+.full.right .name {
+  left: auto;
+  right: 0;
+}
+
+.full.right .level, .full.right .stats {
+  float: right;
+  margin-left: 15px;
+  margin-right: 0;
+}
+
+.full.right .stats { clear: right; }
+
+.trait {
+  border: 1px solid #666;
+  border-radius: 6px;
+  margin: 5px;
+  padding: 5px;
+}
+
+.trait .name {
+  border: none;
+  margin: 0px;
+}
+
+.trait .description {
+  font-size: 0.8em;
+  margin-top: 0;
+}
+
+#status {
+  position: absolute;
+}
+
+#game-info {
+  clip: rect(0, 22em, 0, 0);
+  background: #000;
+  border: 1px solid #666;
+  border-radius: 0 0 6px;
+  border-width: 0 1px 1px 0;
+  cursor: default;
+  padding: 10px 5px 10px 15px;
+  position: absolute;
+  transition: clip 0.5s ease 0s;
+  top: 65px;
+  width: 22em;
+  z-index: 1001;
+}
+
+.navbar-brand:hover + #game-info,
+#game-info:hover {
+  border-color: #777;
+  clip: rect(0, 22em, 20em, 0);
+  transition: clip 0.5s ease 0.75s;
+}
+
+#game-info img {
+  width: 12em;
+}
+
+.full .location:before { content: "Location"; }
+.full .day:before { content: "Day"; }
+.full .crew-count:before { content: "Crew"; }
+#game-info .money:before { content: "Savings"; }
+#game-info .wages:before { content: "Wages"; }
+
+.intro-main { display: none; }
+#game-info .intro-help { display: none; }
+#game-info .intro-main { display: block; }

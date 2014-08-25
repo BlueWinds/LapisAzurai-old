@@ -1,100 +1,113 @@
-sumStat = (stat, context, job)->
+sumStat = (stat, workers, context)->
   sum = 0
-  for person in context
-    sum += person.get stat, job
+  for key, person of context when workers[key]
+    sum += person.get stat, context
   return sum
 
 isPage = (funct)-> funct?.prototype instanceof Page
 
 window.Job = class Job extends Page
-  @schema: $.extend true, {}, Page.schema,
+  @schema:
     type: @
+    # Jobs are not strict - you can add additional properties to them for configuration
     properties:
-      name:
+      label:
         type: 'string'
-      # text is used as a small blurb, rather than its own page
-      # context can add things to the context as normal, but in addition "workers" can define required properties about who must / can work the job. "context" is applied after "workers"
-      workers:
+      # conditions is used to determine whether the job shows up at all, and create an initial context. Once it has, "workers" defines slots for people who must / can work the job for it to apply.
+      conditions: Page.schema.properties.conditions
+      text: # text is used as a small blurb, rather than its own page
+        type: 'function'
+      # Each worker will be added to the job's context before @next is called.
+      workers: Page.schema.properties.conditions
+      requires: # requires is a list of stat: total pairs, specifying how much of a given stat the workers must total up to (150 total business, for example)
         type: 'object'
-        items: Contextual.schema.properties.context.items
-      requires:
-        type: ['function', 'object']
         optional: true
+        strict: true
         properties: {}
-      next:
-        optional: false
+      apply:
+        type: 'function'
+        optional: true
+        # Called once when the page is first displayed with a single argument, the page element (already fulled with the event's text). It can modify the game state or DOM. @ is the current context.
+      next: # Unlike Pages, it's required for jobs.
+        type: [Page, 'function', 'boolean']
+      context:
+        # A set of objects built using this page's conditions.
+        optional: true
+        type: Collection
+      days:
+        # Once the job has been applied at least once, this is an array of the game days it triggered on (otherwise it's an empty array).
+        type: 'array'
+        items:
+          type: 'integer'
 
   for stat in Person.mainStats
-    @schema.properties.requires.properties[stat] = {type: 'integer', optional: true}
+    @schema.properties.requires.properties[stat] = {type: 'integer', optional: true, gte: -100}
 
-  requiresBlock: (context)->
+  days: []
+
+  requiresBlock: ->
     requires = for stat, val of @requires
-      sum = sumStat stat, context, @
+      sum = sumStat stat, @workers, @context
       unmet = if sum >= val then '' else 'unmet'
       "<span class='#{stat} #{unmet}'>#{val}</span>"
-    return """<div class="job-requirements">#{requires.join ''}</div>"""
+    return if requires.length
+      """<div class="job-requirements">#{requires.join ''}</div>"""
+    else ""
 
-  renderBlock: (context, mainKey)->
+  renderBlock: (mainKey)->
     slots = for key, conditions of @workers
       renderSlot(key, conditions)
 
     return """<div class="job clearfix" data-key="#{mainKey}">
       <div class="col-xs-6">
-        <div class="job-label">#{@name}</div>
-        #{@requiresBlock context}
+        <div class="job-description">#{@text()}</div>
+        #{@requiresBlock()}
       </div>
       <ul class="job-workers col-xs-6">#{slots.join ''}</ul>
-      <div class="job-description">#{@text()}</div>
     </div>"""
 
   updateFromDiv: (div)->
-    job = @
-    context = {}
     for key, slot of @workers
       slotDiv = $('li[data-slot="' + key + '"]', div)
       person = $('.person-info', slotDiv).attr 'data-key'
       unless person?
-        if slot.optional
-          return
-        context = false
-        return false
-      context[slot] = if person then g.crew[person] else g.player
+        delete @context[key]
+        if slot.optional then continue
+        return
+      @context[key] = if person then g.crew[person] else g.player
 
-    unless context
-      return
     # The update can also fail if the provided people's stats don't add up enough.
     for stat, amount of @requires
-      if amount > sumStat(stat, context, @)
+      if amount > sumStat(stat, @workers, @context)
         return
 
-    for key of @workers
-      if context[key] then @[key] = context[key]
-      else delete @[key]
-    return @
+    return @context
 
   show: ->
     @apply?()
 
+    g?.last = @ # Only here momentarily, so that parts of the context can be copied by the following event.
     next = if typeof @next is 'function' and not isPage @next
       @next()
     else
       @next
-
     if typeof next is 'function'
       next = new next
 
+    @days = @days.slice()
+    @days.unshift g.day
+
     return next.show()
 
-  toString: -> return @name
-
 renderSlot = (key, conditions)->
-  name = if conditions.path then (g.getItem(conditions.path) or 'Unknown') else ''
-  level = if conditions.level? then conditions.level else ''
+  name = if key[0] is key[0].toUpperCase() then key else ''
+
+  level = if conditions.level? then conditions.level else '&nbsp;'
   stats = for stat in Person.mainStats
-    "<span class='#{stat}'>#{conditions[stat] or ''}</span>"
+    "<span class='#{stat}'>#{conditions[stat]?.gte or ''}</span>"
 
   """<li data-slot="#{key}"><div class="worker-requirements">
-    #{ if name then '<div class="person-name">' + name + '</div>' else '' }
-    <div class="person-level">#{level}</div>
-    <div class="person-stats">#{stats.join ''}</div>
+    #{ if name then '<div class="name">' + name + '</div>' else '' }
+    <div class="level">#{level}</div>
+    <div class="stats">#{stats.join ''}</div>
   </div></li>"""
