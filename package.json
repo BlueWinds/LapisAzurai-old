@@ -14,15 +14,15 @@
   "author": "BlueWinds",
   "license": "GNU GPL 3.0",
   "devDependencies": {
+    "async": "0.9.x",
+    "canvas": "1.1.x",
     "grunt": "0.4.x",
     "grunt-cli": "0.1.x",
     "grunt-coffeelint": "0.0.x",
-    "grunt-contrib-coffee": "0.10.x",
-    "grunt-contrib-copy": "0.5.x",
-    "grunt-contrib-uglify": "0.5.x",
+    "grunt-contrib-coffee": "^0.12.0",
+    "grunt-contrib-copy": "^0.7.0",
+    "grunt-contrib-uglify": "^0.6.0",
     "grunt-contrib-watch": "0.6.x",
-    "canvas": "1.1.x",
-    "async": "0.9.x",
     "grunt-debug": "0.0.3",
     "jquery": "^2.1.1"
   }

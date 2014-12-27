@@ -1,21 +1,22 @@
-Game::crew.James = Person.James = class James extends Person
+Game::officers.James = Officer.James = class James extends Officer
   name: 'James'
   gender: 'm'
   business: 0
-  businessGrowth: 0.5
   diplomacy: 5
-  diplomacyGrowth: 0.75
-  stealth: 0
+  sailing: 5
   combat: 20
-  combatGrowth: 1
   happiness: 70
   endurance: 10
-  level: 1
+  energy: 10
   text: '#DA9FAF'
+
   traits: new Collection
     loyal: new Trait.Loyal
       description: "James is a longtime friend, willing to stick with Natalie through thick and thin. His happiness decreases only half as quickly."
-  description: ->"Born to a Vailian blacksmith and his wife, James has been Natalie's friend ever since they were children. He gave up his inheritance and disobeyed his father's wishes to follow on her great adventure."
+    content: new Trait.Content
+      description: "James travels with Natalie for reasons other than money. He takes no wage."
+
+  description: ->"Born to a Vailian blacksmith, James has been Natalie's friend ever since they were children. He gave up his inheritance and disobeyed his father's wishes to follow on her great adventure."
   @images:
     path: 'src/content/people/James/'
     normal: [
@@ -52,4 +53,11 @@ Game::crew.James = Person.James = class James extends Person
       'AngryEyes.png'
       'AngryHair.png'
       'AngryTop.png'
+    ]
+    serious: [
+      'Base.png'
+      'SeriousSkin.png'
+      'SeriousEyes.png'
+      'SeriousHair.png'
+      'SeriousTop.png'
     ]

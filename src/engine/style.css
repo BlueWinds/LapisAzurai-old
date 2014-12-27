@@ -7,7 +7,7 @@ body.container {
   background: none;
   color: #ccc;
   height: 100%;
-  overflow-x: hidden;
+  overflow: hidden;
   position: relative;
 }
 
@@ -119,7 +119,7 @@ page {
   width: 100%;
 }
 .backscroll page {
-/*   transition-duration: 0 !important; */
+  transition-duration: 500ms !important
 }
 
 page.slowFadeIn.active, page.slowFadeOut {
@@ -127,7 +127,7 @@ page.slowFadeIn.active, page.slowFadeOut {
 }
 
 page.verySlowFadeIn.active, page.verySlowFadeOut {
-  transition: opacity 5s ease;
+  transition: opacity 4s ease;
 }
 
 page.active {
@@ -139,59 +139,42 @@ page.active {
 
 text {
   background-color: #151515;
-  border: 1px solid #030303;
-  border-radius: 6px 6px 0 0;
+  border-color: #030303;
+  border-width: 1px 0 0;
   bottom: 0;
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
   margin: 0;
-  min-height: 33%;
+  min-height: 160px;
   opacity: 0.85;
   padding: 19px;
   position: absolute;
   width: 100%;
 }
 
-#content img,
-#content canvas {
-  display: block;
-  max-width: 100%;
-  max-height: 100%;
-  margin: auto;
-}
-
-
 .person {
-  bottom: 33%;
-  left: 50%;
+  bottom: 160px;
   height: 50%;
+  left: 50%;
   position: absolute;
 }
 
-#content .person img.transparent,
-#content .person canvas.transparent {
-  opacity: 0;
-}
-#content .person img,
-#content .person canvas {
-  height: 100%;
-  margin-left: -50%;
-  opacity: 1;
-  transition: opacity 0.5s ease 0.2s;
-  position: relative;
-}
-.person.sm {
-  height: 33%;
+.person.sm { width: 100px; }
+
+.person img {
+  bottom: 0;
+  left: -50%;
+  max-height: 100%;
+  position: absolute;
 }
 
 .person.left {left: 25%; }
 .person.mid-left {left: 40%; }
-.person.mid-right { left: 60%; }
-.person.right { left: 75%; }
-.person.reversed img,
-.person.reversed canvas {
-  transform: scaleX(-1);
-}
+.person.mid-right { left: 60%; transform: scaleX(-1); }
+.person.right { left: 75%; transform: scaleX(-1); }
+.person.reversed { transform: scaleX(-1); }
+.person.mid-right.reversed { transform: none; }
+.person.right.reversed { transform: none; }
 
 /* Medium devices (desktops, 992px and up) */
 @media (max-width: 992px) {
@@ -424,7 +407,7 @@ input.inline:disabled {
   clear: both;
 }
 
-.crew, .hires, .jobs {
+.column-block {
   background: #000;
   border: 1px solid #666666;
   border-radius: 10px;
@@ -455,14 +438,37 @@ input.inline:disabled {
   font-weight: 700;
 }
 
+.job-tabs li.ready {
+  background: #08261C;
+  color: #fff;
+}
+
+.job-tabs li.plot {
+  color: #2a9fd6;
+}
+
+.job-tabs li.plot.active {
+  color: #32bdff;
+}
+
+.job-tabs li.special {
+  color: #77b300;
+}
+
+.job-tabs li.special.active {
+  color: #90d900;
+}
+
 .jobs {
   border-top-left-radius: 0;
 }
 
 .job {
   display: none;
+  min-height: 125px;
+  position: relative;
 }
-.job.active {
+.job.active, .sail .job {
   display: block;
 }
 
@@ -473,7 +479,7 @@ input.inline:disabled {
   border-color: #2a9fd6;
 }
 
-.job > div:first-child {
+.job .col-xs-6 {
   padding-left: 0;
 }
 
@@ -482,7 +488,7 @@ input.inline:disabled {
   padding: 5px 8px;
 }
 
-.job-workers {
+.job-officers {
   margin: 0;
   list-style: none;
 }
@@ -490,6 +496,30 @@ input.inline:disabled {
 .job-description {
   font-size: 0.9em;
   margin: 10px 0 10px 10px;
+}
+
+.job-crew-label {
+  bottom: 0;
+  color: #333;
+  content: "Crew";
+  font-size: 2em;
+  line-height: 55px;
+  position: absolute;
+  text-align: center;
+  width: 100%;
+}
+
+.job-crew {
+  height: 55px;
+  margin-bottom: 0;
+  margin-top: 5px;
+  padding: 0;
+}
+
+.job-crew .person-info {
+  float: left;
+  margin-right: -34%;
+  width: calc(50% - 30px);
 }
 
 .worker-requirements .name {
@@ -518,7 +548,7 @@ input.inline:disabled {
   border-color: #777;
 }
 
-.job-workers li {
+.job-officers li {
   margin: 8px 0;
 }
 
@@ -535,11 +565,11 @@ input.inline:disabled {
   padding: 2px 16px;
 }
 
-.level {
-  font-size: 2em;
-  line-height: 1em;
+.person-info .energy, .worker-requirements .energy {
+  font-size: 1.4em;
   margin-bottom: -3px;
-  text-align: center;
+  margin-right: 0.7em;
+  text-align: right;
 }
 
 .stats span,
@@ -560,7 +590,6 @@ input.inline:disabled {
   cursor: default;
 }
 .screen button {
-  clear: both;
   font-weight: 700;
 }
 
@@ -568,22 +597,17 @@ input.inline:disabled {
   display: none;
 }
 
-.person-info {
+.person-info, .location {
   cursor: pointer;
   position: relative;
+  user-select: none;
+  -moz-user-select: none;
 }
 
 .crew .person-info, .hires .person-info {
   float: left;
   margin: 8px 15px;
   width: calc(50% - 30px);
-}
-
-.stats .happiness,
-.stats .endurance,
-.stats .fatigue,
-.stats .money {
-  display: none;
 }
 
 .center {
@@ -598,16 +622,15 @@ input.inline:disabled {
   width: 25%;
 }
 
-.business { color: #ff8500; }
-.diplomacy { color: #ffb600; }
-.stealth { color: #ff2c00; }
+.business { color: #ffb600; }
+.diplomacy { color: #ff8500; }
+.sailing { color: #ff2c00; }
 .combat { color: #a65600; }
-.level { color: #fff; }
+.happiness { font-weight: 700; }
 .job-requirements .unmet {
   font-weight: 700;
   text-decoration: none;
 }
-
 
 .person-info .full {
   clip: rect(-40px, 450px, -40px, 0);
@@ -618,10 +641,15 @@ input.inline:disabled {
   left: -1px;
   padding: 0 15px 15px;
   position: absolute;
-  transition: clip 0.5s ease 0s;
+  transition: clip 0.5s ease 0.2s;
   top: 40px;
   width: 250%;
   z-index: 1;
+}
+
+.person-info.show-full .full {
+  border-color: #777;
+  clip: rect(-40px, 450px, 450px, 0);
 }
 
 .person-info:hover .full {
@@ -635,7 +663,7 @@ input.inline:disabled {
   background-color: #040f14;
 }
 .person-info.active .full .name, .person-info.active:hover .full .name {
-  background: #040F14;
+  border-color: #666;
 }
 
 .full > .name {
@@ -644,7 +672,7 @@ input.inline:disabled {
   border-radius: 6px 6px 0 0;
   cursor: pointer;
   font-size: 1.5em;
-  height: 55px;
+  height: 40px;
   left: 0;
   line-height: 40px;
   padding: 0;
@@ -656,70 +684,53 @@ input.inline:disabled {
 
 
 .full .stats {
+  background: none;
   clear: left;
-  margin-bottom: 5px;
-}
-
-.full .stats, .full .level {
   float: left;
-  margin-right: 15px;
+  margin: 3px 10px 5px 0;
 }
 
-.full .level:before, .full .stats span:before {
-  float: left;
-}
-
-.full .level, .full .stats span {
-  display: block;
-  padding: 0;
-  text-align: right;
-  width: 7em;
-}
-
-.full .level {
+.full .energy {
   font-size: 1em;
-  font-weight: 700;
-  margin-bottom: 0;
-  margin-top: 15px;
+  margin-right: 0;
+  text-align: left;
 }
 
-.money span:after,
-.wages span:after {
+.full.right .person {
+  left: 2.5em;
+}
+
+.full .stats td:first-child {
+  padding-right: 10px;
+}
+
+.full .stats td:last-child {
+  text-align: right;
+}
+
+.wages td:last-child:after,
+.savings td:last-child:after {
   content: "β";
   font-size: 0.8em;
 }
 
-.full .level:before { content: "Level"; }
-.full .happiness:before { content: "Happiness"; }
-.full .business:before { content: "Business"; }
-.full .diplomacy:before { content: "Diplomacy"; }
-.full .stealth:before { content: "Stealth"; }
-.full .combat:before { content: "Combat"; }
-.full .fatigue:before { content: "Fatigue"; }
-.full .money:before { content: "Wage"; }
-
-.full .stats .endurance {
-  float: right;
-  width: auto;
-}
-
-.full .stats .endurance:before {
-  content: "/";
-  float: none;
+.energy span {
+  display: inline;
 }
 
 .full .person {
+  bottom: 0;
   height: 12em;
-  position: static;
-  width: 100%;
+  position: relative;
 }
 
-#content .full .person img,
-#content .full .person canvas {
-  margin: auto;
+.full .person img {
+  left: 0;
+  max-height: 100%;
 }
 
 .full .description {
+  clear: both;
   color: #CCC;
   margin-top: 10px;
 }
@@ -734,7 +745,7 @@ input.inline:disabled {
   right: 0;
 }
 
-.full.right .level, .full.right .stats {
+.full.right .stats {
   float: right;
   margin-left: 15px;
   margin-right: 0;
@@ -746,17 +757,16 @@ input.inline:disabled {
   border: 1px solid #666;
   border-radius: 6px;
   margin: 5px;
-  padding: 5px;
 }
 
 .trait .name {
-  border: none;
-  margin: 0px;
+  margin: 0 5px 5px 0;
 }
 
 .trait .description {
+  clear: none;
   font-size: 0.8em;
-  margin-top: 0;
+  margin: 3px;
 }
 
 #status {
@@ -764,24 +774,26 @@ input.inline:disabled {
 }
 
 #game-info {
-  clip: rect(0, 22em, 0, 0);
+  clip: rect(0, 23em, 0, 0);
   background: #000;
   border: 1px solid #666;
   border-radius: 0 0 6px;
   border-width: 0 1px 1px 0;
   cursor: default;
+  height: 17em;
   padding: 10px 5px 10px 15px;
   position: absolute;
   transition: clip 0.5s ease 0s;
   top: 65px;
-  width: 22em;
+  width: 23em;
   z-index: 1001;
 }
 
 .navbar-brand:hover + #game-info,
-#game-info:hover {
+#game-info:hover,
+.navbar-brand.show-info + #game-info {
   border-color: #777;
-  clip: rect(0, 22em, 20em, 0);
+  clip: rect(0, 23em, 17em, 0);
   transition: clip 0.5s ease 0.75s;
 }
 
@@ -789,12 +801,298 @@ input.inline:disabled {
   width: 12em;
 }
 
-.full .location:before { content: "Location"; }
-.full .day:before { content: "Day"; }
-.full .crew-count:before { content: "Crew"; }
-#game-info .money:before { content: "Savings"; }
-#game-info .wages:before { content: "Wages"; }
+#game-info .progress-label {
+  left: 45px;
+  padding-top: 5px;
+  width: auto;
+}
+
+#game-info .progress {
+  margin-bottom: 5px;
+  margin-top: 5px;
+}
+
+#game-info .cargo td {
+  padding: 0;
+}
+
+#game-info .page {
+  display: none;
+  padding-left: 1em;
+  padding-right: 1em;
+}
+
+.mission .block-label {
+  margin-left: -2.1em;
+  margin-right: -2.1em;
+  padding-left: 2.1em;
+}
+
+.mission .requirements {
+  list-style: none;
+  margin-top: 7px;
+  padding-left: 0px;
+}
+
+.mission .requirements li {
+  clear: both;
+}
+
+.mission .requirements .glyphicon {
+  color: #9F9;
+  float: left;
+  padding: 10px 10px 10px 0;
+}
+
+.mission .requirements .glyphicon-remove {
+  color: #F99;
+}
+
+#game-info .page.active {
+  display: block;
+}
+
+#game-info .page:first-child {
+  padding-left: 0;
+}
+
+#game-info .page:last-child {
+  padding-right: 0;
+}
+
+#game-info .page:first-child .arrow-left,
+#game-info .page:last-child .arrow-right {
+  display: none;
+}
+
+
+#game-info .arrow-left,
+#game-info .arrow-right {
+  color: #2a9fd6;
+  cursor: pointer;
+  position: absolute;
+  top: 7em;
+  transform: scale(1, 5);
+}
+
+#game-info .arrow-left { left: 0.25em; }
+#game-info .arrow-right { right: 0.25em; }
+
+#game-info .arrow-right:hover,
+#game-info .arrow-left:hover {
+  color: #2386b4;
+}
 
 .intro-main { display: none; }
 #game-info .intro-help { display: none; }
 #game-info .intro-main { display: block; }
+
+.buy,
+.sell {
+  overflow: hidden;
+}
+
+.buy table,
+.sell table {
+  background: none;
+  margin-top: 5px;
+  text-align: center;
+
+  width: 100%;
+}
+
+.buy tr,
+.sell tr {
+  border-bottom: 1px solid #444;
+}
+
+.buy tr:nth-child(even),
+.sell tr:nth-child(odd) {
+  background-color: #111;
+}
+
+.buy td,
+.sell td {
+  width: 10%;
+}
+
+.buy td:first-child,
+.sell td:first-child {
+  padding: 3px 0 3px 10px;
+  text-align: left;
+  width: 50%;
+}
+
+.buy td:nth-child(2),
+.sell td:nth-child(2) {
+  padding-right: 10px;
+}
+
+
+.buy td:last-child,
+.sell td:last-child {
+  padding-right: 10px;
+}
+
+.plus,
+.minus {
+  cursor: pointer;
+  user-select: none;
+  -moz-user-select: none;
+}
+
+.block-summary {
+  clear: both;
+  margin: 10px;
+  text-align: center;
+}
+
+.block-summary span {
+  font-weight: 700;
+}
+
+.high {
+  color: #FAA;
+}
+
+.low {
+  color: #AFA;
+}
+
+.carry.out, .result.negative {
+  color: #F77;
+}
+
+.progress-label {
+  color: #fff;
+  left: 0;
+  position: absolute;
+  width: 100%;
+}
+
+.nextDay {
+  background: #000;
+  display: block;
+  overflow: hidden;
+  position: absolute;
+  text-align: center;
+}
+
+.nextDay h2 {
+  margin: 0;
+  position: relative;
+  top: 33%;
+}
+
+.nextDay h3 {
+  margin: 0 0 20px;
+  position: relative;
+  top: 33%;
+}
+
+.set-sail {
+  background-image: url("../content/misc/world.png");
+  background-repeat: repeat;
+  background-size: 4000px 3000px;
+}
+
+options {
+  left: 0;
+  position: absolute;
+  text-align: center;
+  top: -37px;
+  width: 100%;
+}
+
+.screen options button.btn:first-child {
+  border-top-left-radius: 0;
+}
+
+.screen options button.btn {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  border-color: #030303;
+  border-image: none;
+  border-style: solid;
+  border-width: 1px 1px 0;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.5) inset;
+  z-index: 1;
+}
+
+.location {
+  margin-left: 4px;
+  margin-top: 4px;
+  position: absolute;
+}
+
+.location:before {
+  color: #FFF;
+  content: "・";
+  font-size: 3em;
+  font-weight: 700;
+  left: -28px;
+  position: absolute;
+  top: -30px;
+}
+
+.location .name {
+  border: none;
+  color: #FFF;
+  padding: 0;
+}
+
+.location .full {
+  clip: rect(-25px, 350px, -25px, 0);
+  background: #000;
+  border: 1px solid #666;
+  border-radius: 0 6px 6px 6px;
+  cursor: default;
+  left: -1px;
+  padding: 0 15px 15px;
+  position: absolute;
+  transition: clip 0.5s ease 0s;
+  top: 25px;
+  width: 350px;
+  z-index: 1;
+}
+
+.location.show-full .full {
+  border-color: #777;
+  clip: rect(-25px, 350px, 350px, 0);
+}
+
+.location:hover .full {
+  border-color: #777;
+  clip: rect(-25px, 350px, 350px, 0);
+  transition: clip 0.5s ease 0.75s;
+}
+
+.location .full > .name {
+  cursor: default;
+  font-size: 1.3em;
+  height: 25px;
+  line-height: 25px;
+  padding: 0 15px;
+  top: -25px;
+  width: auto;
+}
+
+.location img {
+  float: left;
+  cursor: pointer;
+  margin: 1em 1em 1em 0;
+  width: 12em;
+}
+
+.location .full .description {
+  clear: none;
+}
+
+.dis {
+  cursor: default;
+  opacity: 0.7;
+}
+
+.sail .job {
+  cursor: pointer;
+}

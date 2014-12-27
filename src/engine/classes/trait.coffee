@@ -7,18 +7,18 @@ window.Trait = class Trait extends GameObject
         type: ['string', 'function']
         description: 'A string describing the flavor of the trait, or a function taking (person) returning the same.'
 
-  renderBlock: (person)->"""<div class="trait clearfix">
-    <div class="name col-xs-2">#{@constructor.name}</div>
-    <div class="description col-xs-10">#{@description?(person) or @description}</div>
+  renderBlock: (person)->"""<div class="trait">
+    <div class="name">#{@constructor.name}</div>
+    <div class="description">#{@description?(person) or @description}</div>
   </div>"""
 
-  for key in Person.stats
-    @schema[key] =
+  for stat of Person.stats
+    @schema[stat] =
       type: ['integer', 'function']
       gte: -100
       lte: 100
       description: "An amount to add to the stat, or a function that takes (object, context, number) and returns an adjusted number."
-    @schema[key + 'Set'] =
+    @schema[stat + 'Set'] =
       type: ['integer', 'function']
       gte: -10
       lte: 10
@@ -33,9 +33,23 @@ Person.schema.properties.traits =
 Person::get = (stat, context)->
   value = @[stat]
   if @traits
-    for trait in @traits when trait[name]
+    for key, trait of @traits when trait[name]
       value = if typeof trait[name] is 'function'
         trait[name](@, context, value)
       else
         value + trait[name]
   return value
+
+Person::add = (stat, amount)->
+  if @traits
+    for key, trait of @traits when trait[stat + 'Set']
+      amount = if typeof trait[name + 'Set'] is 'function'
+        trait[name + 'Set'](@, amount)
+      else
+        amount * trait[name + 'Set']
+  @[stat] += amount
+  if stat is 'energy'
+    @energy = Math.min @energy, @endurance
+  else
+    @[stat] = Math.max 0, Math.min(@[stat], 100)
+  return

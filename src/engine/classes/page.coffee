@@ -1,33 +1,3 @@
-# Setting up a whole bunch of global functions to make rendering pages more convenient.
-# lastP is always the most recent person one of these functions has been called with - using this as a default argument makes possible things like "#{He @CrewMember} hands #{his} cup to her." - notice how the second use doesn't require an argument.
-lastP = null
-q = (person = lastP)->
-  lastP = person
-  return "<q style='color: #{person.text}' title='#{person}'>"
-q.toString = q
-
-bq = (person = lastP)->
-  if typeof person is 'string'
-    return "<blockquote style='color: #{person}'>"
-  lastP = person
-  return "<blockquote style='color: #{person.text}' title='#{person}'>"
-bq.toString = bq
-
-window.he = (p = lastP)-> lastP = p; if p.gender is 'f' then 'she' else 'he'
-window.He = (p = lastP)-> lastP = p; if p.gender is 'f' then 'She' else 'He'
-window.him = (p = lastP)-> lastP = p; if p.gender is 'f' then 'her' else 'him'
-window.his = (p = lastP)-> lastP = p; if p.gender is 'f' then 'her' else 'his'
-window.His = (p = lastP)-> lastP = p; if p.gender is 'f' then 'Her' else 'His'
-window.boy = (p = lastP)-> lastP = p; if p.gender is 'f' then 'girl' else 'boy'
-window.man = (p = lastP)-> lastP = p; if p.gender is 'f' then 'woman' else 'man'
-window.he.toString = window.he
-window.He.toString = window.He
-window.him.toString = window.him
-window.his.toString = window.his
-window.His.toString = window.His
-window.boy.toString = window.boy
-window.man.toString = window.man
-
 window.toggle = (options, selected)->
   options = optionList options, selected
   return """<span class="btn-group toggle">#{options.join ''}</span>"""
@@ -50,9 +20,10 @@ conditionsSchema =
   optional: true
   type: 'object'
   items:
-    type: ['string', 'object']
+    type: ['string', 'object', 'boolean']
     # If a condition is a string, then it simply looks up that path in the global game object, and matches if it's present.
     # conditions.location: 'map|Vailia' -> context.location = game.map.Vailia.
+    # A 'false' value means that the matching part must *not* exist. Eg: {'|events|MtJuliaMarket': false} means the event must not have occurred.
     pattern: /^\|[a-zA-Z0-9\|]+$/
 
     # A rule can also be a more complex set of properties for pulling in an object conditionally.
@@ -61,46 +32,38 @@ conditionsSchema =
         # The path at which to find the object we're comparing against. {path: 'crew|Nat'} is the "long form" of just 'crew|Nat'.
         type: 'string'
         optional: true
-        pattern: /^\|[a-zA-Z0-9\|]+$/
+        pattern: /^\|[a-zA-Z0-9\| ]+$/
+      fill: # The context is filled in here with this function's return value. Eg: conditions: {fish: {fill: -> return 3}} will turn into context: {fish: 3}
+        # Called with the current context as @, after all non-"fill" properties have been filled.
+        type: 'function'
+        optional: true
       optional:
         # If present, then this part of the context is optional (the context as a whole can still match even if this part of it doesn't).
         eq: true
         optional: true
-      # Other properties will be compared against the matching property of the object (conditions.stealth vs. person.stealth, for example)
-      '*':
-        type: 'object'
-        strict: true
-        properties:
-          eq: # Equal to
-            type: 'number'
-            optional: true
-          lt: # Less than
-            type: 'number'
-            optional: true
-          lte: # Less than or equal
-            type: 'number'
-            optional: true
-          gt: # Greater than
-            type: 'number'
-            optional: true
-          gte: # Greaten than or equal
-            type: 'number'
-            optional: true
+      eq: # Equal to
+        type: ['number', 'string']
+        optional: true
+      lt: # Less than
+        type: 'number'
+        optional: true
+      lte: # Less than or equal
+        type: 'number'
+        optional: true
+      gt: # Greater than
+        type: 'number'
+        optional: true
+      gte: # Greaten than or equal
+        type: 'number'
+        optional: true
+      is: # The object is an instanceof this class or one of these classes
+        type: ['array', 'function']
+        optional: true
+      matches: # Matches if matches(obj) returns truthy
+        type: 'function'
+        optional: true
 
-GameObject::matches = (conditions)->
-  if typeof conditions is 'string'
-    return g.getItem(conditions) is @
-  for key, condition of conditions when key not in ['path', 'optional']
-    value = @
-    for part in key.split('|')
-      value = value[part]
-    if value >= condition.lt or value > condition.lte
-      return false
-    if value <= condition.gt or value < condition.gte
-      return false
-    if condition.eq? and value isnt condition.eq
-      return false
-  return true
+conditionsSchema.items.properties['*'] = conditionsSchema
 
 window.Page = class Page extends GameObject
   @schema:
@@ -108,54 +71,71 @@ window.Page = class Page extends GameObject
     strict: true
     properties:
       conditions: conditionsSchema
-      text:
+      text: # Should not modify the game state. Returns either a string or a set of $(pages) to be displayed to the player.
         type: 'function'
+      effects:
+        type: 'object'
+        optional: true
+        properties:
+          add:
+            # Each key is a path (must start with '|'), and the value is a class to add a new instance of at that location
+            type: 'object'
+            optional: true
+            properties:
+              '*':
+                type: 'function'
+          remove:
+            # Each key is a path, each value the type of object that will be found there and removed (it's an error if the wrong object is at that location)
+            type: 'object'
+            optional: true
+            properties:
+              '*':
+                type: 'function'
+          cargo:
+            # Each key is an item, the value the amount to add or subtract from the ship's cargo.
+            type: 'object'
+            optional: true
+            properties:
+              '*':
+                type: ['integer', 'string'] # Either an amount to add, or a property to pull out of the current context and add.
+          money: # Give or take money from the player - [amount, reason]
+            type: 'array'
+            items: [
+                type: 'integer'
+              ,
+                type: 'string'
+            ]
+            exactLength: 2
+            optional: true
+
       apply:
         type: 'function'
         optional: true
-        # Called once when the page is first displayed with a single argument, the page element (already fulled with the event's text). It can modify the game state or DOM. @ is the current context.
+        # Called once when the page is first displayed. It can modify the game state to represent the results of the event.
       next:
         # Either another Page class to display, or a function that returns one (with no side effects).
         # If not defined for the given page (or the function returns null), next defaults to "game decides what happens next."
-        # false is a special value which means "hang on, I'll call another event later (from within @apply) to continue the game. Don't go on without me."
+        # false is a special value which means "hang on, I'll call another event later (from within @text) to continue the game. Don't go on without me."
         optional: true
         type: [@, 'function', 'boolean']
       context:
         # A set of objects built using this page's conditions.
         type: Collection
+        optional: true
 
   # If a page's context hasn't been filled in, then we don't need to export it.
   export: (ids, paths, path)->
     if @hasOwnProperty 'context' then super(ids, paths, path)
 
-  contextMatch: (context = {})->
-    newContext = new Collection
-    $.extend newContext, @context
-    for key, value of @conditions
-      if typeof value is 'string'
-        newContext[key] = g.getItem value
-        continue
-
-      target = context[key]
-      if value.path
-        target = g.getItem value.path
-        if context[key] and context[key] isnt target
-          return false
-      else if not target
-        target = g.last.context[key]
-
-      if target? and target.matches value
-        newContext[key] = target
-      else if not value.optional
-        return false
-    @context = newContext
-    return newContext
-
   context: new Collection
 
+  contextMatch: -> return @context.matches @conditions
+
+  contextFill: -> @context = (new Collection).fill @conditions
+
   show: ->
-    @contextMatch()
-    g.last = @
+    if @conditions and not @context.objectLength
+      @contextFill()
 
     # Disable all previous pages
     last = $('#content').children().last()
@@ -163,10 +143,32 @@ window.Page = class Page extends GameObject
     last.find('input, button').attr 'disabled', 'disabled'
 
     div = $ @text.call @context
+
+    unless g.last is @
+      if @effects
+        g.applyEffects @effects, @context
+      g.last = @
+      g.events[@constructor.name] or= []
+      g.events[@constructor.name].unshift g.day
+      if g.events[@constructor.name].length > 10
+        g.events[@constructor.name].pop()
+      @apply?(div)
+
+    bg = null
+    div.filter('page').each ->
+      if $(@).attr 'bg'
+        bg = $(@).attr 'bg'
+      if bg
+        $(@).css('background-image', 'url("' + bg + '")')
+
+    $('text[continue]', div).each ->
+      last = $(@).parent().prev().children('text')
+      $(@).prepend(last.children().clone())
+
     div.appendTo '#content'
     div.data 'page', @
-    @apply?(div)
     g.setGameInfo()
+    addTooltips(div)
     gotoPage()
     return div.first()
 
@@ -183,6 +185,18 @@ Game.schema.properties.queue =
   type: Collection
   items:
     type: Page
+
+Game::events = {}
+Game.schema.properties.events =
+  type: 'object'
+  properties:
+    '*':
+      # An array of days on which this page (or job) occurred.
+      type: 'array'
+      minLength: 0
+      maxLength: 10
+      items:
+        type: 'integer'
 
 $ ->
   c = $ '#content'
@@ -228,10 +242,11 @@ $ ->
   $('#content').on 'change', '.dropdown-menu input', ->
     button = $(@).parent().parent().prev()
     button.html $(@).next().html()
+    button.toggleClass('active')
 
 gotoPage = Game.gotoPage = (change = 1, ignoreFalseNext)->
 
-  currentElement = $('page.active').trigger 'leave-page'
+  currentElement = $('page.active').last().trigger 'leave-page'
   currentPage = currentElement.data('page')
   unless currentPage
     target = $('#content page').first()
@@ -250,13 +265,17 @@ gotoPage = Game.gotoPage = (change = 1, ignoreFalseNext)->
     unless target.length
       [next, target] = getNextPage currentPage, ignoreFalseNext
       unless next then return
+  if next instanceof Job
+    return
 
   # If there are too many history items, remove the top one
   while $('#content').children().length > 20
     $('#content page').first().remove()
 
-  currentElement.removeClass 'active'
-  target.addClass 'active'
+  setTimeout ->
+    $('#content page').removeClass 'active'
+    target.addClass 'active'
+  , 100
   Page.setNav next, target
 
 isPage = (funct)-> funct?.prototype instanceof Page
@@ -296,3 +315,49 @@ getNextPage = (page, ignoreFalseNext)->
     next = new next
 
   return [next, target]
+
+$.fn?.tooltip.Constructor.DEFAULTS.container = 'body'
+$.fn?.tooltip.Constructor.DEFAULTS.html = true
+$.fn?.tooltip.Constructor.DEFAULTS.viewport = '#content'
+$.fn?.tooltip.Constructor.DEFAULTS.trigger = 'hover click'
+
+addTooltips = (element)->
+  for stat, description of Person.stats
+    $('.' + stat, element).tooltip {
+      delay: {show: 300, hide: 100}
+      placement: 'auto left'
+      title: description
+    }
+  $('[title]', element).tooltip {
+    delay: {show: 300, hide: 100}
+    placement: 'bottom'
+  }
+
+  $('.person-info, .location', element).dblclick -> $(@).toggleClass 'show-full'
+
+Page.randomMatch = ->
+  weights = {}
+  results = {}
+  for page, index in @constructor.next
+    if typeof page is 'function'
+      page = new page
+    page.contextFill()
+    if page.contextMatch()
+      results[index] = page
+      weights[index] = 11 - (g.events[page.constructor.name]?.length or 0)
+
+  return results[Math.weightedChoice weights]
+
+Page.firstMatch = ->
+  for page in @constructor.next
+    if typeof page is 'function' then page = new page
+    page.contextFill()
+    if page.contextMatch()
+      return page
+
+Page.firstNew = ->
+  for page in @constructor.next
+    if typeof page is 'function' then page = new page
+    page.contextFill()
+    if page.contextMatch() and not g.events[page.constructor.name]
+      return page

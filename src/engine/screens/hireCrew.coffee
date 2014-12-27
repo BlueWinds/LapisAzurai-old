@@ -1,66 +1,61 @@
 hireCost = (people, context)->
-  unless context
-    [people, context] = [people.asArray(), people]
-  r = context.Recruiter
+  n = g.officers.Nat
   a = context.Assistant
   cost = 0
   for hire in people
     cost += hire.wages() * 10
 
-  reduction = r.get('diplomacy', context) + a?.get('diplomacy', context)
-  reduction += r.get('business', context) * 2 + a?.get('business', context) * 2
+  reduction = n.get('diplomacy', context) + (a?.get('diplomacy', context) or 0)
+  reduction += n.get('business', context) * 2 + (a?.get('business', context) * 2 or 0)
   cost *= Math.max 0.1, (1 - reduction / 300)
   return Math.round(cost)
 
 Page.HireCrewOne = class HireCrewOne extends Page
   conditions:
-    Recruiter: {}
     Assistant: {optional: true}
-    port: '|location'
     # '0' will be set by the hiring event
-  text: ->"""<page style='background-image: url("#{@port.images.night}");'>
+  text: ->"""<page bg="#{g.location.images.tavern}">
     #{@[0].image 'normal', 'mid-right reversed'}
     <text>
-      <p>#{@Recruiter} talks with several sailors, but most of them aren't exactly prime material - too old, too young, sickly or untrustworthy. If they were just sailing around lakes, hauling cargo up rivers with a barge #{he @Recruiter} might let them aboard anyway, but not on the open ocean. It's dangerous out there. The terrible storms that make landfall, that tear houses from the ground and uproot trees are nothing compared to the hurricanes that rage across open water. And the monsters. Always the monsters. #{@Recruiter} has to trust #{his} crewmates with #{his} life.</p>
-      <p>#{@[0]} is the only one who fits the bill tonight. #{He @[0]}'ll do.</p>
+      <p>Natalie talked with several sailors, but most of them weren't exactly prime material - too old, too young, sickly or untrustworthy. If they were just sailing around lakes, hauling cargo up rivers with a barge she might let them aboard anyway, but not on the open ocean. It was dangerous out there. Those terrible storms which made landfall, that tore houses from the ground and uprooted trees were nothing compared to the hurricanes that raged across open water. And the monsters. Always the monsters. Natalie had to trust her crewmates with her life.</p>
+      <p>#{@[0]} was the only one who fits the bill tonight. #{He @[0]}'ll do.</p>
     </text>
   </page>
-  <page style='background-image: url("#{@port.images.night}");'>
-    #{@Recruiter.image 'normal', 'mid-left'}
+  <page bg="#{g.location.images.tavern}">
+    #{g.officers.Nat.image 'normal', 'mid-left'}
     <text>
-      <p>Tradition dictates that a new crewmember is paid extremely well the first week - they're putting their life in the hands of a captain they don't know. It takes a bit of negotiation, but #{@[0]} finally settles for #{hireCost @}β for the first week and #{@[0].wages()}β daily thereafter. #{@Recruiter} hands over a one obol coin and tells #{@[0]} where they're docked.</p>
-      #{bq @Recruiter}Welcome aboard.</blockquote>
+      <p>Tradition dictated that a new crewmembe was entitled to a handsome signup bonus, paid before departure - they were putting their life in the hands of a captain they didn't know, after all, and should be able to leave something behind even if they never returned. After a bit of negotiation, #{@[0]} finally settled for #{hireCost @asArray(), @}β immediately and #{@[0].wages()}β weekly thereafter. #{@Assistant or 'Natalie'} handed over a one obol coin and told #{@[0]} where they're docked.</p>
+      <p>#{q(@Assistant or g.officers.Natalie)}Welcome aboard.</q></p>
     </text>
   </page>"""
   apply: ->
-    g.crew.Nat.money -= hireCost @context
+    cost = -hireCost(@context.asArray(), @context)
+    g.applyEffects {money: [cost, "Hired #{@context[0]}"]}
+    g.crew.push @context[0]
 
 Page.HireCrewMulti = class HireCrewMulti extends Page
   conditions:
-    Recruiter: {}
     Assistant: {optional: true}
-    port: '|location'
       # '0' and '1' will be set by the hiring event. '2' - '5' may or may not be.
   text: ->
     wages = Math.sum(crew.wages() for crew in @asArray())
     names = @asArray().map (p)->p.name
-    """<page style='background-image: url("#{@port.images.night}");'>
-      #{@Recruiter.image 'normal', 'mid-left'}
+    """<page bg="#{g.location.images.night}">
+      #{g.officers.Nat.image 'normal', 'mid-left'}
       <text>
-        <p>Of the many people interested, #{@Recruiter} eventually settles on #{@asArray().length.toWord()}: #{names.wordJoin()}.</p>
-        <p>Tradition dictates that each new crewmember is paid extremely well the first week - they're putting their life in the hands of a captain they don't know. After arguing with #{Math.choice names} for a while, #{@Recruiter} finally convinces them to accept #{hireCost @}β for the first week and a combined #{wages}β daily thereafter. #{He @Recruiter} hands an obol coin to each and tells them where to find the ship in the morning.</p>
-        #{bq @Recruiter}Welcome aboard.</blockquote>
+        <p>Of the many people interested, Natalie eventually settled on #{@asArray().length.toWord()}: #{names.wordJoin()}.</p>
+        <p>Tradition dictated that a new crewmembe was entitled to a handsome signup bonus, paid before departure - they were putting their life in the hands of a captain they didn't know, after all, and should be able to leave something behind even if they never returned. After arguing with #{Math.choice names} for a while, Natalie finally convinced them to accept #{hireCost @asArray, @}β immediately, and #{wages}β daily thereafter. #{He(@Assistant or g.officers.Nat)} handed an obol coin to each and told them where to find the ship in the morning.</p>
+        <p>#{q}Welcome aboard.</q></p>
       </text>
     </page>"""
   apply: ->
-    g.crew.Nat.money -= hireCost @context
+    cost = -hireCost(@context.asArray(), @context)
+    g.applyEffects {money: [cost, "Hired #{@context.length.toWord()} sailors"]}
     for crew in @context.asArray()
-      name = crew.name
-      while g.crew[name] then name += '-'
-      g.crew[name] = crew
+      g.crew.push crew
 
 
-Person.RandomPerson = class RandomPerson extends Person
+window.RandomPerson = class RandomPerson extends Person
   @schema: $.extend true, {}, Person.schema,
     properties:
       # Set by the description function, to remember which option was chosen for this particular person in the future.
@@ -75,8 +70,8 @@ Person.RandomPerson = class RandomPerson extends Person
     ->"""1: #{@name}. If you're seeing this as a player, it is a bug."""
   ]
   # Points to be assigned among various stats and positive traits
-  @basePoints: 15
-  @extraPoints: 25
+  @basePoints: 5
+  @extraPoints: 5
 
   description: ->
     @descriptionKey or= Math.floor(Math.random() * @constructor.descriptions.length)
@@ -90,18 +85,13 @@ Person.random = (baseClasses)->
   person = new base
     name: name
   person.color = for layer in base.colors
-    if layer
-      Math.choice(layer)[0]
-    else
-      false
+    Math.choice(layer)
 
   points = base.basePoints + base.extraPoints * Math.random() * Math.random()
   while points > 1
-    stat = Math.choice Person.mainStats
+    stat = Math.choice ['business', 'diplomacy', 'sailing', 'combat']
     amount = Math.ceil(points * 0.5)
     person[stat] += amount
-    person[stat + 'Growth'] or= 0
-    person[stat + 'Growth'] += amount / 100
     points -= amount
   return person
 
@@ -110,117 +100,133 @@ Job.HireCrew = class HireCrew extends Job
   @hireClasses: []
 
   label: "Hire Crew"
-  text: -> "Search the city for new crew members."
-  workers:
-    Recruiter:
-      business: {gte: 10}
+  text: -> "Search the city for new sailors, or let existing crew members go. Send someone <span class='diplomacy'>convincing</span> along to save money."
+  description: ->"""<p>Natalie talked to the bartender, passed over a coin for the trouble and set herself up at a table. It wasn't long before she had some interested recruits.</p>"""
+  officers:
+    Natalie: '|officers|Nat'
     Assistant:
       optional: true
-  requires:
-    diplomacy: 10
+  energy: -2
+  crew: 0
+  hires: new Collection
   apply: ->
-    leave = Math.choice [0, 0, 0, 0, 1, 2, 3]
+    leave = if g.weather is 'storm'
+      Math.choice [0, 0, 0, 0, 0, 1, 2]
+    else
+      Math.choice [0, 0, 0, 1, 2, 2, 3]
+
     while leave
       leave--
-      @context.shift()
+      @hires.shift()
 
-    count = Math.choice [2, 2, 3, 3, 4, 4, 5, 6]
-    while @context.length < count
-      @context.push Person.random @constructor.hireClasses
+    count = if g.weather is 'storm'
+      Math.choice [2, 2, 2, 3, 3, 4, 4, 5]
+    else
+      Math.choice [2, 3, 3, 4, 4, 5, 6, 7]
+
+    while @hires.length < count
+      @hires.push Person.random @constructor.hireClasses
+    return
 
 Job.HireCrew::next = Page.HireCrew2 = class HireCrew2 extends Page
   conditions:
-    Recruiter: {}
     Assistant: {optional: true}
+    hires: '|last|hires'
     job: '|last'
-    0: {optional: true}
-    1: {optional: true}
-    2: {optional: true}
-    3: {optional: true}
-    4: {optional: true}
-    5: {optional: true}
-
-  description: ->
-    """<p>#{@Recruiter} talks to the bartender, passes over a coin for the trouble and sets #{him @Recruiter}self up at a table. It isn't long before #{he} has some interested recruits.</p>"""
 
   text: ->
-    hires = (person.renderBlock(key) for key, person of @asArray())
-    crew = (person.renderBlock(key, 'hired') for key, person of g.crew)
+    hires = (person.renderBlock(key) for key, person of @hires)
+    officers = (person.renderBlock(key, 'hired') for key, person of g.officers)
+    crew = (person.renderBlock(key, 'hired') for key, person of @asArray())
+
     wages = (person.wages() for name, person of g.crew)
     wages = Math.sum wages
+    for name, person of g.officers
+      wages += person.wages()
 
-    return """<page class="screen" style='background-image: url("#{g.location.images.night}");'>
-      <form>
+    element = """<page class="screen" bg="#{g.location.images.tavern}">
+      <form class="clearfix">
         <div class="col-md-4 col-xs-6 col-md-offset-2">
-          <div class="hires clearfix">
+          <div class="hires clearfix column-block">
             <div class="block-label">Sailors</div>
             #{hires.join ''}
           </div>
         </div>
         <div class="col-md-4 col-xs-6">
-          <div class="crew clearfix">
-            <div class="block-label">
-              Crew (<span class="cost">0</span>β today, <span class="wages">#{wages}</span>β weekly)
+          <div class="crew clearfix column-block">
+            <div class="block-label">Crew</div>
+            #{officers.join ''}
+            <div class="block-summary">
+              <span class="cost">0β</span> today, <span class="wages">#{wages}β</span> weekly
             </div>
             #{crew.join ''}
           </div>
         </div>
-        <button class="btn btn-primary center-block">Done</button>
       </form>
-      <text class="short">#{g.last.description.call @}</text>
+      <text class="short">
+        #{@job.description.call @}
+        <options><button class="btn btn-primary">Done</button></options>
+      </text>
     </page>"""
-  apply: (element)->
-    hires = @context
-
-    people = $('.person-info', element)
-    people.click ->
-      person = g.crew[$(@).attr('data-key')]
-      # You can't select already hired storyline characters here (so you can't fire them and mess things up).
-      unless $(@).hasClass('hired') and person.isStory()
-        $(@).toggleClass 'active'
-
-    $('.crew, .hires', element).click (e)->
-      if $(e.target).closest('.person-info').length
-        return
-      $('.person-info.active', element).appendTo(@).removeClass 'active'
-      cost = 0
-      wages = 0
-      $('.crew .person-info', element).each ->
-        key = $(@).attr('data-key')
-        person = g.crew[key] or hires[key]
-        wages += person.wages()
-        unless g.crew[key]
-          cost += hireCost [person], hires
-      $('.cost').html cost
-      $('.wages').html wages
-
-    $('form', element).submit (e)->
-      e.preventDefault()
-
-      $('.hires .hired', element).each ->
-        # Old crew to be fired
-        key = $(@).attr 'data-key'
-        delete g.crew[key]
-
-      newCrew = new Collection
-        Recruiter: hires.Recruiter
-      if hires.Assistant
-        newCrew.Assistant = hires.Assistant
-
-      $('.crew .person-info:not(.hired)', element).each ->
-        # New crew to be hired
-        person = hires[$(@).attr 'data-key']
-        newCrew.push person
-        delete hires.job.context[$(@).attr 'data-key']
-
-      if newCrew.length is 1
-        g.queue.unshift(new Page.HireCrewOne)
-        g.queue[0].context = newCrew
-      else if newCrew.length
-        g.queue.unshift(new Page.HireCrewMulti)
-        g.queue[0].context = newCrew
-
-      setTimeout((->Game.gotoPage(1, true)), 0)
-      return false
+    return applyHire.call @, element
 
   next: false
+
+
+applyHire = (element)->
+  element = $(element)
+  context = @
+
+  people = $('.person-info', element)
+  people.not('.officer').click ->
+    $(@).toggleClass 'active'
+
+  $('.crew, .hires', element).click (e)->
+    if $(e.target).closest('.person-info').length
+      return
+    $('.person-info.active', element).appendTo(@).removeClass 'active'
+
+    cost = 0
+    wages = 0
+    for name, person of g.officers
+      wages += person.wages()
+    for name, person of g.crew
+      wages += person.wages()
+    $('.crew .person-info', element).not('.hired').each ->
+      person = context.hires[$(@).attr 'data-key']
+      wages += person.wages()
+      cost += hireCost [person], context
+    $('.hires .person-info.hired', element).each ->
+      person = g.crew[$(@).attr 'data-key']
+      wages -= person.wages()
+
+    $('.block-summary .cost', element).html cost + 'β'
+    $('.block-summary .wages', element).html wages + 'β'
+
+  $('button', element).click (e)->
+    e.preventDefault()
+
+    # Old crew to be fired
+    $('.hires .hired', element).each ->
+      g.crew.remove $(@).attr('data-key')
+
+    newCrew = new Collection
+    if context.Assistant
+      newCrew.Assistant = context.Assistant
+
+    $('.crew .person-info', element).not('.hired').each ->
+      # New crew to be hired
+      key = $(@).attr 'data-key'
+      person = context.hires[key]
+      newCrew.push person
+      context.hires.remove key
+
+    if newCrew.length is 1
+      g.queue.unshift(new Page.HireCrewOne)
+      g.queue[0].context = newCrew
+    else if newCrew.length
+      g.queue.unshift(new Page.HireCrewMulti)
+      g.queue[0].context = newCrew
+
+    setTimeout((->Game.gotoPage(1, true)), 0)
+    return false

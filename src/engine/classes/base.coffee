@@ -23,9 +23,12 @@ window.GameObject = class GameObject
     return target.name + '|' + @constructor.name
 
   valid: ->
-    result = SchemaInspector.validate @constructor.schema, @
+    level = @constructor
+    while !level.schema
+      level = level.__super__?.constructor
+
+    result = SchemaInspector.validate level.schema, @
     unless result.valid
-      console.log @
       throw new Error(@constructor.name + " is invalid: \n" + result.format())
     return true
 
@@ -44,6 +47,36 @@ window.GameObject = class GameObject
         data[key] = value
     return data
 
+  matches: (conditions)->
+    if typeof conditions is 'string'
+      return g.getItem(conditions) is @
+    for key, condition of conditions when key not in ['path', 'optional']
+      value = @
+      for part in key.split('|')
+        value = value[part]
+      unless partMatches(value, condition)
+        return false
+    return true
+
+partMatches = (value, condition)->
+  unless value? or condition.optional
+    return false
+  if value >= condition.lt or value > condition.lte
+    return false
+  if value <= condition.gt or value < condition.gte
+    return false
+  if condition.eq? and value isnt condition.eq
+    return false
+  if condition.is
+    if typeof condition.is is 'array'
+      unless condition.is.some((c)-> value instanceof c)
+        return false
+    else unless value is condition.is or value instanceof conditions.is
+      return false
+  if condition.matches and not condition.matches(value)
+    return false
+  return true
+
 window.Collection = class Collection
   constructor: (data, objects, path)->
     if objects
@@ -53,27 +86,66 @@ window.Collection = class Collection
           @[key] = new value(null, objects, path + '|' + key)
         else if value instanceof GameObject
           @[key] = value
-        else if typeof value is 'object'
+        else if value instanceof Collection
+          @[key] = new Collection value, objects, path + '|' + key
+        else if typeof value is 'object' and value._
           _class = value._.split '|'
-          delete value._
           @[key] = new window[_class[0]][_class[1]] value, objects, path + '|' + key
+          delete @[key]._
+        else
+          @[key] = value
     else
       $.extend @, data
 
   Object.defineProperty @::, 'export',
     value: (ids, paths, path)->
+      if @ in ids then return paths[ids.indexOf @]
+      ids.push @
+      paths.push path
       data = {}
-      for key in @keys()
-        data[key] = @[key].export(ids, paths, path + '|' + key)
+      for key, value of @
+        data[key] = value.export?(ids, paths, path + '|' + key) or value
         unless data[key]?
           delete data[key]
       return data
 
-  Object.defineProperty @::, 'keys',
-    value: ->
-      list = for key, value of @ when value instanceof GameObject
-        key
-      return list.sort()
+  Object.defineProperty @::, 'matches',
+    value: (conditions)->
+      for key, value of conditions
+        target = if key[0] is '|' then g.getItem(key) else @[key]
+
+        if not value
+          if target then return false
+        else if typeof value is 'string'
+          unless target is g.getItem value then return false
+        else
+          unless target or value.optional then return false
+          if target.matches
+            unless target.matches(value) then return false
+          else
+            unless partMatches(target, value) then return false
+
+      return @
+
+  Object.defineProperty @::, 'fill',
+    value: (conditions)->
+      for key, value of conditions
+        if key[0] is '|'
+          continue
+        else if typeof value is 'string'
+          @[key] = g.getItem value
+        else if value.path
+          if item = g.getItem value.path
+            @[key] = item
+        else
+          if g.last.context[key]
+            @[key] = g.last.context[key]
+
+      for key, value of conditions when value.fill
+        @[key] = value.fill.call(@)
+
+      return @
+
   Object.defineProperty @::, 'asArray',
     value: ->
       list = []
@@ -82,20 +154,31 @@ window.Collection = class Collection
         list.push @[i]
         i++
       return list
+
   Object.defineProperty @::, 'push',
     value: (item)->
-      key = 0
-      while @[key] then key++
-      @[key] = item
+      index = 0
+      while @[index] then index++
+      @[index] = item
+  Object.defineProperty @::, 'pop',
+    value: ->
+      index = 0
+      while @[index + 1] then index++
+      item = @[index]
+      delete @[index]
+      return item
+
   Object.defineProperty @::, 'shift',
     value: ->
       first = @[0]
       delete @[0]
-      key = 0
-      while @[key + 1]
-        @[key] = @[key + 1]
-        key++
+      index = 0
+      while @[index + 1]
+        @[index] = @[index + 1]
+        delete @[index + 1]
+        index++
       return first
+
   Object.defineProperty @::, 'unshift',
     value: (item)->
       index = 0
@@ -104,87 +187,18 @@ window.Collection = class Collection
         index++
       @[index] = item
 
+  Object.defineProperty @::, 'remove',
+    value: (index)->
+      while @[index + 1]
+        @[index] = @[index + 1]
+        index++
+      delete @[index]
+
   Object.defineProperty @::, 'length',
     get: ->
-      key = 0
-      while @[key]
-        key++
-      return key
-
-window.Game = class Game extends GameObject
-  @schema:
-    type: @
-    properties:
-      content:
-        type: 'string'
-        pattern: /sfw|nsfw|lewd/
-      day:
-        type: 'integer'
-        gte: 0
-      weather:
-        type: 'string'
-        match: /calm|storm/
-    strict: true
-  @passDay: []
-
-  constructor: (gameData)->
-    objects = []
-    super null, objects, ''
-    for item in objects
-      for key, value of item when typeof value is 'string' and value[0] is '|'
-        item[key] = @getItem value
-    unless gameData
-      return
-    # Now we recursively copy the data into our new clean game.
-    recursiveCopy = (obj, data)=>
-      for key, value of data
-        if typeof value is 'object'
-          if value._ and not obj[key]
-            _class = value._.split '|'
-            obj[key] =  new window[_class[0]][_class[1]] {}, [], ''
-          if obj[key] instanceof GameObject or obj[key] instanceof Collection
-            recursiveCopy obj[key], value
-          else
-            obj[key] = value
-        else if typeof value is 'string' and value[0] is '|'
-          obj[key] = @getItem value
-        else
-          obj[key] = value
-    recursiveCopy @, gameData
-
-  export: ->
-    super [], [], ''
-
-  content: 'sfw'
-  animation: true
-  day: 0
-  weather: 'calm'
-
-  getItem: (path)->
-    if typeof path is 'string'
-      path = path.split '|'
-      first = path.shift()
-      if first then throw new Error(first + '|' + path.join('|') + ' is a bad path')
-    target = @
-    for part in path
-      target = target[part]
-    unless target
-      console.error @
-      throw new Error 'Unable to find ' + path
-    return target
-
-  passDay: ->
-    @day++
-    for event in Game.passDay
-      event.call(@)
-    return
-
-  setGameInfo: ->
-    element = $ '#game-info'
-    $('img', element).attr 'src', @location.images[if @weather is 'calm' then 'day' else 'storm']
-    $('.location', element).html @location.name
-    $('.day', element).html @day
-    $('.crew-count', element).html Object.keys(@crew).length
-    $('.money', element).html "<span>#{@crew.Nat.money}</span>"
-    $('.wages', element).html "<span>#{Math.sum(person.wages() for name, person in @crew)}</span>"
-    $('.description', element).html @location.description()
+      index = 0
+      while @[index]
+        index++
+      return index
+  Object.defineProperty @::, 'objectLength',
+    get: ->Object.keys(@).length

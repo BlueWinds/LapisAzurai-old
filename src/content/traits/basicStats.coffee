@@ -1,3 +1,7 @@
+Trait.Content = class Content extends Trait
+  description: (person)->"#{person} works for reasons other than money. #{He person} takes no wage."
+  wages: (person, wage)-> return 0
+
 Trait.Loyal = class Loyal extends Trait
   description: (person)->"#{person}'s happiness decreases only half as fast."
   happinessSet: (person, delta)->

@@ -16,21 +16,27 @@
       <div class="navbar-header">
         <img src="game/content/misc/logo-horizontal.png" class="navbar-brand">
         <div id="game-info" class="full">
-          <div class="stats">
-            <span class="day"></span>
-            <span class="crew-count"></span>
-            <span class="money"></span>
-            <span class="wages"></span>
+          <div class="page active">
+            <table class="stats">
+              <tr class="day"><td>Day</td><td></td></tr>
+              <tr class="crew-count"><td>Crew</td><td></td></tr>
+              <tr class="savings"><td>Cashbox</td><td></td></tr>
+              <tr class="wages"><td>Wages</td><td></td></tr>
+              <tr class="cargo"><td colspan=2>
+                <div class="progress-label">Cargo</div>
+                <div class="progress"><div class="progress-bar"></div></div>
+              </td></tr>
+            </table>
+            <img>
+            <div class="description"></div>
+            <div class="arrow-right"><span class="glyphicon glyphicon-chevron-right"></span></div>
           </div>
-          <img>
-          <div class="description"></div>
         </div>
       </div>
       <ul class="nav navbar-nav">
         <li id="new-game"><a>New</a></li>
         <li id="save-game"><a>Save<span class="glyphicon glyphicon-ok text-success"></span></a></li>
         <li id="load-game"><a>Load</a></li>
-        <li id="config-game"><a>Config</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li><a href="http://site.brothels.im">Site</a></li>

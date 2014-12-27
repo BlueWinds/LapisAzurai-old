@@ -42,9 +42,24 @@ Math.sum = (items)->
     sum += val
   return sum
 
+Math.sumObject = (items)->
+  sum = 0
+  for key, val of items
+    sum += val
+  return sum
+
 Math.choice = (items)->
-  choice = Math.floor(Math.random() * items.length)
-  return items[choice]
+  if items instanceof Array
+    choice = Math.floor(Math.random() * items.length)
+    return items[choice]
+  return Math.choice(Object.keys items)
+
+Math.weightedChoice = (weights)->
+  sum = Math.sumObject weights
+  choice = Math.floor(Math.random() * sum)
+  for key, value of weights
+    choice -= value
+    if choice <= 0 then return key
 
 window.randomName = (names, maxLength = 7)->
   [chains, start] = randomName.chains(names)
