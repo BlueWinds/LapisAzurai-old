@@ -4,6 +4,7 @@ Person.Guildmaster = Game::people.Guildmaster = class Guildmaster extends Person
   text: '#9FDAAF'
   @images:
     path: 'src/content/people/Guildmaster/'
+    scale: 1.36
     normal: [
       'Base.png'
       'NormalSkin.png'

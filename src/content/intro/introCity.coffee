@@ -1,10 +1,37 @@
+Page.PortIntro = class PortIntro extends Page.Port
+  text: ->
+    element = super()
+    element.help(
+      target: '.crew'
+      placement: 'bottom'
+      title: "Your officers are listed in the left column."
+    ).help(
+      target: '.jobs'
+      placement: 'bottom'
+      title: "And any jobs they can do on the right."
+    ).help(
+      target: '.worker-requirements'
+      placement: 'bottom'
+      title: "Each job requires a minimum amount of energy - if a character is too tired for that task, you can't assign them to it."
+    ).help(
+      target: 'options'
+      title: "You can start the day once each officer has a task."
+    )
+
+    $('.job', element).click ->
+      if $('.ready', element).length
+        $('page.active').help(
+          target: '.ready'
+          placement: 'bottom'
+          title: "Notice how the job has turned green since all its requirements are met."
+        )
+    return element
+
 Game::location = Place.VailiaIntro = class VailiaIntro extends Place
   images: Place.Vailia::images
   name: "Vailia"
-  description: ->
-    """<p class="intro-help">Your officers and crew are listed on the right of the page, and all the jobs they can perform are on the left. You can begin a day once all the officers have an assignment.</p>
-    <p class="intro-help">Any time you see a colored number or word, you can hover over it (or tap on a touchscreen) for information. Hover over or double-tap on a person for more details about them. You can also hover over (double-tap) the Lapis Azurai logo for an overview of your current status and missions.</p>
-    <div class="intro-main">#{Place.Vailia::description}</div>"""
+  description:
+    text = Place.Vailia::description
   jobs: new Collection
   destinations: new Collection
   location: Place.Vailia::location
@@ -23,14 +50,14 @@ Job.IntroVisitGuildmaster = class IntroVisitGuildmaster extends Job
 
 
 Job.IntroHire = class IntroHire extends Job.VailiaHireCrew
-  description: ->"""<p>Natalie talked to the bartender, passed over a coin for the trouble and set herself up at a table. It wasn't long before she had some interested recruits.</p>
-  <p><em>Click on any of the recruits in the bar (the left column) you want to hire and then in the box holding your crew (on the right). You'll need at least two more crew to set sail, though more sailors make trips faster and can help with various events.</em></p>"""
+  description: ->
+    text = super()
 
 
 Job.IntroSail = class IntroSail extends Job
   conditions:
     '|crew|length': {gte: 2}
-    '|map|Ship|cargo|Barley': {gte: 10}
+    '|map|Ship|cargo|Barley': {gte: 20}
   label: "Ready to Sail"
   type: 'plot'
   text: ->"With cargo and crew, the Lapis Azurai is ready to set forth on its maiden voyage. But first, James wants to discuss something."
@@ -47,16 +74,15 @@ Mission.CrewCargo = class CrewCargo extends Mission
       conditions:
         '|crew|length': {gte: 2}
     ,
-      description: "Buy provisions at the market (at least 10 barley)"
+      description: "Buy provisions at the market (at least 20 barley)"
       conditions:
-        '|map|Ship|cargo|Barley': {gte: 10}
+        '|map|Ship|cargo|Barley': {gte: 20}
   ]
   blockSailing: true
 
 
 Job.IntroMarket = class IntroMarket extends Job.Market
-  description: ->"""<p>Natalie wanders the marketplace, searching for bargains and opportunities. Maiden Tea is a good deal here, but there's not much available - the price will increase if she buys too much. Barley is normally priced, and there's a lot of it for sale. Wood is at a premium on a small island like Vailia, but the city does import a great deal of it to construct ships at a great pace.</p>
-  <p><em>On the left is a list of goods you can buy at the market, and on the right a list of items in your ship's cargo hold. You already have the materials necessary to keep your ship in repair (Wood and Naval Supplies). You'll want to lay in a stock of provisions and some trade goods - try spending about 75β each on Barley and Maiden's Tea. It's better to have goods than money.</em></p>"""
+  description: ->"""<p>Natalie wanders the marketplace, searching for bargains and opportunities. Maiden Tea is a good deal here, but there's not much available - the price will increase if she buys too much. Barley is normally priced, and there's a lot of it for sale. Wood is at a premium on a small island like Vailia, but the city does import a great deal of it to construct ships at a great pace.</p>"""
   buy: new Collection
     Barley: [50, 4]
     MaidenTea: [5, 8]

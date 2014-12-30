@@ -117,7 +117,7 @@ window.Person = class Person extends GameObject
     return @name
 
   wages: ->
-    wage = 1
+    wage = 5
     for stat in ['business', 'diplomacy', 'sailing', 'combat']
       wage += @[stat] / 5
     if @traits

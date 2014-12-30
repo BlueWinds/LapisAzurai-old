@@ -1,6 +1,6 @@
 maxLoad = (workers)->
   if g.weather is 'storm' then return 5 * workers
-  return 10 * workers
+  return 15 * workers
 
 buySellSchema =
   type: Collection
@@ -50,7 +50,7 @@ incrementMultiplier = (increment, business)->
 Job.Market::next = Page.Market = class Market extends Page
   conditions:
     market: '|location|jobs|market'
-    workers: '|location|jobs|market|context|length'
+    workers: '|location|jobs|market|context|objectLength'
 
   text: ->
     business = g.officers.Nat.get 'business', @
@@ -72,7 +72,7 @@ Job.Market::next = Page.Market = class Market extends Page
     img = if g.weather is 'calm' then g.location.images.marketDay else g.location.images.marketStorm
     element = """<page class="screen" bg="#{img}">
       <form class="clearfix">
-        <div class="col-sm-4 col-sm-offset-2">
+        <div class="col-lg-4 col-lg-offset-2 col-sm-6">
           <div class="buy column-block">
             <div class="block-label">Natalie buys...</div>
             <table>
@@ -80,7 +80,7 @@ Job.Market::next = Page.Market = class Market extends Page
             </table>
           </div>
         </div>
-        <div class="col-sm-4">
+        <div class="col-lg-4 col-sm-6">
           <div class="sell column-block">
             <div class="block-label">And Sells...</div>
             <table>#{sell.join ''}</table>

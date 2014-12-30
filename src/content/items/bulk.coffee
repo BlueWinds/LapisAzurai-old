@@ -105,7 +105,7 @@ Item.Tea = new LuxuryGood
   price: 15
   unit: 'basket'
 
-Item.MaidenTea = new LuxuryGood
+Item.MaidenTea = new Item
   name: "Maiden's Tea"
   description: "A bitter herb made into contraceptive tea. Valued the world over, and commonly available."
   price: 10

@@ -1,4 +1,4 @@
-Person.FNoble = class FNoble extends Person
+Person.NobleF = class NobleF extends Person
   name: 'Tandia'
   gender: 'f'
   @images:
@@ -34,7 +34,7 @@ Person.FNoble = class FNoble extends Person
       'FSeriousTop.png'
     ]
 
-Person.MNoble = class MNoble extends Person
+Person.NobleM = class NobleM extends Person
   name: 'Richard'
   gender: 'm'
   @images:

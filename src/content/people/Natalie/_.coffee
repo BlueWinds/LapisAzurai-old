@@ -8,7 +8,7 @@ Game::officers.Nat = Officer.Natalie = class Natalie extends Officer
   happiness: 70
   endurance: 8
   energy: 8
-  money: 200
+  money: 2000
   text: '#8CDAFF'
   description: ->"""Natalie was barely five when her parents disappeared - she doesn't remember much of them. She's worked for The Guild her whole life, and is optimistic, hardworking, and quick witted - a rising star if the Guilmaster has ever seen one. If only she could control her tongue..."""
   traits: new Collection
@@ -64,7 +64,7 @@ Game::officers.Nat = Officer.Natalie = class Natalie extends Officer
       chocolate: [23, 44, -77]
     }
     { # Eyes
-      green: false
+      green: [110, 56, 0]
       blue: [198, 71, 0]
       hazel: [21, 29, 8]
       steel: [0, 0, -2]

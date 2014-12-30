@@ -1,9 +1,11 @@
+weeksWageToHire = 5
+
 hireCost = (people, context)->
   n = g.officers.Nat
   a = context.Assistant
   cost = 0
   for hire in people
-    cost += hire.wages() * 10
+    cost += hire.wages() * weeksWageToHire
 
   reduction = n.get('diplomacy', context) + (a?.get('diplomacy', context) or 0)
   reduction += n.get('business', context) * 2 + (a?.get('business', context) * 2 or 0)
@@ -67,11 +69,10 @@ window.RandomPerson = class RandomPerson extends Person
   # A list of description functions, chosen from randomly at character generation.
   @descriptions: [
     ->"""0: #{@name}. If you're seeing this as a player, it is a bug."""
-    ->"""1: #{@name}. If you're seeing this as a player, it is a bug."""
   ]
   # Points to be assigned among various stats and positive traits
   @basePoints: 5
-  @extraPoints: 5
+  @extraPoints: 10
 
   description: ->
     @descriptionKey or= Math.floor(Math.random() * @constructor.descriptions.length)
@@ -93,6 +94,8 @@ Person.random = (baseClasses)->
     amount = Math.ceil(points * 0.5)
     person[stat] += amount
     points -= amount
+
+  person.add 'happiness', Math.floor(Math.random() * 60 - 30)
   return person
 
 Job.HireCrew = class HireCrew extends Job
@@ -146,13 +149,13 @@ Job.HireCrew::next = Page.HireCrew2 = class HireCrew2 extends Page
 
     element = """<page class="screen" bg="#{g.location.images.tavern}">
       <form class="clearfix">
-        <div class="col-md-4 col-xs-6 col-md-offset-2">
+        <div class="col-md-4 col-sm-6 col-md-offset-2">
           <div class="hires clearfix column-block">
             <div class="block-label">Sailors</div>
             #{hires.join ''}
           </div>
         </div>
-        <div class="col-md-4 col-xs-6">
+        <div class="col-md-4 col-sm-6">
           <div class="crew clearfix column-block">
             <div class="block-label">Crew</div>
             #{officers.join ''}
@@ -230,3 +233,4 @@ applyHire = (element)->
 
     setTimeout((->Game.gotoPage(1, true)), 0)
     return false
+  return element

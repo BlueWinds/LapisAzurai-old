@@ -202,3 +202,10 @@ window.Collection = class Collection
       return index
   Object.defineProperty @::, 'objectLength',
     get: ->Object.keys(@).length
+
+  Object.defineProperty @::, 'filter',
+    value: (compare)->
+      results = new Collection
+      for key, value of @
+        if compare(value) then results[key] = value
+      return results

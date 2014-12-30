@@ -54,5 +54,8 @@ window.Item = class Item extends GameObject
     total += currentPrice * amount
     return total
 
+  amount: (count)->
+    if count is 1 then "1 #{@unit}" else "#{count} #{@unit}s"
+
 window.LuxuryGood = class LuxuryGood extends Item
 window.Food = class Food extends Item

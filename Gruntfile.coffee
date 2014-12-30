@@ -2,7 +2,10 @@ fs = require 'fs'
 async = require('async')
 Canvas = require('canvas')
 
-module.exports = (grunt) ->
+grunt = null
+
+module.exports = (g) ->
+  grunt = g
   grunt.loadNpmTasks 'grunt-debug'
   grunt.loadNpmTasks 'grunt-contrib-coffee'
   grunt.loadNpmTasks 'grunt-coffeelint'
@@ -39,13 +42,20 @@ module.exports = (grunt) ->
           # Then the content
           'src/content/traits/basicStats.coffee'
 
-          'src/content/people/Natalie/_Natalie.coffee'
-          'src/content/people/James/_James.coffee'
-          'src/content/people/Kat/_Kat.coffee'
-          'src/content/people/Guildmaster/_Guildmaster.coffee'
-          'src/content/people/Nobles/_Nobles.coffee'
-          'src/content/people/Crew/_Crew.coffee'
-          'src/content/people/Crew2/_Crew2.coffee'
+          'src/content/people/Natalie/_.coffee'
+          'src/content/people/James/_.coffee'
+          'src/content/people/Kat/_.coffee'
+          'src/content/people/Guildmaster/_.coffee'
+          'src/content/people/Meghan/_.coffee'
+          'src/content/people/Nobles/_.coffee'
+          'src/content/people/Judge/_.coffee'
+
+          'src/content/people/Crew/_.coffee'
+          'src/content/people/Crew2/_.coffee'
+          'src/content/people/GuardM/_.coffee'
+          'src/content/people/MerchantM/_.coffee'
+          'src/content/people/MerchantF/_.coffee'
+          'src/content/people/MerchantRich/_.coffee'
 
           'src/content/locations/Ship/_Ship.coffee'
           'src/content/locations/Vailia/_Vailia.coffee'
@@ -121,12 +131,11 @@ module.exports = (grunt) ->
   }
   grunt.initConfig config
 
-  grunt.registerTask 'draw-sprites', ->
+  grunt.registerTask 'sprites', (name)->
     done = @async()
-    createAllSprites null, done
+    createAllSprites name, done
 
   grunt.registerTask 'compile', ['coffee', 'copy:css']
-  grunt.registerTask 'sprites', ['coffee', 'draw-sprites']
   grunt.registerTask 'lib', ['uglify', 'copy:libs', 'copy:images']
   grunt.registerTask 'full-build', ['lib', 'coffeelint', 'compile', 'sprites']
   grunt.registerTask 'default', ['lib', 'coffeelint', 'compile', 'watch']
@@ -148,7 +157,7 @@ loadGameObjects = ->
   Sprite generation functions
 ###
 
-createAllSprites = (names, finished)->
+createAllSprites = (runFor, finished)->
   try
     fs.mkdirSync('game/sprites')
   catch e
@@ -164,11 +173,12 @@ createAllSprites = (names, finished)->
     unless person.prototype instanceof Person and person.images then continue
     people.push person
 
-  names or= people.map (p)->p::name
+  names = if runFor then [runFor] else people.map (p)->p::name
+  grunt.log.writeln "Generating sprites for #{names.length} people"
   async.eachSeries people, (person, nextPerson)->
     unless person::name and person::name in names
       return nextPerson()
-    console.log person::name
+    grunt.log.subhead person::name
     try
       fs.mkdirSync("game/sprites/#{person.name}")
     catch e
@@ -176,36 +186,46 @@ createAllSprites = (names, finished)->
     sampleImage = new Canvas.Image
     sampleImage.onload = ->
       async.eachSeries Object.keys(person.images), (image, nextImage)->
-        if image is 'path' then return nextImage()
-        console.log '  ' + image
+        if image in ['path', 'scale'] then return nextImage()
+
+        logNext = (err)->
+          grunt.log.ok image
+          nextImage err
 
         imageInfo = person.images[image]
 
         unless person.colors
+          path = person.images.path
           target = "game/sprites/#{person.name}/#{image}.png"
-          return buildSingleSprite person.images.path, imageInfo, target, nextImage
+          scale = person.images.scale or 1
+          return buildSingleSprite scale, path, imageInfo, target, logNext
 
         async.each [0...imageInfo.length], (layer, nextLayer)->
           path = person.images.path + imageInfo[layer]
+          unless path then return nextLayer()
           target = "game/sprites/#{person.name}/#{image}-#{layer}-"
-          createColorizedSprites person.colors[layer], path, target, nextLayer
-        , nextImage
+          scale = person.images.scale or 1
+          createColorizedSprites person.colors[layer], scale, path, target, nextLayer
+        , logNext
       , nextPerson
 
     sampleImage.src = person.images.path + person.images.normal[0]
 
   , finished
 
-createColorizedSprites = (colors, path, target, done)->
+
+createColorizedSprites = (colors, scale, path, target, done)->
   image = new Canvas.Image
   image.onload = ->
     async.each Object.keys(colors), (color, next)->
-      scale = 400 / image.width
-      canvas = new Canvas 400, image.height * scale
+      canvas = new Canvas 700, 700
       canvas.antialias = 'subpixel'
       ctx = canvas.getContext '2d'
       ctx.imageSmoothingEnabled = true
-      ctx.drawImage(image, 0, 0, 400, image.height * scale)
+
+      left = (700 - image.width * scale * 0.5) / 2
+      top = 700 - image.height * scale * 0.5 + 1
+      ctx.drawImage(image, left, top, image.width * 0.5 * scale, image.height * 0.5 * scale)
 
       data = ctx.getImageData 0, 0, image.width, image.height
       if colors[color]
@@ -220,21 +240,24 @@ createColorizedSprites = (colors, path, target, done)->
 
   image.src = path
 
-buildSingleSprite = (path, imageInfo, target, done)->
+buildSingleSprite = (scale, path, imageInfo, target, done)->
   canvas = null
   ctx = null
 
   async.each [0...imageInfo.length], (layer, nextLayer)->
+    unless imageInfo[layer] then return nextLayer()
     image = new Canvas.Image
     image.onload = ->
-      scale = 400 / image.width
       unless canvas
-        canvas = new Canvas 400, image.height * scale
+        canvas = new Canvas 700, 700
         canvas.antialias = 'subpixel'
         ctx = canvas.getContext '2d'
         ctx.imageSmoothingEnabled = true
 
-      ctx.drawImage(image, 0, 0, 400, image.height * scale)
+      left = (700 - image.width * scale * 0.5) / 2
+      top = 700 - image.height * scale * 0.5 + 1
+
+      ctx.drawImage(image, left, top, image.width * 0.5 * scale, image.height * 0.5 * scale)
       nextLayer()
 
     image.src = path + imageInfo[layer]

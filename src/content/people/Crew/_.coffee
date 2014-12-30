@@ -16,7 +16,7 @@ Person.VailianCrewM = class VailianCrewM extends RandomPerson
   ]
   name: 'VailianCrewM'
   gender: 'm'
-  happiness: 30
+  happiness: 40
   text: '#999999'
   @images:
     path: 'src/content/people/Crew/'
@@ -62,7 +62,7 @@ Person.VailianCrewM = class VailianCrewM extends RandomPerson
       blonde: [43, 48, 16]
     }
     { # Eyes
-      green: false
+      green: [110, 56, 0]
       blue: [198, 71, 0]
       hazel: [21, 29, 8]
     }

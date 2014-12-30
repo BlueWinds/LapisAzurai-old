@@ -2,16 +2,15 @@ Page.NextDay = class NextDay extends Page
   text: ->
     location = g.location.name
     if g.queue[g.queue.length - 1] instanceof Page.SailDone
-      location += ' -> ' + g.queue[g.queue.length - 1].context.destination.name
-    element = $ """<page class="nextDay slowFadeIn verySlowFadeOut">
+      location = 'Sailing to ' + g.queue[g.queue.length - 1].context.destination.name
+    element = $ """<page slow class="nextDay">
       <h2>#{g.date}</h2>
       <h3>Day #{g.day}</h3>
       <h3>#{location}</h3>
     </page>"""
 
-    $('page').last().removeClass('verySlowFadeOut').addClass('slowFadeOut')
-    element.delay(3000).queue 'fx', (next)->
-      if element.hasClass 'active'
-        Game.gotoPage(1)
-      next()
+    setTimeout ->
+      if element.hasClass 'active' then Game.gotoPage(1)
+    , 2000
+
     return element

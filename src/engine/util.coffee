@@ -48,6 +48,11 @@ Math.sumObject = (items)->
     sum += val
   return sum
 
+Math.randomRound = (number)->
+  result = Math.floor(number)
+  if Math.random() < number % 1 then result += 1
+  return result
+
 Math.choice = (items)->
   if items instanceof Array
     choice = Math.floor(Math.random() * items.length)

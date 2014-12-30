@@ -1,7 +1,12 @@
 Game.passDay.push ->
   if g.day % 7 then return
 
-  change = if g.officers.Nat.money <= 0 then -1 else 0
+
+Game.passDay.push ->
+  if g.day % 7
+    return
+
+  change = if g.officers.Nat.money <= 0 then -2 else 0
   wages = 0
   for name, person of g.officers
     wages += person.wages()
@@ -14,15 +19,13 @@ Game.passDay.push ->
   if wages
     g.applyEffects {money: [-wages, 'Paid crew']}
 
-  change += if g.officers.Nat.money < 0 then -1 else 1
+  change += if g.officers.Nat.money < 0 then -2 else 3
   for name, person of g.crew
-    person.add 'happiness', change, new Collection
+    person.add 'happiness', change
   for name, person of g.officers when person.wages()
-    person.add 'happiness', change, new Collection
+    person.add 'happiness', change
 
-Game.passDay.push ->
-  if g.dayOfMonth is 0
-    g.queue.unshift new Page.Financial
+  g.queue.unshift new Page.Financial
 
 Game::money = []
 Game.schema.properties.money =
@@ -53,7 +56,7 @@ Page.Financial = class Financial extends Page
       "<li>#{mission.label}</li>"
 
     """<page bg="#{g.map.Ship.images.cabinNight}">
-      <div class="col-sm-4 col-sm-offset-2">
+      <div class="col-md-4 col-md-offset-2 col-sm-6">
         <div class="expenses column-block">
           <div class="block-label">The last month</div>
           <table>
@@ -62,8 +65,9 @@ Page.Financial = class Financial extends Page
         </div>
       </div>
 
-      <div class="col-sm-4">
+      <div class="col-md-4 col-sm-6">
         <div class="column-block">
+          <div class="block-label">Current Missions</div>
           <ul class="mission-summary">
             #{missions.join ''}
           </ul>

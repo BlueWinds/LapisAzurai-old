@@ -1,4 +1,5 @@
 Place.Ship = Game::map.Ship = class Ship extends Place
+  @cargoSpace: 300
   name: 'Lapis Azurai'
   description: ->"<p>Vailia is a bustling port city, famous for its political neutrality, its freedom from the disasters that plague lesser cities, and its brothels. Lots and lots of brothels.</p>"
   images:
@@ -16,12 +17,11 @@ Place.Ship = Game::map.Ship = class Ship extends Place
   destinations: new Collection
   jobs: new Collection # Unlike normal locations, this collection takes ShipJobs rather than normal Jobs
   location: [0, 0]
-  @cargoSpace: 100
 
 Ship::jobs.talk = ShipJob.Talk = class Talk extends ShipJob
   label: "Talk with Crew"
   text: ->"""<p>Spend some time mingling with the crew, encouraging and hanging out.</p>
-  <p>Crew: <span class="happiness">+1 happiness</span></p>"""
+  <p>Crew: <span class="happiness">+3 happiness</span></p>"""
   next: Page.randomMatch
   @next: []
 
@@ -30,9 +30,9 @@ ShipJob.Talk.next.push Page.ShipTalk = class ShipTalk extends Page
     Nat: '|officers|Nat'
   text: ->"""<page bg="#{g.map.Ship.images.deckNight}">#{@Nat.image 'normal', ''}<text>
     <p>Natalie pokes her head in on the evening festivities - while she often prefers to spend time in her cabin, alone or with a few other offciers, it's nice to enjoy the wide open air as well from time to time.</p>
-    <p><em>Crew: <span class="happiness">+1 happiness</span></em></p>
+    <p><em>Crew: <span class="happiness">+3 happiness</span></em></p>
   </text></page>"""
-  apply: -> for i, sailor of g.crew then sailor.add('happiness', 1)
+  apply: -> for i, sailor of g.crew then sailor.add('happiness', 3)
 
 Ship::jobs.trainCombat = ShipJob.TrainCombat = class TrainCombat extends ShipJob
   label: "Mock Combat"

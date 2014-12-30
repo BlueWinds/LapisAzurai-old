@@ -38,6 +38,9 @@ window.Place = class Place extends GameObject
       firstVisit: # A page displayed when the player first visits this location
         type: Page
         optional: true
+      majorPort: # If this is a place where sailors can be hired and money can be made
+        eq: true
+        optional: true
 
   jobs: new Collection
 

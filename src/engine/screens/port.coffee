@@ -52,15 +52,15 @@ Page.Port = class Port extends Page
     else
       false
 
-    return applyPort.call @, """<page class="screen verySlowFadeIn" bg="#{if g.weather is 'calm' then @port.images.day else @port.images.storm}">
+    return applyPort.call @, """<page verySlow class="screen" bg="#{if g.weather is 'calm' then @port.images.day else @port.images.storm}">
       <form class="clearfix">
-        <div class="col-sm-2">
+        <div class="col-md-2 col-sm-12">
           <ul class="job-tabs list-group">#{jobLabels.join ''}</ul>
         </div>
-        <div class="col-sm-4">
+        <div class="col-md-4 col-sm-6">
           <div class="jobs column-block">#{jobs.join ''}</div>
         </div>
-        <div class="col-sm-4">
+        <div class="col-md-4 col-sm-6">
           <div class="crew clearfix column-block">#{officers.join('') + crew.join('')}</div>
         </div>
       </form>
@@ -79,13 +79,22 @@ Page.Port = class Port extends Page
 applyPort = (element)->
   element = $(element)
   port = @port
+
+  setTall = ->
+    if $('.job.active', element).height() < $('.job-tabs', element).height()
+      element.addClass('tall-tabs')
+    else
+      element.removeClass('tall-tabs')
+
   $('.job', element).first().addClass 'active'
-  $('.job-tabs li', element).first().addClass 'active'
+  $('.job-tabs li', element).first().addClass('active')
   $('.job-tabs li', element).click ->
     $('.job, .job-tabs li', element).removeClass 'active'
     $(@).addClass 'active'
     idx = $('.job-tabs li', element).index @
     $('.job', element).eq(idx).addClass 'active'
+    setTall()
+  setTimeout setTall, 0
 
   people = $('.person-info', element)
   people.click -> $(@).toggleClass 'active'

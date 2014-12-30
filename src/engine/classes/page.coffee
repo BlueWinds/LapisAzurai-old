@@ -63,6 +63,10 @@ conditionsSchema =
         type: 'function'
         optional: true
 
+    exec: (schema, item)->
+      if not item.is and 'is' in Object.keys(item)
+        @report '".is" is undefined'
+
 conditionsSchema.items.properties['*'] = conditionsSchema
 
 window.Page = class Page extends GameObject
@@ -142,7 +146,10 @@ window.Page = class Page extends GameObject
     last.find('*').unbind()
     last.find('input, button').attr 'disabled', 'disabled'
 
-    div = $ @text.call @context
+    div = try
+      $(@text.call @context)
+    catch e
+      errorPage(@, e)
 
     unless g.last is @
       if @effects
@@ -152,7 +159,11 @@ window.Page = class Page extends GameObject
       g.events[@constructor.name].unshift g.day
       if g.events[@constructor.name].length > 10
         g.events[@constructor.name].pop()
-      @apply?(div)
+
+      try
+        @apply?(div)
+      catch e
+        div.push errorPage(@, e)
 
     bg = null
     div.filter('page').each ->
@@ -161,11 +172,19 @@ window.Page = class Page extends GameObject
       if bg
         $(@).css('background-image', 'url("' + bg + '")')
 
-    $('text[continue]', div).each ->
-      last = $(@).parent().prev().children('text')
-      $(@).prepend(last.children().clone())
+    $('text', div).each ->
+      if $(@).attr('continue')?
+        last = $(@).parent().prev().children('text')
+        $(@).prepend(last.children().clone())
+      if $(@).attr('continue-inline')?
+        last = $(@).parent().prev().children('text')
+        text = $(@).html()
+        $(@).empty().prepend(last.children().clone())
+        final = $(@).children().last()
+        final.html(final.html() + text)
 
     div.appendTo '#content'
+    div.not(div[0]).css 'display', 'none'
     div.data 'page', @
     g.setGameInfo()
     addTooltips(div)
@@ -246,25 +265,25 @@ $ ->
 
 gotoPage = Game.gotoPage = (change = 1, ignoreFalseNext)->
 
-  currentElement = $('page.active').last().trigger 'leave-page'
+  currentElement = $('page.active').last()
   currentPage = currentElement.data('page')
   unless currentPage
     target = $('#content page').first()
     next = target.data 'page'
 
   else if change < 0
-    $('body').addClass 'backscroll'
     target = currentElement.prev()
     next = target.data 'page'
     unless target.length
       return
   else
-    $('body').removeClass 'backscroll'
     target = currentElement.next()
     next = target.data 'page'
     unless target.length
       [next, target] = getNextPage currentPage, ignoreFalseNext
       unless next then return
+
+  currentElement.trigger 'leave-page'
   if next instanceof Job
     return
 
@@ -272,10 +291,16 @@ gotoPage = Game.gotoPage = (change = 1, ignoreFalseNext)->
   while $('#content').children().length > 20
     $('#content page').first().remove()
 
-  setTimeout ->
-    $('#content page').removeClass 'active'
-    target.addClass 'active'
-  , 100
+  speed = 500
+  if change > 0 and target.attr('slow')? then speed = 1500
+  else if change > 0 and target.attr('verySlow')? then speed = 4000
+
+  $('#content page').removeClass('active')
+  target.addClass('active').css({display: 'block', opacity: 0}).trigger('enter-page')
+
+  target.animate {opacity: 1}, speed, ->
+    if target.hasClass('active')
+      $('#content page').not('.active').css {display: 'none'}
   Page.setNav next, target
 
 isPage = (funct)-> funct?.prototype instanceof Page
@@ -335,6 +360,14 @@ addTooltips = (element)->
 
   $('.person-info, .location', element).dblclick -> $(@).toggleClass 'show-full'
 
+errorPage = (page, error)->
+  console.log page, error
+  console.trace()
+  return $("""<page><text>
+    <p>Probelm in #{page.constructor.name}</p>
+    <p>#{error.toString()}</p>
+  </text></page>""")
+
 Page.randomMatch = ->
   weights = {}
   results = {}
@@ -361,3 +394,26 @@ Page.firstNew = ->
     page.contextFill()
     if page.contextMatch() and not g.events[page.constructor.name]
       return page
+
+$.fn?.help = (opts)->
+  if typeof opts.target is 'string'
+    opts.target = $(opts.target, @).first()
+
+  @queue 'help', =>
+    opts.target.tooltip($.extend {
+      container: 'page.active'
+      template: '<div class="tooltip help" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner"></div></div>'
+      trigger: 'manual'
+    }, opts).tooltip('show')
+    setTimeout =>
+      $(window).one 'click focus', =>
+        opts.target.tooltip 'destroy'
+        @dequeue 'help'
+    , 0
+
+  if @hasClass 'active'
+    unless $('.tooltip.help', @).length then @dequeue 'help'
+  else
+    @one 'enter-page', =>
+      unless $('.tooltip.help', @).length then @dequeue 'help'
+  return @

@@ -19,6 +19,7 @@ Place.Vailia = Game::map.Vailia = class Vailia extends Place
     marketStorm: 'game/content/locations/Vailia/Port Storm.jpg'
     tavern: 'game/content/locations/Vailia/Tavern.jpg'
     guildOffice: 'game/content/locations/Vailia/Guild Office.jpg'
+  majorPort: true
   jobs: new Collection
     hireCrew: Job.VailiaHireCrew
     market: Job.VailiaMarket
@@ -41,40 +42,41 @@ Job.Beach::next = Page.BeachWood = class BeachWood extends Page
   conditions:
     ' ': {}
     '|season': {eq: 'Wood'}
-  text: ->"""<page bg="#{g.location.images.day}"><text>
-    <p>With Descending Water finally behind them, many Vailians greeted the returning warmth with a visit to the beach, and #{@[' ']} was no exception. Gentle waves lapped against smooth sand, wetting the feet of hundreds of visitors. Not for long though – the air was pleasantly warm, but not enough to dispel the water's chill. Playing in the sand was the order of the day.</p>
-  </text></page>
-  <page><text>
-    <p>#{@[' ']} entered a sand castle contest, constructing #{Math.choice [
+  text: ->"""<page bg="#{g.location.images.day}">
+    <text><p>With Descending Water finally behind them, many Vailians greeted the returning warmth with a visit to the beach, and #{@[' ']} was no exception. Gentle waves lapped against smooth sand, wetting the feet of hundreds of visitors. Not for long though – the air was pleasantly warm, but not enough to dispel the water's chill. Playing in the sand was the order of the day.</p>
+  </text>
+  </page>
+  <page>
+    <text><p>#{@[' ']} entered a sand castle contest, constructing #{Math.choice [
       "an elaborate moat and castle, carefully sculpted to resemble Vailia's palace"
       "a sandship, prow facing proudly towards the ocean"
       "the largest pile of sand " + he + " could manage, enlisting the help of several on lookers, before smoothing it out into a pyramid"
-    ]}. Though it wasn't the winning entry, #{he} certainly enjoyed #{himself}.</p>
-  </text></page>"""
+    ]}. Though it wasn't the winning entry, #{he} certainly enjoyed #{himself}.</p></text>
+  </page>"""
 
 Job.Beach::next = Page.BeachFire = class BeachFire extends Page
   conditions:
     ' ': {}
     '|season': {eq: 'Fire'}
-  text: ->"""<page bg="#{ g.location.images.day}"><text>
-    <p>The hot days of #{g.month} Fire demanded nothing other than a visit to the beach, and #{@[' ']} was perfectly obliging towards such a demand. #{He} was also obliging towards another demand – that #{he} join in a game of volleyball, to make the teams even. Win, lose or draw - #{he} honestly lost track when the game devolved into a giggling wrestling match, with the entirely of the other team running under the net to tackle them into the sand.</p>
-  </text></page>"""
+  text: ->"""<page bg="#{ g.location.images.day}">
+    <text><p>The hot days of #{g.month} Fire demanded nothing other than a visit to the beach, and #{@[' ']} was perfectly obliging towards such a demand. #{He} was also obliging towards another demand – that #{he} join in a game of volleyball, to make the teams even. Win, lose or draw - #{he} honestly lost track when the game devolved into a giggling wrestling match, with the entirely of the other team running under the net to tackle them into the sand.</p></text>
+  </page>"""
 
 Job.Beach::next = Page.BeachEarth = class BeachEarth extends Page
   conditions:
     ' ': {}
     '|season': {eq: 'Earth'}
-  text: ->"""<page bg="#{g.location.images.day}"><text>
-    <p>Stealing one of the final days of warmth from #{Descending Earth}, #{@[' ']} took a walk along the beach. It was nearly empty at this time of year, weather uncertain and plenty of work to be done before the cold arrived, leaving #{@[' ']} plenty of space for #{his} wanderings.</p>
-  </text></page>
-  <page><text continue>
-    <p>Collecting a couple of shells, #{he} finally settled on a single beautiful spiral. There wasn't much room aboard the Azurai for personal possessions, so memories of a beautiful walk and the single memento would have to be enough.</p>
-  </text></page>"""
+  text: ->"""<page bg="#{g.location.images.day}">
+    <text><p>Stealing one of the final days of warmth from #{Descending Earth}, #{@[' ']} took a walk along the beach. It was nearly empty at this time of year, weather uncertain and plenty of work to be done before the cold arrived, leaving #{@[' ']} plenty of space for #{his} wanderings.</p></text>
+  </page>
+  <page>
+    <text continue><p>Collecting a couple of shells, #{he} finally settled on a single beautiful spiral. There wasn't much room aboard the Azurai for personal possessions, so memories of a beautiful walk and the single memento would have to be enough.</p></text>
+  </page>"""
 
 Job.Beach::next = Page.BeachWater = class BeachWater extends Page
   conditions:
     ' ': {}
     '|season': {eq: 'Water'}
-  text: ->"""<page bg="#{g.location.images.day}"><text>
-    <p>In the biting cold of #{g.month} Water the beach was completely deserted, leaving #{@[' ']} alone with #{his} thoughts. #{He} sat and watched the waves roll in for a while, before finally spotting another watcher of the waves. They walked together for a while, saying nothing, merely enjoying the company of another human. Finally the #{Math.choice ['old man', 'old woman', 'young man', 'young woman', 'girl', 'boy']} returned to the city, and #{@[' ']} did the same shortly after.</p>
-  </text></page>"""
+  text: ->"""<page bg="#{g.location.images.day}">
+    <text><p>In the biting cold of #{g.month} Water the beach was completely deserted, leaving #{@[' ']} alone with #{his} thoughts. #{He} sat and watched the waves roll in for a while, before finally spotting another watcher of the waves. They walked together for a while, saying nothing, merely enjoying the company of another human. Finally the #{Math.choice ['old man', 'old woman', 'young man', 'young woman', 'girl', 'boy']} returned to the city, and #{@[' ']} did the same shortly after.</p></text>
+  </page>"""

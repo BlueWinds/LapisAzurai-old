@@ -2,7 +2,6 @@ html {
   background-image: linear-gradient(transparent, rgba(0, 0, 0, 0.9), black), url("../content/misc/background.jpg");
   background-position: 0 66px;
 }
-
 body.container {
   background: none;
   color: #ccc;
@@ -10,11 +9,9 @@ body.container {
   overflow: hidden;
   position: relative;
 }
-
 .navbar-default {
   background: black;
 }
-
 @media (max-width: 639px) {
   .navbar:after {
     content: "Your screen or window is too small for this game.       (><)      Try expanding it or playing on a different device (or rotate to landscape - that may work).";
@@ -27,7 +24,6 @@ body.container {
   #nav-arrows,
   #content { display: none; }
 }
-
 @media (max-height: 359px) {
   .navbar:after {
     content: "Your screen or window is too small for this game.       (><)      Try expanding it or playing on a different device.";
@@ -39,19 +35,16 @@ body.container {
   }
   #nav-arrows, #content { display: none; }
 }
-
 @media (max-width: 640px) {
   body.container {
     padding: 0;
   }
 }
-
 * {
   box-sizing: border-box;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
 }
-
 .navbar {
   border: none;
   margin: 0;
@@ -63,23 +56,19 @@ body.container {
 .navbar-right {
   float: right;
 }
-
 .nav a {
   cursor: pointer;
 }
-
 .nav > li {
   float: left;
 }
 .navbar-header {
   float: left;
 }
-
 .navbar-brand {
   height: 65px;
   padding: 10px 0 15px;
 }
-
 @media (max-width: 768px) {
   .navbar {
     min-height: 20px;
@@ -102,41 +91,23 @@ body.container {
     display: none;
   }
 }
-
 #content {
   background: #000;
   position: relative;
   overflow: hidden;
 }
-
 page {
+  background-color: #151515;
   background-position: 50% 50%;
+  background-repeat: no-repeat;
   background-size: 100% auto;
   height: 100%;
-  opacity: 0;
   position: absolute;
-  transition-delay: 0.5s;
   width: 100%;
 }
-.backscroll page {
-  transition-duration: 500ms !important
-}
-
-page.slowFadeIn.active, page.slowFadeOut {
-  transition: opacity 1.5s ease;
-}
-
-page.verySlowFadeIn.active, page.verySlowFadeOut {
-  transition: opacity 4s ease;
-}
-
 page.active {
-  display: block;
-  opacity: 1;
-  transition: opacity 0.5s ease;
   z-index: 1000;
 }
-
 text {
   background-color: #151515;
   border-color: #030303;
@@ -150,32 +121,24 @@ text {
   padding: 19px;
   position: absolute;
   width: 100%;
+  z-index: 1;
 }
-
 .person {
   bottom: 160px;
-  height: 50%;
+  width: 25%;
   left: 50%;
   position: absolute;
 }
-
-.person.sm { width: 100px; }
-
 .person img {
   bottom: 0;
   left: -50%;
-  max-height: 100%;
   position: absolute;
+  width: 100%;
 }
-
-.person.left {left: 25%; }
-.person.mid-left {left: 40%; }
-.person.mid-right { left: 60%; transform: scaleX(-1); }
-.person.right { left: 75%; transform: scaleX(-1); }
-.person.reversed { transform: scaleX(-1); }
-.person.mid-right.reversed { transform: none; }
-.person.right.reversed { transform: none; }
-
+.person.left { left: auto; right: 40%; }
+.person.right { left: 40%; transform: scaleX(-1); }
+.person.left.reversed { transform: scaleX(-1); right: 65% }
+.person.right.reversed { transform: none; left: 65%; }
 /* Medium devices (desktops, 992px and up) */
 @media (max-width: 992px) {
   text {
@@ -185,7 +148,6 @@ text {
     bottom: 40%;
   }
 }
-
 /* Small devices (tablets, 768px and up) */
 @media (max-width: 768px) {
   text {
@@ -195,8 +157,6 @@ text {
     bottom: 50%;
   }
 }
-
-
 text.full {
   border: none;
   border-radius: 0;
@@ -206,52 +166,42 @@ text.short {
   height: auto;
   min-height: 0;
 }
-
-
 img + text,
 canvas + text {
   background-color: #15151566;
 }
-
 #nav-arrows {
   position: absolute;
   right: -1em;
   z-index: 10;
 }
-
 @media (max-width: 820px) {
   #nav-arrows {
     right: 0.5em;
   }
 }
-
 #nav-arrows .glyphicon {
   cursor: pointer;
   display: block;
   padding: 10px 5px;
 }
-
 #nav-arrows .glyphicon.disabled,
 #nav-arrows .glyphicon.disabled:hover {
   color: #666;
   cursor: default;
 }
-
 #nav-arrows .glyphicon:hover {
   color: #fff;
 }
-
 #next {
   left: 0.083em;
 }
-
 blockquote {
   border-left: 4px solid #282828;
   font-size: 1em;
   margin: 0 0 10px;
   padding: 0px 10px;
 }
-
 #content .full-background {
   left: -20%;
   max-height: none;
@@ -260,22 +210,18 @@ blockquote {
   position: absolute;
   top: -20%;
 }
-
 .full-background + text {
   background: none;
   opacity: 1;
 }
-
 button:active,
 button:focus, a:active,
 a:focus {
   outline: none !important;
 }
-
 .toggle input {
   display: none;
 }
-
 input.inline,
 button.inline {
   background-color: #222;
@@ -284,11 +230,9 @@ button.inline {
   color: #fff;
   padding: 2px 7px;
 }
-
 input.inline:disabled {
   color: #aaa;
 }
-
 .dropdown-toggle.inline.active {
   background: #222;
   border-color: #666;
@@ -299,7 +243,6 @@ input.inline:disabled {
   position: relative;
   z-index: 1001;
 }
-
 .dropdown-menu.inline {
   border: 1px solid #666666;
   border-bottom-left-radius: 0;
@@ -309,7 +252,6 @@ input.inline:disabled {
 .dropdown-toggle.inline.active + .dropdown-menu {
   display: block;
 }
-
 .dropdown-menu.inline span {
   display: block;
 }
@@ -325,11 +267,9 @@ input.inline:disabled {
   color: #fff;
   cursor: default;
 }
-
 .dropdown-menu.inline input {
   display: none;
 }
-
 .toggle {
   background-color: #222;
   border: 1px solid #666;
@@ -345,39 +285,32 @@ input.inline:disabled {
   margin: 0;
   padding: 2px 7px;
 }
-
 .toggle label:nth-child(2) {
   border: none;
   border-radius: 6px 0 0 6px;
 }
-
 .toggle input:checked + label {
   background: #2A9FD6;
   cursor: default;
 }
-
 .toggle input:disabled + label {
   color: #aaa;
   cursor: default;
 }
-
 .bigOptions {
   margin-bottom: 20px;
   overflow-x: auto;
   white-space: nowrap;
 }
-
 .bigOptions > div {
   display: inline-block;
   float: none;
   min-width: 200px;
   white-space: normal;
 }
-
 .bigOptions input {
   display: none;
 }
-
 .bigOptions label {
   background-color: #222;
   border: 1px solid #222;
@@ -386,27 +319,22 @@ input.inline:disabled {
   width: 100%;
   padding: 1em;
 }
-
 .bigOptions input:checked + label {
   background: #333;
   border-color: #666;
 }
-
 .center-block {
   position: relative;
 }
-
 #save-game .glyphicon {
   position: absolute;
   opacity: 0;
   right: -2px;
   top: 15px;
 }
-
 .port > button {
   clear: both;
 }
-
 .column-block {
   background: #000;
   border: 1px solid #666666;
@@ -415,52 +343,73 @@ input.inline:disabled {
   margin-top: 10px;
   min-height: 73px;
 }
-
 .job-tabs {
   margin: 10px -31px 0 30px;
   position: relative;
   z-index: 1;
 }
-.job-tabs li {
-  background: #000;
-  border-bottom-right-radius: 0 !important;
-  border: 1px solid #666;
-  border-top-right-radius: 0 !important;
-}
 
+.job-tabs .list-group-item {
+  background: #000;
+  border-radius: 0;
+  border: 1px solid #666;
+}
+.job-tabs .list-group-item:first-child {
+  border-top-left-radius: 6px;
+}
+.job-tabs .list-group-item:last-child {
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+}
+.tall-tabs .job-tabs .list-group-item:last-child {
+  border-bottom-right-radius: 6px;
+}
 .job-tabs li:hover {
   background: #222;
 }
-
 .job-tabs li.active {
   border-right: none;
   color: #FFF;
   font-weight: 700;
 }
-
 .job-tabs li.ready {
   background: #08261C;
   color: #fff;
 }
-
 .job-tabs li.plot {
   color: #2a9fd6;
 }
-
 .job-tabs li.plot.active {
   color: #32bdff;
 }
-
 .job-tabs li.special {
   color: #77b300;
 }
-
 .job-tabs li.special.active {
   color: #90d900;
 }
-
 .jobs {
   border-top-left-radius: 0;
+}
+.tall-tabs .jobs {
+  border-bottom-left-radius: 0px;
+}
+
+@media (max-width: 991px) {
+  .job-tabs { margin: 5px 0 0px 0px; }
+
+  .job-tabs .list-group-item:first-child {
+    border-top-right-radius: 6px;
+  }
+
+  .jobs { border-top-left-radius: 10px; }
+}
+
+@media (max-height: 430px) {
+  .screen text {
+    height: 0;
+    padding: 0;
+  }
 }
 
 .job {
@@ -471,33 +420,27 @@ input.inline:disabled {
 .job.active, .sail .job {
   display: block;
 }
-
 .job.ready,
 .job.ready .block-label,
 .job.ready:hover,
 .job.ready:hover .block-label {
   border-color: #2a9fd6;
 }
-
 .job .col-xs-6 {
   padding-left: 0;
 }
-
 .block-label {
   border-bottom: 1px solid #666;
   padding: 5px 8px;
 }
-
 .job-officers {
   margin: 0;
   list-style: none;
 }
-
 .job-description {
   font-size: 0.9em;
   margin: 10px 0 10px 10px;
 }
-
 .job-crew-label {
   bottom: 0;
   color: #333;
@@ -508,31 +451,26 @@ input.inline:disabled {
   text-align: center;
   width: 100%;
 }
-
 .job-crew {
   height: 55px;
   margin-bottom: 0;
   margin-top: 5px;
   padding: 0;
 }
-
 .job-crew .person-info {
   float: left;
   margin-right: -34%;
   width: calc(50% - 30px);
 }
-
 .worker-requirements .name {
   color: #666;
 }
-
 .person-info, .worker-requirements {
   background: #000;
   border: 1px solid #666;
   border-radius: 6px;
   height: 55px;
 }
-
 .worker-requirements {
   opacity: 0.75;
 }
@@ -547,16 +485,13 @@ input.inline:disabled {
 .crew:hover {
   border-color: #777;
 }
-
 .job-officers li {
   margin: 8px 0;
 }
-
 .person-info.active, .person-info.active .name {
   background-color: #040f14;
   border-color: #2a9fd6;
 }
-
 .name {
   border-bottom: 1px solid #666666;
   border-bottom-right-radius: 10px;
@@ -564,14 +499,12 @@ input.inline:disabled {
   float: left;
   padding: 2px 16px;
 }
-
 .person-info .energy, .worker-requirements .energy {
   font-size: 1.4em;
   margin-bottom: -3px;
   margin-right: 0.7em;
   text-align: right;
 }
-
 .stats span,
 .worker-requirements span {
   display: inline-block;
@@ -579,7 +512,6 @@ input.inline:disabled {
   text-align: center;
   width: 25%;
 }
-
 .screen {
   background-position: center;
   background-repeat: none;
@@ -592,28 +524,23 @@ input.inline:disabled {
 .screen button {
   font-weight: 700;
 }
-
 .person-info + .worker-requirements {
   display: none;
 }
-
 .person-info, .location {
   cursor: pointer;
   position: relative;
   user-select: none;
   -moz-user-select: none;
 }
-
 .crew .person-info, .hires .person-info {
   float: left;
   margin: 8px 15px;
   width: calc(50% - 30px);
 }
-
 .center {
   text-align: center;
 }
-
 .job-requirements span {
   display: inline-block;
   padding: 5px 0;
@@ -621,17 +548,15 @@ input.inline:disabled {
   text-decoration: line-through;
   width: 25%;
 }
-
-.business { color: #ffb600; }
-.diplomacy { color: #ff8500; }
-.sailing { color: #ff2c00; }
-.combat { color: #a65600; }
-.happiness { font-weight: 700; }
+.business { color: #ffb600; cursor: default; }
+.diplomacy { color: #ff8500; cursor: default; }
+.sailing { color: #ff2c00; cursor: default; }
+.combat { color: #a65600; cursor: default; }
+.happiness { font-weight: 700; cursor: default; }
 .job-requirements .unmet {
   font-weight: 700;
   text-decoration: none;
 }
-
 .person-info .full {
   clip: rect(-40px, 450px, -40px, 0);
   background: #000;
@@ -639,6 +564,7 @@ input.inline:disabled {
   border-radius: 0 6px 6px 6px;
   cursor: default;
   left: -1px;
+  min-width: 24em;
   padding: 0 15px 15px;
   position: absolute;
   transition: clip 0.5s ease 0.2s;
@@ -646,18 +572,15 @@ input.inline:disabled {
   width: 250%;
   z-index: 1;
 }
-
 .person-info.show-full .full {
   border-color: #777;
   clip: rect(-40px, 450px, 450px, 0);
 }
-
 .person-info:hover .full {
   border-color: #777;
   clip: rect(-40px, 450px, 450px, 0);
   transition: clip 0.5s ease 0.75s;
 }
-
 .person-info.active .full, .person-info.active:hover .full {
   border-color: #2a9fd6;
   background-color: #040f14;
@@ -665,7 +588,6 @@ input.inline:disabled {
 .person-info.active .full .name, .person-info.active:hover .full .name {
   border-color: #666;
 }
-
 .full > .name {
   background: #000;
   border: medium none;
@@ -681,7 +603,13 @@ input.inline:disabled {
   top: -40px;
   width: calc(40% + 1px);
 }
+@media (max-width: 1200px) {
+  .full > .name { width: 108px; }
+}
 
+@media (max-width: 992px) {
+  .full > .name { width: 132px; }
+}
 
 .full .stats {
   background: none;
@@ -689,90 +617,75 @@ input.inline:disabled {
   float: left;
   margin: 3px 10px 5px 0;
 }
-
 .full .energy {
   font-size: 1em;
   margin-right: 0;
   text-align: left;
+  width: auto;
 }
-
 .full.right .person {
   left: 2.5em;
 }
-
 .full .stats td:first-child {
   padding-right: 10px;
 }
-
 .full .stats td:last-child {
   text-align: right;
 }
-
 .wages td:last-child:after,
 .savings td:last-child:after {
   content: "β";
   font-size: 0.8em;
 }
-
 .energy span {
   display: inline;
 }
-
 .full .person {
-  bottom: 0;
+  bottom: 0px;
   height: 12em;
+  left: 10em;
   position: relative;
+  width: 12em;
 }
-
 .full .person img {
   left: 0;
   max-height: 100%;
 }
-
 .full .description {
   clear: both;
   color: #CCC;
   margin-top: 10px;
 }
-
 .person-info .full.right {
   border-radius: 6px 0 6px 6px;
   left: calc(-150% + 1px);
 }
-
 .full.right .name {
   left: auto;
   right: 0;
 }
-
 .full.right .stats {
+  clear: right;
   float: right;
   margin-left: 15px;
   margin-right: 0;
 }
-
-.full.right .stats { clear: right; }
-
 .trait {
   border: 1px solid #666;
   border-radius: 6px;
   margin: 5px;
 }
-
 .trait .name {
   margin: 0 5px 5px 0;
 }
-
 .trait .description {
   clear: none;
   font-size: 0.8em;
   margin: 3px;
 }
-
 #status {
   position: absolute;
 }
-
 #game-info {
   clip: rect(0, 23em, 0, 0);
   background: #000;
@@ -788,7 +701,6 @@ input.inline:disabled {
   width: 23em;
   z-index: 1001;
 }
-
 .navbar-brand:hover + #game-info,
 #game-info:hover,
 .navbar-brand.show-info + #game-info {
@@ -796,76 +708,60 @@ input.inline:disabled {
   clip: rect(0, 23em, 17em, 0);
   transition: clip 0.5s ease 0.75s;
 }
-
 #game-info img {
   width: 12em;
 }
-
 #game-info .progress-label {
   left: 45px;
   padding-top: 5px;
   width: auto;
 }
-
 #game-info .progress {
   margin-bottom: 5px;
   margin-top: 5px;
 }
-
 #game-info .cargo td {
   padding: 0;
 }
-
 #game-info .page {
   display: none;
   padding-left: 1em;
   padding-right: 1em;
 }
-
 .mission .block-label {
   margin-left: -2.1em;
   margin-right: -2.1em;
   padding-left: 2.1em;
 }
-
 .mission .requirements {
   list-style: none;
   margin-top: 7px;
   padding-left: 0px;
 }
-
 .mission .requirements li {
   clear: both;
 }
-
 .mission .requirements .glyphicon {
   color: #9F9;
   float: left;
   padding: 10px 10px 10px 0;
 }
-
 .mission .requirements .glyphicon-remove {
   color: #F99;
 }
-
 #game-info .page.active {
   display: block;
 }
-
 #game-info .page:first-child {
   padding-left: 0;
 }
-
 #game-info .page:last-child {
   padding-right: 0;
 }
-
 #game-info .page:first-child .arrow-left,
 #game-info .page:last-child .arrow-right {
   display: none;
 }
-
-
 #game-info .arrow-left,
 #game-info .arrow-right {
   color: #2a9fd6;
@@ -874,24 +770,16 @@ input.inline:disabled {
   top: 7em;
   transform: scale(1, 5);
 }
-
 #game-info .arrow-left { left: 0.25em; }
 #game-info .arrow-right { right: 0.25em; }
-
 #game-info .arrow-right:hover,
 #game-info .arrow-left:hover {
   color: #2386b4;
 }
-
-.intro-main { display: none; }
-#game-info .intro-help { display: none; }
-#game-info .intro-main { display: block; }
-
 .buy,
 .sell {
   overflow: hidden;
 }
-
 .buy table,
 .sell table {
   background: none;
@@ -900,76 +788,61 @@ input.inline:disabled {
 
   width: 100%;
 }
-
 .buy tr,
 .sell tr {
   border-bottom: 1px solid #444;
 }
-
 .buy tr:nth-child(even),
 .sell tr:nth-child(odd) {
   background-color: #111;
 }
-
 .buy td,
 .sell td {
   width: 10%;
 }
-
 .buy td:first-child,
 .sell td:first-child {
   padding: 3px 0 3px 10px;
   text-align: left;
   width: 50%;
 }
-
 .buy td:nth-child(2),
 .sell td:nth-child(2) {
   padding-right: 10px;
 }
-
-
 .buy td:last-child,
 .sell td:last-child {
   padding-right: 10px;
 }
-
 .plus,
 .minus {
   cursor: pointer;
   user-select: none;
   -moz-user-select: none;
 }
-
 .block-summary {
   clear: both;
   margin: 10px;
   text-align: center;
 }
-
 .block-summary span {
   font-weight: 700;
 }
-
 .high {
   color: #FAA;
 }
-
 .low {
   color: #AFA;
 }
-
 .carry.out, .result.negative {
   color: #F77;
 }
-
 .progress-label {
   color: #fff;
   left: 0;
   position: absolute;
   width: 100%;
 }
-
 .nextDay {
   background: #000;
   display: block;
@@ -977,35 +850,28 @@ input.inline:disabled {
   position: absolute;
   text-align: center;
 }
-
 .nextDay h2 {
   margin: 0;
   position: relative;
   top: 33%;
 }
-
 .nextDay h3 {
   margin: 0 0 20px;
   position: relative;
   top: 33%;
 }
-
 .set-sail {
   background-image: url("../content/misc/world.png");
   background-repeat: repeat;
   background-size: 4000px 3000px;
 }
-
 options {
   left: 0;
+  pointer-events: none;
   position: absolute;
   text-align: center;
   top: -37px;
   width: 100%;
-}
-
-.screen options button.btn:first-child {
-  border-top-left-radius: 0;
 }
 
 .screen options button.btn {
@@ -1016,15 +882,13 @@ options {
   border-style: solid;
   border-width: 1px 1px 0;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.5) inset;
-  z-index: 1;
+  pointer-events: all;
 }
-
 .location {
   margin-left: 4px;
   margin-top: 4px;
   position: absolute;
 }
-
 .location:before {
   color: #FFF;
   content: "・";
@@ -1034,13 +898,11 @@ options {
   position: absolute;
   top: -30px;
 }
-
 .location .name {
   border: none;
   color: #FFF;
   padding: 0;
 }
-
 .location .full {
   clip: rect(-25px, 350px, -25px, 0);
   background: #000;
@@ -1055,18 +917,15 @@ options {
   width: 350px;
   z-index: 1;
 }
-
 .location.show-full .full {
   border-color: #777;
   clip: rect(-25px, 350px, 350px, 0);
 }
-
 .location:hover .full {
   border-color: #777;
   clip: rect(-25px, 350px, 350px, 0);
   transition: clip 0.5s ease 0.75s;
 }
-
 .location .full > .name {
   cursor: default;
   font-size: 1.3em;
@@ -1076,23 +935,34 @@ options {
   top: -25px;
   width: auto;
 }
-
 .location img {
   float: left;
   cursor: pointer;
   margin: 1em 1em 1em 0;
   width: 12em;
 }
-
 .location .full .description {
   clear: none;
 }
-
 .dis {
   cursor: default;
   opacity: 0.7;
 }
-
 .sail .job {
   cursor: pointer;
+}
+.expenses table {
+  margin: 12px 0;
+  width: 100%;
+}
+.expenses td:first-child {
+  width: 150px;
+}
+.tooltip.help { z-index: 1; }
+.tooltip.left.help .tooltip-arrow { border-left-color: #2A9FD6; }
+.tooltip.right.help .tooltip-arrow { border-right-color: #2A9FD6; }
+.tooltip.top.help .tooltip-arrow { border-top-color: #2A9FD6; }
+.tooltip.bottom.help .tooltip-arrow { border-bottom-color: #2A9FD6; }
+.tooltip.help .tooltip-inner {
+  background-color: #2A9FD6;
 }
