@@ -1,7 +1,7 @@
 # Setting up a whole bunch of global functions to make rendering pages more convenient.
 # lastP is always the most recent person one of these functions has been called with - using this as a default argument makes possible things like "#{He @CrewMember} hands #{his} cup to her." - notice how the second use doesn't require an argument.
 lastP = null
-q = (person = lastP)->
+window.q = (person = lastP)->
   lastP = person
   return "<q style='color: #{person.text or '#FFF'}' title='#{person}'>"
 q.toString = q
@@ -14,13 +14,13 @@ window.his = (p = lastP)-> lastP = p; if p.gender is 'f' then 'her' else 'his'
 window.His = (p = lastP)-> lastP = p; if p.gender is 'f' then 'Her' else 'His'
 window.boy = (p = lastP)-> lastP = p; if p.gender is 'f' then 'girl' else 'boy'
 window.man = (p = lastP)-> lastP = p; if p.gender is 'f' then 'woman' else 'man'
-window.he.toString = window.he
-window.He.toString = window.He
-window.him.toString = window.him
-window.his.toString = window.his
-window.His.toString = window.His
-window.boy.toString = window.boy
-window.man.toString = window.man
+he.toString = he
+He.toString = He
+him.toString = him
+his.toString = his
+His.toString = His
+boy.toString = boy
+man.toString = man
 
 statSchema = {type: 'number', gte: 0, lte: 100}
 

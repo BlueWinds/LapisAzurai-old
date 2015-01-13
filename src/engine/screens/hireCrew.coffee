@@ -31,6 +31,7 @@ Page.HireCrewOne = class HireCrewOne extends Page
     </text>
   </page>"""
   apply: ->
+    super()
     cost = -hireCost(@context.asArray(), @context)
     g.applyEffects {money: [cost, "Hired #{@context[0]}"]}
     g.crew.push @context[0]
@@ -51,11 +52,11 @@ Page.HireCrewMulti = class HireCrewMulti extends Page
       </text>
     </page>"""
   apply: ->
+    super()
     cost = -hireCost(@context.asArray(), @context)
     g.applyEffects {money: [cost, "Hired #{@context.length.toWord()} sailors"]}
     for crew in @context.asArray()
       g.crew.push crew
-
 
 window.RandomPerson = class RandomPerson extends Person
   @schema: $.extend true, {}, Person.schema,
@@ -82,7 +83,7 @@ window.RandomPerson = class RandomPerson extends Person
 # Generates a random person.
 Person.random = (baseClasses)->
   base = Math.choice(baseClasses)
-  name = randomName base.names
+  name = String.randomName base.names
   person = new base
     name: name
   person.color = for layer in base.colors
@@ -113,6 +114,8 @@ Job.HireCrew = class HireCrew extends Job
   crew: 0
   hires: new Collection
   apply: ->
+    super()
+
     leave = if g.weather is 'storm'
       Math.choice [0, 0, 0, 0, 0, 1, 2]
     else
@@ -129,9 +132,8 @@ Job.HireCrew = class HireCrew extends Job
 
     while @hires.length < count
       @hires.push Person.random @constructor.hireClasses
-    return
 
-Job.HireCrew::next = Page.HireCrew2 = class HireCrew2 extends Page
+Job.HireCrew::next = Page.HireCrew = class HireCrew extends Page
   conditions:
     Assistant: {optional: true}
     hires: '|last|hires'
@@ -168,7 +170,7 @@ Job.HireCrew::next = Page.HireCrew2 = class HireCrew2 extends Page
       </form>
       <text class="short">
         #{@job.description.call @}
-        <options><button class="btn btn-primary">Done</button></options>
+        #{options ['Done']}
       </text>
     </page>"""
     return applyHire.call @, element
@@ -231,6 +233,7 @@ applyHire = (element)->
       g.queue.unshift(new Page.HireCrewMulti)
       g.queue[0].context = newCrew
 
-    setTimeout((->Game.gotoPage(1, true)), 0)
+    Game.gotoPage()
     return false
+
   return element

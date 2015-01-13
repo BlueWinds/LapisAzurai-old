@@ -1,3 +1,5 @@
+injuredThreshold = -6
+
 Person.stats.endurance = "Endurance<br>How much energy this person has when fully rested."
 Person.stats.energy = "Energy<br>When this reaches 0, a person cannot perform any jobs except resting."
 
@@ -37,8 +39,12 @@ window.Officer = class Officer extends Person
   energy: 0
   endurance: 0
 
+  Object.defineProperty @::, 'sick',
+    get: -> @energy <= injuredThreshold
+
   renderBlock: (key, classes = '')->
     classes += ' officer'
+    if @energy <= injuredThreshold then classes += ' injured'
     super(key, classes)
 
 

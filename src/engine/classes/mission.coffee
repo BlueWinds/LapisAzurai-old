@@ -16,6 +16,9 @@ window.Mission = class Mission extends GameObject
         optional: true
         eq: true
       effects: Page.schema.properties.effects
+      removeWhenDone: # This mission finishes automatically, rather than waiting around completed for someone to finish it.
+        optional: true
+        eq: true
 
   renderBlock: (key)->
     tasks = for task in @tasks
@@ -32,21 +35,22 @@ window.Mission = class Mission extends GameObject
   addAs: (key)->
     element = $ @renderBlock key
     $('#game-info').append element
+    g.missions[key] = @
 
   removeAs: (key)->
     $('#game-info [mission="' + key + '"]').remove()
     if @effects then g.applyEffects @effects
-
-  @end = (key)->
-    element = $('#game-info div[mission="' + key + '"]')
-    $('.arrow-left', element).click()
-    element.remove()
     delete g.missions[key]
 
 renderTask = (task, context)->
-  match = context.matches task.conditions
+  match = if task.conditions and context.matches task.conditions
+    'ok'
+  else if task.conditions
+    'remove'
+  else
+    'filter'
   return """<li>
-    <span class="glyphicon glyphicon-#{if match then "ok" else "remove"}"></span>
+    <span class="glyphicon glyphicon-#{match}"></span>
     #{task.description.call?(context) or task.description}
   </li>"""
 

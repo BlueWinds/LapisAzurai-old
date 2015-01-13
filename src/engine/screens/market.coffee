@@ -57,17 +57,17 @@ Job.Market::next = Page.Market = class Market extends Page
     buy = for name, [increment, price] of @market.buy
       item = Item[name]
       increment = incrementMultiplier increment, business
-      item.buyRow increment, price, name
+      item.buyRow increment, price
     sell = for name, [increment, price] of @market.sell
       item = Item[name]
-      amount = g.map.Ship.cargo[name]
+      amount = g.cargo[name]
       increment = incrementMultiplier increment, business
-      item.sellRow increment, price, amount, name
-    for name, amount of g.map.Ship.cargo when not @market.sell[name]
+      item.sellRow increment, price, amount
+    for name, amount of g.cargo when not @market.sell[name]
       item = Item[name]
-      sell.push item.sellRow undefined, undefined, amount, name
+      sell.push item.sellRow undefined, undefined, amount
 
-    cargo = Math.sumObject(g.map.Ship.cargo) / Game.cargo * 100
+    cargoPercent = Math.sumObject(g.cargo) / Game.cargo * 100
 
     img = if g.weather is 'calm' then g.location.images.marketDay else g.location.images.marketStorm
     element = """<page class="screen" bg="#{img}">
@@ -91,15 +91,15 @@ Job.Market::next = Page.Market = class Market extends Page
             </div>
             <div class="block-summary">
               <div class="progress-label">The Lapis Azurai</div>
-              <div class="progress"><div class="progress-bar" style="width: #{cargo}%;"></div></div>
+              <div class="progress"><div class="progress-bar" style="width: #{cargoPercent}%;"></div></div>
             </div>
           </div>
         </div>
       </form>
       <text class="short">
         #{@market.description.call @}
-        <options><button class="btn btn-primary">Done</button></options>
-      </text>
+        #{options ['Done']}
+        </text>
     </page>"""
     return applyMarket.call(@, element)
 
@@ -112,7 +112,7 @@ applyMarket = (element)->
   context = @
 
   carry = maxLoad(@workers)
-  cargo = Math.sumObject g.map.Ship.cargo
+  cargo = Math.sumObject g.cargo
 
   business = g.officers.Nat.get 'business', @
 
@@ -159,7 +159,7 @@ applyMarket = (element)->
     unless $('.plus', @).html() then return
 
     item = $(@).attr('item')
-    available = g.map.Ship.cargo[item] or 0
+    available = g.cargo[item] or 0
     count = 0
     increment = incrementMultiplier sell[item][0], business
     cost = sell[item][1]
@@ -220,18 +220,18 @@ applyMarket = (element)->
       unless count then return
 
       item = $(@).attr 'item'
-      g.map.Ship.cargo[item] or= 0
-      g.map.Ship.cargo[item] += count
+      g.cargo[item] or= 0
+      g.cargo[item] += count
     $('.sell tr', element).each ->
       count = parseInt $('.count', @).html(), 10 or 0
       unless $('.plus', @).html() and count then return
 
       item = $(@).attr 'item'
-      g.map.Ship.cargo[item] -= count
-      unless g.map.Ship.cargo[item]
-        delete g.map.Ship.cargo[item]
+      g.cargo[item] -= count
+      unless g.cargo[item]
+        delete g.cargo[item]
 
-    setTimeout((->Game.gotoPage(1, true)), 0)
+    Game.gotoPage()
     return false
 
   return element

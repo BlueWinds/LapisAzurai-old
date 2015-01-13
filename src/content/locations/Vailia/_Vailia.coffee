@@ -1,11 +1,22 @@
 Job.VailiaHireCrew = class VailiaHireCrew extends Job.HireCrew
   @hireClasses: [Person.VailianCrewM, Person.VailianCrewF, Person.VailianCrewM2, Person.VailianCrewF2]
 
-
 Job.VailiaMarket = class VailiaMarket extends Job.Market
   buy: new Collection
+    Fish: [50, 3]
+    Barley: [50, 4]
+    "Wool Cloth": [10, 5]
+    Wood: [40, 6]
+    "Naval Supplies": [20, 6]
+    "Maiden's Tea": [12, 8]
+    "Trade Tools": [4, 25]
+    "Vailian Steel": [10, 20]
   sell: new Collection
-
+    Barley: [40, 4]
+    Wood: [40, 5]
+    Wheat: [40, 5]
+    "Naval Supplies": [20, 6]
+    Charcoal: [10, 14]
 
 Place.Vailia = Game::map.Vailia = class Vailia extends Place
   name: 'Vailia'
@@ -36,9 +47,11 @@ Place.Vailia::jobs.beach = Job.Beach = class Beach extends Job
     '|weather': {eq: 'calm'}
   label: 'Beach'
   text: ->"""Visit the beach - fun in the sun"""
-  energy: 1
+  energy: 2
+  next: Page.randomMatch
+  @next: []
 
-Job.Beach::next = Page.BeachWood = class BeachWood extends Page
+Job.Beach.next.push Page.BeachWood = class BeachWood extends Page
   conditions:
     ' ': {}
     '|season': {eq: 'Wood'}
@@ -54,7 +67,7 @@ Job.Beach::next = Page.BeachWood = class BeachWood extends Page
     ]}. Though it wasn't the winning entry, #{he} certainly enjoyed #{himself}.</p></text>
   </page>"""
 
-Job.Beach::next = Page.BeachFire = class BeachFire extends Page
+Job.Beach.next.push Page.BeachFire = class BeachFire extends Page
   conditions:
     ' ': {}
     '|season': {eq: 'Fire'}
@@ -62,18 +75,18 @@ Job.Beach::next = Page.BeachFire = class BeachFire extends Page
     <text><p>The hot days of #{g.month} Fire demanded nothing other than a visit to the beach, and #{@[' ']} was perfectly obliging towards such a demand. #{He} was also obliging towards another demand – that #{he} join in a game of volleyball, to make the teams even. Win, lose or draw - #{he} honestly lost track when the game devolved into a giggling wrestling match, with the entirely of the other team running under the net to tackle them into the sand.</p></text>
   </page>"""
 
-Job.Beach::next = Page.BeachEarth = class BeachEarth extends Page
+Job.Beach.next.push Page.BeachEarth = class BeachEarth extends Page
   conditions:
     ' ': {}
     '|season': {eq: 'Earth'}
   text: ->"""<page bg="#{g.location.images.day}">
-    <text><p>Stealing one of the final days of warmth from #{Descending Earth}, #{@[' ']} took a walk along the beach. It was nearly empty at this time of year, weather uncertain and plenty of work to be done before the cold arrived, leaving #{@[' ']} plenty of space for #{his} wanderings.</p></text>
+    <text><p>Stealing one of the final days of warmth from #{g.month}, #{@[' ']} took a walk along the beach. It was nearly empty at this time of year, weather uncertain and plenty of work to be done before the cold arrived, leaving #{@[' ']} plenty of space for #{his} wanderings.</p></text>
   </page>
   <page>
     <text continue><p>Collecting a couple of shells, #{he} finally settled on a single beautiful spiral. There wasn't much room aboard the Azurai for personal possessions, so memories of a beautiful walk and the single memento would have to be enough.</p></text>
   </page>"""
 
-Job.Beach::next = Page.BeachWater = class BeachWater extends Page
+Job.Beach.next.push Page.BeachWater = class BeachWater extends Page
   conditions:
     ' ': {}
     '|season': {eq: 'Water'}

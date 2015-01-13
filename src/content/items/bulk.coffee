@@ -2,14 +2,14 @@ Item.Barley = new Food
   name: 'Barley'
   type: 'food'
   description: "Barley is the staple grain of Vailia and the surrounding countries, cheap and nutritious and shipped in huge bulk. Because it's so cheap, minor price fluctuations can be worth a fortune."
-  price: 4
+  price: 3
   unit: 'sack'
 
 Item.Wheat = new Food
   name: 'Wheat'
   type: 'food'
   description: "Wheat is another major grain in the Vailian diet - more expensive, wheat bread is a luxury for those of a higher class."
-  price: 6
+  price: 4
   unit: 'sack'
   food: true
 
@@ -33,22 +33,22 @@ Item.Wine = new LuxuryGood
   price: 10
   unit: 'barrel'
 
-Item.Wool = new Item
-  name: 'Wool Yarn'
+Item['Wool Cloth'] = new Item
+  name: 'Wool Cloth'
   description: "Bulk wool is entirely unprofitable to ship without the extra labor necessary to turn it into a more usable form."
   price: 5
-  unit: 'crate'
+  unit: 'skein'
 
 Item.Fish = new Food
   name: 'Fish'
   description: "Smoked, salted and packed in barrels, fish is cheap and will last almost forever."
-  price: 5
+  price: 3
   unit: 'barrel'
 
 Item.Meat = new Food
   name: 'Meat'
   description: "Red meat is a rare delicacy - before the taste is ruined by smoking, salting and being packed in barrels for months on end, that is."
-  price: 6
+  price: 4
   unit: 'barrel'
 
 Item.Fur = new Item
@@ -75,10 +75,16 @@ Item.Steel = new Item
   price: 9
   unit: 'crate'
 
-Item.VailianSteel = new Item
+Item['Vailian Steel'] = new Item
   name: 'Vailian Steel'
   description: "The forges of Vailia produce - according to the standards of other nations - miracles. The process is a closely guarded secret, and the result immensely valuable."
-  price: 18
+  price: 20
+  unit: 'crate'
+
+Item['Trade Tools'] = new Item
+  name: 'Trade Tools'
+  description: "The forges of Vailia produce - according to the standards of other nations - miracles, and its blacksmiths turn it into sewing needles, knives, saws, crowbars, locks, anvils, hammers and a thousand other items."
+  price: 30
   unit: 'crate'
 
 Item.Charcoal = new Item
@@ -93,7 +99,7 @@ Item.Wood = new Item
   price: 4
   unit: 'pallet'
 
-Item.NavalSupplies = new Item
+Item['Naval Supplies'] = new Item
   name: 'Naval Supplies'
   description: "Tar, canvas, nails, tools... all the items needed to keep a ship in repair against the ravages of time and ocean."
   price: 6
@@ -105,7 +111,7 @@ Item.Tea = new LuxuryGood
   price: 15
   unit: 'basket'
 
-Item.MaidenTea = new Item
+Item["Maiden's Tea"] = new Item
   name: "Maiden's Tea"
   description: "A bitter herb made into contraceptive tea. Valued the world over, and commonly available."
   price: 10

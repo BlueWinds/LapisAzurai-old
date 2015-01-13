@@ -32,47 +32,48 @@ Page.Library.next.push Page.LibraryTravel = class LibraryTravel extends Page
   @next = []
 
 Page.LibraryTravel.next.push Page.LibraryTravelAlkenai = class LibraryTravelAlkenai extends Page
+  conditions:
+    ' ': {}
   text: ->"""<page bg="#{marketImage()}">
-    <text continue><p><strong>Alkenai</strong>, a relatively major and independent city, not too far from Mount Julia.</p></text>
+    <text><p>With some careful searching of various travel journals and map fragments, and the (un)help of a thorny librarian, #{@[' ']} managed to find and copy down the details of a new route. With a detailed chart and location, the Lapis could now travel to another destination.</p>
+    <p>Passing through Mt. Julia, one can sail to <strong>Alkenai</strong>, a relatively major and independent city. The closest real settlement to Vailia, it's nominally independent but firmly under Vailia's influence and welcoming of merchants. They'll buy textiles and other Vailian manufactured goods at an excellent price.</p></text>
   </page>"""
+  apply: ->
+    super()
+    g.map.MountJulia.destinations.Alkenai = 7
 
 Page.LibraryTravel.next.push Page.LibraryTravelDirect = class LibraryTravelDirect extends Page
+  conditions:
+    ' ': {}
   text: ->"""<page bg="#{marketImage()}">
-    <text continue><p><strong>A direct route</strong> to Alkenai, bypassing Mount Julia to shave a day off the trip.</p></text>
+    <text><p>With some careful searching of various travel journals and map fragments, and the (un)help of a thorny librarian, #{@[' ']} managed to find and copy down the details of a new route. With a detailed chart and location, the Lapis could now travel to another destination.</p>
+    <p><strong>A direct route</strong> to Alkenai, bypassing Mount Julia to shave a day off the trip. The open ocean route was more dangerous, but possibly worth it.</p></text>
   </page>"""
+  apply: ->
+    super()
+    g.map.Vailia.destinations.Alkenai = 13
+    g.map.Alkenai.destinations.Vailia = 17
 
-Page.LibraryTravel.next.push Page.LibraryTravelWand = class LibraryTravelWand extends Page
-  text: ->"""<page bg="#{marketImage()}">
-    <text continue><p><strong>Wand</strong>, an isolated fishing settlement.</p></text>
-  </page>"""
-
-Page.LibraryTravel.next.push Page.LibraryTravelDirectWand = class LibraryTravelDirectWand extends Page
-  text: ->"""<page bg="#{marketImage()}">
-    <text continue><p>With some careful searching of various travel journals and map fragments, and the (un)help of a thorny librarian, #{@[' ']} managed to find and copy down the details of a new route. With a detailed chart and location, the Lapis could now travel to another destination.</p><p><strong>A direct route</strong> to Wand from Vailia – a perilous trip over the open ocean, but faster than stopping at Mt. Julia.</p></text>
-  </page>"""
-
-Page.LibraryTravel.next.push Page.LibraryTravelAngol = class LibraryTravelAngol extends Page
-  text: ->"""<page bg="#{marketImage()}">
-    <text continue><p><strong>Angol</strong>, the nearest "floating island" to Vailia, and major shipping point for Maidens' Tea.</p></text>
-  </page>"""
-
-Page.LibraryTravel.next.push Page.LibraryTravelSandal = class LibraryTravelSandal extends Page
-  text: ->"""<page bg="#{marketImage()}">
-    <text continue><p><strong>Sandal Cove</strong>, a natural stopping point for ships heading north towards Kantis.</p></text>
-  </page>"""
-
-Page.LibraryTravel.next.push Page.LibraryTravelTomenoi = class LibraryTravelTomenoi extends Page
-  text: ->"""<page bg="#{marketImage()}">
-    <text continue><p><strong>Tomenoi</strong>, the farthest flung Kantian trading post.</p></text>
-  </page>"""
+# Page.LibraryTravel.next.push Page.LibraryTravelNonkenai = class LibraryTravelNonkenai extends Page
+#   text: ->"""<page bg="#{marketImage()}">
+#     <text><p>After passing through Alkenai, one can reach <strong>Nonkenai</strong>, Alkenai's rival city and spiritual center for the continent. Though they stubbornly maintain their independence, they still welcome Vailian merchants and the quality manufactured goods they bring, with a special interest in weapons and other metalwork.</p></text>
+#   </page>"""
+#
+# Page.LibraryTravel.next.push Page.LibraryTravelBlackSands = class LibraryTravelBlackSands extends Page
+#   text: ->"""<page bg="#{marketImage()}">
+#     <text><p><strong>Black Sands</strong>, a mining settlement run by Vailia, and a major source of both raw iron and steel goods. They will buy wood, bulk grain and alcohol at excellent prices.</p></text>
+#   </page>"""
 
 Page.Library.next.push Page.LibraryNap = class LibraryNap extends Page
   conditions:
     ' ': {}
   text: ->"""<page bg="#{marketImage()}">
-    <text><p>Though drawn to the library by the promise of a treasure trove of knowledge, #{@[' ']} couldn't help but be distracted by the beautiful weather. Really, it was hardly #{his} fault at all that a sunbeam crept across the book #{he} was reading, and who could blame #{him} for feeling a bit drowsy in the comfortable heat? No one at all. An expensive place to nap, but a peaceful one.</p></text>
+    <text><p>Though drawn to the library by the promise of a treasure trove of knowledge, #{@[' ']} couldn't help but be distracted by the beautiful weather. Really, it was hardly #{his} fault at all that a sunbeam crept across the book #{he} was reading, and who could blame #{him} for feeling a bit drowsy in the comfortable heat? No one at all. An expensive place to nap, but a peaceful one.</p>
+    <p><em>#{@[' ']}: <span class="energy">+2 energy</span></em></p></text>
   </page>"""
-  apply: -> @context.Guest.add 'energy', 2
+  apply: ->
+    super()
+    @context[' '].add 'energy', 2
 
 Page.Library.next.push Page.LibraryBadBook = class LibraryBadBook extends Page
   conditions:
@@ -81,7 +82,7 @@ Page.Library.next.push Page.LibraryBadBook = class LibraryBadBook extends Page
     <text><p>Though it seemed to be a somewhat trashy romance novel at first glance, a careful analysis of this particular book convinced #{@[' ']} that it was in fact a <em>very</em> trashy romance novel. At least #{he} learned a thing or two about writing – or at the very least what to avoid. <q>His voice is warm and husky like dark melted chocolate fudge caramel… or something...</q></p><p>Or something indeed. #{@[' ']} closed the book.</p></text>
   </page>"""
 
-Vailia::jobs.defense = Job.Defense = class Defense extends Job
+Place.Vailia::jobs.defense = Job.Defense = class Defense extends Job
   label: "Combat Training"
   text: ->"Take a lesson from a retired mercenary in the fine art of not-getting-killed. <em>-3β</em>"
   energy: -2
@@ -91,7 +92,9 @@ Vailia::jobs.defense = Job.Defense = class Defense extends Job
     ' ': {}
   effects:
     money: [-3, 'Self Defense Lesson']
-  apply: -> @context[' '].add 'combat', 3
+  apply: ->
+    super()
+    @context[' '].add 'combat', 3
   next: Page.randomMatch
   @next = []
 
@@ -107,7 +110,7 @@ Job.Defense.next.push Page.DefenseNatalie = class DefenseNatalie extends Page
   </page>
   <page>
     #{@[' '].image 'normal', 'left'}
-    <text continue><p>#{q}I captain a vessel, and figured it would behoove me to know a thing or two more about this than I do.</q> She popped back to her feet and went over to the rack of wooden practice weapons, browsing through it before settling on a narrow wooden blade.</p></text>
+    <text><p>#{q}I captain a vessel, and figured it would behoove me to know a thing or two more about this than I do.</q> She popped back to her feet and went over to the rack of wooden practice weapons, browsing through it before settling on a narrow wooden blade.</p></text>
   </page>
   <page>
     <text continue><p>Torril stood up slowly, unfolding his bulky two meters, shaking his head. <q>I have literally never had to tell someone which end of a sword was which before. Here, that's the grip on the other side...</q></p></text>

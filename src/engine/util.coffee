@@ -9,6 +9,7 @@ String.rate = (string)-> switch string
   when 3 / 4 then 'three quarters'
   when 8 / 10 then '80%'
   when 9 / 10 then '90%'
+  when 1 then 'normal'
   when 2 then 'twice'
   when 3 then 'three times'
   when 4 then 'four times'
@@ -17,6 +18,7 @@ String.rate = (string)-> switch string
   else string
 
 Object.defineProperty Number.prototype, 'toWord', { value: -> switch Number(@)
+  when 0 then 'zero'
   when 1 then 'one'
   when 2 then 'two'
   when 3 then 'three'
@@ -66,8 +68,8 @@ Math.weightedChoice = (weights)->
     choice -= value
     if choice <= 0 then return key
 
-window.randomName = (names, maxLength = 7)->
-  [chains, start] = randomName.chains(names)
+String.randomName = (names, maxLength = 7)->
+  [chains, start] = String.randomName.chains(names)
 
   string = Math.choice(start).split('')
 
@@ -83,7 +85,7 @@ window.randomName = (names, maxLength = 7)->
   string[0] = string[0].toUpperCase()
   return string.join('')
 
-window.randomName.chains = (names)->
+String.randomName.chains = (names)->
   # Building the Markov chains
   chains = {}
   start = []
@@ -97,3 +99,32 @@ window.randomName.chains = (names)->
       chains[token].push(next?.toLowerCase())
 
   return [chains, start]
+
+window.toggle = (options, selected)->
+  options = optionList options, selected
+  return """<span class="btn-group toggle">#{options.join ''}</span>"""
+
+window.bigOptions = (options, selected)->
+  options = optionList options, selected
+  join = '</div><div class="col-md-4 col-xs-6">'
+  return """<div class="bigOptions row"><div class="col-md-4 col-xs-6">#{options.join join}</div></div>"""
+
+window.dropdown = (options, selected)->
+  lis = optionList options, selected
+  return """<button type="button" class="btn btn-default dropdown-toggle inline">#{options[selected]}</button>
+  <span class="dropdown-menu inline">
+    <span>#{lis.join '</span><span>'}</span>
+  </span>"""
+
+window.options = (texts, titles = [])->
+  buttons = for text, index in texts
+    """<button class="btn btn-default" title="#{titles[index] or ""}">#{text}</button>"""
+  return "<options>#{buttons.join()}</options>"
+
+optionList = (options, selected)->
+  name = 'o-' + Math.random()
+  options = for key, option of options
+    _id = 'o-' + Math.random()
+    checked = if selected is key then 'checked' else ''
+    """<input type="radio" id="#{_id}" value="#{key}" #{checked} name="#{name}"><label for="#{_id}">#{option}</label>"""
+  return options

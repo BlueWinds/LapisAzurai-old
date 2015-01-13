@@ -1,5 +1,8 @@
+stormStartChance = 0.02
+stormEndChance = 0.75
+
 window.Game = class Game extends GameObject
-  @cargo: 200
+  @cargo: 100
   @schema:
     type: @
     properties:
@@ -15,13 +18,13 @@ window.Game = class Game extends GameObject
     strict: true
   @passDay: [
     ->
-      if @weather is 'calm' and Math.random() >= 0.97
+      if @weather is 'calm' and Math.random() <= stormStartChance
         @weather = 'storm'
-      else if @weather is 'storm' and Math.random() > 0.6
+      else if @weather is 'storm' and Math.random() < stormEndChance
         @weather = 'calm'
     ->
       unless g.queue.length
-        @queue.push new Page.Port
+        @queue.push new (g.location.constructor.port or Page.Port)
       g.queue.unshift new Page.NextDay
   ]
 
@@ -48,15 +51,16 @@ window.Game = class Game extends GameObject
           obj[key] = @getItem value
         else
           obj[key] = value
+
     recursiveCopy @, gameData
 
   export: ->
     super [], [], ''
 
   content: 'sfw'
-  animation: true
   day: 0
   weather: 'calm'
+  cargo: new Collection
 
   getItem: (path)->
     if typeof path is 'string'
@@ -83,7 +87,7 @@ window.Game = class Game extends GameObject
     wages = Math.sum(person.wages() for name, person of @officers)
     wages += Math.sum(person.wages() for name, person of @crew)
     $('.wages td', element).eq(1).html wages
-    $('.progress-bar', element).css 'width', (Math.sumObject(g.map.Ship.cargo) * 100 / Game.cargo) + "%"
+    $('.progress-bar', element).css 'width', (Math.sumObject(g.cargo) * 100 / Game.cargo) + "%"
     $('.description', element).html @location.description?() or @location.description
 
   startDay = 223
@@ -105,8 +109,8 @@ window.Game = class Game extends GameObject
         property = parts.pop()
         result = if typeof value is 'function' then new value else value
 
-        @getItem(parts.join '|')[property] = result
         if result.addAs then result.addAs property
+        else @getItem(parts.join '|')[property] = result
 
     if effects.remove
       for key, value of effects.remove
@@ -115,18 +119,18 @@ window.Game = class Game extends GameObject
 
         result = @getItem(parts.join '|')[property]
         if result?.removeAs then result.removeAs property
-        delete @getItem(parts.join '|')[property]
+        else delete @getItem(parts.join '|')[property]
     if effects.cargo
       for key, value of effects.cargo
         if typeof value is 'string'
           value = context[value]
 
-        val = g.map.Ship.cargo[key] or 0
+        val = g.cargo[key] or 0
         val += value
         if val > 0
-          g.map.Ship.cargo[key] = val
+          g.cargo[key] = val
         else
-          delete g.map.Ship.cargo[key]
+          delete g.cargo[key]
     if effects.money
       g.officers.Nat.money += effects.money[0]
       g.money.push {amount: effects.money[0], reason: effects.money[1], day: g.day}

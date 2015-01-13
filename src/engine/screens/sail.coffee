@@ -26,6 +26,7 @@ Page.SetSail = class SetSail extends Page
     y = (@port.location[1] - content.height() / 2)
 
     locations = for key, distance of @port.destinations
+      distance = Math.ceil(distance / g.map.Ship.sailSpeed())
       g.map[key].renderBlock([x, y], key, distance)
     locations.push @port.renderBlock([x, y], '', 0, )
 
@@ -39,26 +40,19 @@ Page.SetSail = class SetSail extends Page
       key = $(@).parent().parent().attr 'data-key'
       unless key
         (new Page.Port).show()
+        Game.gotoPage()
         return false
 
-      location = g.map[key]
-      distance = g.location.destinations[key]
+      g.queue.push sailing = new Page.SailDay
+      sailing.context.destination = g.map[key]
+      sailing.context.daysNeeded = g.location.destinations[key]
 
-      for page in [1...distance]
-        g.queue.push new Page.SailDay
-        unless page % eventFrequency then g.queue.push new Page.SailEvent
-
-      g.queue.push(done = new Page.SailDone)
-      done.contextFill()
-      done.context.destination = location
-
-      Game.gotoPage(1, true)
+      Game.gotoPage()
     return page
 
   next: false
 
 sailCost = ->
-  cargo = g.map.Ship.cargo
   used = {happiness: 0}
   people = g.officers.objectLength + g.crew.length
   people = Math.randomRound(people * foodPerPersonDaily)
@@ -66,7 +60,7 @@ sailCost = ->
   food = {}
   totalFood = 0
   luxury = {}
-  for item, amount of cargo
+  for item, amount of g.cargo
     if Item[item] instanceof Food
       food[item] = amount
       totalFood += amount
@@ -91,145 +85,132 @@ sailCost = ->
     used[f] or = 0
     used[f] += 1
 
-  if g.weather is 'storm'
-    wood = Math.floor(Math.random() * maxStormWood) + minStormWood - g.crew.length
-    wood = Math.max(minStormWood, wood)
-    used.wood = Math.min(wood, cargo.wood or 0)
-
-    supplies = Math.floor(Math.random() * (maxStormSupplies - minStormSupplies)) + minStormSupplies
-    used.navalSupplies = Math.min(supplies, cargo.navalSupplies or 0)
-
-    if used.wood < wood
-      used.natEnergy = (used.wood - wood) * natEnergyPerWood
-    if used.navalSupplies < supplies
-      used.natEnergy or= 0
-      used.natEnergy += (used.navalSupplies - supplies) * natEnergyPerSupplies
-    if used.natEnergy
-      used.natEnergy = Math.floor(natEnergy)
-
+  used.happiness = (used.noLuxury or 0) * noLuxuryUnhappiness + (used.noFood or 0) * noFoodUnhappiness
   unless used.happiness then delete used.happiness
+
   return used
 
 Page.SailDay = class SailDay extends Page
-  conditions:
-    Ship: '|map|Ship'
-    cost: {fill: sailCost}
+  # "daysNeeded" and "destination" are filled in by setSail
   text: ->
-    costDescription = for item, amount of @cost when Item[item]
-      left = @Ship.cargo[item] - amount
-      item = Item[item]
-      "#{item.name.capitalize()}: #{-amount} (#{item.amount(left)} left)"
+    costDescription = Item.costDescription(@cost)
 
     other = []
     if @cost.noFood
-      other.push "Because there wasn't enough food, people went hungry (<span class='happiness'>-#{@cost.noFood} happiness</span>)."
+      other.push "Because there wasn't enough food people went hungry (<span class='happiness'>-#{@cost.noFood} happiness</span>)."
     if @cost.noLuxury
-      other.push "Without any luxuries to keep them happy, the sailors were restless (<span class='happiness'>-1 happiness</span>)."
-    if @cost.natEnergy
-      other.push "Natalie exhausted and hurt herself keeping the ship afloat despite a lack of wood or naval supplies (<span class='happiness'>-#{@cost.natEnergy}</span>, <class='energy'>-#{@cost.natEnergy}</span>)."
+      other.push "Without any luxuries to keep them happy the sailors were restless (<span class='happiness'>-1 happiness</span>)."
+
+    ship = g.map.Ship
 
     img = Math.choice ['deckDay', 'deckNight', 'day', 'night']
-    page = $ """<page slow class="screen sail" bg="#{@Ship.images[img]}"><text>
-      <p><em>#{costDescription.join ', '}</em></p>
-      #{if other.length then "<p><em>" + other.join(' ') + ".</em></p>" else ""}
+    page = $ """<page slow auto="3000" class="screen sail" bg="#{g.map.Ship.images[img]}"><text>
+      <p><em>#{costDescription}</em></p>
+      #{if other.length then "<p><em>" + other.join(' ') + "</em></p>" else ""}
+      #{if ship.damage then "<p><em>" + ship.damageDescription() + "</em></p>" else ""}
     </text></page>"""
-    page.delay(3000).queue 'fx', (next)->
-      if page.hasClass 'active'
-        Game.gotoPage(1)
+
     return page
 
   apply: ->
+    @context.days or= 0
+    cost = @context.cost = sailCost()
+    super()
     for name, officer of g.officers
       officer.add('energy', 1)
 
-    cost = @context.cost
     for item, amount of cost when Item[item]
-      @context.Ship.cargo[item] -= amount
-      unless @context.Ship.cargo[item] then delete @context.Ship.cargo[item]
+      g.cargo[item] -= amount
+      unless g.cargo[item] then delete g.cargo[item]
 
-    happiness = (cost.noLuxury or 0) * noLuxuryUnhappiness + (cost.noFood or 0) * noFoodUnhappiness
-    if happiness
+    if cost.happiness
       for name, person of g.crew
-        person.add 'happiness', -happiness
+        person.add 'happiness', -cost.happiness
       for name, person of g.officers
-        person.add 'happiness', -happiness
-    if cost.natEnergy
-      g.officers.Nat.energy -= cost.natEnergy
-      g.officers.Nat.add('happiness', -cost.natEnergy)
+        person.add 'happiness', -cost.happiness
 
-    g.passDay()
+    @context.days += g.map.Ship.sailSpeed()
+    if @context.days < @context.daysNeeded
+      g.queue.push @
+      g.passDay()
+
+  next: ->
+    if @context.days and @context.days % eventFrequency is 0
+      return Page.SailEvent
+    else if @context.days >= @context.daysNeeded
+      return Page.SailDone
+    return
 
 Page.SailDone = class SailDone extends Page
-  text: ->
-    if @destination.arrive?[0] is g.day then return ''
-    page = $ """
-      <page slow bg="#{@destination.images.day}">
-        <text class="short">#{@destination.description?() or @destination.description}</text>
-      </page>"""
-    page.delay(2500).queue 'fx', (next)->
-      if page.hasClass 'active'
-        Game.gotoPage(1)
-    return page
-
+  conditions:
+    destination: {}
+  text: ->false
   apply: ->
-    if @context.destination.firstVisit and not @context.destination.arrive
-      g.queue.push new @context.destination.firstVisit
+    super()
+
     g.location = @context.destination
     g.location.arrive or= []
     g.location.arrive.unshift g.day
     if g.location.arrive.length > 10 then g.location.arrive.pop()
-  next: ->
     unless g.location.majorPort
-      return Page.Port
-    leaving = new Context
+      return
+    leaving = new Collection
     g.crew = g.crew.filter (sailor)->
       if sailor.happiness + Math.random() * maxHappinessToLeave / zeroHappinessChanceToLeave < maxHappinessToLeave
         leaving.push sailor
-        return true
-      return false
+        return false
+      return true
 
     unless leaving.length
-      return Page.Port
-    next = if leaving.length is 1
+      return
+    g.queue.push next = if leaving.length is 1
       new Page.OneCrewLeaving
     else
       new Page.ManyCrewLeaving
     next.context = leaving
-    return next
+
+  next: ->
+    if @context.destination.firstVisit and @context.destination.arrive.length is 1
+      return @context.destination.firstVisit
+    return
 
 Page.SailEvent = class SailEvent extends Page
   conditions:
     Ship: '|map|Ship'
   text: ->
 
-    jobs = for key, job of @Ship.jobs when job instanceof Job or job.prototype instanceof Job
+    jobs = $('')
+    for key, job of @Ship.jobs when job instanceof Job or job.prototype instanceof Job
       if typeof job is 'function'
         job = @Ship.jobs[key] = new job
       job.contextFill()
       unless job.contextMatch()
         continue
-      job.renderBlock key
+      jobs = jobs.add job.renderBlock(key)
+      jobs.last().data 'job', job
 
-    jobs.sort Job.jobSort
+    Array::sort.call(jobs, Job.jobSort)
 
     img = Math.choice ['deckDay', 'deckNight', 'day', 'night']
-    return sailClick $("""<page verySlow class="screen sail" bg="#{@Ship.images[img]}">
+    page = $("""<page verySlow class="screen sail" bg="#{@Ship.images[img]}">
       <div class="col-xs-8 col-xs-offset-2">
-        <div class="col-xs-6">#{jobs.join('</div>\n<div class="col-xs-6">')}</div>
       </div>
     </page>""")
+    $('.col-xs-8', page).append jobs
+    jobs.wrap('<div class="col-xs-6"></div>')
+
+    return sailClick page
 
   next: false
 
 sailClick = (element)->
   $('.job', element).click (e)->
-    key = $(@).attr('data-key')
-    g.queue.unshift g.map.Ship.jobs[key]
-
-    setTimeout((->Game.gotoPage(1, true)), 0)
-
     e.preventDefault()
+    g.queue.unshift $(@).data('job')
+
+    Game.gotoPage()
     return false
+
   return element
 
 

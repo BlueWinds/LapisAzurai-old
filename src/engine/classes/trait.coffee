@@ -31,6 +31,7 @@ Person.schema.properties.traits =
     type: Trait
 
 Person::get = (stat, context)->
+  unless @[stat]? then throw new Error "#{@} doesn't have the stat #{stat}"
   value = @[stat]
   if @traits
     for key, trait of @traits when trait[name]
@@ -43,11 +44,13 @@ Person::get = (stat, context)->
 Person::add = (stat, amount)->
   if @traits
     for key, trait of @traits when trait[stat + 'Set']
-      amount = if typeof trait[name + 'Set'] is 'function'
-        trait[name + 'Set'](@, amount)
+      amount = if typeof trait[stat + 'Set'] is 'function'
+        trait[stat + 'Set'](@, amount)
       else
-        amount * trait[name + 'Set']
+        amount * trait[stat + 'Set']
   @[stat] += amount
+  # Randomly round non-whole number stats
+  @[stat] = Math.floor(@[stat]) + (Math.random() < @[stat] % 1)
   if stat is 'energy'
     @energy = Math.min @energy, @endurance
   else

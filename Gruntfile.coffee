@@ -2,11 +2,12 @@ fs = require 'fs'
 async = require('async')
 Canvas = require('canvas')
 
+files = require './src/loadOrder'
+
 grunt = null
 
 module.exports = (g) ->
   grunt = g
-  grunt.loadNpmTasks 'grunt-debug'
   grunt.loadNpmTasks 'grunt-contrib-coffee'
   grunt.loadNpmTasks 'grunt-coffeelint'
   grunt.loadNpmTasks 'grunt-contrib-watch'
@@ -16,63 +17,7 @@ module.exports = (g) ->
   config = {
     coffee:
       compile:
-        files: 'game/compiled.js': [
-          # First the game engine
-          'src/engine/feature-detect.coffee'
-          'src/engine/util.coffee'
-          'src/engine/classes/base.coffee'
-          'src/engine/classes/game.coffee'
-          'src/engine/classes/page.coffee'
-          'src/engine/classes/person.coffee'
-          'src/engine/classes/officer.coffee'
-          'src/engine/classes/trait.coffee'
-          'src/engine/classes/job.coffee'
-          'src/engine/classes/mission.coffee'
-          'src/engine/classes/place.coffee'
-          'src/engine/classes/item.coffee'
-          'src/engine/load.coffee'
-
-          'src/engine/screens/nextDay.coffee'
-          'src/engine/screens/port.coffee'
-          'src/engine/screens/sail.coffee'
-          'src/engine/screens/hireCrew.coffee'
-          'src/engine/screens/market.coffee'
-          'src/engine/screens/financial.coffee'
-
-          # Then the content
-          'src/content/traits/basicStats.coffee'
-
-          'src/content/people/Natalie/_.coffee'
-          'src/content/people/James/_.coffee'
-          'src/content/people/Kat/_.coffee'
-          'src/content/people/Guildmaster/_.coffee'
-          'src/content/people/Meghan/_.coffee'
-          'src/content/people/Nobles/_.coffee'
-          'src/content/people/Judge/_.coffee'
-
-          'src/content/people/Crew/_.coffee'
-          'src/content/people/Crew2/_.coffee'
-          'src/content/people/GuardM/_.coffee'
-          'src/content/people/MerchantM/_.coffee'
-          'src/content/people/MerchantF/_.coffee'
-          'src/content/people/MerchantRich/_.coffee'
-
-          'src/content/locations/Ship/_Ship.coffee'
-          'src/content/locations/Vailia/_Vailia.coffee'
-          'src/content/locations/Vailia/_Jobs.coffee'
-          'src/content/locations/Vailia/_GuildWork.coffee'
-          'src/content/locations/Vailia/_MtJulia.coffee'
-#           'src/content/locations/Kantis/_Kantis.coffee'
-
-          'src/content/items/bulk.coffee'
-
-          'src/content/intro/introCity.coffee'
-          'src/content/intro/introText.coffee'
-
-        ]
-        options:
-          join: true
-          sourceMap: true
+        files: 'game/compiled.js': files.map (f)->('src/' + f)
     coffeelint:
       app: ['src/**/*.coffee']
       options:
@@ -145,7 +90,7 @@ loadGameObjects = ->
   html = fs.readFileSync('index.html').toString()
 
   unless global.window
-    window = global.window = {}
+    global.window = global
     global.$ = ->
     global.$.extend = ->
 

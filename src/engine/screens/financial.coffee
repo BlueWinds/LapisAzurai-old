@@ -1,8 +1,4 @@
 Game.passDay.push ->
-  if g.day % 7 then return
-
-
-Game.passDay.push ->
   if g.day % 7
     return
 
@@ -25,7 +21,7 @@ Game.passDay.push ->
   for name, person of g.officers when person.wages()
     person.add 'happiness', change
 
-  g.queue.unshift new Page.Financial
+#   g.queue.unshift new Page.Financial
 
 Game::money = []
 Game.schema.properties.money =

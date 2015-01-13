@@ -64,7 +64,7 @@ Page.Intro = class Intro extends Page
     element.first().help {
       target: $('#nav-arrows')
       placement: 'left'
-      title: "Move between pages using these arrows, your mouse wheel, or the arrow keys."
+      title: "Move between pages using these arrows or the arrow keys."
     }
 
     element.filter('.select-color').help {
@@ -123,7 +123,6 @@ Page.Intro::next = Page.Intro2 = class Intro2 extends Page
     add:
       '|missions|meet': Mission.MeetGuildmaster
       '|location|jobs|visit': Job.IntroVisitGuildmaster
-  next: Page.PortIntro
 
 
 Job.IntroVisitGuildmaster::next = Page.IntroVisitGuildmaster = class IntroVisitGuildmaster extends Page
@@ -132,73 +131,63 @@ Job.IntroVisitGuildmaster::next = Page.IntroVisitGuildmaster = class IntroVisitG
     Nat: '|officers|Nat'
     Guildmaster: '|people|Guildmaster'
     Vailia: '|map|Vailia'
-  text: ->
-    element = $ """<page bg="#{@Vailia.images.guildOffice}">
-      <text><p>The Guild.</p></text>
-    </page>
-    <page>
-      <text continue><p>James hesitated at the doors, then hurried to join her when Natalie shot him an impatient look. The lobby was rather busy this morning – preparations for the annual festival of lights, the longest day of the year made even longer by a celebration that ran through the night.</p></text>
-    </page>
-    <page>
-      <text><p><q>The Guildmaster is waiting for you in his office,</q> the young man at the front desk prompted, sounding a little envious. Though Natalie was barely a year older than him, that she'd have the attention of the Guildmaster was unusual, to say the least. He'd never even spoken with many of the "Guild children."</p></text>
-    </page>
-    <page>
-      #{@Nat.image 'normal', 'left'}
-      <text continue><p>#{q}Thanks. Light a candle for me,</q> she leaned over the desk and pinched his cheek. #{q @Nat}I'm going to have to miss the festival this year.</q></p></text>
-    </page>
-    <page>
-      <text continue><p><q>Will do, Nat,</q> he swatted away her hand with a grin. Envious or not, those lifted off the streets and raised together looked out for their own.</p></text>
-    </page>
-    <page>
-      #{@Guildmaster.image 'normal', 'right'}
-      <text><p>Janos looked up as Natalie entered, trailed a moment later by James. Though he had assistants to handle all the papers necessary, still he preferred to touch at least some of that work himself, to understand the details and not merely the overview of the Guild's operations. Natalie briefly saw a column of figures – expenses, deposits – before he leaned forward, covering it with one arm.</p></text>
-    </page>
-    <page>
-      #{@Guildmaster.image 'smiling', 'right'}
-      <text><p>#{q}Please, I'm not going to bite. James Thadel, is it? I understand you're to be Natalie's first mate?</q></p></text>
-    </page>
-    <page>
-      #{@James.image 'blush', 'left'}
-      <text continue><p>#{q}Sorry sir, yes sir,</q> James stood up straighter, self consciously moving out from his position half hidden behind her. #{q}Quartermaster, actually.</q></p></text>
-    </page>
-    <page>
-      #{@Guildmaster.image 'thinking', 'right'}
-      <text><p>#{q}Please take as good care of her as we have,</q> he gestured to a pair of chairs in front of his desk. Natalie relaxed into hers, while James perched on the edge. It was his first time meeting Janos, and she couldn't help but chuckle at his nervousness. She'd been awed too, at her first encounter with one of the second most powerful man in the city – but eight year old Natalie had gotten over that nervousness by promptly sitting in his lap, rather than the offered chair. She smiled at the memory. He'd approved, as Wend had said he would, rather than scolding her.</p></text>
-    </page>
-    <page>
-      #{@Guildmaster.image 'normal', 'right'}
-      <text continue><p>#{q}When do you set sail?</q></p></text>
-    </page>
-    <page>
-      #{@Nat.image 'normal', 'left'}
-      <text><p>#{q}Soon. Two, three days. We've finished going over every inch of planking, and the initial trials around the island went well – please thank Captain Johnson for assisting us with that, if you see him. I have discussed prices for our first cargo with...</q> Natalie listed off the preparations she'd made for departure, while Janos listened attentively, interjecting occasionally with tidbits of advice. He was one of the finest business minds in the city, and it comforted her to know that he would catch anything she'd forgotten to do. Which was, she suspected, the actual point of this meeting – protecting his investment. Managing a merchant ship was not the Guild's usual line of business.</p></text>
-    </page>
-    <page>
-      #{@Guildmaster.image 'thinking', 'right'}
-      <text><p>#{q}Very thorough. I have nothing more to add.</q> He jotted down a note, and nodded.</p></text>
-    </page>
-    <page>
-      #{@Nat.image 'excited', 'center'}
-      <text continue><p>Natalie grinned at that – as much approval as he ever showed of anything. Impulsively she stood and leaned over the desk, planting a kiss on his cheek before he could say anything. She quickly retreated back to her seat, sitting on her hands lest they do anything else untoward.</p></text>
-    </page>
-    <page>
-      #{@Guildmaster.image 'normal', 'right'}
-      <text><p>#{q}Please let me know when you return.</q> He didn't react to her gesture, other than to adjust a stack of papers back into place, but she suspected he was pleased. Hard to tell, with the Guildmaster. She also knew a dismissal when she heard one.</p></text>
-    </page>
-    <page class="given-mission">
-      #{@Guildmaster.image 'normal', 'right'}
-      <text continue><p><em>New Mission: <strong>Prepare to set sail</strong></em></p></text>
-    </page>"""
+  text: ->"""<page bg="#{@Vailia.images.guildOffice}">
+    <text><p>The Guild.</p></text>
+  </page>
+  <page>
+    <text continue><p>James hesitated at the doors, then hurried to join her when Natalie shot him an impatient look. The lobby was rather busy this morning – preparations for the annual festival of lights, the longest day of the year made even longer by a celebration that ran through the night.</p></text>
+  </page>
+  <page>
+    <text><p><q>The Guildmaster is waiting for you in his office,</q> the young man at the front desk prompted, sounding a little envious. Though Natalie was barely a year older than him, that she'd have the attention of the Guildmaster was unusual, to say the least. He'd never even spoken with many of the "Guild children."</p></text>
+  </page>
+  <page>
+    #{@Nat.image 'normal', 'left'}
+    <text continue><p>#{q}Thanks. Light a candle for me,</q> she leaned over the desk and pinched his cheek. #{q @Nat}I'm going to have to miss the festival this year.</q></p></text>
+  </page>
+  <page>
+    <text continue><p><q>Will do, Nat,</q> he swatted away her hand with a grin. Envious or not, those lifted off the streets and raised together looked out for their own.</p></text>
+  </page>
+  <page>
+    #{@Guildmaster.image 'normal', 'right'}
+    <text><p>Janos looked up as Natalie entered, trailed a moment later by James. Though he had assistants to handle all the papers necessary, still he preferred to touch at least some of that work himself, to understand the details and not merely the overview of the Guild's operations. Natalie briefly saw a column of figures – expenses, deposits – before he leaned forward, covering it with one arm.</p></text>
+  </page>
+  <page>
+    #{@Guildmaster.image 'smiling', 'right'}
+    <text><p>#{q}Please, I'm not going to bite. James Thadel, is it? I understand you're to be Natalie's first mate?</q></p></text>
+  </page>
+  <page>
+    #{@James.image 'blush', 'left'}
+    <text continue><p>#{q}Sorry sir, yes sir,</q> James stood up straighter, self consciously moving out from his position half hidden behind her. #{q}Quartermaster, actually.</q></p></text>
+  </page>
+  <page>
+    #{@Guildmaster.image 'thinking', 'right'}
+    <text><p>#{q}Please take as good care of her as we have,</q> he gestured to a pair of chairs in front of his desk. Natalie relaxed into hers, while James perched on the edge. It was his first time meeting Janos, and she couldn't help but chuckle at his nervousness. She'd been awed too, at her first encounter with the second most powerful man in the city – but eight year old Natalie had gotten over that nervousness by promptly sitting in his lap, rather than the offered chair. She smiled at the memory. He'd approved, as Wend had said he would, rather than scolding her.</p></text>
+  </page>
+  <page>
+    #{@Guildmaster.image 'normal', 'right'}
+    <text continue><p>#{q}When do you set sail?</q></p></text>
+  </page>
+  <page>
+    #{@Nat.image 'normal', 'left'}
+    <text><p>#{q}Soon. Two, three days. We've finished going over every inch of planking, and the initial trials around the island went well – please thank Captain Johnson for assisting us with that, if you see him. I have discussed prices for our first cargo with...</q> Natalie listed off the preparations she'd made for departure, while Janos listened attentively, interjecting occasionally with tidbits of advice. He was one of the finest business minds in the city, and it comforted her to know that he would catch anything she'd forgotten to do. Which was, she suspected, the actual point of this meeting – protecting his investment. Managing a merchant ship was not the Guild's usual line of business.</p></text>
+  </page>
+  <page>
+    #{@Guildmaster.image 'thinking', 'right'}
+    <text><p>#{q}Very thorough. I have nothing more to add.</q> He jotted down a note, and nodded.</p></text>
+  </page>
+  <page>
+    #{@Nat.image 'excited', 'center'}
+    <text continue><p>Natalie grinned at that – as much approval as he ever showed of anything. Impulsively she stood and leaned over the desk, planting a kiss on his cheek before he could say anything. She quickly retreated back to her seat, sitting on her hands lest they do anything else untoward.</p></text>
+  </page>
+  <page>
+    #{@Guildmaster.image 'normal', 'right'}
+    <text><p>#{q}Please let me know when you return.</q> He didn't react to her gesture, other than to adjust a stack of papers back into place, but she suspected he was pleased. Hard to tell, with the Guildmaster. She also knew a dismissal when she heard one.</p></text>
+  </page>
+  <page class="given-mission">
+    #{@Guildmaster.image 'normal', 'right'}
+    <text continue><p><em>New Mission: <strong>Prepare to set sail</strong></em></p></text>
+  </page>"""
 
-    element.filter('.given-mission').help(
-      target: 'em'
-      title: "You've been given a new mission."
-    ).help(
-      target: $('.navbar-brand')
-      placement: 'bottom'
-      title: "You can see your current status at any time by hovering over or double-clicking here. Each current mission has its own page."
-    )
-    return element
   effects:
     remove:
       '|missions|meet': Mission.MeetGuildmaster
@@ -213,19 +202,19 @@ Job.IntroSail::next = Page.IntroSail = class IntroSail extends Page
     <text><p>#{q}If you're going to fill the room with dread, at least enter all the way,</q> Natalie laid aside her pen and admonished him.</p></text>
   </page>
   <page bg="#{@Ship.images.cabinDay}">
-    #{@James.image 'upset', 'left'}
+    #{@James.image 'sad', 'left'}
     <text continue><p>James started guiltily, and stepped into her bedroom, closing the door behind him with a foot. He remained standing – other than the chair she occupied, the only place to sit would be on her bed, and he wasn't the sort to be comfortable with that.</p></text>
   </page>
   <page bg="#{@Ship.images.cabinDay}">
-    #{@James.image 'upset', 'left'}
+    #{@James.image 'sad', 'left'}
     <text continue-inline> The space was cramped, but a private room was still more than most people aboard a ship this size would get, even the quartemaster. He'd have to share with first-mate, once they had one.</text>
   </page>
   <page>
-    #{@James.image 'upset', 'left'}
+    #{@James.image 'sad', 'left'}
     <text><p>#{q}Nat...</q> he trailed off, then started again. #{q}I'm not sure I can do this.</q></p></text>
   </page>
   <page>
-    #{@Nat.image 'upset', 'right'}
+    #{@Nat.image 'sad', 'right'}
     <text continue><p>She waited for him to go on, but he didn't, just fidgeted and leaned against the door to resist the swell and roll of the deck beneath them. #{q}What can't you do?</q> Timber creaked, adjusting to new stresses.</p></text>
   </page>
   <page>
@@ -234,7 +223,7 @@ Job.IntroSail::next = Page.IntroSail = class IntroSail extends Page
     <text><p>She waited for him to go on, but he didn't, just fidgeted and leaned against the door to resist the swell and roll of the deck beneath them. #{q @Nat}What can't you do?</q> Timber creaked, adjusting to new stresses. #{q}We're four days out, fifty kilometers from the nearest land. It's a bit late for second thoughts now.</q></p></text>
   </page>
   <page>
-    #{@James.image 'serious', 'left'}
+    #{@James.image 'sad', 'left'}
     <text><p>#{q}I know, I know, it's just... I can't shake this feeling of doom. Do you know how many ships survive a storm? I did some figuring – it's less than a third, if you get caught out to sea.</q></p></text>
   </page>
   <page>
@@ -242,15 +231,15 @@ Job.IntroSail::next = Page.IntroSail = class IntroSail extends Page
     <text continue><p>Natalie stood and moved over to the bed, patting the chair and indicating that he should take the seat. #{q}The Azurai is a good ship. She'll see us through. The shipwrights knew what they were doing when they built her. She may be small, but she's fast and sturdy.</q> She patted his knee, attempting to reassure him of something she wasn't entirely sure of herself.</p></text>
   </page>
   <page>
-    #{@James.image 'upset', 'left'}
+    #{@James.image 'sad', 'left'}
     <text><p>#{q}What are we even doing here, Natalie? There's plenty of opportunity back home, without risking our lives.</q></p></text>
   </page>
   <page>
-    #{@Nat.image 'normal', 'right'}
+    #{@Nat.image 'sad', 'right'}
     <text continue><p>#{q}You have a future in Vailia, and I never asked you to give it up. It's not my future. I don't have anyone to hand me a house and a trade. James, do you know what I'd be doing, right now, if I weren't a captain?</q></p></text>
   </page>
   <page>
-    #{@James.image 'upset', 'left'}
+    #{@James.image 'sad', 'left'}
     <text><p>Natalie was too small and too smart to desire any form of manual labor, and too poor to set herself up in any other trade.</p></text>
   </page>
   <page>
@@ -266,12 +255,14 @@ Job.IntroSail::next = Page.IntroSail = class IntroSail extends Page
     <text continue><p>#{q}I suppose so,</q> he rubbed his forehead, rolled his shoulders, stood up. Despite his slight frame, Natalie know just how strong he was – one wasn't born as a blacksmith's son without working up some strength.</p></text>
   </page>
   <page>
-    #{@Nat.image 'serious', 'right'}
+    #{@Nat.image 'sad', 'right'}
     <text continue><p>#{q}Have a good night. Stop worrying.</q> She looked away and picked up her pen again.</p></text>
   </page>
   """
   apply: ->
+    super()
     g.location = g.map.Vailia
+
   effects:
     remove:
       '|missions|crewCargo': Mission.CrewCargo

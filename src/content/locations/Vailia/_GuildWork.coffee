@@ -16,8 +16,10 @@ Place.Vailia::jobs.searchGuildWork = Job.SearchGuildWork = class SearchGuildWork
       matches: (person)->not g.events['SearchGuildWork' + person.name]
   energy: -2
   apply: ->
+    super()
     if @context[' '] is Officer.Natalie or @context[' '] is Officer.Kat
       g.location.jobs.guildWork or= new Job.GuildWork
+
   next: Page.firstNew
   @next = []
 

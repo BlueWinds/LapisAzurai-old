@@ -1,5 +1,8 @@
+lightDamage = 5
+heavyDamage = 10
+maxDamage = 20
+
 Place.Ship = Game::map.Ship = class Ship extends Place
-  @cargoSpace: 300
   name: 'Lapis Azurai'
   description: ->"<p>Vailia is a bustling port city, famous for its political neutrality, its freedom from the disasters that plague lesser cities, and its brothels. Lots and lots of brothels.</p>"
   images:
@@ -13,10 +16,26 @@ Place.Ship = Game::map.Ship = class Ship extends Place
     deckNight: 'game/content/locations/Ship/Deck Night.jpg'
     deckStorm: 'game/content/locations/Ship/Deck Storm.jpg'
 
-  cargo: new Collection
   destinations: new Collection
   jobs: new Collection # Unlike normal locations, this collection takes ShipJobs rather than normal Jobs
   location: [0, 0]
+
+  damage: 0
+  sailSpeed: -> switch
+    when @damage >= heavyDamage then 0.25
+    when @damage >= lightDamage then 0.5
+    else 1
+  shortDamage: -> switch
+    when @damage >= heavyDamage then "barely afloat"
+    when @damage >= lightDamage then "heavily damaged"
+    else "lightly damaged"
+  damageDescription: -> "The Lapis is <b title='#{@damage} / #{maxDamage} damage'>#{@shortDamage()}</b>, " + switch
+    when @damage >= heavyDamage then "and will sail at #{String.rate g.map.Ship.sailSpeed()} the normal rate."
+    when @damage >= lightDamage then "and will sail at #{String.rate g.map.Ship.sailSpeed()} the normal rate."
+    else "but will still sail af full speed."
+  @lightDamage: lightDamage
+  @heavyDamage: heavyDamage
+  @maxDamage: maxDamage
 
 Ship::jobs.talk = ShipJob.Talk = class Talk extends ShipJob
   label: "Talk with Crew"
@@ -32,7 +51,9 @@ ShipJob.Talk.next.push Page.ShipTalk = class ShipTalk extends Page
     <p>Natalie pokes her head in on the evening festivities - while she often prefers to spend time in her cabin, alone or with a few other offciers, it's nice to enjoy the wide open air as well from time to time.</p>
     <p><em>Crew: <span class="happiness">+3 happiness</span></em></p>
   </text></page>"""
-  apply: -> for i, sailor of g.crew then sailor.add('happiness', 3)
+  apply: ->
+    super()
+    for i, sailor of g.crew then sailor.add('happiness', 3)
 
 Ship::jobs.trainCombat = ShipJob.TrainCombat = class TrainCombat extends ShipJob
   label: "Mock Combat"
@@ -47,6 +68,7 @@ ShipJob.TrainCombat::next = Page.TrainCombat = class TrainCombat extends Page
     <p><em>Crew: <span class="combat">+1 combat</span><br>James: <span class="energy">-2 energy</span></em></p>
   </text></page>"""
   apply: ->
+    super()
     for i, sailor of g.crew then sailor.add('combat', 1)
     @context.James.add('energy', -2)
 
@@ -63,6 +85,7 @@ ShipJob.TrainBusiness::next = Page.TrainBusiness = class TrainBusiness extends P
     <p><em>Crew: <span class="business">+1 business</span><br>Natalie: <span class="happiness">+1 happiness</span>, <span class="energy">-1 energy</span></em></p>
   </text></page>"""
   apply: ->
+    super()
     for i, sailor of g.crew then sailor.add('business', 1)
     @context.Nat.add('energy', -1)
     @context.Nat.add('happiness', 1)
@@ -80,6 +103,7 @@ ShipJob.TrainSailing::next = Page.TrainSailing = class TrainSailing extends Page
     <p><em>Crew: <span class="sailing">+1 sailing</span>, <span class="happiness">-1 happiness</span><br>Natalie: <span class="energy">-2 energy</span></em></p>
   </text></page>"""
   apply: ->
+    super()
     for i, sailor of g.crew
       sailor.add('sailing', 1)
       sailor.add('happiness', -1)

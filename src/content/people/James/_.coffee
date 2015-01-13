@@ -61,3 +61,10 @@ Game::officers.James = Officer.James = class James extends Officer
       'SeriousHair.png'
       'SeriousTop.png'
     ]
+    sad: [
+      'Base.png'
+      'SadSkin.png'
+      'SadEyes.png'
+      'SadHair.png'
+      'SadTop.png'
+    ]

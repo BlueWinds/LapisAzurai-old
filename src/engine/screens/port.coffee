@@ -22,26 +22,51 @@ ordering =
   normal: 2
 
 Job.jobSort = (j1, j2)->
-  t1 = j1.match('class="(.+?) ')[1]
-  t2 = j2.match('class="(.+?) ')[1]
+  t1 = $(j1).data('job').type
+  t2 = $(j2).data('job').type
   return ordering[t1] - ordering[t2]
 
 Page.Port = class Port extends Page
   conditions:
     port: '|location'
+  apply: ->
+    for key, mission of g.missions
+      unless mission.removeWhenDone
+        continue
+      passes = mission.tasks.filter (task)->
+        unless task.conditions then return true
+        return (new Collection).fill(task.conditions).matches task.conditions
+
+      if passes.length is mission.tasks.length
+        mission.removeAs key
+    super()
+
   text: ->
-    jobs = []
-    jobLabels = []
+    jobs = $('')
+    jobLabels = $('')
     for key, job of @port.jobs when job instanceof Job or job.prototype instanceof Job
       if typeof job is 'function'
         job = @port.jobs[key] = new job
       job.contextFill()
       unless job.contextMatch()
         continue
-      jobs.push job.renderBlock key
-      jobLabels.push """<li class="#{job.type or 'normal'} list-group-item">#{job.label}</li>"""
-    jobs.sort Job.jobSort
-    jobLabels.sort Job.jobSort
+      jobs = jobs.add job.renderBlock(key)
+      jobs.last().data 'job', job
+      jobLabels = jobLabels.add """<li class="#{job.type or 'normal'} list-group-item">#{job.label}</li>"""
+      jobLabels.last().data 'job', job
+
+    for job, key in Job.universal
+      job = new job
+      job.contextFill()
+      unless job.contextMatch()
+        continue
+      jobs = jobs.add job.renderBlock(key)
+      jobs.last().data 'job', job
+      jobLabels = jobLabels.add """<li class="#{job.type or 'normal'} list-group-item">#{job.label}</li>"""
+      jobLabels.last().data 'job', job
+
+    jobs = Array::sort.call(jobs, Job.jobSort)
+    jobLabels = Array::sort.call(jobLabels, Job.jobSort)
 
     officers = (person.renderBlock(key) for key, person of g.officers)
     crew = (person.renderBlock(key) for key, person of g.crew)
@@ -49,16 +74,18 @@ Page.Port = class Port extends Page
       "You can't sail until you finish one of your missions"
     else if g.weather is 'storm'
       "You can't set sail during a storm"
+    else if g.crew.length < 3
+      "You can't set sail with fewer than three sailors"
     else
-      false
+      ""
 
-    return applyPort.call @, """<page verySlow class="screen" bg="#{if g.weather is 'calm' then @port.images.day else @port.images.storm}">
+    page = $ """<page verySlow class="screen" bg="#{if g.weather is 'calm' then @port.images.day else @port.images.storm}">
       <form class="clearfix">
         <div class="col-md-2 col-sm-12">
-          <ul class="job-tabs list-group">#{jobLabels.join ''}</ul>
+          <ul class="job-tabs list-group"></ul>
         </div>
         <div class="col-md-4 col-sm-6">
-          <div class="jobs column-block">#{jobs.join ''}</div>
+          <div class="jobs column-block"></div>
         </div>
         <div class="col-md-4 col-sm-6">
           <div class="crew clearfix column-block">#{officers.join('') + crew.join('')}</div>
@@ -66,18 +93,19 @@ Page.Port = class Port extends Page
       </form>
       <text class="short">
         #{@port.description?() or @port.description}
-        <options>
-          <button class="btn btn-primary work dis" title="All officers must have an assignment">Work in #{@port}</button>
-          <button class="btn btn-primary sail #{if noSail then 'dis" title="' + noSail else ''}">Set Sail</button>
-        </options>
+        #{options ['Work in ' + @port, 'Set Sail'], ["All officers must have an assignment", noSail]}
       </text>
     </page>"""
+    $('.jobs', page).append(jobs)
+    $('.job-tabs', page).append(jobLabels)
+
+    applyPort.call @, page
+    return page
 
   next: false
 
 
 applyPort = (element)->
-  element = $(element)
   port = @port
 
   setTall = ->
@@ -105,7 +133,7 @@ applyPort = (element)->
       return
 
     jobDiv = $(@)
-    job = port.jobs[jobDiv.attr('data-key')]
+    job = jobDiv.data 'job'
     $('.person-info.officer.active', element).each ->
       personDiv = $(@)
 
@@ -115,6 +143,9 @@ applyPort = (element)->
 
       person = g.officers[personDiv.attr('data-key')]
       if job.energy < 0 and person.energy < -job.energy
+        return
+
+      if personDiv.hasClass('injured') and not job.acceptInjured
         return
 
       prevJobDiv = personDiv.closest '.job'
@@ -140,6 +171,9 @@ applyPort = (element)->
       if (not job.crew?) or personDiv.closest(jobDiv).length
         return
 
+      if personDiv.hasClass('injured') and not job.acceptInjured
+        return
+
       key = personDiv.attr('data-key')
       person = g.officers[key] or g.crew[key]
       prevJobDiv = personDiv.closest '.job'
@@ -152,7 +186,7 @@ applyPort = (element)->
         updateJob(prevJob, prevJobDiv)
 
     if $('.crew .person-info.officer', element).length is 0
-      $('.work', element).removeClass('dis').tooltip 'disable'
+      work.removeClass('dis').tooltip 'disable'
     # Now that all the crew-elements are in the right spot, update the job's context with its new workers, any maybe mark it as ready to go.
     updateJob(job, jobDiv)
 
@@ -166,11 +200,11 @@ applyPort = (element)->
       .removeClass('active')
     $('.job', element).each ->
       jobDiv = $(@)
-      job = port.jobs[jobDiv.attr('data-key')]
-      updateJob(job, jobDiv)
+      updateJob(jobDiv.data('job'), jobDiv)
 
   # The page has been rendered. Once the player clicks "done", start the day.
-  $('.work', element).click (e)->
+  work = $('button', element).eq(0).addClass('dis')
+  work.click (e)->
     if $(@).hasClass 'dis' then return
     e.preventDefault()
     $('.jobs > div', element).each ->
@@ -178,22 +212,25 @@ applyPort = (element)->
       # Bypass jobs with no one assigned to them
       unless jobDiv.find('.person-info').length
         return
-      jobKey = jobDiv.attr('data-key')
-      job = port.jobs[jobKey]
+      job = jobDiv.data('job')
       # A job is valid if all of its non-optional slots are filled.
       job.updateFromDiv(jobDiv)
       if job.contextReady()
         # The job is good, shift it into the "upcoming pages" array. This reverses the ordering, so "normal" jobs come first, then special ones, then plot.
         g.queue.unshift(job)
     # All jobs have now been processed. Trigger the first one.
-    setTimeout((->Game.gotoPage(1, true)), 0)
+    setTimeout(Game.gotoPage, 0)
     return false
 
-  $('.sail', element).click (e)->
+  sail = $('button', element).eq(1)
+  if sail.attr('title')
+    sail.addClass 'dis'
+  sail.click (e)->
     if $(@).hasClass 'dis' then return
     e.preventDefault()
 
     (new Page.SetSail).show()
+    setTimeout(Game.gotoPage, 0)
 
     return false
 

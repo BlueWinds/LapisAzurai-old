@@ -54,3 +54,10 @@ Person.Kat = class Kat extends Officer
       'SeriousTop.png'
       'Base.png'
     ]
+    sad: [
+      'SadSkin.png'
+      'SadEyes.png'
+      'SadHair.png'
+      'SadTop.png'
+      'Base.png'
+    ]

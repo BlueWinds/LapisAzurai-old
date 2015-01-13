@@ -9,12 +9,12 @@ Place.MountJulia = Game::map.MountJulia = class MountJulia extends Place
     marketStorm: 'game/content/locations/Wilds/Beach Storm.jpg'
     tavern: Place.Vailia::images.tavern
   jobs: new Collection
-    market: Job.SmallMarket
   location: [3486, 1819]
   destinations: new Collection
     Vailia: 9
 
 Job.MtJuliaCheckShip = class MtJuliaCheckShip extends Job
+  type: 'plot'
   officers:
     'James': '|officers|James'
   crew: 2
@@ -30,6 +30,7 @@ Mission.MtJuliaCheckShip = class MtJuliaCheckShip extends Mission
         '|events|MtJuliaCheckShip|length': {gt: 0}
   ]
   blockSailing: true
+  removeWhenDone: true
   effects:
     remove:
       '|location|jobs|check': Job.MtJuliaCheckShip
@@ -63,23 +64,25 @@ Place.MountJulia::firstVisit = Page.VisitJulia = class VisitJulia extends Page
       #{g.officers.James.image 'normal', 'right'}
       <text continue><p>#{q}I'll get everything cleaned up and unloaded while you find a buyer. If it doesn't go right, we can always load it back up.</q> He nodded, glancing behind them at the cargo hold. Several items hadn't been secured properly in the haste to depart, and one cask of fresh water had sprung a leak from the banging around.</p></text>
     </page>
-    <page verySlow>
+    <page>
       #{g.officers.Nat.image 'normal', 'left'}
-      <text continue><p>#{q}Good. I don't expect to make more on this trip than I've spent in supplies and wages, but it'll be worth it for a shakedown cruise. Let's not waste time.</q></p></text>
+      <text><p>#{q}Good. I don't expect to make more on this trip than I've spent in supplies and wages, but it'll be worth it for a shakedown cruise. Let's not waste time.</q></p></text>
     </page>"""
   effects:
     add:
       '|missions|check': Mission.MtJuliaCheckShip
       '|location|jobs|check': Job.MtJuliaCheckShip
 
-
-maxPricedGood = ->
-  return Object.keys(g.map.Ship.cargo).sort((i, j)-> Item[i].price > Item[j].price)[0]
-
 Place.MountJulia::jobs.market = Job.MtJuliaMarket = class MtJuliaMarket extends Job.Market
   buy: new Collection
+    "Maiden's Tea": [15, 12]
+    "Naval Supplies": [20, 8]
+    Wood: [40, 5]
   sell: new Collection
-  description: ->"""<p>As usual, the same little girl cheerfully greeted Natalie. She was happy to leave off sweeping her bar ("her parents' bar," she still insists) and haggle over the value of the Lapis' goods. She had some items in stock, but was mostly interested in purchasing supplies for maintaining the trading post.</p>"""
+    "Maiden's Tea": [15, 11]
+    Barley: [5, 5]
+    "Naval Supplies": [20, 6]
+  description: ->"""<p>As usual, the same little girl cheerfully greeted Natalie. She was happy to leave off sweeping her bar ("her parents' bar," she still insisted) and haggle over the value of the Lapis' goods. She had some items in stock, but was mostly interested in purchasing supplies for maintaining the trading post.</p>"""
   next: Page.firstMatch
   @next = [Page.Market]
 
@@ -101,7 +104,7 @@ Job.MtJuliaMarket.next.unshift Page.MtJuliaMarketIntro = class MtJuliaMarketIntr
   </page>
   <page>
     #{g.officers.Nat.image 'normal', 'left'}
-    <text continue><p>#{q}Well, I suppose. I have some #{maxPricedGood()} I'd like to unload.</q></p></text>
+    <text continue><p>#{q}Well, I suppose. I have some Maiden's Tea I'd like to unload.</q></p></text>
   </page>
   <page>
     <text><p><q>Ooh, that's nice. Much more interesting'an watching you an' a buncha rowdy sailors get shitfaced,</q> she lay her broom aside with a grin, rubbing her hands together and looking excited.</p></text>
@@ -109,6 +112,7 @@ Job.MtJuliaMarket.next.unshift Page.MtJuliaMarketIntro = class MtJuliaMarketIntr
   <page>
     <text><p><q>Ooh, that's nice. Much more interesting'an watching you an' a buncha rowdy sailors get shitfaced,</q> she lay her broom aside with a grin, rubbing her hands together and looking excited. <q>Easier to clean up after too. So, what've ya'got?</q></p></text>
   </page>"""
+  next: Page.Market
 
 
 Place.MountJulia::jobs.rest = Job.MtJuliaRest = class MtJuliaRest extends Job
@@ -125,7 +129,7 @@ Job.MtJuliaRest::next = Page.MtJuliaRest = class MtJuliaRest extends Page
     ' ': {}
   text: ->"""<page bg="#{g.location.images.tavern}">
     #{@[' '].image 'normal', 'left'}
-    <text><p>#{q}So, what's your name?</q> #{@[' ']} asked the bartender – a cute little girl, perhaps twelve. She claimed to have parents around here somewhere, but #{@[' ']} hadn't seen or heard them yet.</p></text>
+    <text><p>#{console.log @; q}So, what's your name?</q> #{@[' ']} asked the bartender – a cute little girl, perhaps twelve. She claimed to have parents around here somewhere, but #{@[' ']} hadn't seen or heard them yet.</p></text>
   </page>
   <page>
     <text continue><p><q>Tasha. Tasha Julia, pleased ta'make yer acquaintance.</q> She stuck one hand out, and #{@[' ']} shook it. She had a strong grip for her size. Other than those from the Azurai, the inn was completely empty. It was of a decent size, capable of seating several dozen patrons, and the second floor promised plenty of private rooms for those looking for time away from their ships.</p></text>
@@ -139,7 +143,7 @@ scavenge = (rate)->
 Place.MountJulia::jobs.scavenge = Job.Scavenge = class Scavenge extends Job
   officers:
     ' ': {}
-  crew: 3
+  crew: 2
   label: 'Scavenge'
   text: ->"""Gather and prepare wood from Mt. Julia's abundant forests for use repairing the ship or sale."""
   energy: -3
@@ -200,6 +204,8 @@ Job.Scavenge.next.push Page.ScavengeWater = class ScavengeWater extends Scavenge
   </page>"""
 
 Job.MtJuliaCheckShip::next = Page.MtJuliaCheckShip = class MtJuliaCheckShip extends Page
+  conditions:
+    James: {}
   text: ->"""<page bg="#{g.location.images.day}">
     <text><p>The Azurai shouldn't have taken any damage from such a minor voyage in calm weather, but it didn't hurt to check. James stripped down to his trunks – any issues would begin under the waterline on the outside of the hull long before they became visible to the occupants.</p></text>
   </page>
@@ -213,7 +219,3 @@ Job.MtJuliaCheckShip::next = Page.MtJuliaCheckShip = class MtJuliaCheckShip exte
   <page bg="#{g.map.Ship.images.deckDay}">
     <text><p>#{q}Nothing, we're clean,</q> James accepted the towel from #{g.crew[Math.choice(g.crew)].name}, tussling it through his hair and rubbing the water off his back. No scrapes, no barnacles yet, no Not some rickety junk from Kantis, the Guild hadn't skimped in giving Natalie a good vessel. The Lapis Azurai was a solid ship, straight out of the Vailian shipyards. If there were ships anywhere in the world to match Vailian ones, even rumor hadn't reached James' ears.</p></text>
   </page>"""
-
-  effects:
-    remove:
-      '|missions|check': Mission.MtJuliaCheckShip

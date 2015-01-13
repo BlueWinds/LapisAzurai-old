@@ -14,10 +14,9 @@ window.Job = class Job extends Page
       label:
         type: 'string'
       # The default is "normal" - sorted last, occurring first. Plot jobs are sorted first and occur last. Special jobs are both sorted and occur occur between "normal" and "plot"
-      importance:
-        optional: true
+      type:
         type: 'string'
-        match: /plot|special/
+        match: /plot|special|normal/
       # conditions is used to determine whether the job shows up at all, and create an initial context. Once it has, "officers" defines slots for people who must / can work the job for it to apply.
       conditions: Page.schema.properties.conditions
       text: # text is used as a small blurb, rather than its own page
@@ -26,6 +25,9 @@ window.Job = class Job extends Page
       officers: Page.schema.properties.conditions
       energy: # How much energy is given to or taken away from each officer participating (also how much they need to have to participate, if taking away).
         type: 'integer'
+      acceptInjured: # If a person has low enough negative energy, they're considered injured, and can only do jobs with this flag.
+        eq: true
+        optional: true
       # If crew can be brought along for this job. This number is the minimum number required to do the job.
       crew:
         type: 'integer'
@@ -35,7 +37,7 @@ window.Job = class Job extends Page
         optional: true
         strict: true
         properties: {}
-      apply: # Called once when the job is run to modify the game state with the results of this job
+      apply: # Called once when the job is run to modify the game state with the results of this job. Be absolutely sure to call super() inside this function.
         type: 'function'
         optional: true
       next: # Unlike Pages, it's required for jobs.
@@ -48,6 +50,9 @@ window.Job = class Job extends Page
   for stat of Person.stats
     @schema.properties.requires.properties[stat] = {type: 'integer', optional: true, gte: 0}
 
+  @universal = [] # An array of jobs that can show up at any port
+
+  type: 'normal'
   requiresBlock: ->
     unless @requires then return ''
     requires = for stat, val of @requires
@@ -64,9 +69,9 @@ window.Job = class Job extends Page
     slots = for key, conditions of @officers
       renderSlot(key, conditions, @energy)
 
-    return """<div class="#{@type or 'normal'} job clearfix" data-key="#{mainKey}">
+    return """<div class="#{@type} job clearfix" data-key="#{mainKey}">
       <div class="col-xs-6">
-        <div class="job-description">#{@text()}</div>
+        <div class="job-description">#{@text.call @context}</div>
         #{@requiresBlock()}
       </div>
       <ul class="job-officers col-xs-6">#{slots.join ''}</ul>
@@ -92,38 +97,27 @@ window.Job = class Job extends Page
   contextReady: ->
     if @context.length < @crew
       return false
-
     for stat, amount of @requires
       if amount > sumStat(stat, @officers, @context)
         return false
-
     for key, value of @officers
       unless @context[key] or value.optional
         return false
-
     return @contextMatch()
 
   show: ->
-    g.events[@name] or= []
-    g.events[@name].unshift g.day
-    if g.events[@name].length > 10
-      g.events[@name].pop()
+    div = $("""<page class="jobStart" auto="1800"><h4>#{@label}</h4></page>""")
 
-    @apply?()
+    div.appendTo('#content').addTooltips()
+    div.not(div[0]).css 'display', 'none'
+    div.data 'page', @
+    return div
 
+  apply: ->
+    super()
     if @energy
       for key, person of @context when person.energy?
         person.add 'energy', @energy
-
-    g?.last = @ # Only here momentarily, so that parts of the context can be copied by the following event.
-    next = if typeof @next is 'function' and not isPage @next
-      @next()
-    else
-      @next
-    if typeof next is 'function'
-      next = new next
-
-    return next.show()
 
 window.ShipJob = class ShipJob extends Job
   @schema: # Similar to a normal job, but simpler and lacking a whole lot of properties.
@@ -148,7 +142,6 @@ window.ShipJob = class ShipJob extends Job
         type: Collection
 
   renderBlock: (key)->
-
     """<div class="#{@type or 'normal'} job column-block" data-key="#{key}">
       <div class="block-label">#{@label}</div>
       <div class="job-description">#{@text()}</div>
@@ -170,6 +163,7 @@ window.ShipJob = class ShipJob extends Job
 
 renderSlot = (key, conditions, energy)->
   name = if key[0] is key[0].toUpperCase() then key else ''
+  if energy > 0 then energy = '+' + energy
 
   stats = for stat in ['business', 'diplomacy', 'sailing', 'combat']
     "<span class='#{stat}'>#{conditions[stat]?.gte or ''}</span>"
