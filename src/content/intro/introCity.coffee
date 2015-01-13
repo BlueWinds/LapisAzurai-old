@@ -189,3 +189,20 @@ Mission.MeetGuildmaster = class MeetGuildmaster extends Mission
     cargo:
       Wood: 20
       'Naval Supplies': 10
+
+oldShow = Page.SetSail::text
+Page.SetSail::text = ->
+  element = oldShow.call @
+  if g.map.MountJulia.arrive
+    return element
+
+  element.help(
+    target: '.location[data-key=""]'
+    placement: 'bottom'
+    title: "You're currently in Vailia. You can hover over it (or double click) and click the image to return to the port."
+  ).help(
+    target: '.location[data-key="MountJulia"]'
+    placement: 'bottom'
+    title: "When you're ready to set sail, hover over Mount Julia and click the image."
+  )
+  return element

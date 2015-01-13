@@ -62,6 +62,11 @@ window.Page = class Page extends GameObject
       conditions: conditionsSchema
       text: # Should not modify the game state. Returns either a string or a set of $(pages) to be displayed to the player.
         type: 'function'
+        exec: (schema, text)->
+          text = text.toString()
+          match = text.match(/<page/g)
+          if match?.length > 16
+            @report "can't have more than 15 <page>s in one text block"
       effects:
         type: 'object'
         optional: true

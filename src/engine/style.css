@@ -126,7 +126,7 @@ text {
 }
 .person {
   bottom: 160px;
-  width: 25%;
+  width: 33%;
   left: 50%;
   position: absolute;
 }
@@ -136,8 +136,8 @@ text {
   position: absolute;
   width: 100%;
 }
-.person.left { left: auto; right: 40%; }
-.person.right { left: 40%; transform: scaleX(-1); }
+.person.left { left: auto; right: 35%; }
+.person.right { left: 35%; transform: scaleX(-1); }
 .person.left.reversed { transform: scaleX(-1); right: 65% }
 .person.right.reversed { transform: none; left: 65%; }
 /* Medium devices (desktops, 992px and up) */
@@ -493,6 +493,9 @@ input.inline:disabled {
   float: left;
   padding: 2px 16px;
 }
+@media (max-width: 1199px) {
+  .name { padding: 2px 8px; }
+}
 .person-info .energy, .worker-requirements .energy {
   font-size: 1.4em;
   margin-bottom: -3px;
@@ -611,7 +614,7 @@ input.inline:disabled {
   clear: left;
   float: left;
   margin: 3px 10px 5px 0;
-  width: 9em;
+  width: 8em;
 }
 .full .energy {
   font-size: 1em;
@@ -877,7 +880,7 @@ options {
   width: 100%;
 }
 
-.screen options button.btn {
+options button.btn {
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
   border-color: #030303;

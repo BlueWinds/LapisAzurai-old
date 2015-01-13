@@ -45,7 +45,8 @@ Page.Intro = class Intro extends Page
     </page>
     <page class="select-color">
       #{@Nat.image 'normal', 'left'}
-      <text><p>Grinning at the thought of herself in wrinkles and walking with a cane – as if! - she brushed #{dropdown hairColor, @Nat.color[2]} hair out of her eyes and examined herself in the mirror. #{dropdown eyeColor, @Nat.color[1]} eyes, still sleepy. She slapped her #{dropdown skinColor, @Nat.color[0]} cheeks and stuck her tongue out at the reflection. There were old sailors and old captains, good enough or lucky enough, and she was going to be one of them. No cane though.</p></text>
+      <text><p>Grinning at the thought of herself in wrinkles and walking with a cane – as if! - she brushed #{dropdown hairColor, @Nat.color[2]} hair out of her eyes and examined herself in the mirror. #{dropdown eyeColor, @Nat.color[1]} eyes, still sleepy. She slapped her #{dropdown skinColor, @Nat.color[0]} cheeks and stuck her tongue out at the reflection. There were old sailors and old captains, good enough or lucky enough, and she was going to be one of them. No cane though.</p>
+      #{options ['Done']}</text>
     </page>""")
 
     element.find('input').change =>
@@ -61,20 +62,34 @@ Page.Intro = class Intro extends Page
       # Now update the image (including invalidating the cache)
       $('.person', element).replaceWith @Nat.image 'normal', 'left', false
 
-    element.first().help {
+    element.first().help(
       target: $('#nav-arrows')
       placement: 'left'
       title: "Move between pages using these arrows or the arrow keys."
-    }
+    )
 
-    element.filter('.select-color').help {
-      target: 'button'
-      title: "Select your appearance"
-    }
+    element.filter('.select-color').help(
+      target: 'button.inline'
+      title: "Select your appearance."
+    ).help(
+      target: 'options'
+      title: "Many pages require your input before you can proceed."
+    ).help(
+      target: $('#nav-arrows')
+      placement: 'left'
+      title: "The next arrow is disabled - you'll have to use a button on the page instead."
+    )
+
+    console.log $('options button', element).click ->
+      console.log 'hi'
+      (new Page.Intro2).apply()
+      Game.gotoPage()
 
     return element
 
-Page.Intro::next = Page.Intro2 = class Intro2 extends Page
+  next: false
+
+Page.Intro2 = class Intro2 extends Page
   conditions:
     James: '|officers|James'
     Nat: '|officers|Nat'

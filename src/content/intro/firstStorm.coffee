@@ -215,8 +215,13 @@ Job.IntroSickNat::next = Page.IntroSickNat = class IntroSickNat extends Page
   </page>
   <page>
     <text continue-inline> He patted James' arm. <q>No charge, since I didn't do anything. Please ask her to stop by our temple once she awakens, if she is so inclined.</q></text>
-  </page>
-  <page>
+  </page>"""
+
+Page.IntroSickNat::next = Page.IntroSickNat2 = class IntroSickNat2 extends Page
+  conditions:
+    James: {}
+    Natalie: {}
+  text: ->"""<page bg="#{g.map.Ship.images.cabinDay}">
     <text><p>Given the lack of response from James, he settled for patting him on the shoulder again. <q>I'll see myself out.</q></p></text>
   </page>
   <page>

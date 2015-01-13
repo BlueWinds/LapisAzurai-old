@@ -8,9 +8,10 @@ gotoPage = Game.gotoPage = (change = 1)->
   next = targetDiv.data 'page'
 
   currentElement.trigger 'leave-page'
-  currentElement.find('*').unbind()
-  currentElement.find('input, button').attr 'disabled', 'disabled'
-  $('.tooltip').remove()
+  if change > 0
+    currentElement.find('*').unbind()
+    currentElement.find('input, button').attr 'disabled', 'disabled'
+    $('.tooltip').remove()
 
   speed = 500
   if change > 0
