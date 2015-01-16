@@ -116,7 +116,7 @@ window.Job = class Job extends Page
   apply: ->
     super()
     if @energy
-      for key, person of @context when person.energy?
+      for key, person of @context when @officers[key]
         person.add 'energy', @energy
 
 window.ShipJob = class ShipJob extends Job
@@ -162,7 +162,11 @@ window.ShipJob = class ShipJob extends Job
     return @contextMatch()
 
 renderSlot = (key, conditions, energy)->
-  name = if key[0] is key[0].toUpperCase() then key else ''
+  name = switch
+    when conditions.label then conditions.label()
+    when key[0] is key[0].toUpperCase() then key
+    else 'Any Officer'
+
   if energy > 0 then energy = '+' + energy
 
   stats = for stat in ['business', 'diplomacy', 'sailing', 'combat']

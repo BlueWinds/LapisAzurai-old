@@ -18,8 +18,13 @@ window.Item = class Item extends GameObject
 
   buyRow: (increment, price)->
     relativePrice = if price > @price then "high" else if price < @price then "low" else ""
+    type = switch
+      when @ instanceof Luxury then 'Luxury'
+      when @ instanceof Food then 'Food'
+      else "Trade"
+
     """<tr class="#{relativePrice}" item="#{@name}">
-      <td class="title" title="#{@description}">#{@name}</td>
+      <td class="title" title="#{type} - #{@description}">#{@name}</td>
       <td class="price" title="#{increment} #{@unit}s available at #{price}β (normally valued at #{@price}β)">#{price}β</td>
       <td class="plus">+</td>
       <td class="count">0</td>
@@ -56,7 +61,7 @@ window.Item = class Item extends GameObject
   amount: (count)->
     if count is 1 then "1 #{@unit}" else "#{count} #{@unit}s"
 
-window.LuxuryGood = class LuxuryGood extends Item
+window.Luxury = class Luxury extends Item
 window.Food = class Food extends Item
 
 Item.costDescription = (cost)->

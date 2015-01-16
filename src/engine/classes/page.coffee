@@ -43,7 +43,13 @@ conditionsSchema =
       is: # The object is an instanceof this class or one of these classes
         type: ['array', 'function']
         optional: true
+        items: [
+          type: 'function'
+        ]
       matches: # Matches if matches(obj) returns truthy
+        type: 'function'
+        optional: true
+      label: # Only used for job slots, this function must return a string which will be used as the slot label
         type: 'function'
         optional: true
 
@@ -210,3 +216,15 @@ Page.firstNew = ->
     page.contextFill()
     if page.contextMatch() and not g.events[page.constructor.name]
       return page
+
+window.PlayerOptionPage = class PlayerOptionPage extends Page
+  show: ->
+    element = super()
+    next = @constructor.next
+    $('button', element).click ->
+      nextPage = next[$(@).html()]
+      g.queue.unshift new nextPage
+      Game.gotoPage()
+
+    return element
+  next: false

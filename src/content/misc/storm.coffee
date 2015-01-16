@@ -32,7 +32,7 @@ Page.Storm = class Storm extends Page
       when @damage <= 15 then 'intense'
       when @damage <= 20 then 'dangerous'
       when @damage <= 25 then 'deadly'
-      else 'a mother storm'
+      else 'a Grandmother Storm'
 
 
     buttons = ['Run for ' + g.location, 'Run for ' + sail.destination, 'Batten Down']

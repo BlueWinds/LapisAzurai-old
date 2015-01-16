@@ -8,13 +8,13 @@ Place.Vailia::jobs.library = Job.Library = class Library extends Job
   conditions:
     '|officers|Nat|money': {gte: 5}
   officers:
-    ' ': {}
+    worker: {}
   effects:
     money: [-5, 'Visited Library']
 
 Job.Library::next = Page.Library = class Library extends Page
   conditions:
-    ' ': {}
+    worker: {}
   text: ->"""<page bg="#{marketImage()}">
     <text><p>The University – unnamed, beyond its location (Valia) and its function (university) – was the fourth largest collection of books known in the world. The other three were all owned by nations rather larger than one small island – Kantis and Baufeng had capital cities to rival Vailia, while Jeju lacked a city as major, but possessed lands a thousand miles wide. Still, ten thousand volumes, curated and carefully maintained, was nothing to scoff at, especially when there was specific knowledge to be sought out.</p></text>
   </page>"""
@@ -24,18 +24,18 @@ Job.Library::next = Page.Library = class Library extends Page
 Page.Library.next.push Page.LibraryTravel = class LibraryTravel extends Page
   conditions:
     '|events|LibraryTravel|length': {lt: 7, optional: true}
-    ' ': {}
+    worker: {}
   text: ->"""<page bg="#{marketImage()}">
-    <text><p>With some careful searching of various travel journals and map fragments, and the (un)help of a thorny librarian, #{@[' ']} managed to find and copy down the details of a new route. With a detailed chart and location, the Lapis could now travel to another destination.</p></text>
+    <text><p>With some careful searching of various travel journals and map fragments, and the (un)help of a thorny librarian, #{@worker} managed to find and copy down the details of a new route. With a detailed chart and location, the Lapis could now travel to another destination.</p></text>
   </page>"""
   next: Page.firstNew
   @next = []
 
 Page.LibraryTravel.next.push Page.LibraryTravelAlkenai = class LibraryTravelAlkenai extends Page
   conditions:
-    ' ': {}
+    worker: {}
   text: ->"""<page bg="#{marketImage()}">
-    <text><p>With some careful searching of various travel journals and map fragments, and the (un)help of a thorny librarian, #{@[' ']} managed to find and copy down the details of a new route. With a detailed chart and location, the Lapis could now travel to another destination.</p>
+    <text><p>With some careful searching of various travel journals and map fragments, and the (un)help of a thorny librarian, #{@worker} managed to find and copy down the details of a new route. With a detailed chart and location, the Lapis could now travel to another destination.</p>
     <p>Passing through Mt. Julia, one can sail to <strong>Alkenai</strong>, a relatively major and independent city. The closest real settlement to Vailia, it's nominally independent but firmly under Vailia's influence and welcoming of merchants. They'll buy textiles and other Vailian manufactured goods at an excellent price.</p></text>
   </page>"""
   apply: ->
@@ -44,9 +44,9 @@ Page.LibraryTravel.next.push Page.LibraryTravelAlkenai = class LibraryTravelAlke
 
 Page.LibraryTravel.next.push Page.LibraryTravelDirect = class LibraryTravelDirect extends Page
   conditions:
-    ' ': {}
+    worker: {}
   text: ->"""<page bg="#{marketImage()}">
-    <text><p>With some careful searching of various travel journals and map fragments, and the (un)help of a thorny librarian, #{@[' ']} managed to find and copy down the details of a new route. With a detailed chart and location, the Lapis could now travel to another destination.</p>
+    <text><p>With some careful searching of various travel journals and map fragments, and the (un)help of a thorny librarian, #{@worker} managed to find and copy down the details of a new route. With a detailed chart and location, the Lapis could now travel to another destination.</p>
     <p><strong>A direct route</strong> to Alkenai, bypassing Mount Julia to shave a day off the trip. The open ocean route was more dangerous, but possibly worth it.</p></text>
   </page>"""
   apply: ->
@@ -66,20 +66,20 @@ Page.LibraryTravel.next.push Page.LibraryTravelDirect = class LibraryTravelDirec
 
 Page.Library.next.push Page.LibraryNap = class LibraryNap extends Page
   conditions:
-    ' ': {}
+    worker: {}
   text: ->"""<page bg="#{marketImage()}">
-    <text><p>Though drawn to the library by the promise of a treasure trove of knowledge, #{@[' ']} couldn't help but be distracted by the beautiful weather. Really, it was hardly #{his} fault at all that a sunbeam crept across the book #{he} was reading, and who could blame #{him} for feeling a bit drowsy in the comfortable heat? No one at all. An expensive place to nap, but a peaceful one.</p>
-    <p><em>#{@[' ']}: <span class="energy">+2 energy</span></em></p></text>
+    <text><p>Though drawn to the library by the promise of a treasure trove of knowledge, #{@worker} couldn't help but be distracted by the beautiful weather. Really, it was hardly #{his} fault at all that a sunbeam crept across the book #{he} was reading, and who could blame #{him} for feeling a bit drowsy in the comfortable heat? No one at all. An expensive place to nap, but a peaceful one.</p>
+    <p><em>#{@worker}: <span class="energy">+2 energy</span></em></p></text>
   </page>"""
   apply: ->
     super()
-    @context[' '].add 'energy', 2
+    @context.worker.add 'energy', 2
 
 Page.Library.next.push Page.LibraryBadBook = class LibraryBadBook extends Page
   conditions:
-    ' ': {}
+    worker: {}
   text: ->"""<page bg="#{marketImage()}">
-    <text><p>Though it seemed to be a somewhat trashy romance novel at first glance, a careful analysis of this particular book convinced #{@[' ']} that it was in fact a <em>very</em> trashy romance novel. At least #{he} learned a thing or two about writing – or at the very least what to avoid. <q>His voice is warm and husky like dark melted chocolate fudge caramel… or something...</q></p><p>Or something indeed. #{@[' ']} closed the book.</p></text>
+    <text><p>Though it seemed to be a somewhat trashy romance novel at first glance, a careful analysis of this particular book convinced #{@worker} that it was in fact a <em>very</em> trashy romance novel. At least #{he} learned a thing or two about writing – or at the very least what to avoid. <q>His voice is warm and husky like dark melted chocolate fudge caramel… or something...</q></p><p>Or something indeed. #{@worker} closed the book.</p></text>
   </page>"""
 
 Place.Vailia::jobs.defense = Job.Defense = class Defense extends Job
@@ -89,27 +89,27 @@ Place.Vailia::jobs.defense = Job.Defense = class Defense extends Job
   conditions:
     '|officers|Nat|money': {gte: 3}
   officers:
-    ' ': {}
+    worker: {}
   effects:
     money: [-3, 'Self Defense Lesson']
   apply: ->
     super()
-    @context[' '].add 'combat', 3
+    @context.worker.add 'combat', 3
   next: Page.randomMatch
   @next = []
 
 Job.Defense.next.push Page.DefenseNatalie = class DefenseNatalie extends Page
   conditions:
-    ' ': {is: Officer.Natalie}
+    worker: {is: Officer.Natalie}
   text: ->"""<page bg="#{marketImage()}">
-    #{@[' '].image 'normal', 'left'}
+    #{@worker.image 'normal', 'left'}
     <text><p>#{q}Hey! I heard you teach people weapons?</q> Natalie squatted down in front of the man drinking from a clay pitcher. He was rough-faced, at least two meters tall, and wore a broadsword strapped to his back. No denying that this was Torril, one of the more famous mercenaries (now retired) in Vailia.</p></text>
   </page>
   <page>
     <text continue><p><q>I do. I take it you're interested?</q></p></text>
   </page>
   <page>
-    #{@[' '].image 'normal', 'left'}
+    #{@worker.image 'normal', 'left'}
     <text><p>#{q}I captain a vessel, and figured it would behoove me to know a thing or two more about this than I do.</q> She popped back to her feet and went over to the rack of wooden practice weapons, browsing through it before settling on a narrow wooden blade.</p></text>
   </page>
   <page>
@@ -125,16 +125,16 @@ Job.Defense.next.push Page.DefenseNatalie = class DefenseNatalie extends Page
 
 Job.Defense.next.push Page.DefenseJames = class DefenseJames extends Page
   conditions:
-    ' ': {is: Officer.James}
+    worker: {is: Officer.James}
   text: ->"""<page bg="#{marketImage()}">
-    #{@[' '].image 'normal', 'left'}
+    #{@worker.image 'normal', 'left'}
     <text><p>#{q}I need some help.</q> James presented himself to Torril, a retired mercenary captain.</p></text>
   </page>
   <page>
     <text continue><p><q>What sort of help?</q></p></text>
   </page>
   <page>
-    #{@[' '].image 'normal', 'left'}
+    #{@worker.image 'normal', 'left'}
     <text continue><p>#{q}Help with a sword.</q></p></text>
   </page>
 
@@ -142,7 +142,7 @@ Job.Defense.next.push Page.DefenseJames = class DefenseJames extends Page
     <text><p><q>Why?</q></p></text>
   </page>
   <page>
-    #{@[' '].image 'normal', 'left'}
+    #{@worker.image 'normal', 'left'}
     <text continue><p>#{q}I'll be traveling dangerous places, and I need to protect people.</q></p></text>
   </page>
   <page>
@@ -151,20 +151,20 @@ Job.Defense.next.push Page.DefenseJames = class DefenseJames extends Page
 
 # Job.Defense.next.push Page.DefenseAsara = class DefenseAsara extends Page
 #   conditions:
-#     ' ': {is: Officer.Asara}
+#     worker: {is: Officer.Asara}
 #   text: ->"""<page bg="#{marketImage()}">
-#     #{@[' '].image 'normal', 'left'}
+#     #{@worker.image 'normal', 'left'}
 #     <text><p>#{q}I believe you can help me,</q> Asara introduced herself to the mercenary captain without preamble.</p></text>
 #   </page>
 #   <page>
 #     <text continue><p>He stared at her, then slowly shook his head. <q>I don't believe I know any more about the sword than you, miss.</q></p></text>
 #   </page>
 #   <page>
-#     #{@[' '].image 'normal', 'left'}
+#     #{@worker.image 'normal', 'left'}
 #     <text continue><p>#{q}Not the sword.</q> She tapped her temple, next to her grey eyes.</q></p></text>
 #   </page>
 #   <page>
-#     #{@[' '].image 'normal', 'left'}
+#     #{@worker.image 'normal', 'left'}
 #     <text continue-inline>#{q}I have heard that you may have some experience with one of my sisters. Teach me what she could do.</q></text>
 #   </page>
 #   <page>
@@ -173,19 +173,19 @@ Job.Defense.next.push Page.DefenseJames = class DefenseJames extends Page
 
 Job.Defense.next.push Page.DefenseKat = class DefenseKat extends Page
   conditions:
-    ' ': {is: Person.Kat}
-  text: ->"""<page bg="#{marketImage()}">#{@[' '].image 'normal', 'left'}
+    worker: {is: Officer.Kat}
+  text: ->"""<page bg="#{marketImage()}">#{@worker.image 'normal', 'left'}
     <text><p>Kat slumped her way into the courtyard, managing to look as though she was being dragged even though no one was anywhere near her. #{q}I'm supposed to learn how to fight,</q> she addressed the retired mercenary.</p></text>
   </page>
   <page>
     <text continue><p><q>Ah, you must be Kat. Natalie told me about you. I hear you're quick like a demon and lazy like one too.</q></p></text>
   </page>
   <page>
-    #{@[' '].image 'normal', 'left'}
+    #{@worker.image 'normal', 'left'}
     <text continue><p>#{q}That wasn't very nice of her,</q> Kat stuck out her tongue.</p></text>
   </page>
   <page>
-    #{@[' '].image 'normal', 'left'}
+    #{@worker.image 'normal', 'left'}
     <text continue-inline>#{q}Accurate though,</q> she chuckled at her sally.</text>
   </page>
 
@@ -193,7 +193,7 @@ Job.Defense.next.push Page.DefenseKat = class DefenseKat extends Page
     <text><p><q>Well, we'll soon work that out of you. Do you know any weapons work?</q></p></text>
   </page>
   <page>
-    #{@[' '].image 'normal', 'left'}
+    #{@worker.image 'normal', 'left'}
     <text continue><p>#{q}I can throw a half-brick pretty well. Usually kill a rat in one hit,</q> she grinned proudly.</p></text>
   </page>
   <page>

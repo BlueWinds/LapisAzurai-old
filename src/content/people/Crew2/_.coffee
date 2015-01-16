@@ -33,9 +33,7 @@ Person.VailianCrewM2 = class VailianCrewM2 extends Person.VailianCrewM
       'MAngryEyes.png'
       'MAngryExpression.png'
       'MTop.png']
-  # This set has an extra layer (expression), which remains uncolored.
   c = Person.VailianCrewM.colors
-  @colors: [c[0], c[1], c[2], c[3], c[3]]
 
 Person.VailianCrewF2 = class VailianCrewF2 extends Person.VailianCrewF
   name: 'VailianCrewF2'

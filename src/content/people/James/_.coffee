@@ -5,7 +5,7 @@ Game::officers.James = Officer.James = class James extends Officer
   diplomacy: 5
   sailing: 5
   combat: 20
-  happiness: 70
+  happiness: 50
   endurance: 10
   energy: 10
   text: '#DA9FAF'

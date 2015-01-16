@@ -92,7 +92,12 @@ $.fn?.addTooltips = ->
     placement: 'bottom'
   }
 
-  $('.person-info, .location', @).dblclick -> $(@).toggleClass 'show-full'
+  $('.person-info, .location', @).dblclick ->
+    $(@).toggleClass 'show-full'
+  $('div.full', @).tooltip(
+    title: 'Double click to sticky or hide this'
+    placement: 'bottom'
+  )
 
 errorPage = (page, error)->
   element = $ """<page><text>
@@ -108,6 +113,12 @@ $ ->
     return
 
   c = $ '#content'
+
+  $('.navbar-brand, #game-info').dblclick -> $('.navbar-brand').toggleClass 'show-info'
+  $('#game-info').tooltip(
+    title: 'Double click to sticky or hide this'
+    placement: 'bottom'
+  )
 
   centerNav = ->
     height = window.innerHeight + $('.navbar').outerHeight() * 2

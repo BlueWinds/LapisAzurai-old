@@ -23,7 +23,7 @@ Now you should be able to build the game:
 grunt full-build
 ```
 
-`grunt lib` minifies all the external libraries, while `grunt compile` copies the game js and css. `grunt sprites` compiles the spritesheets, and is by far the slowest part of the full-build process - fortunately, you won't need to re-run it unless you change the images or fiddle with a character's colors.
+`grunt lib` minifies all the external libraries, while `grunt compile` copies the game js and css. `grunt sprites` compiles the spritesheets, and is by far the slowest part of the full-build process - fortunately, you won't need to re-run it unless you change the images or fiddle with a character's colors. It accepts people's names as an argument - `grunt sprites:Natalie` will compile images only for her.
 
 The default grunt task (invoked with just `grunt`) compiles all of the game's Coffeescript and copies the css into the /game directory. It then monitors the files in /src for changes and recompiles as necessary for as long as you leave it running.
 

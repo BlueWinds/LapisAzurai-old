@@ -70,7 +70,7 @@ partMatches = (value, condition)->
   if condition.eq? and value isnt condition.eq
     return false
   if condition.is
-    if typeof condition.is is 'array'
+    if condition.is instanceof Array
       unless condition.is.some((c)-> value instanceof c)
         return false
     else unless value is condition.is or value instanceof condition.is

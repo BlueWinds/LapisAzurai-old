@@ -172,7 +172,7 @@ Job.IntroVisitGuildmaster::next = Page.IntroVisitGuildmaster = class IntroVisitG
   </page>
   <page>
     #{@James.image 'blush', 'left'}
-    <text continue><p>#{q}Sorry sir, yes sir,</q> James stood up straighter, self consciously moving out from his position half hidden behind her. #{q}Quartermaster, actually.</q></p></text>
+    <text continue><p>#{q}Sorry sir, yes sir,</q> James stood up straighter, self consciously moving out from his position half hidden behind her. #{q}Quartermaster.</q></p></text>
   </page>
   <page>
     #{@Guildmaster.image 'thinking', 'right'}
@@ -222,7 +222,7 @@ Job.IntroSail::next = Page.IntroSail = class IntroSail extends Page
   </page>
   <page bg="#{@Ship.images.cabinDay}">
     #{@James.image 'sad', 'left'}
-    <text continue-inline> The space was cramped, but a private room was still more than most people aboard a ship this size would get, even the quartemaster. He'd have to share with first-mate, once they had one.</text>
+    <text continue-inline> The space was cramped, but a private room was still more than most people aboard a ship this size would get, even the quartermaster. He'd have to share with first-mate, once they had one.</text>
   </page>
   <page>
     #{@James.image 'sad', 'left'}
@@ -234,8 +234,8 @@ Job.IntroSail::next = Page.IntroSail = class IntroSail extends Page
   </page>
   <page>
     #{@Nat.image 'upset', 'right'}
-    <text><p>#{q @James}Nat...</q> he trailed off, then started again. #{q}I'm not sure I can do this.</q></p></text>
-    <text><p>She waited for him to go on, but he didn't, just fidgeted and leaned against the door to resist the swell and roll of the deck beneath them. #{q @Nat}What can't you do?</q> Timber creaked, adjusting to new stresses. #{q}We're four days out, fifty kilometers from the nearest land. It's a bit late for second thoughts now.</q></p></text>
+    <text><p>#{q @James}Nat...</q> he trailed off, then started again. #{q}I'm not sure I can do this.</q></p>
+    <p>She waited for him to go on, but he didn't, just fidgeted and leaned against the door to resist the swell and roll of the deck beneath them. #{q @Nat}What can't you do?</q> Timber creaked, adjusting to new stresses. #{q}We're four days out, fifty kilometers from the nearest land. It's a bit late for second thoughts now.</q></p></text>
   </page>
   <page>
     #{@James.image 'sad', 'left'}
@@ -247,7 +247,7 @@ Job.IntroSail::next = Page.IntroSail = class IntroSail extends Page
   </page>
   <page>
     #{@James.image 'sad', 'left'}
-    <text><p>#{q}What are we even doing here, Natalie? There's plenty of opportunity back home, without risking our lives.</q></p></text>
+    <text><p>#{q}What are we even doing here, Natalie? There's plenty of opportunity at home, without risking our lives.</q></p></text>
   </page>
   <page>
     #{@Nat.image 'sad', 'right'}

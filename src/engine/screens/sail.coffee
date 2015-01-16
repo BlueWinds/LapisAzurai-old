@@ -64,7 +64,7 @@ sailCost = ->
     if Item[item] instanceof Food
       food[item] = amount
       totalFood += amount
-    else if Item[item] instanceof LuxuryGood
+    else if Item[item] instanceof Luxury
       luxury[item] = amount
 
   if Math.randomRound(howOftenLuxuryUsed)
@@ -125,8 +125,6 @@ Page.SailDay = class SailDay extends Page
 
     if cost.happiness
       for name, person of g.crew
-        person.add 'happiness', -cost.happiness
-      for name, person of g.officers
         person.add 'happiness', -cost.happiness
 
     @context.days += g.map.Ship.sailSpeed()

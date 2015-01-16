@@ -1,37 +1,3 @@
-Item.Barley = new Food
-  name: 'Barley'
-  type: 'food'
-  description: "Barley is the staple grain of Vailia and the surrounding countries, cheap and nutritious and shipped in huge bulk. Because it's so cheap, minor price fluctuations can be worth a fortune."
-  price: 3
-  unit: 'sack'
-
-Item.Wheat = new Food
-  name: 'Wheat'
-  type: 'food'
-  description: "Wheat is another major grain in the Vailian diet - more expensive, wheat bread is a luxury for those of a higher class."
-  price: 4
-  unit: 'sack'
-  food: true
-
-Item.Coffee = new LuxuryGood
-  name: 'Coffee'
-  type: 'luxury'
-  description: 'Coffee Beans are shipped dried but unroasted in burlap sacks, to be prepared according to local taste at their destination.'
-  price: 15
-  unit: 'sack'
-
-Item.Beer = new LuxuryGood
-  name: 'Beer'
-  type: 'luxury'
-  description: "The alcoholic beverage of choice for the masses, cheap beer is sometimes cheaper than fresh water because it's always safe to drink."
-  price: 8
-  unit: 'barrel'
-
-Item.Wine = new LuxuryGood
-  name: 'Wine'
-  description: "Cheap wine is a higher class of beverage than cheap beer, but not by a great deal."
-  price: 10
-  unit: 'barrel'
 
 Item['Wool Cloth'] = new Item
   name: 'Wool Cloth'
@@ -39,29 +5,11 @@ Item['Wool Cloth'] = new Item
   price: 5
   unit: 'skein'
 
-Item.Fish = new Food
-  name: 'Fish'
-  description: "Smoked, salted and packed in barrels, fish is cheap and will last almost forever."
-  price: 3
-  unit: 'barrel'
-
-Item.Meat = new Food
-  name: 'Meat'
-  description: "Red meat is a rare delicacy - before the taste is ruined by smoking, salting and being packed in barrels for months on end, that is."
-  price: 4
-  unit: 'barrel'
-
 Item.Fur = new Item
   name: 'Fur'
   description: "Furs are an expensive luxury for cold-weather clothing or comfortable rugs - either way, they're worth a considerable amount to those who can afford to skin cuddly woodland critters for their skin."
   price: 25
   unit: 'crate'
-
-Item.Salt = new LuxuryGood
-  name: 'Salt'
-  description: "Salt is both seasoning and necessity, varying in price dramatically be region - cheap at the ocean and priceless at the interior of a continent."
-  price: 8
-  unit: 'barrel'
 
 Item.Iron = new Item
   name: 'Iron'
@@ -105,20 +53,8 @@ Item['Naval Supplies'] = new Item
   price: 6
   unit: 'crate'
 
-Item.Tea = new LuxuryGood
-  name: 'Tea'
-  description: "Dried leaves of the tea plant, used to brew tasty beverages."
-  price: 15
-  unit: 'basket'
-
 Item["Maiden's Tea"] = new Item
   name: "Maiden's Tea"
   description: "A bitter herb made into contraceptive tea. Valued the world over, and commonly available."
   price: 10
   unit: 'basket'
-
-Item.Tobaco = new LuxuryGood
-  name: "Tobaco"
-  description: "Chewed or smoked, this addictive drug sees widespread use."
-  price: 15
-  unit: 'crate'

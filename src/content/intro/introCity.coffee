@@ -11,7 +11,7 @@ Page.PortIntro = class PortIntro extends Page.Port
       ).help(
         target: '.jobs'
         placement: 'bottom'
-        title: "And any jobs they can do on the right."
+        title: "And any jobs they can do on the right. Click a person to select them, then inside a job to assign them to it."
       ).help(
         target: '.worker-requirements'
         placement: 'bottom'
@@ -52,7 +52,7 @@ Page.PortIntro = class PortIntro extends Page.Port
           element.help(
             target: '.active .job-crew'
             placement: 'bottom'
-            title: "Some jobs allow you to send any number of workers along with the necessary officers. Both sailors and officers can fill these slots, and they don't require any energy (since the crew doesn't have energy anyway)."
+            title: "Some jobs allow you to send any number of workers along with the necessary officers. Both sailors and officers can fill these slots, and they don't require any energy."
           )
 
     return element
@@ -133,6 +133,7 @@ Job.IntroMarket = class IntroMarket extends Job.Market
     "Maiden's Tea": [12, 8]
     Wood: [40, 6]
     "Naval Supplies": [20, 6]
+    "Beer": [15, 8]
   sell: new Collection
     Wood: [15, 4]
 
@@ -163,6 +164,18 @@ Job.IntroMarket::next = Page.IntroMarket = class IntroMarket extends Page.Market
         title: "The price resets each day, so you can get a better deal by splitting a major purchase across multiple days."
       ).help(
         target: '[item="Maiden\'s Tea"]'
+        placement: 'bottom'
+        title: "Goods come in three varieties - Food, Trade Goods, and Luxuries. Trade goods are valuable (to you) only for how much money you can sell them for elsewhere."
+      ).help(
+        target: '[item="Fish"]'
+        placement: 'bottom'
+        title: "You'll need food before you set sail for obvious reasons."
+      ).help(
+        target: '[item="Beer"]'
+        placement: 'bottom'
+        title: "Your crew's happiness will drop slowly over time unless you carry a supply of luxuries for them."
+      ).help(
+        target: '[item="Fish"]'
         placement: 'bottom'
         title: "For now, be sure to get at least 25 barrels of fish, and enough baskets of Maiden's Tea that the price turns white."
       )

@@ -1,4 +1,4 @@
-Person.Kat = class Kat extends Officer
+Officer.Kat = class Kat extends Officer
   name: 'Kat'
   gender: 'f'
   business: 5

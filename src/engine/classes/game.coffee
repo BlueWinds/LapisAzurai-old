@@ -79,16 +79,15 @@ window.Game = class Game extends GameObject
     return
 
   setGameInfo: ->
-    element = $ '#game-info'
-    $('img', element).attr 'src', @location.images[if @weather is 'calm' then 'day' else 'storm']
-    $('.day td', element).eq(1).html @day
-    $('.crew-count td', element).eq(1).html @crew.length + @officers.objectLength
-    $('.savings td', element).eq(1).html @officers.Nat.money
+    element = $ '.nav'
+    $('.day', element).html @day
+    $('.money', element).html @officers.Nat.money
     wages = Math.sum(person.wages() for name, person of @officers)
     wages += Math.sum(person.wages() for name, person of @crew)
-    $('.wages td', element).eq(1).html wages
+    $('.wages', element).html wages
     $('.progress-bar', element).css 'width', (Math.sumObject(g.cargo) * 100 / Game.cargo) + "%"
-    $('.description', element).html @location.description?() or @location.description
+    $('#game-info img').attr 'src', @location.images[if @weather is 'calm' then 'day' else 'storm']
+    $('#game-info .description').html @location.description?() or @location.description
 
   startDay = 223
   startYear = 1271
@@ -138,6 +137,3 @@ window.Game = class Game extends GameObject
 days = ['1st', '2nd', '3rd', '4th', '5th', '6th', '7th', '8th', '9th', '10th', '11th', '12th', '13th', '14th', '15th', '16th', '17th', '18th', '19th', '20th', '21st', '22nd', '23rd', '24th', '25th', '26th', '27th', '23rd', '24th', '25th', '26th', '27th', '28th', '29th', '30th']
 months = ['Rising', 'Ascendant', 'Descending']
 seasons = ['Wood', 'Fire', 'Earth', 'Water']
-
-$ ->
-  $('.navbar-brand, #game-info').dblclick -> $('.navbar-brand').toggleClass 'show-info'

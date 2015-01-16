@@ -4,13 +4,16 @@ Job.VailiaHireCrew = class VailiaHireCrew extends Job.HireCrew
 Job.VailiaMarket = class VailiaMarket extends Job.Market
   buy: new Collection
     Fish: [50, 3]
-    Barley: [50, 4]
+    Barley: [15, 4]
     "Wool Cloth": [10, 5]
     Wood: [40, 6]
     "Naval Supplies": [20, 6]
     "Maiden's Tea": [12, 8]
-    "Trade Tools": [4, 25]
+    Salt: [3, 9]
+    Beer: [15, 8]
+    Wine: [5, 11]
     "Vailian Steel": [10, 20]
+    "Trade Tools": [4, 25]
   sell: new Collection
     Barley: [40, 4]
     Wood: [40, 5]
@@ -38,29 +41,31 @@ Place.Vailia = Game::map.Vailia = class Vailia extends Place
   destinations: new Collection
     MountJulia: 7
 
+  @adultPay = 7
+
 Place.Vailia::jobs.beach = Job.Beach = class Beach extends Job
   officers:
-    ' ': {}
-    '  ': {optional: true}
-    '   ': {optional: true}
+    worker: {}
+    worker2: {optional: true}
+    worker3: {optional: true}
   conditions:
     '|weather': {eq: 'calm'}
   label: 'Beach'
-  text: ->"""Visit the beach - fun in the sun"""
+  text: ->"""Visit the beach - a great way to relax and build up energy."""
   energy: 2
   next: Page.randomMatch
   @next: []
 
 Job.Beach.next.push Page.BeachWood = class BeachWood extends Page
   conditions:
-    ' ': {}
+    worker: {}
     '|season': {eq: 'Wood'}
   text: ->"""<page bg="#{g.location.images.day}">
-    <text><p>With Descending Water finally behind them, many Vailians greeted the returning warmth with a visit to the beach, and #{@[' ']} was no exception. Gentle waves lapped against smooth sand, wetting the feet of hundreds of visitors. Not for long though – the air was pleasantly warm, but not enough to dispel the water's chill. Playing in the sand was the order of the day.</p>
+    <text><p>With Descending Water finally behind them, many Vailians greeted the returning warmth with a visit to the beach, and #{@worker} was no exception. Gentle waves lapped against smooth sand, wetting the feet of hundreds of visitors. Not for long though – the air was pleasantly warm, but not enough to dispel the water's chill. Playing in the sand was the order of the day.</p>
   </text>
   </page>
   <page>
-    <text><p>#{@[' ']} entered a sand castle contest, constructing #{Math.choice [
+    <text><p>#{@worker} entered a sand castle contest, constructing #{Math.choice [
       "an elaborate moat and castle, carefully sculpted to resemble Vailia's palace"
       "a sandship, prow facing proudly towards the ocean"
       "the largest pile of sand " + he + " could manage, enlisting the help of several on lookers, before smoothing it out into a pyramid"
@@ -69,18 +74,18 @@ Job.Beach.next.push Page.BeachWood = class BeachWood extends Page
 
 Job.Beach.next.push Page.BeachFire = class BeachFire extends Page
   conditions:
-    ' ': {}
+    worker: {}
     '|season': {eq: 'Fire'}
   text: ->"""<page bg="#{ g.location.images.day}">
-    <text><p>The hot days of #{g.month} Fire demanded nothing other than a visit to the beach, and #{@[' ']} was perfectly obliging towards such a demand. #{He} was also obliging towards another demand – that #{he} join in a game of volleyball, to make the teams even. Win, lose or draw - #{he} honestly lost track when the game devolved into a giggling wrestling match, with the entirely of the other team running under the net to tackle them into the sand.</p></text>
+    <text><p>The hot days of #{g.month} Fire demanded nothing other than a visit to the beach, and #{@worker} was perfectly obliging towards such a demand. #{He} was also obliging towards another demand – that #{he} join in a game of volleyball, to make the teams even. Win, lose or draw - #{he} honestly lost track when the game devolved into a giggling wrestling match, with the entirely of the other team running under the net to tackle them into the sand.</p></text>
   </page>"""
 
 Job.Beach.next.push Page.BeachEarth = class BeachEarth extends Page
   conditions:
-    ' ': {}
+    worker: {}
     '|season': {eq: 'Earth'}
   text: ->"""<page bg="#{g.location.images.day}">
-    <text><p>Stealing one of the final days of warmth from #{g.month}, #{@[' ']} took a walk along the beach. It was nearly empty at this time of year, weather uncertain and plenty of work to be done before the cold arrived, leaving #{@[' ']} plenty of space for #{his} wanderings.</p></text>
+    <text><p>Stealing one of the final days of warmth from #{g.month}, #{@worker} took a walk along the beach. It was nearly empty at this time of year, weather uncertain and plenty of work to be done before the cold arrived, leaving #{@worker} plenty of space for #{his} wanderings.</p></text>
   </page>
   <page>
     <text continue><p>Collecting a couple of shells, #{he} finally settled on a single beautiful spiral. There wasn't much room aboard the Azurai for personal possessions, so memories of a beautiful walk and the single memento would have to be enough.</p></text>
@@ -88,8 +93,8 @@ Job.Beach.next.push Page.BeachEarth = class BeachEarth extends Page
 
 Job.Beach.next.push Page.BeachWater = class BeachWater extends Page
   conditions:
-    ' ': {}
+    worker: {}
     '|season': {eq: 'Water'}
   text: ->"""<page bg="#{g.location.images.day}">
-    <text><p>In the biting cold of #{g.month} Water the beach was completely deserted, leaving #{@[' ']} alone with #{his} thoughts. #{He} sat and watched the waves roll in for a while, before finally spotting another watcher of the waves. They walked together for a while, saying nothing, merely enjoying the company of another human. Finally the #{Math.choice ['old man', 'old woman', 'young man', 'young woman', 'girl', 'boy']} returned to the city, and #{@[' ']} did the same shortly after.</p></text>
+    <text><p>In the biting cold of #{g.month} Water the beach was completely deserted, leaving #{@worker} alone with #{his} thoughts. #{He} sat and watched the waves roll in for a while, before finally spotting another watcher of the waves. They walked together for a while, saying nothing, merely enjoying the company of another human. Finally the #{Math.choice ['old man', 'old woman', 'young man', 'young woman', 'girl', 'boy']} returned to the city, and #{@worker} did the same shortly after.</p></text>
   </page>"""

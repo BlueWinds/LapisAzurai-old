@@ -27,7 +27,7 @@ Job.universal.push Job.RepairShip = class RepairShip extends Job
         else 'neither'
     }
   officers:
-    ' ': {}
+    worker: {}
   energy: -2
   crew: 1
   text: ->
@@ -46,7 +46,7 @@ Job.universal.push Job.RepairShip = class RepairShip extends Job
 
 Job.RepairShip::next = Page.RepairShip = class RepairShip extends Page
   conditions:
-    ' ': {}
+    worker: {}
     crew: '|last|context|length'
     missing: {}
     repair: fill: ->
@@ -76,14 +76,14 @@ Job.RepairShip::next = Page.RepairShip = class RepairShip extends Page
     missingMaterials = switch
       when @missing is 'both' then "Without proper materials in the hold - neither spare planks nor any of the other necessities to make a ship seaworthy - it was painful and slow work, and some tasks were simply impossible."
       when @missing is 'wood' then "Lacking any way to replace the damaged mast, they settled for binding it tightly and a generouse dose of tar to keep water and rot away from the weakend areas."
-      when @missing is 'supplies' then "Without any fresh canvas or ropes, #{@[' ']} had to settle for patching, stitching and splicing things back into shape. It would work - for now - but the work was painstaking and sluggish."
+      when @missing is 'supplies' then "Without any fresh canvas or ropes, #{@worker} had to settle for patching, stitching and splicing things back into shape. It would work - for now - but the work was painstaking and sluggish."
       else ""
     repair = switch
       when @repair is 0 then "You can't repair the ship any further without the right materials"
       else "#{@repair} (#{g.map.Ship.damage - @repair} damage left)"
 
     """<page bg="#{if g.weather is 'storm' then g.location.images.storm else g.location.images.day}">
-      <text><p>#{@[' ']} pitched in along with #{@crew.toWord()} sailors to set the Lapis aright. Torn canvas and snapped ropes they spliced, patched and replaced. Some weakened wood could be made good as new with a binding, while sections too damaged for that had to be taken out and refitted entirely. A well-put together ship was designed with repair in mind, as well as sea-worthiness - every plank in the ship save the spine itself might be taken out and replaced over the course of years of service.</p>
+      <text><p>#{@worker} pitched in along with #{@crew.toWord()} sailors to set the Lapis aright. Torn canvas and snapped ropes they spliced, patched and replaced. Some weakened wood could be made good as new with a binding, while sections too damaged for that had to be taken out and refitted entirely. A well-put together ship was designed with repair in mind, as well as sea-worthiness - every plank in the ship save the spine itself might be taken out and replaced over the course of years of service.</p>
       #{if missingMaterials then "<p>" + missingMaterials + "</p>" else ""}
       <p><em>#{repair}
       <p><em>#{Item.costDescription(cost)}</em></p></text>
@@ -110,9 +110,9 @@ Job.universal.push Job.BedRest = class BedRest extends Job
         for name, officer of g.officers when officer.sick then return officer
         return false
   officers:
-    ' ': {sick: {is: true}}
-    ' ': {sick: {is: true}}
-    ' ': {sick: {is: true}}
+    worker: {sick: {is: true}}
+    worker2: {sick: {is: true}}
+    worker3: {sick: {is: true}}
   energy: 3
   acceptInjured: true
   crew: 1

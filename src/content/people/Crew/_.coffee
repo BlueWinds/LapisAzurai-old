@@ -24,26 +24,31 @@ Person.VailianCrewM = class VailianCrewM extends RandomPerson
       'MNormalSkin.png'
       'MNormalHair.png'
       'MNormalEyes.png'
+      'MNormalExpression.png'
       'MTop.png']
     happy: [
       'MHappySkin.png'
       'MHappyHair.png'
       'MHappyEyes.png'
+      'MHappyExpression.png'
       'MTop.png']
     sad: [
       'MSadSkin.png'
       'MSadHair.png'
       'MSadEyes.png'
+      'MSadExpression.png'
       'MTop.png']
     serious: [
       'MSeriousSkin.png'
       'MSeriousHair.png'
       'MSeriousEyes.png'
+      'MSeriousExpression.png'
       'MTop.png']
     angry: [
       'MAngrySkin.png'
       'MAngryHair.png'
       'MAngryEyes.png'
+      'MAngryExpression.png'
       'MTop.png']
   @colors: [
     {# Skin
@@ -66,6 +71,9 @@ Person.VailianCrewM = class VailianCrewM extends RandomPerson
       blue: [198, 71, 0]
       hazel: [21, 29, 8]
     }
+    { # Expression
+      none: false
+    }
     { # Top
       none: false
     }
@@ -81,11 +89,13 @@ Person.VailianCrewF = class VailianCrewF extends Person.VailianCrewM
       'FNormalSkin.png'
       'FNormalHair.png'
       'FNormalEyes.png'
+      'FNormalExpression.png'
       'FTop.png']
     happy: [
       'FHappySkin.png'
       'FHappyHair.png'
       'FHappyEyes.png'
+      'FHappyExpression.png'
       'FTop.png']
     sad: [
       'FSadSkin.png'
@@ -96,11 +106,13 @@ Person.VailianCrewF = class VailianCrewF extends Person.VailianCrewM
       'FSeriousSkin.png'
       'FSeriousHair.png'
       'FSeriousEyes.png'
+      'FSeriousExpression.png'
       'FTop.png']
     angry: [
       'FAngrySkin.png'
       'FAngryHair.png'
       'FAngryEyes.png'
+      'FAngryExpression.png'
       'FTop.png']
   @colors: Person.VailianCrewM.colors
 

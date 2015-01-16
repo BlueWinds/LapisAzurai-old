@@ -3,6 +3,8 @@ async = require('async')
 Canvas = require('canvas')
 
 files = require './src/loadOrder'
+sfw = files.map (f)->('src/' + f)
+nsfw = sfw.concat files.nsfw.map (f)->('src/' + f)
 
 grunt = null
 
@@ -13,11 +15,14 @@ module.exports = (g) ->
   grunt.loadNpmTasks 'grunt-contrib-watch'
   grunt.loadNpmTasks 'grunt-contrib-copy'
   grunt.loadNpmTasks 'grunt-contrib-uglify'
+  grunt.loadNpmTasks 'grunt-contrib-clean'
 
   config = {
     coffee:
-      compile:
-        files: 'game/compiled.js': files.map (f)->('src/' + f)
+      sfw:
+        files: 'game/compiled.js': sfw
+      nsfw:
+        files: 'game/compile.js': nsfw
     coffeelint:
       app: ['src/**/*.coffee']
       options:
@@ -69,10 +74,14 @@ module.exports = (g) ->
       compile:
         files: ['src/**/*']
         tasks: ['compile']
+      sfw:
+        files: ['src/**/*']
+        tasks: ['compile-sfw']
 
-    pngnq:
-      src: ['game/**/*.png']
-      dest: 'game'
+    clean:
+      options:
+        'no-write': true
+      game: ['game']
   }
   grunt.initConfig config
 
@@ -80,10 +89,13 @@ module.exports = (g) ->
     done = @async()
     createAllSprites name, done
 
-  grunt.registerTask 'compile', ['coffee', 'copy:css']
+  grunt.registerTask 'compile', ['coffee:nsfw', 'copy:css']
+  grunt.registerTask 'compile-sfw', ['coffee:sfw', 'copy:css']
   grunt.registerTask 'lib', ['uglify', 'copy:libs', 'copy:images']
-  grunt.registerTask 'full-build', ['lib', 'coffeelint', 'compile', 'sprites']
+  grunt.registerTask 'full-build', ['rm', 'lib', 'coffeelint', 'compile', 'sprites']
+  grunt.registerTask 'full-build-sfw', ['rm', 'lib', 'coffeelint', 'compile-sfw', 'sprites']
   grunt.registerTask 'default', ['lib', 'coffeelint', 'compile', 'watch']
+  grunt.registerTask 'sfw', ['lib', 'coffeelint', 'compile-sfw', 'watch:sfw']
 
 
 loadGameObjects = ->

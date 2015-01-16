@@ -15,10 +15,8 @@ Game.passDay.push ->
   if wages
     g.applyEffects {money: [-wages, 'Paid crew']}
 
-  change += if g.officers.Nat.money < 0 then -2 else 3
+  change += if g.officers.Nat.money < 0 then -2 else 0.5
   for name, person of g.crew
-    person.add 'happiness', change
-  for name, person of g.officers when person.wages()
     person.add 'happiness', change
 
 #   g.queue.unshift new Page.Financial

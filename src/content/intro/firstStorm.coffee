@@ -72,7 +72,7 @@ Page.FirstStorm::next = Page.FirstStorm2 = class FirstStorm2 extends Page
     <text continue-inline> Natalie shook her head, made a sharp gesture denial – James shouldn't go down there. He gritted his teeth and ignored her, untied his line and ran down the stairs.</text>
   </page>
   <page bg="#{@Ship.images.storm}">
-    <text><p>This was the sort of storm that left no survivors. A grandmother storm. The last had been just a month ago – Natalie had helped comb the beach for wreckage and survivors in its wake. There were precious few of the later, and far too much of the former.</p></text>
+    <text><p>This was the sort of storm that left no survivors. A Grandmother Storm. The last had been just a month ago – Natalie had helped comb the beach for wreckage and survivors in its wake. There were precious few of the later, and far too much of the former.</p></text>
   </page>
   <page>
     <text continue><p>A wave towered over them, reaching halfway up the main mast for a brief moment before it crashed over the deck. Natalie clung to the wheel desperately in the maelstrom that tried to tear her away from her post.</p></text>
@@ -91,7 +91,7 @@ Page.FirstStorm::next = Page.FirstStorm2 = class FirstStorm2 extends Page
     <text continue-inline> He cut away #{his} rope with a knife and dashed towards the door below decks, slamming it behind him just as another wall of water crashed over the ship. He leaned down, examined #{@sailor}'s forehead. Still breathing. Just a crack on the head. #{He}'d be fine.</text>
   </page>
   <page bg="#{@Ship.images.deckStorm}">
-    <text><p>James pushed back into the storm, wind instantly cutting away any semblance of warmth he'd gathered inside. Clinging to the rail for stability against the violently pitching deck, he pushed his way back up to the poop deck. Natalie hadn't moved – she still clung to the wheel, grinning madly. He grabbed her shoulder, shouted.</p></text>
+    <text><p>James pushed back into the storm, wind instantly cutting away any semblance of warmth he'd gathered inside. Clinging to the rail for stability against the violently pitching deck, he pushed his way back up to the poop deck. Natalie hadn't moved – she still clung to the wheel, grinning madly. He grabbed her shoulder, shouted something even he couldn't hear.</p></text>
   </page>
   <page>
     <text><p>#{q @Nat}Do you know why they gave me a ship, James? I'm smart, and I'm pretty, but that's not why.</q> Her voice somehow cut through the wind, though he could barely hear his own shouting. He shook his head. This wasn't the time for that.</p></text>
@@ -123,8 +123,11 @@ Page.FirstStorm2::next = Page.FirstStorm3 = class FirstStorm3 extends Page
       fill: ->g.crew[Math.choice(g.crew)]
     }
   text: ->"""<page slow bg="#{@Ship.images.deckNight}">
+    <text><p>Silence.</p></text>
+  </page>
+  <page>
     #{@James.image 'sad', 'right'}
-    <text><p>Silence. James clung to the railing, shivering, and trying to to pass out from the twin pangs of exhaustion and chill. But he was alive – they were all alive, by some miracle. The sea still rolled, waves still occasionally rose high enough to spray the deck, but it was clear they'd passed through the worst of the storm. Light grew on the horizon – dawn, slowly pressing its way through the clouds overhead.</p></text>
+    <text continue-inline> James clung to the railing, shivering, and trying to to pass out from the twin pangs of exhaustion and chill. But he was alive – they were all alive, by some miracle. The sea still rolled, waves still occasionally rose high enough to spray the deck, but it was clear they'd passed through the worst of the storm. Light grew on the horizon – dawn, slowly pressing its way through the clouds overhead.</text>
   </page>
   <page>
     <text><p>He stumbled to his feet, slipped on a loose rope, steadied himself with an arm on the railing. Deep weariness penetrated all the way to his bones, sapping every ounce of strength. Just a little more. He dragged himself across the deck, slapping #{@sailor} on the back where #{he} doggedly passed on pails of water handed up from below decks.</p></text>
@@ -133,7 +136,7 @@ Page.FirstStorm2::next = Page.FirstStorm3 = class FirstStorm3 extends Page
     <text><p>Up on the poop deck he found Natalie, passed out and still tied to the wheel.  Numb fingers fumbled with the rope, then he bypassed them by using a knife to cut her free. They had plenty of rope. He winced away from the contact – unlike his own icy skin, she was burning hot to the touch, as if wracked by a terrible fever. Only the strength and steadiness of her breaths reassured him she wasn't on death's doorstep.</p></text>
   </page>
   <page bg="#{@Ship.images.cabinNight}">
-    <text><p>Down, below decks he carried her, to her cabin. Against all odds, the interior was still dry – even a mother storm that had snapped two masts and torn away every sail hadn't been a match for the rubber seal around the door to the captain's cabin.</p></text>
+    <text><p>Down, below decks he carried her, to her cabin. Against all odds, the interior was still dry – even a Grandmother Storm that had snapped two masts and torn away every sail hadn't been a match for the rubber seal around the door to the captain's cabin.</p></text>
   </page>
   <page>
     <text continue><p>Efficiently he stripped her, all the way down to bare skin. Any other time he would have hesitated, or at the very least been blushing and mortified as he worked, but not now – any feelings beyond mere practicality were gone, washed away somewhere in the last six hours.</p></text>
@@ -181,7 +184,7 @@ Job.IntroSickNat::next = Page.IntroSickNat = class IntroSickNat extends Page
     <text continue><p>#{q}Right. She was burning hot at first, like a harsh fever, but she wasn't sweating at all, and looked perfectly comfortable.</q> James gave everyone appologetic looks, but didn't stop bulling towards the ship, priest in tow.</p></text>
   </page>
   <page>
-    <text contine><p>No one had expected a ship to come into dock the day after a Mother Storm, and even with two sails snapped, the Azurai was in remarkably good condition. No hands lost. That was news. News attracted crowds. Natalie would know how to deal with this, but that wasn't much help when Natalie was the thing that needed dealing with.</p></text>
+    <text contine><p>No one had expected a ship to come into dock the day after a Grandmother Storm, and even with two sails snapped, the Azurai was in remarkably good condition. No hands lost. That was news. News attracted crowds. Natalie would know how to deal with this, but that wasn't much help when Natalie was the thing that needed dealing with.</p></text>
   </page>
   <page>
     #{@James.image 'serious', 'left'}
@@ -325,7 +328,7 @@ Job.IntroNatAwake::next = Page.IntroNatAwake = class IntroNatAwake extends Page
   </page>
   <page>
     #{@Natalie.image 'normal', 'left'}
-    <text><p>#{q}How long was I gone?</q> Natalie rubbed her eyes, looking out on the busy port. Standing in her nightshirt and underwear, she attracted no attention – women wearing less were an everyday sight in this city.</p></text>
+    <text><p>#{q}How long was I asleep?</q> Natalie rubbed her eyes, looking out on the busy port. Standing in her nightshirt and underwear, she attracted no attention – women wearing less were an everyday sight in this city.</p></text>
   </page>
   <page>
     #{g.crew[0].image 'normal', 'right'}

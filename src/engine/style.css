@@ -457,7 +457,7 @@ input.inline:disabled {
   width: calc(50% - 30px);
 }
 .worker-requirements .name {
-  color: #666;
+  color: #999;
 }
 .person-info, .worker-requirements {
   background: #000;
@@ -613,7 +613,7 @@ input.inline:disabled {
   background: none;
   clear: left;
   float: left;
-  margin: 3px 10px 5px 0;
+  margin: 3px 5px 5px 0;
   width: 8em;
 }
 .full .energy {
@@ -708,24 +708,42 @@ input.inline:disabled {
   transition: clip 0.5s ease 0.75s;
 }
 #game-info img {
+  float: left;
+  margin: 0 10px 10px 0;
   width: 12em;
 }
-#game-info .progress-label {
-  left: 45px;
-  padding-top: 5px;
-  width: auto;
+.nav .day {
+  font-weight: 700;
+  margin-left: 15px;
+  margin-right: 15px;
 }
-#game-info .progress {
-  margin-bottom: 5px;
-  margin-top: 5px;
+.nav .day:before {
+  content: "Day ";
+  font-weight: 700;
 }
-#game-info .cargo td {
-  padding: 0;
+.nav .money:after {
+  content: "β";
+}
+.nav .day, .nav .money, .nav .wages {
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+.nav .cargo {
+  margin-left: 15px;
+  padding-top: 14px;
+  width: 7em;
+}
+.nav .progress {
+  margin-bottom: 0;
 }
 #game-info .page {
   display: none;
   padding-left: 1em;
   padding-right: 1em;
+}
+#game-info .description {
+  clear: none;
+  margin: 0;
 }
 .mission .block-label {
   margin-left: -2.1em;
@@ -844,6 +862,7 @@ input.inline:disabled {
   color: #fff;
   left: 0;
   position: absolute;
+  text-align: center;
   width: 100%;
 }
 .nextDay {
