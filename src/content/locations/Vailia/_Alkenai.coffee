@@ -35,7 +35,7 @@ Place.Alkenai::firstVisit = Page.AlkenaiArrive = class AlkenaiArrive extends Pag
     <text><p>Excited shouts and waving arms guided the Azurai into dock at Alkenai, one of Vailia's primary trading partners. Another free city, Alkenai nestled in the arms of an encircling mountain, stone bluffs trailing into the sea on either side of the city and providing protection from storms. A stream ran down the valley though the center of town fed by springs further up the slope. The Alkenians made their livings from the forest and the shore, supplying Vailia with timber in return for steady shipments manufactured goods or other items from farther afield – without the vast and relatively safe forests, Natalie's homeland would be unable to keep a significant navy afloat against the terrible attrition of the open ocean.</p></text>
   </page>
   <page>
-    <text><p>For those reasons, and others, the arrival of a ship from the east was always a welcome sight. A gaggle of children stood gaping at them as sailors hopped down from the Azurai and began to secure her to the warf. A man bearing a clipboard and a pen waited patiently for Natalie to disembark.</p></text>
+    <text><p>For those reasons, and others, the arrival of a ship from the east was always a welcome sight. A gaggle of children stood gaping at them as sailors hopped down from the Azurai and began to secure it to the wharf. A man bearing a clipboard and a pen waited patiently for Natalie to disembark.</p></text>
   </page>
   <page>
   <page>

@@ -35,7 +35,7 @@ Job.MeetKat.next.push Page.MeetKat2 = class MeetKat2 extends Page
     <text><p>#{q}Tree bark, boil it or grind it up. 10 obols an ounce, but a little goes a long way. Limited supplies,</q> he gestured to a single, half empty crate behind him.</p></text>
   </page>
   <page>
-    <text continue><p>Natalie whistled at that. Truly it must come from halfway around the world to warrant that price – or he was a con artist, a splended one. The smell though - she'd never scented anything like it in her life, nor heard of it. A cargo hold full of that and she'd be set for life. #{q}Interesting. Does it taste like it smells? I might conisder...</q></p></text>
+    <text continue><p>Natalie whistled at that. Truly it must come from halfway around the world to warrant that price – or he was a con artist, a splendid one. The smell though - she'd never scented anything like it in her life, nor heard of it. A cargo hold full of that and she'd be set for life. #{q}Interesting. Does it taste like it smells? I might consider...</q></p></text>
   </page>
   <page>
     <text><p>A flash of movement caught her eye, and a sudden feeling of breeze. She patted her pocket, and found no bundle of coins. She spun on her heels, catching another flash of motion – a young woman, disappearing into the crowd.</p></text>

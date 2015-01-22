@@ -388,7 +388,7 @@ Page.GuildNatDom.next['Sure'] = Page.GuildNatDomSure = class GuildNatDomSure ext
 
   <page>
     #{@worker.image 'serious', 'left'}
-    <text><p>#{q}This isn't a park, ladies,</q> she addressed them, standing with a slight smile and one hand on her hip. The woman she'd addressed was about her own height, strawberry blond hair just past her shoulders and breasts that looked oversized on her small frame.</p></text>
+    <text><p>#{q}This isn't a park, ladies,</q> she addressed them, standing with a slight smile and one hand on her hip. The woman she'd addressed was about her own height, strawberry blond hair just past her shoulders and breasts that looked over-sized on her small frame.</p></text>
   </page>
   <page>
     <text continue><p><q>Yes, I... we know, Ms,</q> the other girl responded, taking Natalie's attention off her friend. She was a little plump, soft and freckled with short brown curls.</p></text>

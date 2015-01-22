@@ -49,7 +49,7 @@ Place.Vailia::firstVisit = Page.FirstStorm = class FirstStorm extends Page
     <text continue><p>#{q}<b>How do you know!</b></q> James repeated his question, grabbing her waist to steady her as the water washed over the deck below.</p></text>
   </page>
   <page>
-    <text><p>Two sailors snapped to the end of their safety lines, saved by the rope anchoring them to their posts, while the rest remained on their feet. This one hadn't risen high enough to flood over the poop deck, but it was just a warmup. Looking deeper into the storm from their position at the top of the wave, they could see even more monstrous waves coming toward them. Natalie spun the wheel, hoping desperately that the ship would turn fast enough to take the next head-on.</p></text>
+    <text><p>Two sailors snapped to the end of their safety lines, saved by the rope anchoring them to their posts, while the rest remained on their feet. This one hadn't risen high enough to flood over the poop deck, but it was just a warm up. Looking deeper into the storm from their position at the top of the wave, they could see even more monstrous waves coming toward them. Natalie spun the wheel, hoping desperately that the ship would turn fast enough to take the next head-on.</p></text>
   </page>
   <page>
     <text><p>Storms like this swept across the world, leaving nothing but wreckage in their wake. Refuges like Mt. Julia were vital for any ships to survive at all. Seagoing vessels existed as fugitives, darting between safe ports in the intervening lulls. No captain set sail in anything except perfect weather, to reduce their chances of getting caught in one. Like they had. And even still, as often as not, ships were unlucky. Like they were.</p></text>
@@ -62,7 +62,7 @@ Page.FirstStorm::next = Page.FirstStorm2 = class FirstStorm2 extends Page
     James: {}
     sailor: {}
   text: ->"""<page bg="#{@Ship.images.storm}">
-    <text><p>Another wave towered over them, a tremendous mountain in the ocean. James managed to wrap a rope around Natalie's waist and tie it to the wheel just in time. This one didn't spill over the deck as more than a plume of spray, but sugring water and gusting wind spun the ship around like a cork, and the deck tilted precipitously.</p></text>
+    <text><p>Another wave towered over them, a tremendous mountain in the ocean. James managed to wrap a rope around Natalie's waist and tie it to the wheel just in time. This one didn't spill over the deck as more than a plume of spray, but surging water and gusting wind spun the ship around like a cork, and the deck tilted precipitously.</p></text>
   </page>
   <page bg="#{@Ship.images.deckStorm}">
     #{@James.image 'angry', 'right'}
@@ -182,7 +182,7 @@ Job.IntroSickNat::next = Page.IntroSickNat = class IntroSickNat extends Page
   </page>
   <page bg="#{g.location.images.day}">
     #{@James.image 'serious', 'left'}
-    <text continue><p>#{q}Right. She was burning hot at first, like a harsh fever, but she wasn't sweating at all, and looked perfectly comfortable.</q> James gave everyone appologetic looks, but didn't stop bulling towards the ship, priest in tow.</p></text>
+    <text continue><p>#{q}Right. She was burning hot at first, like a harsh fever, but she wasn't sweating at all, and looked perfectly comfortable.</q> James gave everyone apologetic looks, but didn't stop bulling towards the ship, priest in tow.</p></text>
   </page>
   <page>
     <text contine><p>No one had expected a ship to come into dock the day after a Grandmother Storm, and even with two sails snapped, the Azurai was in remarkably good condition. No hands lost. That was news. News attracted crowds. Natalie would know how to deal with this, but that wasn't much help when Natalie was the thing that needed dealing with.</p></text>
