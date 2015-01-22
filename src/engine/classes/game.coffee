@@ -6,9 +6,6 @@ window.Game = class Game extends GameObject
   @schema:
     type: @
     properties:
-      content:
-        type: 'string'
-        pattern: /sfw|nsfw|lewd/
       day:
         type: 'integer'
         gte: 0
@@ -57,7 +54,6 @@ window.Game = class Game extends GameObject
   export: ->
     super [], [], ''
 
-  content: 'sfw'
   day: 0
   weather: 'calm'
   cargo: new Collection
