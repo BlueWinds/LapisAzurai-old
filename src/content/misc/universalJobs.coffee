@@ -68,7 +68,6 @@ Job.RepairShip::next = Page.RepairShip = class RepairShip extends Page
     sailing:
       fill: -> Person.sumStat 'sailing', Job.RepairShip::officers, g.last.context
   text: ->
-    console.log @
     cost =
       Wood: Math.ceil Math.min(g.cargo.Wood, @repair * woodPerRepair)
       'Naval Supplies': Math.ceil Math.min(g.cargo['Naval Supplies'], @repair * suppliesPerRepair)

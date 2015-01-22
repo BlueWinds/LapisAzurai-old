@@ -1,6 +1,6 @@
 eventFrequency = 5
-howOftenLuxuryUsed = 0.25
-foodPerPersonDaily = 0.3333
+howOftenLuxuryUsed = 0.125
+foodPerPersonDaily = 0.25
 noFoodUnhappiness = 1 # Per missing unit of food
 noLuxuryUnhappiness = 1
 

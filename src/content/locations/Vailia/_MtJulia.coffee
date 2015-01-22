@@ -41,7 +41,7 @@ Place.MountJulia::firstVisit = Page.VisitJulia = class VisitJulia extends Page
     'James': '|officers|James'
     'Mt': '|map|MountJulia'
   text: ->
-    sailor = g.crew[Math.choice(g.crew)]
+    sailor = Math.choice g.crew
     return """<page bg="#{@Mt.images.day}">
       <text><p>Mount Julia loomed up out of the ocean, a jagged peak that had been growing on the horizon all day. If the current wind held steady, the Lapis would arrive just after midnight – enough time for everyone to rest and catch their breath before exploring the city in the morning. A week of sailing had settled the crew into a comfortable routine – #{g.crew[0]} preferred the night shift, watching the helm while the captain slept, and #{g.crew[1]} was a natural up in the rigging, scurrying up and down the masts to adjust the lines.</p></text>
     </page>
@@ -130,7 +130,7 @@ Job.MtJuliaRest::next = Page.MtJuliaRest = class MtJuliaRest extends Page
     worker: {}
   text: ->"""<page bg="#{g.location.images.tavern}">
     #{@worker.image 'normal', 'left'}
-    <text><p>#{console.log @; q}So, what's your name?</q> #{@worker} asked the bartender – a cute little girl, perhaps twelve. She claimed to have parents around here somewhere, but #{@worker} hadn't seen or heard them yet.</p></text>
+    <text><p>#{q}So, what's your name?</q> #{@worker} asked the bartender – a cute little girl, perhaps twelve. She claimed to have parents around here somewhere, but #{@worker} hadn't seen or heard them yet.</p></text>
   </page>
   <page>
     <text continue><p><q>Tasha. Tasha Julia, pleased ta'make yer acquaintance.</q> She stuck one hand out, and #{@worker} shook it. She had a strong grip for her size. Other than those from the Azurai, the inn was completely empty. It was of a decent size, capable of seating several dozen patrons, and the second floor promised plenty of private rooms for those looking for time away from their ships.</p></text>
@@ -218,5 +218,5 @@ Job.MtJuliaCheckShip::next = Page.MtJuliaCheckShip = class MtJuliaCheckShip exte
     <text><p>He dove over the rail, hitting the icy water with nary a splash. The ocean water stung his open eyes for a moment, but he spun around and began inspecting the hull for damage without surfacing. No child in Vailia avoided learning to swim – in self defense for when older children threw you over a cliff, if for no other reason.</p></text>
   </page>
   <page bg="#{g.map.Ship.images.deckDay}">
-    <text><p>#{q}Nothing, we're clean,</q> James accepted the towel from #{g.crew[Math.choice(g.crew)].name}, tussling it through his hair and rubbing the water off his back. No scrapes, no barnacles yet, no leaks. Not some rickety junk from Kantis, the Guild hadn't skimped in giving Natalie a good vessel. The Lapis Azurai was a solid ship, straight out of the Vailian shipyards. If there were ships anywhere in the world to match Vailian ones, even rumor hadn't reached James' ears.</p></text>
+    <text><p>#{q}Nothing, we're clean,</q> James accepted the towel from #{Math.choice g.crew}, tussling it through his hair and rubbing the water off his back. No scrapes, no barnacles yet, no leaks. Not some rickety junk from Kantis, the Guild hadn't skimped in giving Natalie a good vessel. The Lapis Azurai was a solid ship, straight out of the Vailian shipyards. If there were ships anywhere in the world to match Vailian ones, even rumor hadn't reached James' ears.</p></text>
   </page>"""

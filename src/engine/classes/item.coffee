@@ -36,7 +36,7 @@ window.Item = class Item extends GameObject
     relativePrice = if price < 0 then "high" else if price > 0 then "low" else ""
     """<tr class="#{relativePrice}" item="#{@name}">
       <td class="title" title="#{@description}">#{@name}</td>""" +
-    (if price
+    (if price?
       """<td class="price" title="#{increment} #{@unit}s can be sold at #{price + @price}β (valued in Vailia at #{@price}β)">#{price + @price}β</td>
       <td class="plus">+</td>
       <td class="count">#{if available then '0/' + available else '--'}</td>

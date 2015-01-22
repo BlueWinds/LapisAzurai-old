@@ -1,5 +1,5 @@
-lightDamage = 5
-heavyDamage = 10
+lightDamage = 7
+heavyDamage = 14
 maxDamage = 20
 
 Place.Ship = Game::map.Ship = class Ship extends Place
@@ -64,7 +64,7 @@ ShipJob.Talk.next.push Page.ShipTalkIndoors = class ShipTalkIndoors extends Page
     <text><p>With colder weather setting in, those not on duty preferred to gather in the cargo hold, if it was empty enough, or squeeze into the sleeping area if not. Hot and crowded was better than windy and chill, and those too near the doorway still kept cloaks on to pretect angainst stray drafts.</p></text>
   </page>
   <page>
-    <text continue><p>Though she often preferred to keep her own company, or entertain a smaller group in her own quarters, Natalie also made it a point to spend plenty of time mingling with the crew, especially when off duty. Aside from the purely practical considerations to keeping in touch with their mood and fostering a sense of companionship, she also found it fascinating to listen to them – why they left their homes to risk lives on the open ocean, what they wanted, who they wanted to be... she spent hours listening to and talking with #{person}.</p>
+    <text><p>Though she often preferred to keep her own company, or entertain a smaller group in her own quarters, Natalie also made it a point to spend plenty of time mingling with the crew, especially when off duty. Aside from the purely practical considerations to keeping in touch with their mood and fostering a sense of companionship, she also found it fascinating to listen to them – why they left their homes to risk lives on the open ocean, what they wanted, who they wanted to be... she spent hours listening to and talking with #{Math.choice g.crew}.</p>
     <p><em>Crew: <span class="happiness">+2 happiness</span></em></p></text>
   </page>"""
 
@@ -80,7 +80,7 @@ ShipJob.Talk.next.push Page.ShipTalkMusic = class ShipTalkMusic extends Page
     <text><p>As often as not it had rained in the evenings recently, so those not on watch found themselves crammed into the sleeping quarters. The humidity made the confines not entirely comfortable, but at least they could easily regulate temperature, between body heat and frozen rain outside.</p></text>
   </page>
   <page>
-    <text><p>Tonight the crew played music, rather than talk, rain beating a staccato counterpoint on the deck overhead. A beat up old guitar was passed around, everyone who knew how to use it taking turns until it finally made its way into #{@sailor}'s hands. #{He} was the best, and everyone knew it, strong and clear #{if @sailor.gender is 'f' then 'alto' else 'barritone'} voice filling the space.</p></text>
+    <text continue><p>Tonight the crew played music, rather than talk, rain beating a staccato counterpoint on the deck overhead. A beat up old guitar was passed around, everyone who knew how to use it taking turns until it finally made its way into #{@sailor}'s hands. #{He} was the best, and everyone knew it, strong and clear #{if @sailor.gender is 'f' then 'alto' else 'barritone'} voice filling the space.</p></text>
   </page>
   <page>
     <text><p>Sitting side by side on the to top level of a bunk, Natalie and #{@sailor2}, relaxed, and it wasn't long before a drowsy captain was leaning on her sailor, lulled by the soothing tones and a sad song of home-far-away. #{@sailor2} gently shifted her to lean against the wall instead, and covered her with a blanket when the song ended.</p></text>

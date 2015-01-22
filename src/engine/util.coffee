@@ -55,11 +55,14 @@ Math.randomRound = (number)->
   if Math.random() < number % 1 then result += 1
   return result
 
-Math.choice = (items)->
+Math.keyChoice = (items)->
   if items instanceof Array
     choice = Math.floor(Math.random() * items.length)
-    return items[choice]
+    return choice
   return Math.choice(Object.keys items)
+
+Math.choice = (items)->
+  return items[Math.keyChoice items]
 
 Math.weightedChoice = (weights)->
   sum = Math.sumObject weights

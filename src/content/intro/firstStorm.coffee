@@ -5,7 +5,7 @@ Place.Vailia::firstVisit = Page.FirstStorm = class FirstStorm extends Page
     Nat: '|officers|Nat'
     James: '|officers|James'
     sailor: {
-      fill: ->g.crew[Math.choice(g.crew)]
+      fill: ->Math.choice g.crew
     }
   text: ->"""<page bg="#{@Ship.images.cabinStorm}">
     <text><p><p>#{q @James}Natalie! <b>Nat! Get up!</b></q> James pounded on her door and shouted.</p></text>
@@ -120,7 +120,7 @@ Page.FirstStorm2::next = Page.FirstStorm3 = class FirstStorm3 extends Page
     Nat: {}
     James: {}
     sailor: {
-      fill: ->g.crew[Math.choice(g.crew)]
+      fill: ->Math.choice g.crew
     }
   text: ->"""<page slow bg="#{@Ship.images.deckNight}">
     <text><p>Silence.</p></text>
@@ -189,7 +189,7 @@ Job.IntroSickNat::next = Page.IntroSickNat = class IntroSickNat extends Page
   </page>
   <page>
     #{@James.image 'serious', 'left'}
-    <text continue><p>James nodded to #{g.crew[Math.choice g.crew]}, guarding the deck, and looking somewhat overwhelmed. #{He} didn't have any answers to give about how they'd survived – none of them did.</p></text>
+    <text continue><p>James nodded to #{Math.choice g.crew}, guarding the deck, and looking somewhat overwhelmed. #{He} didn't have any answers to give about how they'd survived – none of them did.</p></text>
   </page>
   <page bg="#{g.map.Ship.images.cabinDay}">
     <text><p>Natalie looked exactly as she had yesterday, cheerful cheeks the perfect picture of health, chest rising and falling steadily. The priest glanced at James for permission, then knelt down next to her and put his ear to her chest. James wished he could sense magic, even the slightest bit, but his family had never displayed an inch of talent, no matter how far back they went. He had no way of telling a charlatan from a healer.</p></page>

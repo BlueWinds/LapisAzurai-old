@@ -82,12 +82,12 @@ window.RandomPerson = class RandomPerson extends Person
 
 # Generates a random person.
 Person.random = (baseClasses)->
-  base = Math.choice(baseClasses)
+  base = Math.choice baseClasses
   name = String.randomName base.names
   person = new base
     name: name
   person.color = for layer in base.colors
-    Math.choice(layer)
+    Math.keyChoice(layer)
 
   points = base.basePoints + base.extraPoints * Math.random() * Math.random()
   while points > 1
