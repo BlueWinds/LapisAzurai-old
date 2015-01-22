@@ -43,7 +43,7 @@ module.exports = [
 # Generic People
   'content/people/Crew/_.coffee'
   'content/people/Crew2/_.coffee'
-#   'content/people/GuardM/_.coffee'
+  'content/people/GuardM/_.coffee'
 #   'content/people/MerchantM/_.coffee'
 #   'content/people/MerchantF/_.coffee'
 #   'content/people/MerchantRich/_.coffee'
@@ -55,6 +55,10 @@ module.exports = [
   'content/locations/Vailia/_MtJulia.coffee'
   'content/locations/Vailia/_Alkenai.coffee'
 #   'content/locations/Kantis/_Kantis.coffee'
+
+# Route content
+  'content/people/James/_preRoute.coffee'
+  'content/people/Kat/_preRoute.coffee'
 
 # Introduction & help
   'content/intro/introCity.coffee'

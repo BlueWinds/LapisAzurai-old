@@ -5,13 +5,13 @@ Person.VailianCrewM = class VailianCrewM extends RandomPerson
     ->"""#{@}'s mouth snaps shut the instant anyone tries to ask about where #{he}'s from or why #{he}'s chosen the life of a sailor. Natalie doesn't pry."""
     ->"""#{@} is open, holding no secrets back. #{He}'ll talk readily about #{his} past, but doesn't seem attached to #{his} previous life very strongly."""
     ->"""#{@} is quiet and hardworking, prefering to communicate with actions rather than words."""
-    ->"""#{@} seems constantly distracted, busy with #{his} thoughts rather than the world around #{him}. It's either endearing or annyoing, depending on the situation."""
+    ->"""#{@} seems constantly distracted, busy with #{his} thoughts rather than the world around #{him}. It's either endearing or annoying, depending on the situation."""
     ->"""#{@} tends to scowl more than #{he} smiles - at strangers, anyway. #{He}'s entirely pleasant once you get past the gruff exterior."""
     ->"""#{@} loves to boast, readily telling anyone who will listen any number of tall tales. Some are more plausible than others - #{he} certainly seems too young to have done <em>all</em> of the things #{he} claims to have done."""
     ->"""#{@} has a childlike air, seemingly innocent and lost, almost as if #{he} wandered into the sailor's life by accident. #{He}'s competent enough, though, no doubt about that."""
-    ->"""#{@} is serious and attentitve, hopping to obey orders as though #{his} life depended on them - which, in some cases, it does."""
+    ->"""#{@} is serious and attentive, hopping to obey orders as though #{his} life depended on them - which, in some cases, it does."""
     ->"""#{@} doesn't hesitate to speak #{his} mind, a trait that gets on Natalie's nerves sometimes when he won't shut up, but more often provides valuable feedback."""
-    ->"""#{@} jokes constantly, seemingly unable to take anything seriously. Even deadly situations are more likely to get a wiscrack from #{him} than a scowl."""
+    ->"""#{@} jokes constantly, seemingly unable to take anything seriously. Even deadly situations are more likely to get a wisecrack from #{him} than a scowl."""
     ->"""#{@} has a heart of gold, an infinite wellspring of kind smiles and affectionate words."""
   ]
   name: 'VailianCrewM'
@@ -63,7 +63,7 @@ Person.VailianCrewM = class VailianCrewM extends RandomPerson
       ash: [34, 23, -42]
       chestnut: [32, 40, -23]
       copper: [19, 53, -29]
-      strawberry: [30, 53, 9]
+      strawberry: [22, 52, 21]
       blonde: [43, 48, 16]
     }
     { # Eyes

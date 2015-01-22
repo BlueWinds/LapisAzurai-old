@@ -1,3 +1,5 @@
+Place.Vailia.adultPay = 9
+
 marketImage = ->
   if g.weather is 'storm' then g.map.Vailia.images.marketStorm else g.map.Vailia.images.marketDay
 portImage = ->
@@ -51,7 +53,7 @@ Job.SearchGuildWork.next.push Page.SearchGuildWorkNatalie = class SearchGuildWor
   effects:
     add: '|location|jobs|guildWork': Job.GuildWork
   text: ->"""<page bg="#{marketImage()}">
-    <text><p>There are other way of making money than taking goods between port. And however distasteful James might find them, Natalie had both those skills and the will to use them. Not forever – she had no intention of giving up the Azurai to work as a whore – but to fill some time, to make some extra money while the others repaired the ship? Sure.</p></text>
+    <text><p>There were other way of making money than taking goods between ports. And however distasteful James might find them, Natalie had both those skills and the will to use them. Not forever – she had no intention of giving up the Azurai to work as a whore – but to fill some time, to make some extra money while the others repaired the ship? Sure.</p></text>
   </page>
 
   <page>
@@ -59,7 +61,7 @@ Job.SearchGuildWork.next.push Page.SearchGuildWorkNatalie = class SearchGuildWor
     <text><p>#{q}So, who's hiring?</q> She leaned over the counter, crossing her arms and resting her head on them.</p></text>
   </page>
   <page>
-    <text continue><p><q>I thought you were too good for us these days, Nat?</q> The girl at the desk asked in a teasing voice. Natalie knew her well – they were both Guild children, picked up off the street or abandoned by parents, to work at jobs that didn't need adults. It was hardly a fair deal. The children worked two days a week, and in return the Guild fed, housed, raised, educated, and doted upon them. Though James felt bad for her, not having any parents, Natalie preferred to imagine that she instead had hundreds.</p></text>
+    <text continue><p><q>I thought you were too good for us these days, Nat?</q> The girl at the desk asked in a teasing voice. Natalie knew her well – they were both Guild children, picked up off the street or abandoned by parents, to work at jobs that didn't need adults. It was hardly a fair deal. The children worked two days a week, and in return the Guild fed, housed, raised, educated, and doted upon them. Though James felt bad for her for not having any parents, Natalie preferred to imagine that she instead had hundreds.</p></text>
   </page>
 
   <page>
@@ -70,23 +72,22 @@ Job.SearchGuildWork.next.push Page.SearchGuildWorkNatalie = class SearchGuildWor
     <text continue><p><q>Well, I'll be too young for another six months, but you know what I mean. I think Red Strings is your best bet – Monbach's expanding again.</q></p></text>
   </page>
   <page>
-    #{@worker.image 'normal', 'left'}
-    <text continue><p>Natalie stuck her tongue out and reached over to rap the girl's forehead with a knuckle. #{q}I'm not touching him with a ten foot pole, and neither should you. Who else?</q></p></text>
+    #{@worker.image 'serious', 'left'}
+    <text continue><p>Natalie reached over to rap the girl's forehead with a knuckle. #{q}I'm not touching him with a ten foot pole, and neither should you. Who else?</q></p></text>
   </page>
   <page>
-    <text continue><p><q>Well, if you just want something quick, I heard Ben Oakly's been having trouble with higher-end clients, ever since Wend ran off with that trader to Kantis. Did you hear about that fuss?</q></p></text>
+    <text><p><q>Well, if you just want something quick, I heard Ben Oakly's been had trouble with higher-end clients ever since Wend ran off with that trader to Kantis. Did you hear about that fuss?</q></p></text>
   </page>
-
   <page>
     #{@worker.image 'normal', 'left'}
-    <text><p>#{q}Yeah, she told me about a week before they disappeared.</q></p></text>
+    <text continue><p>#{q}Yeah, she told me about a week before they disappeared. My lips are sealed though.</q></p></text>
   </page>
   <page>
     <text continue><p><q>Huh, I didn't know that. You think she's doing OK?</q> The girl was naturally concerned for Wend – she'd been the first Child. In a way, both of them owed her their lives.</p></text>
   </page>
   <page>
     #{@worker.image 'normal', 'left'}
-    <text continue><p>#{q}It's Wend we're talking about here. She could charm a stone into growing blossoms, if she tried smiled at it nicely. She'll be fine,</q> Natalie reassured her. #{q}I'll talk with Ben Oakly. He's over near the market, isn't he?</q></p></text>
+    <text><p>#{q}It's Wend we're talking about here. She could charm blossoms out of a stone, if she tried smiled at it nicely. She'll be fine,</q> Natalie reassured her. #{q}I'll talk with Ben. He's over near the market, isn't he?</q></p></text>
   </page>
   <page>
     <text continue><p><q>Yep. North side.</q></p></text>
@@ -96,7 +97,7 @@ Page.SearchGuildWorkNatalie::next = Page.SearchGuildWorkNatalie2 = class SearchG
   conditions:
     worker: {}
   text: ->"""<page bg="#{portImage()}">
-    <text><p>Ben Okly's business establishment straddled the line between legitimate business brothel and shady slum-servicing whorehouse. Not a distinction most bothered with, but Natalie knew the difference, and for her purposes, straddling the line was perfect. She knocked.</p></text>
+    <text><p>Ben Oakly's business establishment straddled the line between legitimate business brothel and shady slum-servicing whorehouse. Not a distinction most bothered with, but Natalie knew the difference, and for her purposes, straddling the line was perfect. She knocked.</p></text>
   </page>
 
   <page bg="#{g.map.Vailia.images.tavern}">
@@ -115,7 +116,7 @@ Page.SearchGuildWorkNatalie::next = Page.SearchGuildWorkNatalie2 = class SearchG
     <text><p>#{q}I hear you may be in need of another girl.</q></p></text>
   </page>
   <page>
-    <text continue><p><q>Sure, I'm always hiring. 2b a shift, you come in at noon and leave at midnight. Six days a week, food is...</q></p></text>
+    <text continue><p><q>Sure, I'm always hiring. 2β a shift, you come in at noon and leave at midnight. Six days a week, food is...</q></p></text>
   </page>
   <page>
     #{@worker.image 'serious', 'left'}
@@ -246,7 +247,7 @@ Job.GuildWork.next.push Page.GuildNat = class GuildNat extends Page
   </page>
   <page>
     #{@worker.image 'normal', 'left'}
-    <text continue><p>#{q}I believe Ben will wish to see me, if he's available. Tell him Natalie is here for some work.</q></p></text>
+    <text><p>#{q}I believe Ben will wish to see me, if he's available. Tell him Natalie is here for some work.</q></p></text>
   </page>
   <page>
     <text continue><p>The old woman nodded and closed the door in her face. A few minutes later it opened again, this time he her prospective employer – or at least prospective middle-man.</p></text>

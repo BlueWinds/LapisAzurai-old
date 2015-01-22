@@ -117,8 +117,14 @@ window.Game = class Game extends GameObject
         property = parts.pop()
 
         result = @getItem(parts.join '|')[property]
-        if result?.removeAs then result.removeAs property
-        else delete @getItem(parts.join '|')[property]
+        if result?.removeAs
+          result.removeAs property
+        else
+          delete @getItem(parts.join '|')[property]
+          # If it's inherited, we set it to "false" to mark it as actually gone.
+          if @getItem(parts.join '|')[property]
+            @getItem(parts.join '|')[property] = false
+
     if effects.cargo
       for key, value of effects.cargo
         if typeof value is 'string'

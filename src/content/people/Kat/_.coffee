@@ -1,4 +1,4 @@
-Officer.Kat = class Kat extends Officer
+Game::people.Kat = Officer.Kat = class Kat extends Officer
   name: 'Kat'
   gender: 'f'
   business: 5

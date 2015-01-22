@@ -22,8 +22,8 @@ Place.Ship = Game::map.Ship = class Ship extends Place
 
   damage: 0
   sailSpeed: -> switch
-    when @damage >= heavyDamage then 0.25
-    when @damage >= lightDamage then 0.5
+    when @damage >= heavyDamage then 1 / 3
+    when @damage >= lightDamage then 2 / 3
     else 1
   shortDamage: -> switch
     when @damage >= heavyDamage then "barely afloat"
@@ -40,20 +40,70 @@ Place.Ship = Game::map.Ship = class Ship extends Place
 Ship::jobs.talk = ShipJob.Talk = class Talk extends ShipJob
   label: "Talk with Crew"
   text: ->"""<p>Spend some time mingling with the crew, encouraging and hanging out.</p>
-  <p>Crew: <span class="happiness">+3 happiness</span></p>"""
+  <p>Crew: <span class="happiness">+2 happiness</span></p>"""
+  apply: ->
+    super()
+    for i, sailor of g.crew then sailor.add('happiness', 2)
   next: Page.randomMatch
   @next: []
 
-ShipJob.Talk.next.push Page.ShipTalk = class ShipTalk extends Page
+ShipJob.Talk.next.push Page.ShipTalkStories = class ShipTalkStories extends Page
   conditions:
     Nat: '|officers|Nat'
-  text: ->"""<page bg="#{g.map.Ship.images.deckNight}">#{@Nat.image 'normal', ''}<text>
-    <p>Natalie pokes her head in on the evening festivities - while she often prefers to spend time in her cabin, alone or with a few other offciers, it's nice to enjoy the wide open air as well from time to time.</p>
-    <p><em>Crew: <span class="happiness">+3 happiness</span></em></p>
-  </text></page>"""
-  apply: ->
-    super()
-    for i, sailor of g.crew then sailor.add('happiness', 3)
+    '|season': {eq: ['Fire', 'Earth']}
+  text: ->"""<page bg="#{g.map.Ship.images.deckNight}">
+    <text><p>In the evenings, while a pair of lookouts kept watch, most of the crew gathered on-deck, to share stories and drinks and company amid the stars. Natalie made it a point to find herself leaning against the same rail as #{crew}. The ocean lapped against the hull somewhere below, mild waves gently rocking the Lapis Azurai. They talked for some time, content to watch the others from a distance, letting bonds deepen with the setting of the sun.</p>
+    <p><em>Crew: <span class="happiness">+2 happiness</span></em></p></text>
+  </page>"""
+
+ShipJob.Talk.next.push Page.ShipTalkIndoors = class ShipTalkIndoors extends Page
+  conditions:
+    Nat: '|officers|Nat'
+    '|season': {eq: ['Earth', 'Water']}
+  text: ->"""<page bg="#{g.map.Ship.images.deckNight}">
+    <text><p>With colder weather setting in, those not on duty preferred to gather in the cargo hold, if it was empty enough, or squeeze into the sleeping area if not. Hot and crowded was better than windy and chill, and those too near the doorway still kept cloaks on to pretect angainst stray drafts.</p></text>
+  </page>
+  <page>
+    <text continue><p>Though she often preferred to keep her own company, or entertain a smaller group in her own quarters, Natalie also made it a point to spend plenty of time mingling with the crew, especially when off duty. Aside from the purely practical considerations to keeping in touch with their mood and fostering a sense of companionship, she also found it fascinating to listen to them – why they left their homes to risk lives on the open ocean, what they wanted, who they wanted to be... she spent hours listening to and talking with #{person}.</p>
+    <p><em>Crew: <span class="happiness">+2 happiness</span></em></p></text>
+  </page>"""
+
+ShipJob.Talk.next.push Page.ShipTalkMusic = class ShipTalkMusic extends Page
+  conditions:
+    Nat: '|officers|Nat'
+    '|season': {eq: ['Water', 'Wood']}
+    sailor: fill: ->
+      return g.crew.asArray().sort((c1, c2)->c1.diplomacy - c2.diplomacy)[0]
+    sailor2: fill: ->
+      return g.crew.asArray().sort((c1, c2)->c1.diplomacy - c2.diplomacy)[2]
+  text: ->"""<page bg="#{g.map.Ship.images.deckNight}">
+    <text><p>As often as not it had rained in the evenings recently, so those not on watch found themselves crammed into the sleeping quarters. The humidity made the confines not entirely comfortable, but at least they could easily regulate temperature, between body heat and frozen rain outside.</p></text>
+  </page>
+  <page>
+    <text><p>Tonight the crew played music, rather than talk, rain beating a staccato counterpoint on the deck overhead. A beat up old guitar was passed around, everyone who knew how to use it taking turns until it finally made its way into #{@sailor}'s hands. #{He} was the best, and everyone knew it, strong and clear #{if @sailor.gender is 'f' then 'alto' else 'barritone'} voice filling the space.</p></text>
+  </page>
+  <page>
+    <text><p>Sitting side by side on the to top level of a bunk, Natalie and #{@sailor2}, relaxed, and it wasn't long before a drowsy captain was leaning on her sailor, lulled by the soothing tones and a sad song of home-far-away. #{@sailor2} gently shifted her to lean against the wall instead, and covered her with a blanket when the song ended.</p></text>
+  </page>
+  <page>
+    <text continue><p><em>Crew: <span class="happiness">+2 happiness</span></em></p></text>
+  </page>"""
+
+ShipJob.Talk.next.push Page.ShipTalkSports = class ShipTalkSports extends Page
+  conditions:
+    '|season': {eq: ['Wood', 'Fire']}
+    Nat: '|officers|Nat'
+    sailor: fill: ->
+      return g.crew.asArray().sort((c1, c2)->c1.combat - c2.combat)[0]
+    sailor2: fill: ->
+      return g.crew.asArray().sort((c1, c2)->c1.combat - c2.combat)[2]
+  text: ->"""<page bg="#{g.map.Ship.images.deckNight}">
+  <text><p>Some evenings, once most of the day's work was done, rather than lay about and rest or play music, the crew decided to be a little more energetic. Tossing items around wasn't entirely practical on a small ship, but wrestling or running games were entirely too popular. Natalie hadn't intended to participate, but when #{@sailor} bowled her over on the way to one of the goals, she couldn't resist.</p></text>
+  </page>
+  <page>
+    #{@Nat.images 'excited', 'left'}
+    <text><p>Wrapping both arms around #{@sailor}'s thigh she clung on like a burr, hanging from #{his} leg and slowing #{him} down enough for the other team to catch up. Together Natalie and #{@sailor2} wrestled away control of the colored strip of cloth that was the aim, and #{@sailor} fled back to the other side of the ship. Natalie stuck her tongue out at #{@sailor}, and #{he} good naturedly cursed at #{his} captain before chasing the fleeing #{@sailor2}.</p></text>
+  </page>"""
 
 Ship::jobs.trainCombat = ShipJob.TrainCombat = class TrainCombat extends ShipJob
   label: "Mock Combat"

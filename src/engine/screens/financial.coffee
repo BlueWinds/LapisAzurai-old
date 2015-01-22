@@ -1,21 +1,16 @@
 Game.passDay.push ->
-  if g.day % 7
-    return
 
-  change = if g.officers.Nat.money <= 0 then -2 else 0
+  change = if g.officers.Nat.money <= 0 then -0.25 else 0
   wages = 0
   for name, person of g.officers
     wages += person.wages()
-  if wages
-    g.applyEffects {money: [-wages, 'Paid officers']}
 
-  wages = 0
   for name, person of g.crew
     wages += person.wages()
   if wages
     g.applyEffects {money: [-wages, 'Paid crew']}
 
-  change += if g.officers.Nat.money < 0 then -2 else 0.5
+  change += if g.officers.Nat.money < 0 then -0.25 else 0.25
   for name, person of g.crew
     person.add 'happiness', change
 
@@ -23,7 +18,7 @@ Game.passDay.push ->
 
 Game::money = []
 Game.schema.properties.money =
-  type: 'array' # A ~28-day history of expenses
+  type: 'array' # An approximately 30-day history of expenses
   items:
     type: 'object'
     properties:

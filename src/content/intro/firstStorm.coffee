@@ -72,7 +72,7 @@ Page.FirstStorm::next = Page.FirstStorm2 = class FirstStorm2 extends Page
     <text continue-inline> Natalie shook her head, made a sharp gesture denial – James shouldn't go down there. He gritted his teeth and ignored her, untied his line and ran down the stairs.</text>
   </page>
   <page bg="#{@Ship.images.storm}">
-    <text><p>This was the sort of storm that left no survivors. A Grandmother Storm. The last had been just a month ago – Natalie had helped comb the beach for wreckage and survivors in its wake. There were precious few of the later, and far too much of the former.</p></text>
+    <text><p>This was the sort of storm that left no survivors. A Grandmother Storm. The last had been just a month ago – Natalie had helped comb the beach for wreckage and survivors in its wake. There were precious few of the latter, and far too much of the former.</p></text>
   </page>
   <page>
     <text continue><p>A wave towered over them, reaching halfway up the main mast for a brief moment before it crashed over the deck. Natalie clung to the wheel desperately in the maelstrom that tried to tear her away from her post.</p></text>
@@ -159,6 +159,7 @@ Page.FirstStorm2::next = Page.FirstStorm3 = class FirstStorm3 extends Page
     super()
     g.passDay()
     @context.Nat.energy = -10
+    g.map.Ship.damage = 18
   effects:
     add:
       '|location|jobs|sick': Job.IntroSickNat
@@ -353,3 +354,4 @@ Job.IntroNatAwake::next = Page.IntroNatAwake = class IntroNatAwake extends Page
 #       '|missions|findJobs': Mission.VailiaFindJobs
       '|missions|exploreCity': Mission.VailiaExploreCity
       '|missions|raiseFunds': Mission.VailiaFirstMoney
+      '|map|Ship|jobs|jamesUpset': ShipJob.JamesUpset

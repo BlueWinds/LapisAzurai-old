@@ -69,11 +69,7 @@ getNextPage = (page)->
 
 setNav = ->
   element = $('page.active')
-  currentPage = $('page.active').data('page')
-  nextPage = element.next().length or currentPage?.next isnt false or getNextPage(currentPage)
-
-  $('#prev').toggleClass 'disabled', not element.prev().length
-  $('#next').toggleClass 'disabled', not nextPage
+  element.toggleClass 'no-prev', not element.prev().length
 
 $.fn?.tooltip.Constructor.DEFAULTS.container = 'body'
 $.fn?.tooltip.Constructor.DEFAULTS.html = true
@@ -138,10 +134,16 @@ $ ->
       return
     gotoPage(upDown)
 
-  $('#next').click -> considerGoto(1)
-  $('#prev').click -> considerGoto(-1)
+  c.on 'click', 'page', (e)->
+    page = $(e.currentTarget)
 
-  $(window).keypress (e)->
+    if e.clientX >= page.offset().left + page.width() - 28 and
+        e.clientY <= page.offset().top + 34
+      considerGoto(-1)
+    else
+      considerGoto(1)
+
+  $(window).keydown (e)->
     # Right, down
     if e.keyCode in [39, 40]
       considerGoto(1)

@@ -76,3 +76,4 @@ Page.Load = class Load extends Page
       Game.gotoPage()
 
     return element
+  next: false

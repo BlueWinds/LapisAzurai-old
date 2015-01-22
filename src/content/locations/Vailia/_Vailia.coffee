@@ -3,27 +3,27 @@ Job.VailiaHireCrew = class VailiaHireCrew extends Job.HireCrew
 
 Job.VailiaMarket = class VailiaMarket extends Job.Market
   buy: new Collection
-    Fish: [50, 3]
-    Barley: [15, 4]
-    "Wool Cloth": [10, 5]
-    Wood: [40, 6]
-    "Naval Supplies": [20, 6]
-    "Maiden's Tea": [12, 8]
-    Salt: [3, 9]
-    Beer: [15, 8]
-    Wine: [5, 11]
-    "Vailian Steel": [10, 20]
-    "Trade Tools": [4, 25]
+    Fish: [50, 0]
+    Barley: [15, 0]
+    "Wool Cloth": [10, 0]
+    Wood: [40, 0]
+    "Naval Supplies": [20, 0]
+    "Maiden's Tea": [12, 0]
+    Salt: [3, 0]
+    Beer: [15, 0]
+    Wine: [5, 0]
+    "Vailian Steel": [10, 0]
+    "Trade Tools": [4, 0]
   sell: new Collection
-    Barley: [40, 4]
-    Wood: [40, 5]
-    Wheat: [40, 5]
-    "Naval Supplies": [20, 6]
-    Charcoal: [10, 14]
+    Barley: [40, 0]
+    Wood: [40, 0]
+    Wheat: [40, 0]
+    "Naval Supplies": [20, 0]
+    Charcoal: [10, 0]
 
 Place.Vailia = Game::map.Vailia = class Vailia extends Place
   name: 'Vailia'
-  description: "<p>Vailia is a bustling port city, famous for its brothels. Also its political neutrality, freedom from the disasters that plague lesser cities, and its merchant-navy. But mostly its sex workers.</p>"
+  description: "<p>Vailia is a bustling port city, famous for its brothels. Also its political neutrality, freedom from the disasters that plague lesser cities, and its merchant-navy. But mostly for its sex workers.</p>"
   images:
     day: 'game/content/locations/Vailia/Port Day.jpg'
     night: 'game/content/locations/Vailia/Port Night.jpg'
@@ -40,8 +40,6 @@ Place.Vailia = Game::map.Vailia = class Vailia extends Place
   location: [3600, 1831]
   destinations: new Collection
     MountJulia: 7
-
-  @adultPay = 7
 
 Place.Vailia::jobs.beach = Job.Beach = class Beach extends Job
   officers:
@@ -69,7 +67,7 @@ Job.Beach.next.push Page.BeachWood = class BeachWood extends Page
       "an elaborate moat and castle, carefully sculpted to resemble Vailia's palace"
       "a sandship, prow facing proudly towards the ocean"
       "the largest pile of sand " + he + " could manage, enlisting the help of several on lookers, before smoothing it out into a pyramid"
-    ]}. Though it wasn't the winning entry, #{he} certainly enjoyed #{himself}.</p></text>
+    ]}. Though it wasn't the winning entry, #{he} certainly enjoyed #{him}self.</p></text>
   </page>"""
 
 Job.Beach.next.push Page.BeachFire = class BeachFire extends Page

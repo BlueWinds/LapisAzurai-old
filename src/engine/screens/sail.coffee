@@ -48,6 +48,7 @@ Page.SetSail = class SetSail extends Page
       sailing.context.daysNeeded = g.location.destinations[key]
 
       Game.gotoPage()
+      return false
     return page
 
   next: false
@@ -133,7 +134,7 @@ Page.SailDay = class SailDay extends Page
       g.passDay()
 
   next: ->
-    if @context.days and @context.days % eventFrequency is 0
+    if @context.days > 1 and g.day % eventFrequency is 0
       return Page.SailEvent
     else if @context.days >= @context.daysNeeded
       return Page.SailDone
@@ -199,6 +200,9 @@ Page.SailEvent = class SailEvent extends Page
 
     return sailClick page
 
+  apply: ->
+    super()
+    g.passDay()
   next: false
 
 sailClick = (element)->
@@ -217,7 +221,7 @@ Page.OneCrewLeaving = class OneCrewLeaving extends Page
   text: ->
     img = if g.weather is 'calm' then g.location.images.marketDay else g.location.images.marketStorm
     """<page bg=#{img}>
-      #{@[0].image 'upset', 'right'}
+      #{@[0].image 'sad', 'right'}
       <text><p>#{q}I'm sorry, but I think it's time for me to look for another berth,</q> #{@[0]} maintained a bit of politeness, but not too much. #{}</p></text>
     <page>
       #{g.officers.Nat.image 'serious', 'left'}
@@ -231,7 +235,7 @@ Page.ManyCrewLeaving = class ManyCrewLeaving extends Page
     names = @toArray()
     name.shift()
     """<page bg=#{img}>
-      #{@[0].image 'upset', 'right'}
+      #{@[0].image 'sad', 'right'}
       <text><p>#{q}I'm sorry, Natalie, but we've talked it over and we think it's time to go our separate ways.</q> #{@[0]} spoke quietly, glancing over #{his} shoulder at the other#{if @length > 2 then 's who were' else 'who was'} also departing. #{names.wordJoin()} nodded in agreement. They were also leaving.</p></text>
     <page>
       #{g.officers.Nat.image 'serious', 'left'}

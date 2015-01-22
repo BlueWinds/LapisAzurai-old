@@ -1,6 +1,7 @@
 fs = require 'fs'
 async = require('async')
 Canvas = require('canvas')
+shell = require('shelljs')
 
 files = require './src/loadOrder'
 sfw = files.map (f)->('src/' + f)
@@ -16,13 +17,14 @@ module.exports = (g) ->
   grunt.loadNpmTasks 'grunt-contrib-copy'
   grunt.loadNpmTasks 'grunt-contrib-uglify'
   grunt.loadNpmTasks 'grunt-contrib-clean'
+  grunt.loadNpmTasks 'grunt-contrib-compress'
 
   config = {
     coffee:
       sfw:
         files: 'game/compiled.js': sfw
       nsfw:
-        files: 'game/compile.js': nsfw
+        files: 'game/compiled.js': nsfw
     coffeelint:
       app: ['src/**/*.coffee']
       options:
@@ -77,11 +79,17 @@ module.exports = (g) ->
       sfw:
         files: ['src/**/*']
         tasks: ['compile-sfw']
-
     clean:
-      options:
-        'no-write': true
-      game: ['game']
+      game: ['game', 'game.zip']
+    compress:
+      nsfw:
+        options:
+          archive: 'LapisAzurai.zip'
+        src: ['index.html', 'dump.html', 'Credits', 'game/**/*']
+      sfw:
+        options:
+          archive: 'LapisAzuraiSFW.zip'
+        src: ['index.html', 'dump.html', 'Credits', 'game/**/*']
   }
   grunt.initConfig config
 
@@ -89,12 +97,15 @@ module.exports = (g) ->
     done = @async()
     createAllSprites name, done
 
+  grunt.registerTask 'dump', ->
+    buildDump()
+
   grunt.registerTask 'compile', ['coffee:nsfw', 'copy:css']
   grunt.registerTask 'compile-sfw', ['coffee:sfw', 'copy:css']
   grunt.registerTask 'lib', ['uglify', 'copy:libs', 'copy:images']
-  grunt.registerTask 'full-build', ['rm', 'lib', 'coffeelint', 'compile', 'sprites']
-  grunt.registerTask 'full-build-sfw', ['rm', 'lib', 'coffeelint', 'compile-sfw', 'sprites']
-  grunt.registerTask 'default', ['lib', 'coffeelint', 'compile', 'watch']
+  grunt.registerTask 'full-build', ['clean', 'lib', 'coffeelint', 'compile', 'dump', 'sprites', 'compress:nsfw', 'compile-sfw', 'dump', 'compress:sfw']
+  grunt.registerTask 'full-compile', ['lib', 'coffeelint', 'compile', 'dump', 'compress:nsfw', 'compile-sfw', 'dump', 'compress:sfw']
+  grunt.registerTask 'default', ['lib', 'coffeelint', 'compile', 'watch:compile']
   grunt.registerTask 'sfw', ['lib', 'coffeelint', 'compile-sfw', 'watch:sfw']
 
 
@@ -278,3 +289,46 @@ hslValue = (n1, n2, hue)->
     n1 + (n2 - n1) * (4 - hue)
   else
     n1
+
+dumpObj = ->
+
+  result = shell.exec '''ag --no-numbers --nogroup -C 0 'class (.+?) extends|"""(<page[^~]+?</page>)"""' src/content/''', {silent: true}
+
+  data = {}
+
+  _class = null
+  for line in result.output.split("\n") when line
+    if line.match(/class (.+?) extends/)
+      _class = line.match(/class (.+?) extends/)[1]
+      data[_class] or= []
+    else if line.match(/"""</)
+      data[_class]?.push line.match(/"""(.*)/)[1]
+    else if line.match(/>"""/)
+      data[_class]?.push line.match(/.+?:#?(.*)"""/)[1]
+    else
+      data[_class]?.push line.match(/.+?:#?(.*)/)[1]
+    if _class is 'Intro2' then console.log line
+  console.log data.Intro2
+  return data
+
+buildDump = ->
+  data = dumpObj()
+  html = for event, text of data when text.length
+    "<div class='event'><h1>#{event}</h1>#{text.join "\n"}</div>"
+
+  html = """<html><head>
+    <meta charset="UTF-8">
+    <style>page {
+      padding-top: 10px;
+      padding-bottom: 10px;
+      display: block;
+      border-bottom: 1px solid;
+    }</style>
+  </head><body>
+    #{html.join "\n"}
+  </body></html>"""
+
+  html = html.replace(/<\/?q>/g, '"')
+  html = html.replace(/#\{q.*?\}/g, '"')
+  fs.writeFileSync 'dump.html', html
+  return data

@@ -26,7 +26,9 @@ conditionsSchema =
         eq: true
         optional: true
       eq: # Equal to
-        type: ['number', 'string']
+        type: ['number', 'string', 'array']
+        items:
+          type: ['number', 'string']
         optional: true
       lt: # Less than
         type: 'number'
@@ -221,10 +223,12 @@ window.PlayerOptionPage = class PlayerOptionPage extends Page
   show: ->
     element = super()
     next = @constructor.next
-    $('button', element).click ->
+    $('button', element).click (e)->
+      e.preventDefault()
       nextPage = next[$(@).html()]
       g.queue.unshift new nextPage
       Game.gotoPage()
+      return false
 
     return element
   next: false

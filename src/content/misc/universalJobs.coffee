@@ -7,8 +7,8 @@ lackingMaterialsRepairSpeed =
 repairPerCrew = 1
 repairPerSailing = 0.02
 
-woodPerRepair = 1
-suppliesPerRepair = 0.5
+woodPerRepair = 2 / 3
+suppliesPerRepair = 1 / 3
 
 minDamageWithoutOneItem = 4
 minDamageWithoutTwoItems = 6
@@ -42,7 +42,7 @@ Job.universal.push Job.RepairShip = class RepairShip extends Job
       when @missing is 'wood' then "The lack of wood will #{if noRepair then '<b>prevent</b>' else 'slow down'} repairs"
       else "The lack of naval supplies will #{if noRepair then '<b>completely prevent</b>' else 'slow down'} repairs"
 
-    """The ship is <b title="#{@Ship.damageDescription()}">#{@Ship.shortDamage()}</b>, and could use some attention. #{lackingMaterials} #{unless noRepair then ' (' + String.rate lackingMaterialsRepairSpeed[@missing] + ' speed)' else ''}."""
+    """The ship is <b title="#{@Ship.damageDescription()}">#{@Ship.shortDamage()}</b>, and could use some attention. #{lackingMaterials} #{unless noRepair then ' (' + String.rate lackingMaterialsRepairSpeed[@missing] + ' speed)' else ''}. The worker's <span class="sailing">sailing</span> speeds up repairs."""
 
 Job.RepairShip::next = Page.RepairShip = class RepairShip extends Page
   conditions:
@@ -80,12 +80,12 @@ Job.RepairShip::next = Page.RepairShip = class RepairShip extends Page
       else ""
     repair = switch
       when @repair is 0 then "You can't repair the ship any further without the right materials"
-      else "#{@repair} (#{g.map.Ship.damage - @repair} damage left)"
+      else "Repaired #{@repair} (#{g.map.Ship.damage - @repair} damage left)"
 
     """<page bg="#{if g.weather is 'storm' then g.location.images.storm else g.location.images.day}">
       <text><p>#{@worker} pitched in along with #{@crew.toWord()} sailors to set the Lapis aright. Torn canvas and snapped ropes they spliced, patched and replaced. Some weakened wood could be made good as new with a binding, while sections too damaged for that had to be taken out and refitted entirely. A well-put together ship was designed with repair in mind, as well as sea-worthiness - every plank in the ship save the spine itself might be taken out and replaced over the course of years of service.</p>
       #{if missingMaterials then "<p>" + missingMaterials + "</p>" else ""}
-      <p><em>#{repair}
+      <p><em>#{repair}</em></p>
       <p><em>#{Item.costDescription(cost)}</em></p></text>
     </page>"""
 

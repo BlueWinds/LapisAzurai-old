@@ -43,7 +43,7 @@ Place.MountJulia::firstVisit = Page.VisitJulia = class VisitJulia extends Page
   text: ->
     sailor = g.crew[Math.choice(g.crew)]
     return """<page bg="#{@Mt.images.day}">
-      <text><p>Mount Julia loomed up out of the ocean, a jagged peak that had been growing on the horizon all day. If the current wind held steady, they'd arrive just after midnight – enough time to rest and catch their breath before exploring the city in the morning. Eight days of sailing had settled the crew into a comfortable routine – #{g.crew[0]} preferred the night shift, watching the helm while the captain slept, and #{g.crew[1]} was a natural up in the rigging, scurrying up and down the masts to adjust the lines.</p></text>
+      <text><p>Mount Julia loomed up out of the ocean, a jagged peak that had been growing on the horizon all day. If the current wind held steady, the Lapis would arrive just after midnight – enough time for everyone to rest and catch their breath before exploring the city in the morning. A week of sailing had settled the crew into a comfortable routine – #{g.crew[0]} preferred the night shift, watching the helm while the captain slept, and #{g.crew[1]} was a natural up in the rigging, scurrying up and down the masts to adjust the lines.</p></text>
     </page>
     <page>
       <text continue><p>#{if g.crew.length < 4 then "It was still only the skeleton of a real crew though – in rough weather, they'd quickly run out of hands to perform all the necessary tasks, a disaster in the making." else ("Though she could perhaps stand to hire a few more crew members to help get them through rough weather, the crew of " + g.crew.length + " was enough for now.")} The Azurai had been lucky so far, sailing in clear weather and steady wind. Auspicious beginning for a first voyage – hopefully the trip home would be as smooth.</p></text>
@@ -54,7 +54,7 @@ Place.MountJulia::firstVisit = Page.VisitJulia = class VisitJulia extends Page
     </page>
     <page>
       #{sailor.image 'normal', 'right'}
-      <text continue><p>#{q}Mount Julia's not much more than a couple of warehouses, some warves, and an inn. At least it was last time I sailed this area, about two years ago. The area's too rugged to support any farming, but the natural harbor is such a good layover on the way out from Vailia that only idiots don't take the chance to top off supplies and rest a night on shore. Begging your pardon, ma'am,</q> #{sailor.name} repeated the salute.</p></text>
+      <text continue><p>#{q}Mount Julia's not much more than a couple of warehouses, some wharves, and an inn. At least it was last time I sailed this area, about two years ago. The area's too rugged to support any farming, but the natural harbor is such a good layover on the way out from Vailia that only idiots don't take the chance to top off supplies and rest a night on shore. Begging your pardon, ma'am,</q> #{sailor.name} repeated the salute.</p></text>
     </page>
     <page>
       #{g.officers.Nat.image 'normal', 'left'}
@@ -75,13 +75,14 @@ Place.MountJulia::firstVisit = Page.VisitJulia = class VisitJulia extends Page
 
 Place.MountJulia::jobs.market = Job.MtJuliaMarket = class MtJuliaMarket extends Job.Market
   buy: new Collection
-    "Maiden's Tea": [15, 12]
-    "Naval Supplies": [20, 8]
+    Barley: [10, 1]
+    "Maiden's Tea": [15, 8]
+    "Naval Supplies": [20, 0]
     Wood: [40, 5]
   sell: new Collection
-    "Maiden's Tea": [15, 11]
-    Barley: [5, 5]
-    "Naval Supplies": [20, 6]
+    "Maiden's Tea": [15, 7]
+    Barley: [5, 2]
+    "Naval Supplies": [20, 0]
   description: ->"""<p>As usual, the same little girl cheerfully greeted Natalie. She was happy to leave off sweeping her bar ("her parents' bar," she still insisted) and haggle over the value of the Lapis' goods. She had some items in stock, but was mostly interested in purchasing supplies for maintaining the trading post.</p>"""
   next: Page.firstMatch
   @next = [Page.Market]
@@ -89,14 +90,15 @@ Place.MountJulia::jobs.market = Job.MtJuliaMarket = class MtJuliaMarket extends 
 Job.MtJuliaMarket.next.unshift Page.MtJuliaMarketIntro = class MtJuliaMarketIntro extends Page
   conditions:
     '|events|MtJuliaMarketIntro': false # Only show this the first time
+    worker: {}
   text: ->"""<page bg="#{g.map.Vailia.images.tavern}">
-    <text><p>Natalie was surprised, walking in, to see a little girl tending the bar. Perhaps twelve, she smiled and greeted him with a cheerful wave, not pausing in her current attempt to mop the floor into some state of cleanliness. Rather than spilled beer, though, her main enemy at the moment seemed to be leaves, seeds, and other detritus from the forest. It wasn't hard to understand why – other than the Azurai, there are no other ships docked in the bay.</p></text>
+    <text><p>#{@worker} was surprised, walking in, to see a little girl tending the bar. Perhaps twelve, she smiled and greeted #{@worker} with a cheerful wave, not pausing in her current attempt to mop the floor into some state of cleanliness. Rather than spilled beer, though, her main enemy at the moment seemed to be leaves, seeds, and other detritus from the forest. It wasn't hard to understand why – other than the Azurai, there are no other ships docked in the bay.</p></text>
   </page>
   <page>
     <text><p><q>What can I gettcha?</q></p></text>
   </page>
   <page>
-    #{g.officers.Nat.image 'normal', 'left'}
+    #{@worker.image 'normal', 'left'}
     <text continue><p>#{q}Nothing right now, thank you. Where are your parents?</q></p></text>
   </page>
   <page>
@@ -107,13 +109,12 @@ Job.MtJuliaMarket.next.unshift Page.MtJuliaMarketIntro = class MtJuliaMarketIntr
     <text continue><p>#{q}Well, I suppose. I have some Maiden's Tea I'd like to unload.</q></p></text>
   </page>
   <page>
-    <text><p><q>Ooh, that's nice. Much more interesting'an watching you an' a buncha rowdy sailors get shitfaced,</q> she lay her broom aside with a grin, rubbing her hands together and looking excited.</p></text>
+    <text><p><q>Ooh, that's nice. Much more interesting'an watching you an' a buncha rowdy sailors get shitfaced,</q> she lay her broom aside with a grin, rubbing her hands together gleefully.</p></text>
   </page>
   <page>
-    <text><p><q>Ooh, that's nice. Much more interesting'an watching you an' a buncha rowdy sailors get shitfaced,</q> she lay her broom aside with a grin, rubbing her hands together and looking excited. <q>Easier to clean up after too. So, what've ya'got?</q></p></text>
+    <text continue><p><q>Easier to clean up after too. So, what've ya'got?</q></p></text>
   </page>"""
   next: Page.Market
-
 
 Place.MountJulia::jobs.rest = Job.MtJuliaRest = class MtJuliaRest extends Job
   officers:
@@ -217,5 +218,5 @@ Job.MtJuliaCheckShip::next = Page.MtJuliaCheckShip = class MtJuliaCheckShip exte
     <text><p>He dove over the rail, hitting the icy water with nary a splash. The ocean water stung his open eyes for a moment, but he spun around and began inspecting the hull for damage without surfacing. No child in Vailia avoided learning to swim – in self defense for when older children threw you over a cliff, if for no other reason.</p></text>
   </page>
   <page bg="#{g.map.Ship.images.deckDay}">
-    <text><p>#{q}Nothing, we're clean,</q> James accepted the towel from #{g.crew[Math.choice(g.crew)].name}, tussling it through his hair and rubbing the water off his back. No scrapes, no barnacles yet, no Not some rickety junk from Kantis, the Guild hadn't skimped in giving Natalie a good vessel. The Lapis Azurai was a solid ship, straight out of the Vailian shipyards. If there were ships anywhere in the world to match Vailian ones, even rumor hadn't reached James' ears.</p></text>
+    <text><p>#{q}Nothing, we're clean,</q> James accepted the towel from #{g.crew[Math.choice(g.crew)].name}, tussling it through his hair and rubbing the water off his back. No scrapes, no barnacles yet, no leaks. Not some rickety junk from Kantis, the Guild hadn't skimped in giving Natalie a good vessel. The Lapis Azurai was a solid ship, straight out of the Vailian shipyards. If there were ships anywhere in the world to match Vailian ones, even rumor hadn't reached James' ears.</p></text>
   </page>"""

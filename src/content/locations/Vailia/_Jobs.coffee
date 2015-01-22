@@ -16,7 +16,7 @@ Job.Library::next = Page.Library = class Library extends Page
   conditions:
     worker: {}
   text: ->"""<page bg="#{marketImage()}">
-    <text><p>The University – unnamed, beyond its location (Valia) and its function (university) – was the fourth largest collection of books known in the world. The other three were all owned by nations rather larger than one small island – Kantis and Baufeng had capital cities to rival Vailia, while Jeju lacked a city as major, but possessed lands a thousand miles wide. Still, ten thousand volumes, curated and carefully maintained, was nothing to scoff at, especially when there was specific knowledge to be sought out.</p></text>
+    <text><p>The University – unnamed, beyond its location (Vailia) and its function (university) – was the fourth largest collection of books known in the world. The other three were all owned by nations rather larger than one small island – Kantis and Baufeng had capital cities to rival Vailia, while Jeju lacked a city as major, but possessed lands a thousand miles wide. Still, ten thousand volumes, curated and carefully maintained, was nothing to scoff at, especially when there was specific knowledge to be sought out.</p></text>
   </page>"""
   next: Page.randomMatch
   @next = []
@@ -47,7 +47,7 @@ Page.LibraryTravel.next.push Page.LibraryTravelDirect = class LibraryTravelDirec
     worker: {}
   text: ->"""<page bg="#{marketImage()}">
     <text><p>With some careful searching of various travel journals and map fragments, and the (un)help of a thorny librarian, #{@worker} managed to find and copy down the details of a new route. With a detailed chart and location, the Lapis could now travel to another destination.</p>
-    <p><strong>A direct route</strong> to Alkenai, bypassing Mount Julia to shave a day off the trip. The open ocean route was more dangerous, but possibly worth it.</p></text>
+    <p><strong>A direct route</strong> to Alkenai, bypassing Mount Julia to shave a day off the trip. The open ocean route was <b>more dangerous</b> - worse chance of getting caught in a storm, but possibly worth it.</p></text>
   </page>"""
   apply: ->
     super()
@@ -199,3 +199,28 @@ Job.Defense.next.push Page.DefenseKat = class DefenseKat extends Page
   <page>
     <text continue><p>Torril rubbed his forehead. Today was going to be a long day.</p></text>
   </page>"""
+
+pay = 3
+
+Place.Vailia::jobs.shipyard = Job.Shipyard = class Shipyard extends Job
+  label: "Shipyard"
+  text: ->"""Work in the shipyard. Not particularly profitable, but can help keep the sailors out of trouble and make a little money at the same time. <em><span class="sailing">+1 sailing</span> for officer, +#{pay}β per worker</em>"""
+  energy: -2
+  officers:
+    worker: {}
+  conditions:
+    '|weather': {eq: 'calm'}
+  crew: 0
+
+Job.Shipyard::next = Page.Shipyard = class Shipyard extends Page
+  conditions:
+    worker: {}
+    count: '|last|context|objectLength'
+  text: ->"""<page bg="#{g.location.images.day}">
+    <text><p>Vailia's shipyards ran constantly, taking raw iron and lumber, combining them with back-breaking labor, and turning out the finest ships in the world. Much of the process was carried out behind walls, hidden from public view - and hidden from temporary labor like #{@worker}#{if @count > 1 then (" and " + his + " sailors. They") else (". " + He)} spent the day debarking trees, sawing planks and sorting nails. Repetitive, brutal work, but one of the few jobs available on a day-by-day basis.</p>
+    <p><em>+#{@count * pay}β, <span class="sailing">+1 Sailing</span> for #{@worker}</em></p></text>
+  </page>"""
+  apply: ->
+    super()
+    g.applyEffects {money: [@context.count * pay, 'Worked at Shipyard']}
+    @context.worker.add 'sailing', 1

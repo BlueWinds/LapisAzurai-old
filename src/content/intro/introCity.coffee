@@ -7,15 +7,15 @@ Page.PortIntro = class PortIntro extends Page.Port
       element.help(
         target: '.crew'
         placement: 'bottom'
-        title: "Your officers are listed in the left column."
+        title: "Your officers are listed in the right column."
       ).help(
         target: '.jobs'
         placement: 'bottom'
-        title: "And any jobs they can do on the right. Click a person to select them, then inside a job to assign them to it."
+        title: "And any jobs they can do on the left. Click a person to select them, then inside a job to assign them to it."
       ).help(
         target: '.worker-requirements'
         placement: 'bottom'
-        title: "Each job requires a minimum amount of energy - if a character is too tired for that task, you can't assign them to it."
+        title: "Each job has a cost in energy - if a character is too tired for that task, you can't assign them to it."
       ).help(
         target: 'options'
         title: "You can start the day once each officer has a task."
@@ -63,7 +63,7 @@ Game::location = Place.VailiaIntro = class VailiaIntro extends Place
   description:
     text = Place.Vailia::description
   jobs: new Collection
-  destinations: new Collection
+  destinations: Place.Vailia::destinations
   location: Place.Vailia::location
   @port: Page.PortIntro
 
@@ -87,7 +87,11 @@ Page.IntroHire = class IntroHire extends Page.HireCrew
       element.help(
         target: '.hires .person-info'
         placement: 'bottom'
-        title: "To hire a sailor, click on them and then again in the \"crew\" area."
+        title: "To hire a sailor, click on them once to select and then click again in the \"crew\" area on the right."
+      ).help(
+        target: '.person-info'
+        placement: 'bottom'
+        title: "Your crew's abilities are useful in various events, especially sailing (if you get caught in a storm) and combat (if you end up in a fight). Any event where a skill is used will mention it in the description."
       ).help(
         target: '.hires'
         placement: 'bottom'
@@ -128,14 +132,14 @@ Mission.CrewCargo = class CrewCargo extends Mission
 Job.IntroMarket = class IntroMarket extends Job.Market
   description: ->"""<p>Natalie wanders the marketplace, searching for bargains and opportunities. Maiden Tea is a good deal here, but there's not much available - the price will increase if she buys too much. Wood is at a premium on a small island like Vailia, but the city does import a great deal of it to construct ships.</p>"""
   buy: new Collection
-    Fish: [50, 3]
-    Barley: [50, 4]
-    "Maiden's Tea": [12, 8]
-    Wood: [40, 6]
-    "Naval Supplies": [20, 6]
-    "Beer": [15, 8]
+    Fish: [50, 0]
+    Barley: [50, 0]
+    "Maiden's Tea": [12, 0]
+    Wood: [40, 0]
+    "Naval Supplies": [20, 0]
+    "Beer": [15, 0]
   sell: new Collection
-    Wood: [15, 4]
+    Wood: [15, 0]
 
 Job.IntroMarket::next = Page.IntroMarket = class IntroMarket extends Page.Market
   text: ->
@@ -145,15 +149,15 @@ Job.IntroMarket::next = Page.IntroMarket = class IntroMarket extends Page.Market
       title = $('[item="Maiden\'s Tea"] td', element).eq(1).attr('title')
       title = title.match(/([0-9]+).+?([0-9]+)/)
       amount = parseInt(title[1], 10)
-      cost = parseInt(title[2], 10)
+      cost = Item["Maiden's Tea"].price
       element.help(
         target: '.carry'
         placement: 'bottom'
-        title: "The amount you can load or unload from the ship depends on how many workers you bring - and on the weather. Most outdoor work slows to a crawl during storms."
+        title: "The amount you can load or unload from the ship depends on how many workers you bring, and on the weather. Outdoor work slows to a crawl during storms."
       ).help(
         target: '.progress-label'
         placement: 'bottom'
-        title: "The Lapis Azurai can hold #{Game.cargo} crates - you won't have enough money to fill it right now, but balancing provisions and supplies to vs. trade goods to make a profit is an important judgement."
+        title: "The Lapis Azurai can hold #{Game.cargo} crates. Balancing provisions and supplies vs. trade goods to make a profit is an important judgement."
       ).help(
         target: '[item="Maiden\'s Tea"]'
         placement: 'bottom'
@@ -167,7 +171,7 @@ Job.IntroMarket::next = Page.IntroMarket = class IntroMarket extends Page.Market
         placement: 'bottom'
         title: "Goods come in three varieties - Food, Trade Goods, and Luxuries. Trade goods are valuable (to you) only for how much money you can sell them for elsewhere."
       ).help(
-        target: '[item="Fish"]'
+        target: '[item="Fish"] .plus'
         placement: 'bottom'
         title: "You'll need food before you set sail for obvious reasons."
       ).help(
@@ -175,9 +179,9 @@ Job.IntroMarket::next = Page.IntroMarket = class IntroMarket extends Page.Market
         placement: 'bottom'
         title: "Your crew's happiness will drop slowly over time unless you carry a supply of luxuries for them."
       ).help(
-        target: '[item="Fish"]'
+        target: '[item="Fish"] .plus'
         placement: 'bottom'
-        title: "For now, be sure to get at least 25 barrels of fish, and enough baskets of Maiden's Tea that the price turns white."
+        title: "For now, be sure to get at least 25 barrels of fish, and enough baskets of Maiden's Tea that the price increases to #{cost + 2}β."
       )
 
     return element

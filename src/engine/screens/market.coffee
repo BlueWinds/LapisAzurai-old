@@ -9,7 +9,7 @@ buySellSchema =
       type: 'array'
       items: [
         {type: 'integer', gt: 0} # Increment
-        {type: 'integer', gt: 0} # Price
+        {type: 'integer'} # Price, relative to base value
       ]
 
 Job.Market = class Market extends Job
@@ -21,14 +21,14 @@ Job.Market = class Market extends Job
   label: "Visit Market"
   text: -> 'Buy and sell goods in the marketplace. Send crewmembers along to load and unload the ship.'
   officers:
-    Natalie: '|officers|Nat'
+    worker: {}
   energy: -1
   crew: 1
   # Items are in the form `name: [price, increment]`
   buy: new Collection
   sell: new Collection
   description: ->
-    """<p>Natalie wanders the marketplace, searching for bargains and opportunities. #{if g.weather is 'calm' then "It's a pleasant day, so the area is well packed, everyone trying to get their business done before the next storm rolls in." else "Customers are rare in the blustry winds, the few brave souls clutching at their cloaks and hurrying through the winds. Vendors huddle in their stalls, and those with light or water-damageable merchandise have long since packed it away."}</p>"""
+    """<p>#{@worker} wandered the marketplace, searching for bargains and opportunities. #{if g.weather is 'calm' then "It was a pleasant day, so the area was well packed, everyone trying to get their business done before the next storm rolled in." else "Customers were rare in the blustry winds, the few brave souls clutching at their cloaks and hurrying through the winds. Vendors huddled in their stalls, and those with light or water-damageable merchandise had long since packed it away."}</p>"""
 
   valid: ->
     for key of @buy
@@ -49,11 +49,12 @@ incrementMultiplier = (increment, business)->
 
 Job.Market::next = Page.Market = class Market extends Page
   conditions:
+    worker: {}
     market: '|location|jobs|market'
     workers: '|location|jobs|market|context|objectLength'
 
   text: ->
-    business = g.officers.Nat.get 'business', @
+    business = @worker.get 'business', @
     buy = for name, [increment, price] of @market.buy
       item = Item[name]
       increment = incrementMultiplier increment, business
@@ -74,7 +75,7 @@ Job.Market::next = Page.Market = class Market extends Page
       <form class="clearfix">
         <div class="col-lg-4 col-lg-offset-2 col-sm-6">
           <div class="buy column-block">
-            <div class="block-label">Natalie buys...</div>
+            <div class="block-label">#{@worker} buys...</div>
             <table>
               #{buy.join ''}
             </table>
@@ -114,7 +115,7 @@ applyMarket = (element)->
   carry = maxLoad(@workers)
   cargo = Math.sumObject g.cargo
 
-  business = g.officers.Nat.get 'business', @
+  business = @worker.get 'business', @
 
   $('.buy tr', element).each ->
     count = 0
@@ -124,9 +125,9 @@ applyMarket = (element)->
 
     updateRow = =>
       newPrice = cost + Math.floor(count / increment)
-      relativePrice = if newPrice > Item[item].price
+      relativePrice = if newPrice > 0
         'high'
-      else if newPrice < Item[item].price
+      else if newPrice < 0
         'low'
       else
         ''
@@ -136,7 +137,7 @@ applyMarket = (element)->
         $('.total', @).html Item[item].cost(increment, cost, count) + 'β'
       else
         $('.total', @).html ''
-      $('.price', @).html newPrice + 'β'
+      $('.price', @).html newPrice + Item[item].price + 'β'
       $(@).removeClass('high low').addClass relativePrice
       return updateSummary()
 
@@ -166,16 +167,16 @@ applyMarket = (element)->
 
     updateRow = =>
       newPrice = cost - Math.floor(count / increment)
-      relativePrice = if newPrice < Item[item].price
+      relativePrice = if newPrice < 0
         'high'
-      else if newPrice > Item[item].price
+      else if newPrice > 0
         'low'
       else
         ''
 
       $('.count', @).html count + '/' + available
       $('.total', @).html Item[item].cost(increment, cost, count, true) + 'β'
-      $('.price', @).html newPrice + 'β'
+      $('.price', @).html newPrice + Item[item].price + 'β'
       $(@).removeClass('high low').addClass relativePrice
       return updateSummary()
 
@@ -204,7 +205,7 @@ applyMarket = (element)->
     $('.carry', element).html(carry).toggleClass('out', carry is 0)
     $('.progress-bar', element).css 'width', (cargo * 100 / Game.cargo) + '%'
 
-    if total < 0
+    if total < 0 and total < g.officers.Nat.money
       $('button', element).attr('disabled', true)
     else
       $('button', element).removeAttr('disabled')

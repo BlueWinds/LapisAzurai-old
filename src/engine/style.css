@@ -12,34 +12,6 @@ body.container {
 .navbar-default {
   background: black;
 }
-@media (max-width: 639px) {
-  .navbar:after {
-    content: "Your screen or window is too small for this game.       (><)      Try expanding it or playing on a different device (or rotate to landscape - that may work).";
-    margin-top: 10em;
-    text-align: center;
-  }
-  .navbar-nav:nth-child(2) {
-    display: none;
-  }
-  #nav-arrows,
-  #content { display: none; }
-}
-@media (max-height: 359px) {
-  .navbar:after {
-    content: "Your screen or window is too small for this game.       (><)      Try expanding it or playing on a different device.";
-    margin-top: 10em;
-    text-align: center;
-  }
-  .navbar-nav:nth-child(2) {
-    display: none;
-  }
-  #nav-arrows, #content { display: none; }
-}
-@media (max-width: 640px) {
-  body.container {
-    padding: 0;
-  }
-}
 * {
   box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -69,28 +41,6 @@ body.container {
   height: 65px;
   padding: 10px 0 15px;
 }
-@media (max-width: 768px) {
-  .navbar {
-    min-height: 20px;
-  }
-  .navbar-brand {
-    height: 25px;
-    padding: 0 15px;
-  }
-  .navbar-nav {
-    margin: 0;
-  }
-  .navbar-nav > li > a {
-    padding-top: 0;
-    padding-bottom: 0;
-  }
-  text {
-    padding: 5px;
-  }
-  .shorten {
-    display: none;
-  }
-}
 #content {
   background: #000;
   position: relative;
@@ -116,16 +66,32 @@ text {
   bottom: 0;
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+  cursor: default;
   margin: 0;
-  min-height: 160px;
+  min-height: 170px;
   opacity: 0.85;
   padding: 19px;
-  position: absolute;
-  width: 100%;
+  position: fixed;
+  width: 1140px;
   z-index: 1;
 }
+page::before {
+  color: #FFF;
+  content: "";
+  cursor: pointer;
+  font-family: "Glyphicons Halflings";
+  padding: 7px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 2;
+}
+page.no-prev::before {
+  color: #333;
+  cursor: default;
+}
 .person {
-  bottom: 160px;
+  bottom: 170px;
   width: 33%;
   left: 50%;
   position: absolute;
@@ -137,31 +103,23 @@ text {
   width: 100%;
 }
 .person.left { left: auto; right: 35%; }
+.person.far-left { left: auto; right: 45%; }
 .person.right { left: 35%; transform: scaleX(-1); }
+.person.far-right { left: 45%; transform: scaleX(-1); }
 .person.left.reversed { transform: scaleX(-1); right: 65% }
-.person.right.reversed { transform: none; left: 65%; }
-/* Medium devices (desktops, 992px and up) */
-@media (max-width: 992px) {
+.person.right.reversed { transform: none; left: 75%; }
+.person.far-right.reversed { transform: none; left: 70%; }
+
+@media (max-width: 1199px) {
   text {
-    min-height: 40%;
-  }
-  .person {
-    bottom: 40%;
-  }
-}
-/* Small devices (tablets, 768px and up) */
-@media (max-width: 768px) {
-  text {
-    min-height: 50%;
-  }
-  .person {
-    bottom: 50%;
+    width: 940px;
   }
 }
 text.full {
   border: none;
   border-radius: 0;
   height: 100%;
+  position: absolute;
 }
 text.short {
   height: auto;
@@ -170,32 +128,6 @@ text.short {
 img + text,
 canvas + text {
   background-color: #15151566;
-}
-#nav-arrows {
-  position: absolute;
-  right: -1em;
-  z-index: 1001;
-}
-@media (max-width: 820px) {
-  #nav-arrows {
-    right: 0.5em;
-  }
-}
-#nav-arrows .glyphicon {
-  cursor: pointer;
-  display: block;
-  padding: 10px 5px;
-}
-#nav-arrows .glyphicon.disabled,
-#nav-arrows .glyphicon.disabled:hover {
-  color: #666;
-  cursor: default;
-}
-#nav-arrows .glyphicon:hover {
-  color: #fff;
-}
-#next {
-  left: 0.083em;
 }
 blockquote {
   border-left: 4px solid #282828;
@@ -349,7 +281,11 @@ input.inline:disabled {
   position: relative;
   z-index: 1;
 }
-
+@media (max-width: 1199px) {
+  .job-tabs {
+    margin-left: -5px;
+  }
+}
 .job-tabs .list-group-item {
   background: #000;
   border-radius: 0;
@@ -394,16 +330,6 @@ input.inline:disabled {
 }
 .tall-tabs .jobs {
   border-bottom-left-radius: 0px;
-}
-
-@media (max-width: 991px) {
-  .job-tabs { margin: 5px 0 0px 0px; }
-
-  .job-tabs .list-group-item:first-child {
-    border-top-right-radius: 6px;
-  }
-
-  .jobs { border-top-left-radius: 10px; }
 }
 
 .job {
@@ -517,7 +443,7 @@ input.inline:disabled {
 }
 .screen form {
   cursor: default;
-  margin-bottom: 6em;
+  margin-bottom: 8em;
 }
 .screen button {
   font-weight: 700;
@@ -601,14 +527,6 @@ input.inline:disabled {
   top: -40px;
   width: 40%;
 }
-@media (max-width: 1200px) {
-  .full > .name { width: 108px; }
-}
-
-@media (max-width: 992px) {
-  .full > .name { width: 132px; }
-}
-
 .full .stats {
   background: none;
   clear: left;
@@ -631,8 +549,8 @@ input.inline:disabled {
 .full .stats td:last-child {
   text-align: right;
 }
-.wages td:last-child:after,
-.savings td:last-child:after {
+.wages td:last-child::after,
+.savings td:last-child::after {
   content: "β";
   font-size: 0.8em;
 }
@@ -717,11 +635,11 @@ input.inline:disabled {
   margin-left: 15px;
   margin-right: 15px;
 }
-.nav .day:before {
+.nav .day::before {
   content: "Day ";
   font-weight: 700;
 }
-.nav .money:after {
+.nav .money::after {
   content: "β";
 }
 .nav .day, .nav .money, .nav .wages {
@@ -914,7 +832,7 @@ options button.btn {
   margin-top: 4px;
   position: absolute;
 }
-.location:before {
+.location::before {
   color: #FFF;
   content: "・";
   font-size: 3em;
@@ -990,6 +908,12 @@ options button.btn {
 .tooltip.bottom.help .tooltip-arrow { border-bottom-color: #2A9FD6; }
 .tooltip.help .tooltip-inner {
   background-color: #2A9FD6;
+}
+.tooltip.in {
+  opacity: 1;
+}
+.tooltip-inner {
+  padding: 10px;
 }
 page h4 {
   text-align: center;

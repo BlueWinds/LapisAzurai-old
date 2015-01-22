@@ -17,19 +17,19 @@ Page.Intro = class Intro extends Page
     Ship: '|map|Ship'
   text: ->
     element = $("""<page>
-      <text class="full center"></text>
+      <text class="full center"><em>Click anywhere on the page or use the down arrow key to advance</em></text>
     </page>
     <page slow>
-      <text class="full center"><p>Natalie dreamt of fire.</p></text>
+      <text class="full center"><p>Natalie dreamt of Fire.</p></text>
     </page>
     <page slow>
-      <text class="full center" continue><p>Not the tame fire of a lantern, or even the fierce danger of a forest fire - no, her dream was of Fire, the blaze with which the gods made the stars, or with which they burned the skies and scorched the land baren at the dawn of an age.</p></text>
+      <text class="full center" continue><p>Not the tame fire of a lantern, or even the fierce danger of a forest fire - no, her dream was of Fire, the blaze with which the gods made the stars or with which they burned the skies and scorched the land barren at the dawn of an age.</p></text>
     </page>
     <page slow>
-      <text class="full center" continue><p>She also dreamt of Ocean, a vast and barren wasteland separting pinpricks of land. In her dream she knew the ocean was waiting for her, waiting for her to see something no one else has ever seen before, and that no one would see again before storms wiped the land clean.</p></text>
+      <text class="full center" continue><p>She also dreamt of Ocean, a vast and barren wasteland separating pinpricks of land. In her dream she knew the ocean was waiting for her, waiting for her to see something no one else has ever seen before, and that no one would see again before storms wiped the land clean.</p></text>
     </page>
     <page slow>
-      <text class="full center" continue><p>And she dreamt of love. Neither fire nor water, she finally had a body, and in her heart grew a secret warmth that even the end of the world could not smother. Her secret love could neither be burned nor drowned, and it would flower into a beautiful life, if only it would grow large enough, surrounded by chaos and flood and storm. She curled around it protectively.</p></text>
+      <text class="full center" continue><p>And she dreamt of love. Neither fire nor water, she finally had a body, and in her heart grew a secret warmth that even the end of the world could not smother. Her secret love could neither be burned nor drowned, and it would flower into a beautiful life if only it would grow large enough, surrounded by chaos and flood and storm. She curled around it protectively.</p></text>
     </page>
     <page verySlow bg="#{@Ship.images.cabinDay}">
       <text><p>Thud.</p></text>
@@ -38,7 +38,7 @@ Page.Intro = class Intro extends Page
       <text continue><p>The dream ended abruptly as she fell off the bed. Groggy and disoriented, but finally awake, she rubbed her head and opened her eyes. Morning light. She stumbled to her feet, grabbing the edge of her bed for support as the ship rocked beneath her. The roll of the Lapis Azurai was gentle, calming even, chasing away fraying fragments of her dreams, a reminder of where and who she was.</p></text>
     </page>
     <page>
-      <text><p>On a ship. On her ship. Captain Natalie – she liked the sound of that. Provisional captain – if she brought it back from its maiden voyage, then she'd have earned the rank for real. If she didn't bring it back... well, not much use thinking about that. Nearly a tenth of the vessels that set sail sank, all hands lost. The ocean was not safe.</p></text>
+      <text><p>On a ship. On her ship. Captain Natalie – she liked the sound of that. Provisional captain – if she brought it back from its maiden voyage she'd have earned the rank for real. If she didn't bring it back, well, not much use thinking about that. Nearly a tenth of all vessels that set sail sank, all hands lost. The ocean was not safe.</p></text>
     </page>
     <page>
       <text continue><p>Not her though. This was her ship. It would come back, with her aboard, not just the first time, but every time.</p></text>
@@ -62,26 +62,12 @@ Page.Intro = class Intro extends Page
       # Now update the image (including invalidating the cache)
       $('.person', element).replaceWith @Nat.image 'normal', 'left', false
 
-    element.first().help(
-      target: $('#nav-arrows')
-      placement: 'left'
-      title: "Move between pages using these arrows or the arrow keys."
-    )
-
     element.filter('.select-color').help(
-      target: 'button.inline'
-      title: "Select your appearance."
-    ).help(
       target: 'options'
-      title: "Many pages require your input before you can proceed."
-    ).help(
-      target: $('#nav-arrows')
-      placement: 'left'
-      title: "The next arrow is disabled - you'll have to use a button on the page instead."
+      title: "Many pages require your input before you can proceed. Like this one, where you can select your appearance."
     )
 
-    console.log $('options button', element).click ->
-      console.log 'hi'
+    $('options button', element).click ->
       (new Page.Intro2).apply()
       Game.gotoPage()
 
@@ -132,8 +118,7 @@ Page.Intro2 = class Intro2 extends Page
   <page>
     #{@James.image 'serious', 'right'}
     <text continue><p>#{q}Should have left half an hour ago,</q> he grumbled, and followed.</p></text>
-  </page>
-  """
+  </page>"""
   effects:
     add:
       '|missions|meet': Mission.MeetGuildmaster
@@ -150,10 +135,10 @@ Job.IntroVisitGuildmaster::next = Page.IntroVisitGuildmaster = class IntroVisitG
     <text><p>The Guild.</p></text>
   </page>
   <page>
-    <text continue><p>James hesitated at the doors, then hurried to join her when Natalie shot him an impatient look. The lobby was rather busy this morning – preparations for the annual festival of lights, the longest day of the year made even longer by a celebration that ran through the night.</p></text>
+    <text continue><p>James hesitated at the doors, then hurried to join Natalie when she shot him an impatient look. The lobby was rather busy this morning – preparations for the annual festival of lights, the longest day of the year made even longer by a celebration that ran through the night.</p></text>
   </page>
   <page>
-    <text><p><q>The Guildmaster is waiting for you in his office,</q> the young man at the front desk prompted, sounding a little envious. Though Natalie was barely a year older than him, that she'd have the attention of the Guildmaster was unusual, to say the least. He'd never even spoken with many of the "Guild children."</p></text>
+    <text><p><q>The Guildmaster is waiting for you in his office,</q> the young man at the front desk prompted, sounding a little envious. Though Natalie was barely a year older than him, that she'd have the attention of the Guildmaster was unusual, to say the least. He'd never even spoken with many of the "Guild Children."</p></text>
   </page>
   <page>
     #{@Nat.image 'normal', 'left'}
@@ -164,7 +149,7 @@ Job.IntroVisitGuildmaster::next = Page.IntroVisitGuildmaster = class IntroVisitG
   </page>
   <page>
     #{@Guildmaster.image 'normal', 'right'}
-    <text><p>Janos looked up as Natalie entered, trailed a moment later by James. Though he had assistants to handle all the papers necessary, still he preferred to touch at least some of that work himself, to understand the details and not merely the overview of the Guild's operations. Natalie briefly saw a column of figures – expenses, deposits – before he leaned forward, covering it with one arm.</p></text>
+    <text><p>Janos looked up as Natalie entered, trailed a moment later by James. Though he had assistants to handle all the papers necessary, he still preferred to touch at least some of that work himself, to understand the details and not merely the overview of the Guild's operations. Natalie briefly saw a column of figures – expenses, deposits – before he leaned forward, covering it with one arm.</p></text>
   </page>
   <page>
     #{@Guildmaster.image 'smiling', 'right'}
@@ -222,7 +207,7 @@ Job.IntroSail::next = Page.IntroSail = class IntroSail extends Page
   </page>
   <page bg="#{@Ship.images.cabinDay}">
     #{@James.image 'sad', 'left'}
-    <text continue-inline> The space was cramped, but a private room was still more than most people aboard a ship this size would get, even the quartermaster. He'd have to share with first-mate, once they had one.</text>
+    <text continue-inline> The space was cramped, but a private room was still more than most people aboard a ship this size would get, even the quartermaster. He'd have to share with the first-mate, once they had one.</text>
   </page>
   <page>
     #{@James.image 'sad', 'left'}
@@ -234,8 +219,7 @@ Job.IntroSail::next = Page.IntroSail = class IntroSail extends Page
   </page>
   <page>
     #{@Nat.image 'upset', 'right'}
-    <text><p>#{q @James}Nat...</q> he trailed off, then started again. #{q}I'm not sure I can do this.</q></p>
-    <p>She waited for him to go on, but he didn't, just fidgeted and leaned against the door to resist the swell and roll of the deck beneath them. #{q @Nat}What can't you do?</q> Timber creaked, adjusting to new stresses. #{q}We're four days out, fifty kilometers from the nearest land. It's a bit late for second thoughts now.</q></p></text>
+    <text continue-inline> #{q}We've hired a crew, loaded a cargo, and are planning to set sail in the morning. It's a bit late for second thoughts now.</q></p></text>
   </page>
   <page>
     #{@James.image 'sad', 'left'}
@@ -259,7 +243,7 @@ Job.IntroSail::next = Page.IntroSail = class IntroSail extends Page
   </page>
   <page>
     #{@James.image 'blush', 'left'}
-    <text continue-inline> Red crept along his cheeks as he considered the question. Young, attractive, raised by the Guild... really, there was only one way to that question. She'd be selling her body, same as plenty of other Vailian girls her age pretty enough make it a trade. #{q}I, ah, sorry,</q> he apologized lamely.</text>
+    <text continue><p>Red crept along his cheeks as he considered the question. Young, attractive, raised by the Guild... really, there was only one way to that question. She'd be selling her body, same as plenty of other Vailian girls her age pretty enough make it a trade. #{q}I, ah, sorry,</q> he apologized lamely.</q></p></text>
   </page>
   <page>
     #{@Nat.image 'normal', 'right'}
@@ -267,17 +251,14 @@ Job.IntroSail::next = Page.IntroSail = class IntroSail extends Page
   </page>
   <page>
     #{@James.image 'blush', 'left'}
-    <text continue><p>#{q}I suppose so,</q> he rubbed his forehead, rolled his shoulders, stood up. Despite his slight frame, Natalie know just how strong he was – one wasn't born as a blacksmith's son without working up some strength.</p></text>
+    <text continue><p>#{q}I suppose so,</q> he rubbed his forehead, rolled his shoulders, stood up. Despite his slight frame, Natalie knew just how strong he was – one wasn't born as a blacksmith's son without working up some strength.</p></text>
   </page>
   <page>
     #{@Nat.image 'sad', 'right'}
     <text continue><p>#{q}Have a good night. Stop worrying.</q> She looked away and picked up her pen again.</p></text>
-  </page>
-  """
-  apply: ->
-    super()
-    g.location = g.map.Vailia
+  </page>"""
 
   effects:
     remove:
       '|missions|crewCargo': Mission.CrewCargo
+      '|location|jobs|sail': Job.IntroSail

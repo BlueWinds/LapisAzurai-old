@@ -67,8 +67,12 @@ partMatches = (value, condition)->
     return false
   if value <= condition.gt or value < condition.gte
     return false
-  if condition.eq? and value isnt condition.eq
-    return false
+  if condition.eq?
+    if condition.eq instanceof Array
+      unless condition.eq.some((c)-> value is c)
+        return false
+    else if value isnt condition.eq
+      return false
   if condition.is
     if condition.is instanceof Array
       unless condition.is.some((c)-> value instanceof c)

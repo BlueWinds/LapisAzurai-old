@@ -49,6 +49,7 @@ Page.Storm = class Storm extends Page
 
     page = $ """<page slow short class="screen sail" bg="#{@Ship.images.deckStorm}"><text>
       <p>Dark clouds on the horizon and growing waves - a storm was rolling in. Natalie felt it in her bones - this was going to be <b>#{intensity}</b>. There were still a few hours before it arrived though, time to make preparations.</p>
+      <p><em>Your crew's <span class="sailing">sailing</span> reduces the damage from a storm</em></p>
       #{options buttons, titles}
     </text></page>"""
 

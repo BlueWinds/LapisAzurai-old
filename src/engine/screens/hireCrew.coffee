@@ -1,11 +1,11 @@
-weeksWageToHire = 5
+daysWageToHire = 14
 
 hireCost = (people, context)->
   n = g.officers.Nat
   a = context.Assistant
   cost = 0
   for hire in people
-    cost += hire.wages() * weeksWageToHire
+    cost += hire.wages() * daysWageToHire
 
   reduction = n.get('diplomacy', context) + (a?.get('diplomacy', context) or 0)
   reduction += n.get('business', context) * 2 + (a?.get('business', context) * 2 or 0)
@@ -26,7 +26,7 @@ Page.HireCrewOne = class HireCrewOne extends Page
   <page bg="#{g.location.images.tavern}">
     #{g.officers.Nat.image 'normal', 'mid-left'}
     <text>
-      <p>Tradition dictated that a new crewmembe was entitled to a handsome signup bonus, paid before departure - they were putting their life in the hands of a captain they didn't know, after all, and should be able to leave something behind even if they never returned. After a bit of negotiation, #{@[0]} finally settled for #{hireCost @asArray(), @}β immediately and #{@[0].wages()}β weekly thereafter. #{@Assistant or 'Natalie'} handed over a one obol coin and told #{@[0]} where they're docked.</p>
+      <p>Tradition dictated that a new sailor was entitled to a handsome signup bonus, paid before departure - they were putting their life in the hands of a captain they didn't know, after all, and should be able to leave something behind even if they never returned. After a bit of negotiation, #{@[0]} finally settled for #{hireCost @asArray(), @}β immediately and #{@[0].wages()}β daily thereafter. #{@Assistant or 'Natalie'} handed over a one obol coin and told #{@[0]} where they're docked.</p>
       <p>#{q(@Assistant or g.officers.Natalie)}Welcome aboard.</q></p>
     </text>
   </page>"""
@@ -47,7 +47,7 @@ Page.HireCrewMulti = class HireCrewMulti extends Page
       #{g.officers.Nat.image 'normal', 'mid-left'}
       <text>
         <p>Of the many people interested, Natalie eventually settled on #{@asArray().length.toWord()}: #{names.wordJoin()}.</p>
-        <p>Tradition dictated that a new crewmembe was entitled to a handsome signup bonus, paid before departure - they were putting their life in the hands of a captain they didn't know, after all, and should be able to leave something behind even if they never returned. After arguing with #{Math.choice names} for a while, Natalie finally convinced them to accept #{hireCost @asArray, @}β immediately, and #{wages}β daily thereafter. #{He(@Assistant or g.officers.Nat)} handed an obol coin to each and told them where to find the ship in the morning.</p>
+        <p>Tradition dictated that a new crewmembe was entitled to a handsome signup bonus, paid before departure - they were putting their life in the hands of a captain they didn't know, after all, and should be able to leave something behind even if they never returned. After arguing with #{Math.choice names} for a while, Natalie finally convinced them to accept #{hireCost @asArray, @}β immediately, and #{wages}β daily thereafter. #{@Assistant or g.officers.Nat} handed an obol coin to each recruit and told them where to find the ship in the morning.</p>
         <p>#{q}Welcome aboard.</q></p>
       </text>
     </page>"""
@@ -162,7 +162,7 @@ Job.HireCrew::next = Page.HireCrew = class HireCrew extends Page
             <div class="block-label">Crew</div>
             #{officers.join ''}
             <div class="block-summary">
-              <span class="cost">0β</span> today, <span class="wages">#{wages}β</span> weekly
+              <span class="cost">0β</span> today, <span class="wages">#{wages}β</span> daily
             </div>
             #{crew.join ''}
           </div>
