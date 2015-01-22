@@ -307,8 +307,6 @@ dumpObj = ->
       data[_class]?.push line.match(/.+?:#?(.*)"""/)[1]
     else
       data[_class]?.push line.match(/.+?:#?(.*)/)[1]
-    if _class is 'Intro2' then console.log line
-  console.log data.Intro2
   return data
 
 buildDump = ->

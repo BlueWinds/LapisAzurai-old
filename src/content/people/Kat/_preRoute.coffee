@@ -214,6 +214,14 @@ escapeOptions = [
   "Recapture her (<em><span class='happiness'>-1 happiness</span> for Kat</em>)"
 ]
 
+Job.KatJames = class KatJames extends Job
+  label: "Bothering James"
+  type: 'plot'
+  text: ->"""James feels like he's being watched. Perhaps he'd better have that checked out."""
+  energy: 0
+  officers:
+    James: '|officers|James'
+
 Job.KatTrial::next = Page.KatTrial = class KatTrial extends PlayerOptionPage
   conditions:
     Natalie: {}
@@ -253,6 +261,8 @@ Job.KatTrial::next = Page.KatTrial = class KatTrial extends PlayerOptionPage
   effects:
     remove:
       '|location|jobs|katTrial': Job.KatTrial
+    add:
+      '|location|jobs|katJames': Job.KatJames
 
 Page.KatTrial.next['Help her'] = Page.KatTrialHelp = class KatTrialHelp extends Page
   conditions:
@@ -351,3 +361,51 @@ Page.KatTrial.next['Hold her'] = Page.KatTrialHinder = class KatTrialHinder exte
   apply: ->
     super()
     @context.Kat.add 'happiness', -1
+
+Job.KatJames::next = Page.KatJames = class KatJames extends Page
+  conditions:
+    James: {}
+    Kat: '|people|Kat'
+  text: ->"""<page bg="#{g.location.images.night}">
+    #{@Kat.image 'excited', 'left'}
+    <text><p>#{q}Hiya!</q></p></text>
+  </page>
+  <page>
+    #{@James.image 'normal', 'right'}
+    <text continue><p>James turned to find the owner of the hand on his shoulder, a young woman matching his own height. She was scrawny, raggedy, her clothes fraying around the edges. #{q}Hello?</q></p></text>
+  </page>
+  <page>
+    #{@Kat.image 'normal', 'left'}
+    <text continue><p>#{q}Hi! I'm Kat, nice to meet you.</q> She grabbed his hand and shook it enthusiastically. #{q}You work with Natalie, right?</q></p></text>
+  </page>
+  <page>
+    #{@James.image 'serious', 'right'}
+    <text><p>James offered his hand skeptically, making sure to keep a hand on his pocket so nothing could vanish from it. She looked like that sort. #{q}I do. And who are you?</q></p></text>
+  </page>
+  <page>
+    #{@Kat.image 'normal', 'left'}
+    <text continue><p>#{q}Oh, we spoke a few days ago, she helped me out a little.</q> Kat kept glancing over her shoulder, looking out for something. #{q}Anyway, I gotta run. They're handing out free blankets at the church this afternoon. What's your name?</q></p></text>
+  </page>
+  <page>
+    #{@James.image 'normal', 'right'}
+    <text continue><p>#{q}James Thadel, quartermaster.</q> If Natalie had helped her, she couldn't be that bad.</p></text>
+  </page>
+  <page>
+    #{@Kat.image 'excited', 'left'}
+    <text><p>#{q}Ooh, she's a sailor, then?</q></p></text>
+  </page>
+  <page>
+    #{@James.image 'upset', 'right'}
+    <text continue><p>#{q}Captain,</q> James bristled.</p></text>
+  </page>
+  <page>
+    #{@Kat.image 'normal', 'left'}
+    <text continue><p>#{q}Captain! Wow, a big shot. Anyway, see you later.</q> Kat dodged past him and down an alleyway. She was quick.</p></text>
+  </page>
+  <page>
+    #{@James.image 'normal', 'right'}
+    <text continue><p>He shook his head, trying to make sense of the conversation, and gave up.</p></text>
+  </page>"""
+  effects:
+    remove:
+      '|location|jobs|katJames': Job.KatJames
