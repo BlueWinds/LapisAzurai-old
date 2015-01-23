@@ -1,4 +1,4 @@
-Place.Vailia.adultPay = 9
+Place.Vailia.adultPay = 11
 
 marketImage = ->
   if g.weather is 'storm' then g.map.Vailia.images.marketStorm else g.map.Vailia.images.marketDay

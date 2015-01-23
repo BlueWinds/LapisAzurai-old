@@ -12,7 +12,7 @@ Place.Vailia::firstVisit = Page.FirstStorm = class FirstStorm extends Page
   </page>
   <page>
     #{@Nat.image 'normal', 'center'}
-    <text continue><p>#{q}What?</q> She rolled up out of bed, on her feet and shrugging on a shirt even while he answered. There was no light outside – still night. No, not night...</p></text>
+    <text continue><p>#{q}What?</q> She slipped up out of bed, on her feet and shrugging on a shirt even while he answered. There was no light outside – still night. No, not night...</p></text>
   </page>
   <page>
     #{@Nat.image 'serious', 'center'}
@@ -27,18 +27,18 @@ Place.Vailia::firstVisit = Page.FirstStorm = class FirstStorm extends Page
   </page>
   <page bg="#{@Ship.images.deckStorm}">
     #{@Nat.image 'angry', 'left'}
-    <text continue>#{q}Take the sails in, lock down all the booms, get everyone else up,</q> she left the door swinging open and scrambled for something warmer to wear. Waxed cap, waxed jacket, stiff boots – everything she'd need for working outdoors in the worst weather the ocean could throw at them.</p></text>
+    <text continue-inline> #{q}Take the sails in, lock down all the booms, get everyone else up,</q> she left the door swinging open and scrambled for something warmer to wear. Waxed cap, waxed jacket, stiff boots – everything she'd need for working outdoors in the worst weather the ocean could throw at them.</p></text>
   </page>
   <page bg="#{@Ship.images.storm}">
     <text><p>By the time she was dressed, the storm loomed almost overhead, howling winds whipping the water into a dark purple froth. Rain sleeted around them, drenching the deck and making everything slippery. The crew was already hard at work, battening everything down for a blow. She found James at the helm, pushed him aside and took the wheel herself.</p></text>
   </page>
   <page bg="#{@Ship.images.deckStorm}">
     #{@Nat.image 'serious', 'left'}
-    <text><p>#{q}Not so good. This is a big one,</q> Natalie had to shout to be heard over the sound of the ocean.</p></text>
+    <text><p>#{q}Not good. It's a big one,</q> Natalie had to shout to be heard over the sound of the ocean.</p></text>
   </page>
   <page>
     #{@James.image 'angry', 'right'}
-    <text continue><p>#{q}How do you know!</q></p></text>
+    <text continue><p>#{q}How do you know!?</q></p></text>
   </page>
   <page>
     #{@Nat.image 'serious', 'left'}
@@ -66,7 +66,7 @@ Page.FirstStorm::next = Page.FirstStorm2 = class FirstStorm2 extends Page
   </page>
   <page bg="#{@Ship.images.deckStorm}">
     #{@James.image 'angry', 'right'}
-    <text continue><p>James shouted something at her, but Natalie couldn't hear what he said, drowned out by howling wind that hit them like an almost physical force. He pointed. #{@sailor} hung limply from #{his} line, blood running from #{his} forehead.</p></text>
+    <text continue><p>James shouted something at her, but Natalie couldn't hear what he said, drowned out by howling wind that hit them like an almost solid object. He pointed. #{@sailor} hung limply from #{his} line, blood running from #{his} forehead.</p></text>
   </page>
   <page>
     <text continue-inline> Natalie shook her head, made a sharp gesture denial – James shouldn't go down there. He gritted his teeth and ignored her, untied his line and ran down the stairs.</text>
@@ -75,17 +75,20 @@ Page.FirstStorm::next = Page.FirstStorm2 = class FirstStorm2 extends Page
     <text><p>This was the sort of storm that left no survivors. A Grandmother Storm. The last had been just a month ago – Natalie had helped comb the beach for wreckage and survivors in its wake. There were precious few of the latter, and far too much of the former.</p></text>
   </page>
   <page>
-    <text continue><p>A wave towered over them, reaching halfway up the main mast for a brief moment before it crashed over the deck. Natalie clung to the wheel desperately in the maelstrom that tried to tear her away from her post.</p></text>
+    <text continue><p>A wave towered over them, reaching halfway up the main mast for a brief moment before it crashed over the deck. Natalie clung to the wheel, fighting the maelstrom that tried to tear her away from her post.</p></text>
   </page>
   <page>
-    <text continue-inline> The Azurai popped out of the water on the other side, creaking timbers audible even over the sound of the wind. She check the deck – James clung to one of the masts, holding #{@sailor} in one arm.</text>
+    <text continue-inline> The Azurai popped out of the water on the other side, creaking timbers audible even over the sound of the wind. She checked the deck. James clung to one of the masts, holding #{@sailor} in one arm.</text>
   </page>
   <page>
     <text><p>Against all odds, she felt giddy, alive. Death was so close, and yet... and yet, it wouldn't claim them. She could feel it in her bones, taste it in the wind, smell it in the salt spray. Natalie felt the storm as though it were an extension of her own body, felt the howling power that fed it, felt a hundred miles of terrible elemental force seeking release...</p></text>
   </page>
+  <page>
+    <text>...</text>
+  </page>
   <page bg="#{@Ship.images.deckStorm}">
     #{@Nat.image 'excited', 'left'}
-    <text><p>James looked up at the wheel – Natalie hung onto it, dazed, looking more like a drowned rat than his best friend. In the brief lull between waves, he saw... he rubbed his eyes. She was grinning like a madwoman. #{@sailor} stirred in his arms, reminding him of a task.</p></text>
+    <text><p>James looked up at the wheel – Natalie hung onto it, dazed, looking more like a drowned rat than his best friend. In the brief lull between waves, he saw... he rubbed his eyes. She was grinning like a madwoman. #{@sailor} stirred in his arms.</p></text>
   </page>
   <page bg="#{@Ship.images.cabinStorm}">
     <text continue-inline> He cut away #{his} rope with a knife and dashed towards the door below decks, slamming it behind him just as another wall of water crashed over the ship. He leaned down, examined #{@sailor}'s forehead. Still breathing. Just a crack on the head. #{He}'d be fine.</text>
@@ -97,7 +100,7 @@ Page.FirstStorm::next = Page.FirstStorm2 = class FirstStorm2 extends Page
     <text><p>#{q @Nat}Do you know why they gave me a ship, James? I'm smart, and I'm pretty, but that's not why.</q> Her voice somehow cut through the wind, though he could barely hear his own shouting. He shook his head. This wasn't the time for that.</p></text>
   </page>
   <page>
-    <text continue><p>#{q}They gave me a ship because I'm not going to die!</q> She let go of the wheel with one hand, gripped his shoulder with manic strength. Another wave crashed over the ship, burying them both in boiling, freezing foam for a moment. When it cleared, one of the sails had ripped clear away, floating in the ocean nearby, but against odds, the mast itself was still intact.</p></text>
+    <text continue><p>#{q}They gave me a ship because I'm not going to die!</q> She let go of the wheel with one hand, gripped his shoulder with manic strength. Another wave crashed over the ship, burying them both in boiling, freezing foam for a moment. When it cleared, one of the sails had ripped away, floating in the ocean nearby, but the mast itself was still intact.</p></text>
   </page>
   <page>
     <text><p>James shook his head again, trying to clear it. That they hadn't sunk yet was nearly a miracle. Whatever manic state had come over her, Natalie was still alive, and still holding the wheel, turning as best she could to face each new assault from the storm. In a brief lull in the wind, he heard someone below shouting to get buckets and head below decks. He clasped her shoulder again and headed off to help.</p></text>
@@ -127,7 +130,7 @@ Page.FirstStorm2::next = Page.FirstStorm3 = class FirstStorm3 extends Page
   </page>
   <page>
     #{@James.image 'sad', 'right'}
-    <text continue-inline> James clung to the railing, shivering, and trying to to pass out from the twin pangs of exhaustion and chill. But he was alive – they were all alive, by some miracle. The sea still rolled, waves still occasionally rose high enough to spray the deck, but it was clear they'd passed through the worst of the storm. Light grew on the horizon – dawn, slowly pressing its way through the clouds overhead.</text>
+    <text continue-inline> James clung to the railing, shivering, and trying not to pass out from the twin pangs of exhaustion and chill. But he was alive – they were all alive, by some miracle. The sea still rolled, waves still occasionally rose high enough to spray the deck, but it was clear they'd passed through the worst of the storm. Light grew on the horizon – dawn, slowly pressing its way through the clouds overhead.</text>
   </page>
   <page>
     <text><p>He stumbled to his feet, slipped on a loose rope, steadied himself with an arm on the railing. Deep weariness penetrated all the way to his bones, sapping every ounce of strength. Just a little more. He dragged himself across the deck, slapping #{@sailor} on the back where #{he} doggedly passed on pails of water handed up from below decks.</p></text>
@@ -136,7 +139,7 @@ Page.FirstStorm2::next = Page.FirstStorm3 = class FirstStorm3 extends Page
     <text><p>Up on the poop deck he found Natalie, passed out and still tied to the wheel.  Numb fingers fumbled with the rope, then he bypassed them by using a knife to cut her free. They had plenty of rope. He winced away from the contact – unlike his own icy skin, she was burning hot to the touch, as if wracked by a terrible fever. Only the strength and steadiness of her breaths reassured him she wasn't on death's doorstep.</p></text>
   </page>
   <page bg="#{@Ship.images.cabinNight}">
-    <text><p>Down, below decks he carried her, to her cabin. Against all odds, the interior was still dry – even a Grandmother Storm that had snapped two masts and torn away every sail hadn't been a match for the rubber seal around the door to the captain's cabin.</p></text>
+    <text><p>He carried her down below decks, to her cabin. Against all odds, the interior was still dry – even a Grandmother Storm that had snapped both masts and torn away every sail hadn't been a match for the rubber seal around the door to the captain's cabin.</p></text>
   </page>
   <page>
     <text continue><p>Efficiently he stripped her, all the way down to bare skin. Any other time he would have hesitated, or at the very least been blushing and mortified as he worked, but not now – any feelings beyond mere practicality were gone, washed away somewhere in the last six hours.</p></text>
@@ -147,7 +150,7 @@ Page.FirstStorm2::next = Page.FirstStorm3 = class FirstStorm3 extends Page
   </page>
   <page>
     #{@James.image 'serious', 'right'}
-    <text continue><p>He slumped to the floor, back to her bed, and waited.</p></text>
+    <text continue><p>He slumped to the floor, his back to her bed, and waited.</p></text>
   </page>
   <page>
     <text continue><p>Waited.</p></text>
@@ -189,7 +192,7 @@ Job.IntroSickNat::next = Page.IntroSickNat = class IntroSickNat extends Page
   </page>
   <page>
     #{@James.image 'serious', 'left'}
-    <text continue><p>James nodded to #{Math.choice g.crew}, guarding the deck, and looking somewhat overwhelmed. #{He} didn't have any answers to give about how they'd survived – none of them did.</p></text>
+    <text continue><p>James nodded to #{Math.choice g.crew}, guarding the deck, and looking somewhat overwhelmed. #{He} didn't have any answers to give about how they'd survived. None of them did.</p></text>
   </page>
   <page bg="#{g.map.Ship.images.cabinDay}">
     <text><p>Natalie looked exactly as she had yesterday, cheerful cheeks the perfect picture of health, chest rising and falling steadily. The priest glanced at James for permission, then knelt down next to her and put his ear to her chest. James wished he could sense magic, even the slightest bit, but his family had never displayed an inch of talent, no matter how far back they went. He had no way of telling a charlatan from a healer.</p></page>
@@ -205,7 +208,7 @@ Job.IntroSickNat::next = Page.IntroSickNat = class IntroSickNat extends Page
     <text continue><p>#{q}Solution to what?</q> James pursed his lips, trying to dispel the previous thought. That it had been unfair of him to consider such a thing.</p></text>
   </page>
   <page>
-    <text continue><p>The priest quirked his head, as though confused by the question. <q>The shock.</q></p></text>
+    <text continue><p>The priest tilted his head, as though confused by the question. <q>The shock.</q></p></text>
   </page>
   <page>
     #{@James.image 'serious', 'left'}
@@ -318,7 +321,7 @@ Job.IntroNatAwake::next = Page.IntroNatAwake = class IntroNatAwake extends Page
     <text><p>Natalie jerked awake, pulse pounding. The ship... she ship was safe, rocking gently beneath her. Instinctively she reached out, feeling fractures and weak points... and winced back, mind burning. Like touching a half-healed wound, or pulling with a strained muscle, the minor effort she'd put forth was enough to warn her that further pressing her magic would only lead to passing out again.</p></text>
   </page>
   <page>
-    <text continue><p>She felt weak, swinging her legs down off the edge of the bed, but steady enough. Someone had dressed her in a nightgown, and a cup of water waited on the desk for her attention. Also a roll – freshly baked, even, very considerate of them. She tore into it with an appetite.</p></text>
+    <text continue><p>She felt weak, swinging her legs down off the edge of the bed, but steady enough. Someone had dressed her in a nightgown, and a cup of water waited on the desk for her attention. Also a roll – freshly baked even, very considerate of them. She tore into it with an appetite.</p></text>
   </page>
   <page>
     <text><p>They were, she surmised, back in Vailia. Mount Julia didn't have fresh baked garlic-cheese-rolls. They. Better check who <q>they</q> were – her last memory was of pounding power surging through her body, and a wave towering over the ship, threatening to reduce the Lapis to splinters if she couldn't grip the entire ship tightly enough.</p></text>

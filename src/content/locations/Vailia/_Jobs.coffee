@@ -200,7 +200,7 @@ Job.Defense.next.push Page.DefenseKat = class DefenseKat extends Page
     <text continue><p>Torril rubbed his forehead. Today was going to be a long day.</p></text>
   </page>"""
 
-pay = 3
+pay = 4
 
 Place.Vailia::jobs.shipyard = Job.Shipyard = class Shipyard extends Job
   label: "Shipyard"

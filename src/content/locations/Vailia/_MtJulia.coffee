@@ -50,11 +50,11 @@ Place.MountJulia::firstVisit = Page.VisitJulia = class VisitJulia extends Page
     </page>
     <page bg="#{g.map.Ship.images.deckDay}">
       #{g.officers.Nat.image 'excited', 'left'}
-      <text><p>#{q}Tell James what you were telling me last night,</q> Natalie waved over her Quartermaster and #{sailor.name}. #{sailor.name} saluted the officers, bringing a smile to Natalie's face – she loved that feeling – and began again.</p></text>
+      <text><p>#{q}Tell James what you were telling me last night,</q> Natalie waved over her #{sailor.name} and Quartermaster. #{sailor.name} saluted the officers, bringing a smile to Natalie's face – she loved that feeling – and began again.</p></text>
     </page>
     <page>
       #{sailor.image 'normal', 'right'}
-      <text continue><p>#{q}Mount Julia's not much more than a couple of warehouses, some wharves, and an inn. At least it was last time I sailed this area, about two years ago. The area's too rugged to support any farming, but the natural harbor is such a good layover on the way out from Vailia that only idiots don't take the chance to top off supplies and rest a night on shore. Begging your pardon, ma'am,</q> #{sailor.name} repeated the salute.</p></text>
+      <text continue><p>#{q}Mount Julia's not much more than a couple of warehouses, some wharves, and an inn. At least it was last time I sailed here, about two years ago. The area's too rugged to support any farming, but the natural harbor is such a good layover on the way out from Vailia that only idiots don't take the chance to top off supplies and rest a night on shore. Begging your pardon, ma'am,</q> #{sailor.name} repeated the salute.</p></text>
     </page>
     <page>
       #{g.officers.Nat.image 'normal', 'left'}
@@ -62,11 +62,11 @@ Place.MountJulia::firstVisit = Page.VisitJulia = class VisitJulia extends Page
     </page>
     <page>
       #{g.officers.James.image 'normal', 'right'}
-      <text continue><p>#{q}I'll get everything cleaned up and unloaded while you find a buyer. If it doesn't go right, we can always load it back up.</q> He nodded, glancing behind them at the cargo hold. Several items hadn't been secured properly in the haste to depart, and one cask of fresh water had sprung a leak from the banging around.</p></text>
+      <text continue><p>#{q}I'll get everything cleaned up and check over the ship while you find a buyer.</q> He nodded, glancing behind them at the cargo hold. Several items hadn't been secured properly in the haste to depart, and one cask of fresh water had sprung a leak from the banging around.</p></text>
     </page>
     <page>
       #{g.officers.Nat.image 'normal', 'left'}
-      <text><p>#{q}Good. I don't expect to make more on this trip than I've spent in supplies and wages, but it'll be worth it for a shakedown cruise. Let's not waste time.</q></p></text>
+      <text><p>#{q}Good. I hardly expect to make more on this trip than I've spent in supplies and wages, but it'll be worth it for a shakedown cruise. Let's not waste time.</q></p></text>
     </page>"""
   effects:
     add:
@@ -215,7 +215,7 @@ Job.MtJuliaCheckShip::next = Page.MtJuliaCheckShip = class MtJuliaCheckShip exte
     <text continue><p>The back of his neck burned as someone whistled behind him, but he refused to dignify the catcall with a glance. Let Natalie have her fun. Or one of the sailors, if they were so bold. He didn't really want to know who it was. Yes he did, actually, but he still wasn't going to turn his head and look.</p></text>
   </page>
   <page bg="#{g.map.Ship.images.day}">
-    <text><p>He dove over the rail, hitting the icy water with nary a splash. The ocean water stung his open eyes for a moment, but he spun around and began inspecting the hull for damage without surfacing. No child in Vailia avoided learning to swim – in self defense for when older children threw you over a cliff, if for no other reason.</p></text>
+    <text><p>He dove over the rail, hitting the icy water with nary a splash. The ocean water stung his open eyes for a moment, but he spun around and began inspecting the hull for damage without surfacing. No child in Vailia avoided learning to swim – if not intentionally, then at least when older children threw you over a cliff into the ocean.</p></text>
   </page>
   <page bg="#{g.map.Ship.images.deckDay}">
     <text><p>#{q}Nothing, we're clean,</q> James accepted the towel from #{Math.choice g.crew}, tussling it through his hair and rubbing the water off his back. No scrapes, no barnacles yet, no leaks. Not some rickety junk from Kantis, the Guild hadn't skimped in giving Natalie a good vessel. The Lapis Azurai was a solid ship, straight out of the Vailian shipyards. If there were ships anywhere in the world to match Vailian ones, even rumor hadn't reached James' ears.</p></text>
