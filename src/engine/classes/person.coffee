@@ -27,7 +27,7 @@ statSchema = {type: 'number', gte: 0, lte: 100}
 window.Person = class Person extends GameObject
   @stats:
     happiness: "Happiness<br>How content a person is serving on the Lapis Azurai."
-    business: "Business<br>Knowledge of goods, prices, book keeping and other parts of marking a profit."
+    business: "Business<br>Knowledge of goods, prices, book keeping and other parts of making a profit."
     diplomacy: "Diplomacy<br>Charm, wit or intimidation factor, whatever makes someone want to agree to a deal."
     sailing: "Sailing<br>Ships, sails, winds and waves, the knowledge and experience of dealing with the ocean."
     combat: "Combat<br>When the going gets tough, the tough get going."
@@ -101,7 +101,7 @@ window.Person = class Person extends GameObject
 
     return """<div data-key="#{key}" class="person-info #{classes}">
       <div class="name" style="color: #{@text};">#{@name}</div>
-      <div class="energy">#{if @energy? then @energy else '&nbsp;'}</div>
+      #{if @energy? then '<div class="energy">' + @energy + '</div>' else ''}
       <div class="stats">#{stats.join ''}</div>
       <div class="full">
         <div class="name">#{@name}</div>

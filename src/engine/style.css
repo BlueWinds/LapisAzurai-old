@@ -428,6 +428,9 @@ input.inline:disabled {
   margin-right: 0.7em;
   text-align: right;
 }
+.stats {
+  clear: left;
+}
 .stats span,
 .worker-requirements span {
   display: inline-block;
