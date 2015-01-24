@@ -1,4 +1,4 @@
-Place.Alkenai::jobs.meetKat = Job.MeetKat = class MeetKat extends Job
+Place.Alkenia::jobs.meetKat = Job.MeetKat = class MeetKat extends Job
   label: "Pickpocket"
   type: 'plot'
   text: ->"""Someone running through the crowd, a merchant shaking their head and looking appologetic... wait, where's Natalie's purse?#{if g.events.MeetKat then "" else " <em>-35β</em>"}"""
@@ -7,7 +7,7 @@ Place.Alkenai::jobs.meetKat = Job.MeetKat = class MeetKat extends Job
     Natalie: '|officers|Nat'
   conditions:
     '|weather': {eq: 'calm'}
-    '|events|AlkenaiMarket|length': {gte: 1}
+    '|events|AlkeniaMarket|length': {gte: 1}
     '|officers|Nat|money': {gte: 35}
     '|events|MeetKat': # If it's happened before, must be at least a week ago.
       matches: (days)-> if days then days[0] + 7 < g.day else true
@@ -19,7 +19,7 @@ Job.MeetKat.next.push Page.MeetKat2 = class MeetKat2 extends Page
   conditions:
     Natalie: {}
   text: ->"""<page bg="#{g.location.images.day}">
-    <text><p>Alkenai's market was a crowded place, stalls buying and selling almost every imaginable good - though, Natalie noted, the prices were often rather inflated compared to what one would pay in Vailia itself. She had never before had enough money to even consider most of the items on sale – or at least not had the intention to spend that much money, since she was too busy saving up for her grand adventure. Now, though... now she could sample whatever she liked, and call it a business expense. A merchant had to know what exactly they were selling, after all!</p></text>
+    <text><p>Alkenia's market was a crowded place, stalls buying and selling almost every imaginable good - though, Natalie noted, the prices were often rather inflated compared to what one would pay in Vailia itself. She had never before had enough money to even consider most of the items on sale – or at least not had the intention to spend that much money, since she was too busy saving up for her grand adventure. Now, though... now she could sample whatever she liked, and call it a business expense. A merchant had to know what exactly they were selling, after all!</p></text>
   </page>
   <page>
     <text><p>The aroma of a spice rack drew her irresistibly towards it. Most of the scents she could at least identify, but not one that stood out.</p></text>
@@ -69,7 +69,7 @@ Job.MeetKat.next.push Page.MeetKat3 = class MeetKat3 extends PlayerOptionPage
   conditions:
     Natalie: {}
     Kat: '|people|Kat'
-    Guard: '|people|AlkenaiGuard'
+    Guard: '|people|AlkeniaGuard'
   text: ->"""<page bg="#{g.location.images.day}">
     #{@Natalie.image 'normal', 'left'}
     <text><p>Wandering the market, enjoying the scene, looking for new and exotic items, Natalie was enjoying her afternoon. A slight breeze, a feeling of lightness, a...</p></text>
@@ -121,7 +121,7 @@ Job.MeetKat.next.push Page.MeetKat3 = class MeetKat3 extends PlayerOptionPage
   <page>
     #{@Kat.image 'sad', 'right'}
     #{@Guard.image 'normal', 'far-right'}
-    <text><p><q>If you're interested, I suspect the judge has finally had enough of her shenanigans,</q> he shook the captive waif by the shoulder. <q>There should be a trial sometime soon.</q></p>
+    <text><p><q>If you're interested, I suspect the judge has finally had enough of her shenanigans,</q> he shook the captive waif by the shoulder. <q>There should be a trial in a week or so.</q></p>
     #{options ['Sure', 'Stolen purse?', 'Not interested'], katOptions}</text>
   </page>"""
   effects:
@@ -227,7 +227,7 @@ Job.KatTrial::next = Page.KatTrial = class KatTrial extends PlayerOptionPage
     Natalie: {}
     Kat: '|people|Kat'
   text: ->"""<page bg="#{if g.weather is 'calm' then g.location.images.day else g.location.images.storm}">
-    <text><p>Natalie arrived somewhat early to the courthouse – one of two in Alkenai, and by far the poorest and busiest. This one handled justice for those not wealthy or influential to arrange trial away from all the noise and bustle.</p></text>
+    <text><p>Natalie arrived somewhat early to the courthouse – one of two in Alkenia, and by far the poorest and busiest. This one handled justice for those not wealthy or influential to arrange trial away from all the noise and bustle.</p></text>
   </page>
   <page>
     <text><p>She found herself packed in a waiting room with a crowd of supplicants to the court, each waiting their turn before the judge. One could expect no more than fifteen minutes to have their complaint heard, case judged, or contract enforced here – too many waited (or dreaded) for their chance at justice for any single case to take up time. For someone like Kat, clearly a child of the streets and with eyewitness testimony against her, the "guilty" verdict was a foregone conclusion – the only thing still to be decide was her punishment.</p></text>
@@ -268,7 +268,7 @@ Page.KatTrial.next['Help her'] = Page.KatTrialHelp = class KatTrialHelp extends 
   conditions:
     Natalie: {}
     Kat: {}
-    Guard: '|people|AlkenaiGuard'
+    Guard: '|people|AlkeniaGuard'
   text: ->"""<page bg="#{if g.weather is 'calm' then g.location.images.day else g.location.images.storm}">
     #{@Natalie.image 'excited', 'right'}
     <text><p>Natalie laughed again – the girl definitely had spirit. #{q}I'll keep that in mind. Guess I might as well head out now, if there's not going to be a trial.</q></p></text>
@@ -309,7 +309,7 @@ Page.KatTrial.next['Do nothing'] = Page.KatTrialNothing = class KatTrialNothing 
   conditions:
     Natalie: {}
     Kat: {}
-    Guard: '|people|AlkenaiGuard'
+    Guard: '|people|AlkeniaGuard'
   text: ->"""<page bg="#{if g.weather is 'calm' then g.location.images.day else g.location.images.storm}">
     #{@Natalie.image 'normal', 'right'}
     <text><p>#{q}How did you even get those keys,</q> Natalie shoved the chains back into Kat's arms, or at least tried to. The thief was too busy grinning, and had no intention of taking them back.</p></text>

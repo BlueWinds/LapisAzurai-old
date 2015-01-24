@@ -2,18 +2,18 @@ updateJob = (job, jobDiv)->
   workers = {}
 
   index = jobDiv.parent().children().index jobDiv
-  tabLi = $('.job-tabs li', jobDiv.closest('page')).eq index
+  divs = jobDiv.add $('.job-tabs li', jobDiv.closest('page')).eq index
+  divs.removeClass('ready half-ready')
   $('.person-info', jobDiv).each ->
     key = $(@).attr('data-key')
     person = g.crew[key]
     workers[key] = person
   job.updateFromDiv(jobDiv)
   if job.contextReady()
-    jobDiv.addClass 'ready'
-    tabLi.addClass 'ready'
-  else
-    jobDiv.removeClass 'ready'
-    tabLi.removeClass 'ready'
+    divs.addClass 'ready'
+  else if Object.keys(workers).length
+    divs.addClass 'half-ready'
+
   $('.job-requirements').replaceWith(job.requiresBlock(workers))
 
 ordering =

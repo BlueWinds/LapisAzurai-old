@@ -1,4 +1,4 @@
-Game::people.AlkenaiGuard = Person.GuardM = class GuardM extends Person
+Game::people.AlkeniaGuard = Person.GuardM = class GuardM extends Person
   name: 'GuardM'
   gender: 'm'
   text: '#999999'

@@ -53,7 +53,7 @@ Job.SearchGuildWork.next.push Page.SearchGuildWorkNatalie = class SearchGuildWor
   effects:
     add: '|location|jobs|guildWork': Job.GuildWork
   text: ->"""<page bg="#{marketImage()}">
-    <text><p>There were other way of making money than taking goods between ports. And however distasteful James might find them, Natalie had both those skills and the will to use them. Not forever – she had no intention of giving up the Azurai to work as a whore – but to fill some time, to make some extra money while the others repaired the ship? Sure.</p></text>
+    <text><p>There were other ways of making money than taking goods between ports. And however distasteful James might find them, Natalie had both the skills and the will to use them. Not forever – she had no intention of giving up the Azurai to work as a whore – but to fill some time, to make some extra money while the others repaired the ship? Sure.</p></text>
   </page>
 
   <page>
@@ -76,7 +76,7 @@ Job.SearchGuildWork.next.push Page.SearchGuildWorkNatalie = class SearchGuildWor
     <text continue><p>Natalie reached over to rap the girl's forehead with a knuckle. #{q}I'm not touching him with a ten foot pole, and neither should you. Who else?</q></p></text>
   </page>
   <page>
-    <text><p><q>Well, if you just want something quick, I heard Ben Oakly's been had trouble with higher-end clients ever since Wend ran off with that trader to Kantis. Did you hear about that fuss?</q></p></text>
+    <text><p><q>Well, if you just want something quick, I heard Ben Oakly's been having trouble with higher-end clients ever since Wend ran off with that trader to Kantis. Did you hear about that fuss?</q></p></text>
   </page>
   <page>
     #{@worker.image 'normal', 'left'}
@@ -87,7 +87,7 @@ Job.SearchGuildWork.next.push Page.SearchGuildWorkNatalie = class SearchGuildWor
   </page>
   <page>
     #{@worker.image 'normal', 'left'}
-    <text><p>#{q}It's Wend we're talking about here. She could charm blossoms out of a stone, if she tried smiled at it nicely. She'll be fine,</q> Natalie reassured her. #{q}I'll talk with Ben. He's over near the market, isn't he?</q></p></text>
+    <text><p>#{q}It's Wend we're talking about here. She could charm blossoms out of a stone, if she smiled at it nicely. She'll be fine,</q> Natalie reassured her. #{q}I'll talk with Ben. He's over near the market, isn't he?</q></p></text>
   </page>
   <page>
     <text continue><p><q>Yep. North side.</q></p></text>
@@ -250,7 +250,7 @@ Job.GuildWork.next.push Page.GuildNat = class GuildNat extends Page
     <text><p>#{q}I believe Ben will wish to see me, if he's available. Tell him Natalie is here for some work.</q></p></text>
   </page>
   <page>
-    <text continue><p>The old woman nodded and closed the door in her face. A few minutes later it opened again, this time he her prospective employer – or at least prospective middle-man.</p></text>
+    <text continue><p>The old woman nodded and closed the door in her face. A few minutes later it opened again, this time with her prospective employer – or at least prospective middle-man.</p></text>
   </page>"""
   next: Page.randomMatch
   @next: []

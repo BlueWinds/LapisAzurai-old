@@ -50,7 +50,7 @@ Place.MountJulia::firstVisit = Page.VisitJulia = class VisitJulia extends Page
     </page>
     <page bg="#{g.map.Ship.images.deckDay}">
       #{g.officers.Nat.image 'excited', 'left'}
-      <text><p>#{q}Tell James what you were telling me last night,</q> Natalie waved over her #{sailor.name} and Quartermaster. #{sailor.name} saluted the officers, bringing a smile to Natalie's face – she loved that feeling – and began again.</p></text>
+      <text><p>#{q}Tell James what you were telling me last night,</q> Natalie waved over #{sailor.name} and her Quartermaster. #{sailor.name} saluted the officers, bringing a smile to Natalie's face – she loved that feeling – and began again.</p></text>
     </page>
     <page>
       #{sailor.image 'normal', 'right'}

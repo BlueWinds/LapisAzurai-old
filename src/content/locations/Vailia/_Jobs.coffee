@@ -31,32 +31,32 @@ Page.Library.next.push Page.LibraryTravel = class LibraryTravel extends Page
   next: Page.firstNew
   @next = []
 
-Page.LibraryTravel.next.push Page.LibraryTravelAlkenai = class LibraryTravelAlkenai extends Page
+Page.LibraryTravel.next.push Page.LibraryTravelAlkenia = class LibraryTravelAlkenia extends Page
   conditions:
     worker: {}
   text: ->"""<page bg="#{marketImage()}">
     <text><p>With some careful searching of various travel journals and map fragments, and the (un)help of a thorny librarian, #{@worker} managed to find and copy down the details of a new route. With a detailed chart and location, the Lapis could now travel to another destination.</p>
-    <p>Passing through Mt. Julia, one can sail to <strong>Alkenai</strong>, a relatively major and independent city. The closest real settlement to Vailia, it's nominally independent but firmly under Vailia's influence and welcoming of merchants. They'll buy textiles and other Vailian manufactured goods at an excellent price.</p></text>
+    <p>Passing through Mt. Julia, one can sail to <strong>Alkenia</strong>, a relatively major and independent city. The closest real settlement to Vailia, it's nominally independent but firmly under Vailia's influence and welcoming of merchants. They'll buy textiles and other Vailian manufactured goods at an excellent price.</p></text>
   </page>"""
   apply: ->
     super()
-    g.map.MountJulia.destinations.Alkenai = 7
+    g.map.MountJulia.destinations.Alkenia = 7
 
 Page.LibraryTravel.next.push Page.LibraryTravelDirect = class LibraryTravelDirect extends Page
   conditions:
     worker: {}
   text: ->"""<page bg="#{marketImage()}">
     <text><p>With some careful searching of various travel journals and map fragments, and the (un)help of a thorny librarian, #{@worker} managed to find and copy down the details of a new route. With a detailed chart and location, the Lapis could now travel to another destination.</p>
-    <p><strong>A direct route</strong> to Alkenai, bypassing Mount Julia to shave a day off the trip. The open ocean route was <b>more dangerous</b> - worse chance of getting caught in a storm, but possibly worth it.</p></text>
+    <p><strong>A direct route</strong> to Alkenia, bypassing Mount Julia to shave a day off the trip. The open ocean route was <b>more dangerous</b> - worse chance of getting caught in a storm, but possibly worth it.</p></text>
   </page>"""
   apply: ->
     super()
-    g.map.Vailia.destinations.Alkenai = 13
-    g.map.Alkenai.destinations.Vailia = 17
+    g.map.Vailia.destinations.Alkenia = 13
+    g.map.Alkenia.destinations.Vailia = 17
 
 # Page.LibraryTravel.next.push Page.LibraryTravelNonkenai = class LibraryTravelNonkenai extends Page
 #   text: ->"""<page bg="#{marketImage()}">
-#     <text><p>After passing through Alkenai, one can reach <strong>Nonkenai</strong>, Alkenai's rival city and spiritual center for the continent. Though they stubbornly maintain their independence, they still welcome Vailian merchants and the quality manufactured goods they bring, with a special interest in weapons and other metalwork.</p></text>
+#     <text><p>After passing through Alkenia, one can reach <strong>Nonkenai</strong>, Alkenia's rival city and spiritual center for the continent. Though they stubbornly maintain their independence, they still welcome Vailian merchants and the quality manufactured goods they bring, with a special interest in weapons and other metalwork.</p></text>
 #   </page>"""
 #
 # Page.LibraryTravel.next.push Page.LibraryTravelBlackSands = class LibraryTravelBlackSands extends Page

@@ -52,7 +52,7 @@ ShipJob.Talk.next.push Page.ShipTalkStories = class ShipTalkStories extends Page
     Nat: '|officers|Nat'
     '|season': {eq: ['Fire', 'Earth']}
   text: ->"""<page bg="#{g.map.Ship.images.deckNight}">
-    <text><p>In the evenings, while a pair of lookouts kept watch, most of the crew gathered on-deck, to share stories and drinks and company amid the stars. Natalie made it a point to find herself leaning against the same rail as #{crew}. The ocean lapped against the hull somewhere below, mild waves gently rocking the Lapis Azurai. They talked for some time, content to watch the others from a distance, letting bonds deepen with the setting of the sun.</p>
+    <text><p>In the evenings, while a pair of lookouts kept watch, most of the crew gathered on-deck, to share stories and drinks and company amid the stars. Natalie made it a point to find herself leaning against the same rail as #{Math.choice g.crew}. The ocean lapped against the hull somewhere below, mild waves gently rocking the Lapis Azurai. They talked for some time, content to watch the others from a distance, letting bonds deepen with the setting of the sun.</p>
     <p><em>Crew: <span class="happiness">+2 happiness</span></em></p></text>
   </page>"""
 
@@ -96,12 +96,12 @@ ShipJob.Talk.next.push Page.ShipTalkSports = class ShipTalkSports extends Page
     sailor: fill: ->
       return g.crew.asArray().sort((c1, c2)->c1.combat - c2.combat)[0]
     sailor2: fill: ->
-      return g.crew.asArray().sort((c1, c2)->c1.combat - c2.combat)[2]
+      return g.crew.asArray().sort((c1, c2)->c1.combat - c2.combat)[1]
   text: ->"""<page bg="#{g.map.Ship.images.deckNight}">
   <text><p>Some evenings, once most of the day's work was done, rather than lay about and rest or play music, the crew decided to be a little more energetic. Tossing items around wasn't entirely practical on a small ship, but wrestling or running games were entirely too popular. Natalie hadn't intended to participate, but when #{@sailor} bowled her over on the way to one of the goals, she couldn't resist.</p></text>
   </page>
   <page>
-    #{@Nat.images 'excited', 'left'}
+    #{@Nat.image 'excited', 'left'}
     <text><p>Wrapping both arms around #{@sailor}'s thigh she clung on like a burr, hanging from #{his} leg and slowing #{him} down enough for the other team to catch up. Together Natalie and #{@sailor2} wrestled away control of the colored strip of cloth that was the aim, and #{@sailor} fled back to the other side of the ship. Natalie stuck her tongue out at #{@sailor}, and #{he} good naturedly cursed at #{his} captain before chasing the fleeing #{@sailor2}.</p></text>
   </page>"""
 

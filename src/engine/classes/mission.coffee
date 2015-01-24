@@ -38,7 +38,10 @@ window.Mission = class Mission extends GameObject
     g.missions[key] = @
 
   removeAs: (key)->
-    $('#game-info [mission="' + key + '"]').remove()
+    element = $('#game-info [mission="' + key + '"]')
+    if element.hasClass 'active'
+      element.prev().addClass 'active'
+    element.remove()
     if @effects then g.applyEffects @effects
     delete g.missions[key]
 

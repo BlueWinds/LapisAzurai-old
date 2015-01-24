@@ -58,15 +58,15 @@ Job.Market::next = Page.Market = class Market extends Page
     buy = for name, [increment, price] of @market.buy
       item = Item[name]
       increment = incrementMultiplier increment, business
-      item.buyRow increment, price
+      item.buyRow price, increment, 0
     sell = for name, [increment, price] of @market.sell
       item = Item[name]
       amount = g.cargo[name]
       increment = incrementMultiplier increment, business
-      item.sellRow increment, price, amount
+      item.sellRow price, increment, 0, amount
     for name, amount of g.cargo when not @market.sell[name]
       item = Item[name]
-      sell.push item.sellRow undefined, undefined, amount
+      sell.push item.sellRow undefined, undefined, 0, amount
 
     cargoPercent = Math.sumObject(g.cargo) / Game.cargo * 100
 
@@ -117,83 +117,76 @@ applyMarket = (element)->
 
   business = @worker.get 'business', @
 
+  buying = {}
   $('.buy tr', element).each ->
-    count = 0
     item = $(@).attr('item')
-    increment = incrementMultiplier buy[item][0], business
-    cost = buy[item][1]
+    buying[item] =
+      bought: 0
+      increment: incrementMultiplier buy[item][0], business
+      cost: buy[item][1]
 
-    updateRow = =>
-      newPrice = cost + Math.floor(count / increment)
-      relativePrice = if newPrice > 0
-        'high'
-      else if newPrice < 0
-        'low'
-      else
-        ''
+  $('.buy', element).on 'click', '.plus', (e)->
+    if carry is 0 or cargo is Game.cargo then return
 
-      $('.count', @).html count
-      if count
-        $('.total', @).html Item[item].cost(increment, cost, count) + 'β'
-      else
-        $('.total', @).html ''
-      $('.price', @).html newPrice + Item[item].price + 'β'
-      $(@).removeClass('high low').addClass relativePrice
-      return updateSummary()
+    item = $(@).parent().attr('item')
+    buyData = buying[item]
 
-    $('.plus', @).click =>
-      if carry is 0 or cargo is Game.cargo then return
-      carry--
-      cargo++
-      count++
-      unless updateRow()
-        $('.minus', @).click()
+    carry--
+    cargo++
+    buyData.bought++
+    row = $(@).closest 'tr'
+    row.replaceWith $(Item[item].buyRow buyData.cost, buyData.increment, buyData.bought)
+    unless updateSummary()
+      $('.buy tr[item="' + item + '"] .minus', element).click()
 
-    $('.minus', @).click ->
-      unless count then return
-      carry++
-      cargo--
-      count--
-      updateRow()
+  $('.buy', element).on 'click', '.minus', (e)->
+    item = $(@).parent().attr('item')
+    buyData = buying[item]
+    unless buyData.bought then return
 
+    carry++
+    cargo--
+    buyData.bought--
+    row = $(@).closest 'tr'
+    row.replaceWith $(Item[item].buyRow buyData.cost, buyData.increment, buyData.bought)
+    updateSummary()
+
+  selling = {}
   $('.sell tr', element).each ->
     unless $('.plus', @).html() then return
 
     item = $(@).attr('item')
-    available = g.cargo[item] or 0
-    count = 0
-    increment = incrementMultiplier sell[item][0], business
-    cost = sell[item][1]
+    selling[item] =
+      sold: 0
+      available: g.cargo[item] or 0
+      increment: incrementMultiplier sell[item][0], business
+      cost: sell[item][1]
 
-    updateRow = =>
-      newPrice = cost - Math.floor(count / increment)
-      relativePrice = if newPrice < 0
-        'high'
-      else if newPrice > 0
-        'low'
-      else
-        ''
+  $('.sell', element).on 'click', '.plus', (e)->
+    item = $(@).parent().attr('item')
 
-      $('.count', @).html count + '/' + available
-      $('.total', @).html Item[item].cost(increment, cost, count, true) + 'β'
-      $('.price', @).html newPrice + Item[item].price + 'β'
-      $(@).removeClass('high low').addClass relativePrice
-      return updateSummary()
+    sellData = selling[item]
+    if carry is 0 or sellData.sold is sellData.available then return
 
-    $('.plus', @).click ->
-      if carry is 0 or count is available then return
-      carry--
-      cargo--
-      count++
-      updateRow()
+    carry--
+    cargo--
+    sellData.sold++
+    row = $(@).closest 'tr'
+    row.replaceWith $(Item[item].sellRow sellData.cost, sellData.increment, sellData.sold, sellData.available)
+    updateSummary()
 
-    $('.minus', @).click =>
-      if count is 0 or cargo is Game.cargo then return
-      carry++
-      cargo++
-      count--
-      unless updateRow()
-        $('.plus', @).click()
+  $('.sell', element).on 'click', '.minus', (e)->
+    item = $(@).parent().attr('item')
+    sellData = selling[item]
+    if sellData.sold is 0 or cargo is Game.cargo then return
+
+    carry++
+    cargo++
+    sellData.sold--
+    row = $(@).closest 'tr'
+    row.replaceWith $(Item[item].sellRow sellData.cost, sellData.increment, sellData.sold, sellData.available)
+    unless updateSummary()
+      $('.sell tr[item="' + item + '"] .plus', element).click()
 
   updateSummary = ->
     spend = Math.sum($('.buy .total', element).map -> parseInt($(@).html(), 10) or 0)
@@ -209,6 +202,7 @@ applyMarket = (element)->
       $('button', element).attr('disabled', true)
     else
       $('button', element).removeAttr('disabled')
+    element.addTooltips()
     return total >= 0
 
   $('button', element).click (e)->

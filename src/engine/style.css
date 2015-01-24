@@ -54,6 +54,9 @@ page {
   height: 100%;
   overflow: auto;
   position: absolute;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
   width: 100%;
 }
 page.active {
@@ -72,6 +75,8 @@ text {
   opacity: 0.85;
   padding: 19px;
   position: fixed;
+  user-select: none;
+  -moz-user-select: none;
   width: 1140px;
   z-index: 1;
 }
@@ -313,6 +318,10 @@ input.inline:disabled {
   background: #08261C;
   color: #fff;
 }
+.job-tabs li.half-ready {
+  background: #301608;
+  color: #fff;
+}
 .job-tabs li.plot {
   color: #2a9fd6;
 }
@@ -434,7 +443,7 @@ input.inline:disabled {
 .stats span,
 .worker-requirements span {
   display: inline-block;
-  padding: 5px 0;
+  line-height: 32px;
   text-align: center;
   width: 25%;
 }

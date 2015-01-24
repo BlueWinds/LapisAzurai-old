@@ -40,9 +40,9 @@ Page.Storm = class Storm extends Page
     originDays = Math.ceil(sail.days / g.map.Ship.sailSpeed())
     destinationDays = Math.ceil((sail.daysNeeded - sail.days) / g.map.Ship.sailSpeed())
     titles = [
-      g.location + ' is ' + if sail.days <= g.map.Ship.sailSpeed() then 'one day away. You could make it to port in time to avoid the storm.' else (originDays.toWord() + ' days away. You could make a full day\'s progress riding the storm winds.')
+      g.location + ' is ' + if sail.days <= g.map.Ship.sailSpeed() then 'one day away. You could make it back to the port in time to avoid the storm.' else (originDays.toWord() + ' days away. You could turn around and make for safe harbor.')
 
-      sail.destination + ' is ' + if destinationDays <= 1 then 'one day away. You could make it to port in time to avoid the storm.' else (destinationDays.toWord() + ' days away. You could turn around and make for safe harbor.')
+      sail.destination + ' is ' + if destinationDays <= 1 then 'one day away. You could make it to port in time to avoid the storm.' else (destinationDays.toWord() + ' days away. You could make a full day\'s progress riding the storm winds.')
 
       "Preparing for the storm will reduce the damage to #{String.rate battenDownMultiplier}."
     ]

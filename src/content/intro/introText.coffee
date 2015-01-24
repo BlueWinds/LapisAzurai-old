@@ -94,7 +94,7 @@ Page.Intro2 = class Intro2 extends Page
   </page>
   <page>
     #{@Nat.image 'normal', 'left'}
-    <text continue><p>#{q}“It's nothing. How much time do we have?</q> She splashed water on her face, dried it off again with a towel, then started looking for her boots.</p></text>
+    <text continue><p>#{q}It's nothing. How much time do we have?</q> She splashed water on her face, dried it back off with a towel, then started looking for her boots.</p></text>
   </page>
   <page>
     <text><p>#{q @James}Should have left ten minutes ago!</q> He hadn't woken her up though – Natalie had learned long ago that James would worry himself sick at the slightest excuse, but it wasn't until he was practically vibrating with impatience that she actually needed to hurry.</p></text>
@@ -246,7 +246,7 @@ Job.IntroSail::next = Page.IntroSail = class IntroSail extends Page
   </page>
   <page>
     #{@James.image 'blush', 'left'}
-    <text continue><p>Red crept along his cheeks as he considered the question. Young, attractive, raised by the Guild... really, there was only one way to that question. She'd be selling her body, same as plenty of other Vailian girls her age pretty enough make it a trade. #{q}I, ah, sorry,</q> he apologized lamely.</q></p></text>
+    <text continue><p>Red crept along his cheeks as he considered the question. Young, attractive, raised by the Guild... really, there was only one way to that question. She'd be selling her body, same as plenty of other Vailian girls her age pretty enough to make it a trade. #{q}I, ah, sorry,</q> he apologized lamely.</q></p></text>
   </page>
   <page>
     #{@Nat.image 'normal', 'right'}

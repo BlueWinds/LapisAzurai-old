@@ -264,9 +264,9 @@ Page.IntroSickNat::next = Page.IntroSickNat2 = class IntroSickNat2 extends Page
 Mission.VailiaTradeRoutes = class VailiaTradeRoutes extends Mission
   label: "Find Trade Routes"
   tasks: [
-      description: "Find a route a nearby city, Alkenai"
+      description: "Find a route a nearby city, Alkenia"
       conditions:
-        '|location|destinations|Alkenai': {gt: 0}
+        '|location|destinations|Alkenia': {gt: 0}
     ,
 #       description: "Find a route to Black Sands, a major source of raw iron"
 #       conditions:
@@ -318,7 +318,7 @@ Job.IntroNatAwake::next = Page.IntroNatAwake = class IntroNatAwake extends Page
   conditions:
     Natalie: {}
   text: ->"""<page bg="#{g.map.Ship.images.cabinDay}">
-    <text><p>Natalie jerked awake, pulse pounding. The ship... she ship was safe, rocking gently beneath her. Instinctively she reached out, feeling fractures and weak points... and winced back, mind burning. Like touching a half-healed wound, or pulling with a strained muscle, the minor effort she'd put forth was enough to warn her that further pressing her magic would only lead to passing out again.</p></text>
+    <text><p>Natalie jerked awake, pulse pounding. The ship... the ship was safe, rocking gently beneath her. Instinctively she reached out, feeling fractures and weak points... and winced back, mind burning. Like touching a half-healed wound, or pulling with a strained muscle, the minor effort she'd put forth was enough to warn her that further pressing her magic would only lead to passing out again.</p></text>
   </page>
   <page>
     <text continue><p>She felt weak, swinging her legs down off the edge of the bed, but steady enough. Someone had dressed her in a nightgown, and a cup of water waited on the desk for her attention. Also a roll – freshly baked even, very considerate of them. She tore into it with an appetite.</p></text>

@@ -53,7 +53,7 @@ module.exports = [
   'content/locations/Vailia/_Vailia.coffee'
   'content/locations/Vailia/_Jobs.coffee'
   'content/locations/Vailia/_MtJulia.coffee'
-  'content/locations/Vailia/_Alkenai.coffee'
+  'content/locations/Vailia/_Alkenia.coffee'
 #   'content/locations/Kantis/_Kantis.coffee'
 
 # Route content

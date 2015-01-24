@@ -16,8 +16,9 @@ window.Item = class Item extends GameObject
         type: 'number'
         gte: 0
 
-  buyRow: (increment, price)->
-    relativePrice = if price > 0 then "high" else if price < 0 then "low" else ""
+  buyRow: (basePrice, increment, bought)->
+    currentPrice = @buyPrice(basePrice, increment, bought)
+    relativePrice = if currentPrice > @price then "high" else if currentPrice < @price then "low" else ""
     type = switch
       when @ instanceof Luxury then 'Luxury'
       when @ instanceof Food then 'Food'
@@ -25,36 +26,45 @@ window.Item = class Item extends GameObject
 
     """<tr class="#{relativePrice}" item="#{@name}">
       <td class="title" title="#{type} - #{@description}">#{@name}</td>
-      <td class="price" title="#{increment} #{@unit}s available at #{price + @price}β (valued in Vailia at #{@price}β)">#{price + @price}β</td>
+      <td class="price" title="#{increment} #{@unit}s available at #{basePrice + @price}β (valued in Vailia at #{@price}β)">#{currentPrice}β</td>
       <td class="plus">+</td>
-      <td class="count">0</td>
+      <td class="count">#{bought}</td>
       <td class="minus">-</td>
-      <td class="total"></td>
+      <td class="total">#{if bought then @buyCost(basePrice, increment, bought) + 'β' else ''}</td>
     </tr>"""
 
-  sellRow: (increment, price, available)->
-    relativePrice = if price < 0 then "high" else if price > 0 then "low" else ""
+  sellRow: (basePrice, increment, sold, available)->
+    currentPrice = if basePrice? then @sellPrice(basePrice, increment, sold) else @price
+    relativePrice = if currentPrice < @price then "high" else if currentPrice > @price then "low" else ""
     """<tr class="#{relativePrice}" item="#{@name}">
       <td class="title" title="#{@description}">#{@name}</td>""" +
-    (if price?
-      """<td class="price" title="#{increment} #{@unit}s can be sold at #{price + @price}β (valued in Vailia at #{@price}β)">#{price + @price}β</td>
+    (if basePrice?
+      """<td class="price" title="#{increment} #{@unit}s can be sold at #{basePrice + @price}β (valued in Vailia at #{@price}β)">#{currentPrice}β</td>
       <td class="plus">+</td>
-      <td class="count">#{if available then '0/' + available else '--'}</td>
+      <td class="count">#{if available then sold + '/' + available else '--'}</td>
       <td class="minus">-</td>"""
     else
       """<td class="price" title="Valued in Vailia at #{@price}β">--</td>
       <td class="count" colspan=3>#{if available then available else ''}</td>""") +
-    """<td class="total"></td>
+    """<td class="total">#{if sold then @sellCost(basePrice, increment, sold) + 'β' else ''}</td>
     </tr>"""
 
-  cost: (increment, price, amount, selling)->
+  buyPrice: (basePrice, increment, amount)->
+    return Math.ceil (@price + basePrice) * (1 + Math.floor(amount / increment) / 10)
+
+  sellPrice: (basePrice, increment, amount)->
+    return Math.ceil (@price + basePrice) * (1 - Math.floor(amount / increment) / 10)
+
+  buyCost: (basePrice, increment, amount)->
     total = 0
-    currentPrice = price + @price
-    while amount > increment
-      total += currentPrice * increment
-      amount -= increment
-      if selling then currentPrice-- else currentPrice++
-    total += currentPrice * amount
+    for i in [0...amount]
+      total += @buyPrice basePrice, increment, i
+    return total
+
+  sellCost: (basePrice, increment, amount)->
+    total = 0
+    for i in [0...amount]
+      total += @sellPrice basePrice, increment, i
     return total
 
   amount: (count)->

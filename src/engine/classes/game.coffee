@@ -39,7 +39,10 @@ window.Game = class Game extends GameObject
         if typeof value is 'object'
           if value._ and not obj[key]
             _class = value._.split '|'
-            obj[key] =  new window[_class[0]][_class[1]] {}, [], ''
+            try
+              obj[key] =  new window[_class[0]][_class[1]] {}, [], ''
+            catch e
+              console.error "Unable to find window.#{_class[0]}.#{_class[1]}"
           if obj[key] instanceof GameObject or obj[key] instanceof Collection
             recursiveCopy obj[key], value
           else

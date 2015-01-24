@@ -110,12 +110,17 @@ Job.universal.push Job.BedRest = class BedRest extends Job
         return false
   officers:
     worker: {sick: {is: true}}
-    worker2: {sick: {is: true}}
-    worker3: {sick: {is: true}}
+    worker2: {sick: {is: true}, optional: true}
+    worker3: {sick: {is: true}, optional: true}
   energy: 3
   acceptInjured: true
   crew: 1
   text: ->"""When someone is injured, the best (and likely only) solution is bed rest, and lots of it. They'll need someone to look after them as well."""
+  apply: ->
+    super()
+    @context.worker.add 'energy', 3
+    @context.worker2?.add 'energy', 3
+    @context.worker3?.add 'energy', 3
 
 Job.BedRest::next = Page.BedRest = class BedRest extends Page
   text: ->false

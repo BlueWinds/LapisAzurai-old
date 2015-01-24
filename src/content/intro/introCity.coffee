@@ -13,8 +13,8 @@ Page.PortIntro = class PortIntro extends Page.Port
         placement: 'bottom'
         title: "And any jobs they can do on the left. Click a person to select them, then inside a job to assign them to it."
       ).help(
-        target: '.worker-requirements'
-        placement: 'bottom'
+        target: '.job-officers li'
+        placement: 'right'
         title: "Each job has a cost in energy - if a character is too tired for that task, you can't assign them to it."
       ).help(
         target: 'options'
@@ -38,17 +38,17 @@ Page.PortIntro = class PortIntro extends Page.Port
           title: "You were just given a mission - you can review your current status and goals, any time by hovering over or double-clicking here."
         )
         element.help(
-          target: '.list-group-item.active'
+          target: '.list-group-item:eq(1)'
           placement: 'bottom'
           title: "You'll need to hire a crew first, at least three additional people before you can set sail."
         )
       else unless g.cargo.Fish >= 25
         element.help(
-          target: '.list-group-item:not(.active)'
+          target: '.list-group-item:eq(2)'
           placement: 'bottom'
           title: "Once you have a crew, head over to the market. The more people you bring with you the more goods you can load onto the ship. For now, just bring everyone."
         )
-        $('.list-group-item:not(.active)', element).click ->
+        $('.list-group-item:eq(2)', element).click ->
           element.help(
             target: '.active .job-crew'
             placement: 'bottom'
@@ -63,6 +63,7 @@ Game::location = Place.VailiaIntro = class VailiaIntro extends Place
   description:
     text = Place.Vailia::description
   jobs: new Collection
+    beach: Place.Vailia::jobs.beach
   destinations: Place.Vailia::destinations
   location: Place.Vailia::location
   @port: Page.PortIntro
@@ -161,7 +162,7 @@ Job.IntroMarket::next = Page.IntroMarket = class IntroMarket extends Page.Market
       ).help(
         target: '[item="Maiden\'s Tea"]'
         placement: 'bottom'
-        title: "The price of each item will increase as you buy more of it. For example, you can buy #{amount} baskets of tea here at #{cost}β, then #{amount} more at #{cost + 1}β, etc."
+        title: "The price of each item will increase as you buy more of it. For example, you can buy #{amount} baskets of tea here at #{cost}β, then #{amount} more at +10%, etc."
       ).help(
         target: '[item="Maiden\'s Tea"]'
         placement: 'bottom'
@@ -181,7 +182,7 @@ Job.IntroMarket::next = Page.IntroMarket = class IntroMarket extends Page.Market
       ).help(
         target: '[item="Fish"] .plus'
         placement: 'bottom'
-        title: "For now, be sure to get at least 25 barrels of fish, and enough baskets of Maiden's Tea that the price increases to #{cost + 2}β."
+        title: "For now just get at least 25 barrels of fish and 30 baskets of Maiden's Tea."
       )
 
     return element

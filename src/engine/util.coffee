@@ -15,7 +15,7 @@ String.rate = (string)-> switch string
   when 4 then 'four times'
   when 5 then 'five times'
   when 10 then 'ten times'
-  else string
+  else string.toString()
 
 Object.defineProperty Number.prototype, 'toWord', { value: -> switch Number(@)
   when 0 then 'zero'
@@ -25,7 +25,7 @@ Object.defineProperty Number.prototype, 'toWord', { value: -> switch Number(@)
   when 4 then 'four'
   when 5 then 'five'
   when 6 then 'six'
-  else Number(@)
+  else Number(@).toString()
 }
 
 Object.defineProperty String.prototype, 'capitalize', { value: ->
