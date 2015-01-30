@@ -26,7 +26,7 @@ statSchema = {type: 'number', gte: 0, lte: 100}
 
 window.Person = class Person extends GameObject
   @stats:
-    happiness: "Happiness<br>How content a person is serving on the Lapis Azurai."
+    happiness: "Happiness<br>How content a person is serving on the Lapis Azurai. As long as it's above 20 you're fine."
     business: "Business<br>Knowledge of goods, prices, book keeping and other parts of making a profit."
     diplomacy: "Diplomacy<br>Charm, wit or intimidation factor, whatever makes someone want to agree to a deal."
     sailing: "Sailing<br>Ships, sails, winds and waves, the knowledge and experience of dealing with the ocean."

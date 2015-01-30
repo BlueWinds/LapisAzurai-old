@@ -4,7 +4,7 @@ stormDamageMax = 30
 minEnergy = -15
 
 sailPerDamageSaved = 40
-battenDownMultiplier = 0.75
+battenDownMultiplier = 2 / 3
 
 originalNext = Page.SailDay::next
 Page.SailDay::next = ->
@@ -92,7 +92,7 @@ Page.StormBatten = class StormBatten extends Page
     damage: {}
   text: ->"""<page bg="#{g.map.Ship.images.storm}"></page>
   <page>
-    <text><p>With enough warning to tie down everything that could be tied down and bring in the sails, the Lapis Azurai was as ready as any ship could be to survive a storm on the open ocean. Waves tossed it too and fro, and even with the crew doing all they could to weather the tempest and waves, some damage was inevitable.</p></text>
+    <text><p>With enough warning to tie down everything that could be tied down and bring in the sails, the Lapis Azurai was as ready as any ship could be to survive a storm on the open ocean. Waves tossed it to and fro, and even with the crew doing all they could to weather the tempest and waves, some damage was inevitable.</p></text>
   </page>
   <page>
     <text continue>#{damageDescription (@damage * battenDownMultiplier)}</text>

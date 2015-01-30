@@ -50,7 +50,7 @@ Place.Vailia::jobs.beach = Job.Beach = class Beach extends Job
     '|weather': {eq: 'calm'}
   label: 'Beach'
   text: ->"""Visit the beach - a great way to relax and restore your energy."""
-  energy: 2
+  energy: 3
   next: Page.randomMatch
   @next: []
 

@@ -23,7 +23,7 @@ Job.Library::next = Page.Library = class Library extends Page
 
 Page.Library.next.push Page.LibraryTravel = class LibraryTravel extends Page
   conditions:
-    '|events|LibraryTravel|length': {lt: 7, optional: true}
+    '|events|LibraryTravel|length': {lt: 2, optional: true}
     worker: {}
   text: ->"""<page bg="#{marketImage()}">
     <text><p>With some careful searching of various travel journals and map fragments, and the (un)help of a thorny librarian, #{@worker} managed to find and copy down the details of a new route. With a detailed chart and location, the Lapis could now travel to another destination.</p></text>
@@ -204,7 +204,7 @@ pay = 4
 
 Place.Vailia::jobs.shipyard = Job.Shipyard = class Shipyard extends Job
   label: "Shipyard"
-  text: ->"""Work in the shipyard. Not particularly profitable, but can help keep the sailors out of trouble and make a little money at the same time. <em><span class="sailing">+1 sailing</span> for officer, +#{pay}β per worker</em>"""
+  text: ->"""Work in the shipyard. Not particularly profitable, but can help keep the sailors out of trouble and make a little money at the same time. <em><span class="sailing">+1 sailing</span> for officer, +#{pay}β per sailor</em>"""
   energy: -2
   officers:
     worker: {}
@@ -215,7 +215,7 @@ Place.Vailia::jobs.shipyard = Job.Shipyard = class Shipyard extends Job
 Job.Shipyard::next = Page.Shipyard = class Shipyard extends Page
   conditions:
     worker: {}
-    count: '|last|context|objectLength'
+    count: '|last|context|length'
   text: ->"""<page bg="#{g.location.images.day}">
     <text><p>Vailia's shipyards ran constantly, taking raw iron and lumber, combining them with back-breaking labor, and turning out the finest ships in the world. Much of the process was carried out behind walls, hidden from public view - and hidden from temporary labor like #{@worker}#{if @count > 1 then (" and " + his + " sailors. They") else (". " + He)} spent the day debarking trees, sawing planks and sorting nails. Repetitive, brutal work, but one of the few jobs available on a day-by-day basis.</p>
     <p><em>+#{@count * pay}β, <span class="sailing">+1 Sailing</span> for #{@worker}</em></p></text>

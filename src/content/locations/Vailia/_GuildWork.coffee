@@ -431,7 +431,7 @@ Page.GuildNatDomSure::next = Page.GuildNatDomSure2 = class GuildNatDomSure2 exte
     <text><p>Natalie wiped her hands on a towel and examined herself in the mirror – still presentable. She hadn't even taken her shirt off. Quietly she opened the door and stepped out, so as not to wake them.</p></text>
   </page>
   <page>
-    <text continue><p><em><span class="money">+#{Place.Vailia.adultPay}β</span>, <span class="happiness">+1</span></em></p>
+    <text continue><p><em><span class="money">+#{Place.Vailia.adultPay}β</span>, <span class="happiness">+1 happiness</span></em></p>
   </page>
 
   <page>

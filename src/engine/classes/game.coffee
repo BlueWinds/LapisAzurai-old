@@ -85,6 +85,13 @@ window.Game = class Game extends GameObject
     wages += Math.sum(person.wages() for name, person of @crew)
     $('.wages', element).html wages
     $('.progress-bar', element).css 'width', (Math.sumObject(g.cargo) * 100 / Game.cargo) + "%"
+    cargo = Object.keys(g.cargo).map (item)->"<tr><td>#{g.cargo[item]}</td><td>#{item}</td></tr>"
+    $('.cargo').tooltip('destroy').tooltip {
+      placement: 'bottom'
+      title: "<table class='table table-striped'>#{cargo.join "\n"}</table>"
+      html: true
+      template: '<div class="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner no-pad"></div></div>'
+    }
     $('#game-info img').attr 'src', @location.images[if @weather is 'calm' then 'day' else 'storm']
     $('#game-info .description').html @location.description?() or @location.description
 

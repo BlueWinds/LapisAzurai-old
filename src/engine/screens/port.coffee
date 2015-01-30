@@ -195,7 +195,7 @@ applyPort = (element)->
     if $(e.target).closest('.person-info').length
       return
     if $('.person-info.active', element).length
-      $('button', element).addClass('dis').tooltip 'enable'
+      $('button', element).eq(0).addClass('dis').tooltip 'enable'
       $('.person-info.active', element).appendTo @
       .removeClass('active')
     $('.job', element).each ->

@@ -1,8 +1,8 @@
-html {
+body {
   background-image: linear-gradient(transparent, rgba(0, 0, 0, 0.9), black), url("../content/misc/background.jpg");
   background-position: 0 66px;
 }
-body.container {
+body > .container {
   background: none;
   color: #ccc;
   height: 100%;
@@ -19,6 +19,7 @@ body.container {
 }
 .navbar {
   border: none;
+  cursor: default;
   margin: 0;
 }
 .navbar-nav {
@@ -785,6 +786,15 @@ input.inline:disabled {
 .low {
   color: #AFA;
 }
+.food {
+  color: #AFA;
+}
+.trade {
+  color: #FFA;
+}
+.luxury {
+  color: #FA8;
+}
 .carry.out, .result.negative {
   color: #F77;
 }
@@ -813,12 +823,33 @@ input.inline:disabled {
   top: 33%;
 }
 .set-sail {
+  overflow: hidden;
+}
+.set-sail form {
+  height: 3000px;
+  width: 4000px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.set-sail .bg {
   background-image: url("../content/misc/world.png");
   background-repeat: repeat;
   background-size: 4000px 3000px;
+  background-position: -2000px -1500px;
+  cursor: move;
+  width: 8000px;
+  height: 6000px;
+  top: -1500px;
+  left: -2000px;
+  position: absolute;
 }
-.set-sail {
-  overflow: hidden;
+.set-sail .tooltip {
+  min-width: 200px;
+}
+.set-sail .tooltip-arrow {
+  top: 0 !important;
+  left: 50% !important;
 }
 options {
   left: 0;
@@ -945,4 +976,14 @@ page h4 {
 }
 .injured .person {
   opacity: 0.5;
+}
+.tooltip .no-pad {
+  padding: 0;
+}
+.tooltip .no-pad table {
+  border: 1px solid #666;
+  text-align: left;
+}
+.tooltip .no-pad td:first-child {
+  text-align: right;
 }

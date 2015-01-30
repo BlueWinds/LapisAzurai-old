@@ -33,6 +33,7 @@ isPage = (funct)-> funct?.prototype instanceof Page
 
 # Returns the next div after the currently active one, or generates events / passes time until there is one.
 getNextDiv = ->
+  $('#content .tooltip').remove()
   currentPage = $('page.active').data('page')
 
   until $('page.active + page').length
@@ -73,7 +74,7 @@ setNav = ->
 
 $.fn?.tooltip.Constructor.DEFAULTS.container = 'body'
 $.fn?.tooltip.Constructor.DEFAULTS.html = true
-$.fn?.tooltip.Constructor.DEFAULTS.viewport = '#content'
+$.fn?.tooltip.Constructor.DEFAULTS.viewport = 'page.active'
 $.fn?.tooltip.Constructor.DEFAULTS.trigger = 'hover click'
 
 $.fn?.addTooltips = ->
@@ -93,6 +94,7 @@ $.fn?.addTooltips = ->
   $('div.full', @).tooltip(
     title: 'Double click to sticky or hide this'
     placement: 'bottom'
+    container: 'page.active'
   )
 
 errorPage = (page, error)->

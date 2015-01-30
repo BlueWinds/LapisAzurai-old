@@ -27,14 +27,20 @@ Page.SetSail = class SetSail extends Page
 
     locations = for key, distance of @port.destinations
       distance = Math.ceil(distance / g.map.Ship.sailSpeed())
-      g.map[key].renderBlock([x, y], key, distance)
-    locations.push @port.renderBlock([x, y], '', 0, )
+      g.map[key].renderBlock(key, distance)
+    locations.push @port.renderBlock('', 0, )
 
-    page = $ """<page slow class="screen set-sail" style="background-position: #{-x}px #{-y}px;">
+    page = $ """<page slow class="screen set-sail">
       <form>
+        <div class="bg"></div>
         #{locations.join ''}
       </form>
     </page>"""
+    page.dragScroll()
+    setTimeout ->
+      page.scrollLeft(x)
+      page.scrollTop(y)
+    , 1
     $('.location img', page).click (e)->
       e.preventDefault()
       key = $(@).parent().parent().attr 'data-key'

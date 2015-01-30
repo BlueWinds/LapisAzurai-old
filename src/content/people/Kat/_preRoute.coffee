@@ -112,7 +112,7 @@ Job.MeetKat.next.push Page.MeetKat3 = class MeetKat3 extends PlayerOptionPage
   <page>
     #{@Kat.image 'sad', 'right'}
     #{@Guard.image 'serious', 'far-right'}
-    <text><p><q>I'm sorry for the trouble, miss,</q> he addressed Natalie, tightening his hold on the thief's arm even more her until she Natalie winced in sympathy.</p></text>
+    <text><p><q>I'm sorry for the trouble, miss,</q> he addressed Natalie, tightening his hold on the thief's arm even more until Natalie winced in sympathy.</p></text>
   </page>
   <page>
     #{@Natalie.image 'normal', 'left'}
@@ -230,7 +230,7 @@ Job.KatTrial::next = Page.KatTrial = class KatTrial extends PlayerOptionPage
     <text><p>Natalie arrived somewhat early to the courthouse – one of two in Alkenia, and by far the poorest and busiest. This one handled justice for those not wealthy or influential to arrange trial away from all the noise and bustle.</p></text>
   </page>
   <page>
-    <text><p>She found herself packed in a waiting room with a crowd of supplicants to the court, each waiting their turn before the judge. One could expect no more than fifteen minutes to have their complaint heard, case judged, or contract enforced here – too many waited (or dreaded) for their chance at justice for any single case to take up time. For someone like Kat, clearly a child of the streets and with eyewitness testimony against her, the "guilty" verdict was a foregone conclusion – the only thing still to be decide was her punishment.</p></text>
+    <text><p>She found herself packed in a waiting room with a crowd of supplicants to the court, each waiting their turn before the judge. One could expect no more than fifteen minutes to have their complaint heard, case judged, or contract enforced here – too many waited (or dreaded) for their chance at justice for any single case to take up time. For someone like Kat, clearly a child of the streets and with eyewitness testimony against her, the "guilty" verdict was a foregone conclusion – the only thing still to be decided was her punishment.</p></text>
   </page>
   <page>
     #{@Kat.image 'normal', 'far-left'}

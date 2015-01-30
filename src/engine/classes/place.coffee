@@ -46,11 +46,8 @@ window.Place = class Place extends GameObject
 
   image: (tag, title)-> "<img src='#{@images[tag]}' #{if title then 'title="' + title + '"' else ''}>"
 
-  renderBlock: (center, key, distance)->
-    x = center[0] - @location[0] # Half the width of the label
-    y = center[1] - @location[1] # Space above it for the dot
-
-    return """<div data-key="#{key}" class="location" style="left: #{-x}px; top: #{-y}px;">
+  renderBlock: (key, distance)->
+    return """<div data-key="#{key}" class="location" style="left: #{@location[0]}px; top: #{@location[1]}px;">
       <div class="name">#{@name}</div>
       <div class="full">
         <div class="name">#{@name} - #{distance} #{if distance is 1 then 'day' else 'days'}</div>

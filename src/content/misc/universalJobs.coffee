@@ -4,8 +4,8 @@ lackingMaterialsRepairSpeed =
   supplies: 0.25
   both: 0.1
 
-repairPerCrew = 1
-repairPerSailing = 0.02
+repairPerCrew = 4 / 3
+repairPerSailing = 0.03
 
 woodPerRepair = 2 / 3
 suppliesPerRepair = 1 / 3
@@ -42,7 +42,7 @@ Job.universal.push Job.RepairShip = class RepairShip extends Job
       when @missing is 'wood' then "The lack of wood will #{if noRepair then '<b>prevent</b>' else 'slow down'} repairs"
       else "The lack of naval supplies will #{if noRepair then '<b>completely prevent</b>' else 'slow down'} repairs"
 
-    """The ship is <b title="#{@Ship.damageDescription()}">#{@Ship.shortDamage()}</b>, and could use some attention. #{lackingMaterials} #{unless noRepair then ' (' + String.rate lackingMaterialsRepairSpeed[@missing] + ' speed)' else ''}. The worker's <span class="sailing">sailing</span> speeds up repairs."""
+    """The ship is <b title="#{@Ship.damageDescription()}">#{@Ship.shortDamage()}</b>, and could use some attention. #{lackingMaterials} #{unless noRepair then ' (' + String.rate lackingMaterialsRepairSpeed[@missing] + ' speed)' else ''}. Send more workers - and workers with higher <span class="sailing">sailing</span> to speed up repairs."""
 
 Job.RepairShip::next = Page.RepairShip = class RepairShip extends Page
   conditions:

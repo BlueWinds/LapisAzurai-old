@@ -104,7 +104,7 @@ Job.HireCrew = class HireCrew extends Job
   @hireClasses: []
 
   label: "Hire Crew"
-  text: -> "Search the city for new sailors, or let existing crew members go. Send someone <span class='diplomacy'>convincing</span> along to save money."
+  text: -> "Search the city for new sailors, or let existing crew members go (bring them along, then remove them from your crew). Send someone <span class='diplomacy'>convincing</span> along to save money."
   description: ->"""<p>Natalie talked to the bartender, passed over a coin for the trouble and set herself up at a table. It wasn't long before she had some interested recruits.</p>"""
   officers:
     Natalie: '|officers|Nat'
@@ -142,7 +142,7 @@ Job.HireCrew::next = Page.HireCrew = class HireCrew extends Page
   text: ->
     hires = (person.renderBlock(key) for key, person of @hires)
     officers = (person.renderBlock(key, 'hired') for key, person of g.officers)
-    crew = (person.renderBlock(key, 'hired') for key, person of @asArray())
+    crew = (person.renderBlock(key, 'hired') for key, person of @job.context.asArray())
 
     wages = (person.wages() for name, person of g.crew)
     wages = Math.sum wages

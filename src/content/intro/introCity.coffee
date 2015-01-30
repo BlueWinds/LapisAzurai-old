@@ -170,17 +170,21 @@ Job.IntroMarket::next = Page.IntroMarket = class IntroMarket extends Page.Market
       ).help(
         target: '[item="Maiden\'s Tea"]'
         placement: 'bottom'
-        title: "Goods come in three varieties - Food, Trade Goods, and Luxuries. Trade goods are valuable (to you) only for how much money you can sell them for elsewhere."
+        title: "Goods come in three varieties - <span class='food'>Food</span>, <span class='trade'>Trade Goods</span>, and <span class='luxury'>Luxuries</span>."
       ).help(
-        target: '[item="Fish"] .plus'
+        target: '[item="Maiden\'s Tea"]'
         placement: 'bottom'
-        title: "You'll need food before you set sail for obvious reasons."
+        title: "<span class='trade'>Trade goods</span> are valuable (to you) only for how much money you can sell them for elsewhere."
       ).help(
         target: '[item="Beer"]'
         placement: 'bottom'
-        title: "Your crew's happiness will drop slowly over time unless you carry a supply of luxuries for them."
+        title: "Your crew's happiness will drop slowly over time unless you carry a supply of <span class='luxury'>luxuries</span> for them."
       ).help(
-        target: '[item="Fish"] .plus'
+        target: '[item="Fish"]'
+        placement: 'bottom'
+        title: "You'll need <span class='food'>food</span> before you set sail for obvious reasons."
+      ).help(
+        target: '[item="Fish"]'
         placement: 'bottom'
         title: "For now just get at least 25 barrels of fish and 30 baskets of Maiden's Tea."
       )

@@ -203,7 +203,7 @@ applyMarket = (element)->
     else
       $('button', element).removeAttr('disabled')
     element.addTooltips()
-    return total >= 0
+    return total >= 0 or total >= g.officers.Nat.money
 
   $('button', element).click (e)->
     e.preventDefault()

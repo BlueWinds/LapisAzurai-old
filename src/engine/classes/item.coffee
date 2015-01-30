@@ -20,13 +20,13 @@ window.Item = class Item extends GameObject
     currentPrice = @buyPrice(basePrice, increment, bought)
     relativePrice = if currentPrice > @price then "high" else if currentPrice < @price then "low" else ""
     type = switch
-      when @ instanceof Luxury then 'Luxury'
-      when @ instanceof Food then 'Food'
-      else "Trade"
+      when @ instanceof Luxury then 'luxury'
+      when @ instanceof Food then 'food'
+      else "trade"
 
-    """<tr class="#{relativePrice}" item="#{@name}">
-      <td class="title" title="#{type} - #{@description}">#{@name}</td>
-      <td class="price" title="#{increment} #{@unit}s available at #{basePrice + @price}β (valued in Vailia at #{@price}β)">#{currentPrice}β</td>
+    return """<tr item="#{@name}">
+      <td class="title #{type}" title="#{type.capitalize()} - #{@description}">#{@name}</td>
+      <td class="price #{relativePrice}" title="First #{increment} #{@unit}s available at #{basePrice + @price}β (valued in Vailia at #{@price}β)">#{currentPrice}β</td>
       <td class="plus">+</td>
       <td class="count">#{bought}</td>
       <td class="minus">-</td>
@@ -36,15 +36,20 @@ window.Item = class Item extends GameObject
   sellRow: (basePrice, increment, sold, available)->
     currentPrice = if basePrice? then @sellPrice(basePrice, increment, sold) else @price
     relativePrice = if currentPrice < @price then "high" else if currentPrice > @price then "low" else ""
-    """<tr class="#{relativePrice}" item="#{@name}">
-      <td class="title" title="#{@description}">#{@name}</td>""" +
+    type = switch
+      when @ instanceof Luxury then 'luxury'
+      when @ instanceof Food then 'food'
+      else "trade"
+
+    return """<tr item="#{@name}">
+      <td class="title #{type}" title="#{type.capitalize()} - #{@description}">#{@name}</td>""" +
     (if basePrice?
-      """<td class="price" title="#{increment} #{@unit}s can be sold at #{basePrice + @price}β (valued in Vailia at #{@price}β)">#{currentPrice}β</td>
+      """<td class="price #{relativePrice}" title="First #{increment} #{@unit}s can be sold at #{basePrice + @price}β (valued in Vailia at #{@price}β)">#{currentPrice}β</td>
       <td class="plus">+</td>
       <td class="count">#{if available then sold + '/' + available else '--'}</td>
       <td class="minus">-</td>"""
     else
-      """<td class="price" title="Valued in Vailia at #{@price}β">--</td>
+      """<td class="price #{relativePrice}" title="Valued in Vailia at #{@price}β">--</td>
       <td class="count" colspan=3>#{if available then available else ''}</td>""") +
     """<td class="total">#{if sold then @sellCost(basePrice, increment, sold) + 'β' else ''}</td>
     </tr>"""

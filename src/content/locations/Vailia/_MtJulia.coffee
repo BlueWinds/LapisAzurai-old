@@ -87,6 +87,21 @@ Place.MountJulia::jobs.market = Job.MtJuliaMarket = class MtJuliaMarket extends 
   next: Page.firstMatch
   @next = [Page.Market]
 
+Page.MtJuliaMarketIntro2 = class MtJuliaMarketIntro2 extends Page.Market
+  show: ->
+    element = super()
+    element.help(
+      target: '.sell .low'
+      placement: 'bottom'
+      title: "Items that are a better deal than Vailian prices (you can buy them cheaper or sell them for more) are marked green."
+    ).help(
+      target: '.buy .high'
+      placement: 'bottom'
+      title: "Items that are a worse deal - more expenisve to buy or sell for less than they would at home - are in red."
+    )
+
+    return element
+
 Job.MtJuliaMarket.next.unshift Page.MtJuliaMarketIntro = class MtJuliaMarketIntro extends Page
   conditions:
     '|events|MtJuliaMarketIntro': false # Only show this the first time
@@ -114,7 +129,7 @@ Job.MtJuliaMarket.next.unshift Page.MtJuliaMarketIntro = class MtJuliaMarketIntr
   <page>
     <text continue><p><q>Easier to clean up after too. So, what've ya'got?</q></p></text>
   </page>"""
-  next: Page.Market
+  next: Page.MtJuliaMarketIntro2
 
 Place.MountJulia::jobs.rest = Job.MtJuliaRest = class MtJuliaRest extends Job
   officers:
@@ -123,7 +138,7 @@ Place.MountJulia::jobs.rest = Job.MtJuliaRest = class MtJuliaRest extends Job
     worker3: {optional: true}
   label: 'Rest'
   text: ->"""Visit the inn, Mt. Julia's one and only inhabited building."""
-  energy: 2
+  energy: 3
 
 Job.MtJuliaRest::next = Page.MtJuliaRest = class MtJuliaRest extends Page
   conditions:
@@ -146,7 +161,7 @@ Place.MountJulia::jobs.scavenge = Job.Scavenge = class Scavenge extends Job
     worker: {}
   crew: 2
   label: 'Scavenge'
-  text: ->"""Gather and prepare wood from Mt. Julia's abundant forests for use repairing the ship or sale."""
+  text: ->"""Gather and prepare wood from Mt. Julia's abundant forests for use repairing the ship or sale. More sailors makes the mork go faster."""
   energy: -3
   next: Page.firstMatch
   @next = []
@@ -155,7 +170,7 @@ Job.Scavenge.next.push Page.ScavengeStorm = class ScavengeStorm extends Page
   conditions:
     '|weather': {eq: 'storm'}
     worker: {}
-    woodFound: scavenge(0.25)
+    woodFound: scavenge(0.5)
   text: ->"""<page bg="#{g.location.images.day}">
     <text><p>Though venturing out into the storm was not a pleasant task, #{@worker} found that, once away from the shore, the forest at least did a tolerable job of cutting the wind. Not so the rain or the noise – by the time the crew was halfway done working on their first tree, they were soaked and shivering. #{@worker} called the expedition off short.</p>
     <p><em>+#{@woodFound} wood</em></p></text>
@@ -168,7 +183,7 @@ Job.Scavenge.next.push Page.ScavengeWood = class ScavengeWood extends ScavengeSt
   conditions:
     '|season': {eq: 'Wood'}
     worker: {}
-    woodFound: scavenge(1)
+    woodFound: scavenge(2)
   text: ->"""<page bg="#{g.location.images.day}">
     <text><p>The woods around Mt. Julia were pleasant enough to wander around in the mild #{g.month} Wood weather. #{@worker} marked several of the straightest trees to donate their lives to the cause, and the crew quickly set to work chopping them down and stripping bark and branches. Heavy work, but the Azurai carried tools for exactly this task, and progress was quick.</p>
     <p><em>+#{@woodFound} wood</em></p></text>
@@ -178,7 +193,7 @@ Job.Scavenge.next.push Page.ScavengeFire = class ScavengeFire extends ScavengeSt
   conditions:
     '|season': {eq: 'Fire'}
     worker: {}
-    woodFound: scavenge(0.75)
+    woodFound: scavenge(1.5)
   text: ->"""<page bg="#{g.location.images.day}">
     <text><p>Walking through the woods around Mt. Julia was a welcome respite from the heat of the #{g.month} Fire, cooled by a pleasant breeze blowing in from the ocean. #{@worker} found several trees knocked down by a recent storm, and the crew set to stripping them of bark and branches, and hauling them back to the beach for final work.</p>
     <p><em>+#{@woodFound} wood</em></p></text>
@@ -188,7 +203,7 @@ Job.Scavenge.next.push Page.ScavengeEarth = class ScavengeEarth extends Scavenge
   conditions:
     '|season': {eq: 'Earth'}
     worker: {}
-    woodFound: scavenge(1)
+    woodFound: scavenge(2)
   text: ->"""<page bg="#{g.location.images.day}">
     <text><p>Mt. Julia's forested surroundings were an excellent source of timber, untamed and mostly unexploited by human hands. #{@worker} pointed out several trees to the crew, marking them for felling and disassembly into the planks and boards needed to keep the ship in good repair.</p>
     <p><em>+#{@woodFound} wood</em></p></text>
@@ -198,7 +213,7 @@ Job.Scavenge.next.push Page.ScavengeWater = class ScavengeWater extends Scavenge
   conditions:
     '|season': {eq: 'Water'}
     worker: {}
-    woodFound: scavenge(0.5)
+    woodFound: scavenge(1)
   text: ->"""<page bg="#{g.location.images.day}">
     <text><p>Pulling #{his @worker} cloak tighter around #{him} neck, #{@worker} explored the woods around Mt. Julia, leading a gaggle of the Azurai's crew. #{He} didn't wander far, choosing trees more on the basis of their proximity to the beach than pure quality. Once they set to work cutting down and cleaning the trees the temperature was more bearable – heavy labor made warm bodies.</p>
     <p><em>+#{@woodFound} wood</em></p></text>
