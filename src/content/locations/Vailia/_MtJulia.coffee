@@ -161,7 +161,7 @@ Place.MountJulia::jobs.scavenge = Job.Scavenge = class Scavenge extends Job
     worker: {}
   crew: 2
   label: 'Scavenge'
-  text: ->"""Gather and prepare wood from Mt. Julia's abundant forests for use repairing the ship or sale. More sailors makes the mork go faster."""
+  text: ->"""Gather and prepare wood from Mt. Julia's abundant forests for use repairing the ship or sale. More sailors makes the work go faster."""
   energy: -3
   next: Page.firstMatch
   @next = []

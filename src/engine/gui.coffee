@@ -72,9 +72,8 @@ setNav = ->
   element = $('page.active')
   element.toggleClass 'no-prev', not element.prev().length
 
-$.fn?.tooltip.Constructor.DEFAULTS.container = 'body'
+$.fn?.tooltip.Constructor.DEFAULTS.container = 'page.active'
 $.fn?.tooltip.Constructor.DEFAULTS.html = true
-$.fn?.tooltip.Constructor.DEFAULTS.viewport = 'page.active'
 $.fn?.tooltip.Constructor.DEFAULTS.trigger = 'hover click'
 
 $.fn?.addTooltips = ->
@@ -118,14 +117,9 @@ $ ->
     placement: 'bottom'
   )
 
-  centerNav = ->
-    height = window.innerHeight + $('.navbar').outerHeight() * 2
-    top = height - $('#nav-arrows').outerHeight()
-    $('#nav-arrows').css 'top', top / 2
-
   $(window).resize ->
-    c.css 'height', window.innerHeight - $('.navbar').outerHeight()
-    centerNav()
+    c.css 'height', Math.min(window.innerHeight - $('.navbar').outerHeight(), 800)
+    $('body').css 'height', window.innerHeight
   setTimeout -> $(window).resize()
 
   considerGoto = (upDown)->
@@ -160,9 +154,6 @@ $ ->
       if $(@).hasClass 'active'
         Game.gotoPage(1)
     , parseInt($(@).attr('auto'), 10)
-
-  c.css 'height', window.innerHeight - $('.navbar').outerHeight()
-  centerNav()
 
   c.on 'click', 'button.dropdown-toggle', ->
     position = $(@).toggleClass('active').position()

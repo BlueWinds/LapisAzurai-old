@@ -122,7 +122,7 @@ window.dropdown = (options, selected)->
 window.options = (texts, titles = [])->
   buttons = for text, index in texts
     """<button class="btn btn-default" title="#{titles[index] or ""}">#{text}</button>"""
-  return "<options>#{buttons.join()}</options>"
+  return "<options>#{buttons.join("\n")}</options>"
 
 optionList = (options, selected)->
   name = 'o-' + Math.random()

@@ -847,10 +847,6 @@ input.inline:disabled {
 .set-sail .tooltip {
   min-width: 200px;
 }
-.set-sail .tooltip-arrow {
-  top: 0 !important;
-  left: 50% !important;
-}
 options {
   left: 0;
   pointer-events: none;
