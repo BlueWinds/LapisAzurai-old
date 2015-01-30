@@ -38,7 +38,7 @@ Job.MeetKat.next.push Page.MeetKat2 = class MeetKat2 extends Page
     <text continue><p>Natalie whistled at that. Truly it must come from halfway around the world to warrant that price – or he was a con artist, a splendid one. The smell though - she'd never scented anything like it in her life, nor heard of it. A cargo hold full of that and she'd be set for life. #{q}Interesting. Does it taste like it smells? I might consider...</q></p></text>
   </page>
   <page>
-    <text><p>A flash of movement caught her eye, and a sudden feeling of breeze. She patted her pocket, and found no bundle of coins. She spun on her heels, catching another flash of motion – a young woman, disappearing into the crowd.</p></text>
+    <text><p>A flash of movement caught her eye, and a sudden feeling of a breeze. She patted her pocket, and found no bundle of coins. She spun on her heels, catching another flash of motion – a young woman, disappearing into the crowd.</p></text>
   </page>
   <page>
     #{@Natalie.image 'upset', 'left'}
@@ -92,7 +92,7 @@ Job.MeetKat.next.push Page.MeetKat3 = class MeetKat3 extends PlayerOptionPage
   </page>
   <page>
     #{@Natalie.image 'upset', 'left'}
-    <text continue><p>#{q}She was... oof... taking my money,</q> Natalie gasped out, leaning on a one arm against a nearby stone wall. #{q}Wasn't expecting a fight.</q></p></text>
+    <text continue><p>#{q}She was... oof... taking my money,</q> Natalie gasped out, leaning on one arm against a nearby stone wall. #{q}Wasn't expecting a fight.</q></p></text>
   </page>
   <page>
     #{@Guard.image 'serious', 'far-right'}
@@ -107,7 +107,7 @@ Job.MeetKat.next.push Page.MeetKat3 = class MeetKat3 extends PlayerOptionPage
   <page>
     #{@Guard.image 'serious', 'far-right'}
     #{@Kat.image 'sad', 'right'}
-    <text continue><p>"Kat" didn't say anything, just shuffled at her feet and hung her head. It looked like she was going to start crying any moment.</p></text>
+    <text continue><p>"Kat" didn't say anything, just shuffled her feet and hung her head. It looked like she was going to start crying any moment.</p></text>
   </page>
   <page>
     #{@Kat.image 'sad', 'right'}
@@ -227,7 +227,7 @@ Job.KatTrial::next = Page.KatTrial = class KatTrial extends PlayerOptionPage
     Natalie: {}
     Kat: '|people|Kat'
   text: ->"""<page bg="#{if g.weather is 'calm' then g.location.images.day else g.location.images.storm}">
-    <text><p>Natalie arrived somewhat early to the courthouse – one of two in Alkenia, and by far the poorest and busiest. This one handled justice for those not wealthy or influential to arrange trial away from all the noise and bustle.</p></text>
+    <text><p>Natalie arrived somewhat early to the courthouse – one of two in Alkenia, and by far the poorest and busiest. This one handled justice for those neither wealthy nor influential enough to arrange trial away from all the noise and bustle.</p></text>
   </page>
   <page>
     <text><p>She found herself packed in a waiting room with a crowd of supplicants to the court, each waiting their turn before the judge. One could expect no more than fifteen minutes to have their complaint heard, case judged, or contract enforced here – too many waited (or dreaded) for their chance at justice for any single case to take up time. For someone like Kat, clearly a child of the streets and with eyewitness testimony against her, the "guilty" verdict was a foregone conclusion – the only thing still to be decided was her punishment.</p></text>

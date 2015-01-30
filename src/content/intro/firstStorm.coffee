@@ -69,7 +69,7 @@ Page.FirstStorm::next = Page.FirstStorm2 = class FirstStorm2 extends Page
     <text continue><p>James shouted something at her, but Natalie couldn't hear what he said, drowned out by howling wind that hit them like an almost solid object. He pointed. #{@sailor} hung limply from #{his} line, blood running from #{his} forehead.</p></text>
   </page>
   <page>
-    <text continue-inline> Natalie shook her head, made a sharp gesture denial – James shouldn't go down there. He gritted his teeth and ignored her, untied his line and ran down the stairs.</text>
+    <text continue-inline> Natalie shook her head, made a sharp gesture of denial – James shouldn't go down there. He gritted his teeth and ignored her, untied his line and ran down the stairs.</text>
   </page>
   <page bg="#{@Ship.images.storm}">
     <text><p>This was the sort of storm that left no survivors. A Grandmother Storm. The last had been just a month ago – Natalie had helped comb the beach for wreckage and survivors in its wake. There were precious few of the latter, and far too much of the former.</p></text>
@@ -241,7 +241,7 @@ Page.IntroSickNat::next = Page.IntroSickNat2 = class IntroSickNat2 extends Page
     <text><p>He cupped his face in both hands and rubbed his eyes. It was an answer to far too many questions, but it raised more questions still. First among them, why hadn't she told him? They'd been friends since he was old enough to walk.</p></text>
   </page>
   <page>
-    <text continue-inline> Magic didn't manifest until puberty. They'd have been best friends for a decade when she learned what she was.</text>
+    <text continue-inline> Magic never manifested until puberty. They would have been best friends for a decade when she learned what she was.</text>
   </page>
   <page>
     <text continue><p>It was a rare gift. One in ten thousand had a spark of magic, enough to light a candle.</p></text>
@@ -264,7 +264,7 @@ Page.IntroSickNat::next = Page.IntroSickNat2 = class IntroSickNat2 extends Page
 Mission.VailiaTradeRoutes = class VailiaTradeRoutes extends Mission
   label: "Find Trade Routes"
   tasks: [
-      description: "Find a route a nearby city, Alkenia"
+      description: "Find a route to a nearby city, Alkenia"
       conditions:
         '|location|destinations|Alkenia': {gt: 0}
     ,
