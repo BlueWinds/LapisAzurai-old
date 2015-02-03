@@ -98,9 +98,10 @@ page.no-prev::before {
 }
 .person {
   bottom: 170px;
-  width: 33%;
   left: 50%;
-  position: absolute;
+  max-width: 500px;
+  position: fixed;
+  width: 33%;
 }
 .person img {
   bottom: 0;

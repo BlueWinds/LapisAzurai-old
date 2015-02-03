@@ -10,7 +10,7 @@ Person.VailianCrewM = class VailianCrewM extends RandomPerson
     ->"""#{@} loves to boast, readily telling anyone who will listen any number of tall tales. Some are more plausible than others - #{he} certainly seems too young to have done <em>all</em> of the things #{he} claims to have done."""
     ->"""#{@} has a childlike air, seemingly innocent and lost, almost as if #{he} wandered into the sailor's life by accident. #{He}'s competent enough, though, no doubt about that."""
     ->"""#{@} is serious and attentive, hopping to obey orders as though #{his} life depended on them - which, in some cases, it does."""
-    ->"""#{@} doesn't hesitate to speak #{his} mind, a trait that gets on Natalie's nerves sometimes when he won't shut up, but more often provides valuable feedback."""
+    ->"""#{@} doesn't hesitate to speak #{his} mind, a trait that gets on Natalie's nerves sometimes when #{he} won't shut up, but more often provides valuable feedback."""
     ->"""#{@} jokes constantly, seemingly unable to take anything seriously. Even deadly situations are more likely to get a wisecrack from #{him} than a scowl."""
     ->"""#{@} has a heart of gold, an infinite wellspring of kind smiles and affectionate words."""
   ]

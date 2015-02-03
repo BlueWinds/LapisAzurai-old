@@ -86,7 +86,7 @@ sailCost = ->
     used.noFood = people - totalFood
     people = totalFood
 
-  for i in [0...people]
+  for i in [0...Math.min(people, totalFood)]
     f = Math.weightedChoice food
     food[f] -= 1
     used[f] or = 0

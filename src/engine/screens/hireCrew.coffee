@@ -27,7 +27,7 @@ Page.HireCrewOne = class HireCrewOne extends Page
     #{g.officers.Nat.image 'normal', 'mid-left'}
     <text>
       <p>Tradition dictated that a new sailor was entitled to a handsome signup bonus, paid before departure - they were putting their life in the hands of a captain they didn't know, after all, and should be able to leave something behind even if they never returned. After a bit of negotiation, #{@[0]} finally settled for #{hireCost @asArray(), @}β immediately and #{@[0].wages()}β daily thereafter. #{@Assistant or 'Natalie'} handed over a one obol coin and told #{@[0]} where they're docked.</p>
-      <p>#{q(@Assistant or g.officers.Natalie)}Welcome aboard.</q></p>
+      <p>#{q}Welcome aboard.</q></p>
     </text>
   </page>"""
   apply: ->
@@ -142,7 +142,9 @@ Job.HireCrew::next = Page.HireCrew = class HireCrew extends Page
   text: ->
     hires = (person.renderBlock(key) for key, person of @hires)
     officers = (person.renderBlock(key, 'hired') for key, person of g.officers)
-    crew = (person.renderBlock(key, 'hired') for key, person of @job.context.asArray())
+    crew = for person in @job.context.asArray()
+      key = g.crew.indexOf person
+      person.renderBlock(key, 'hired')
 
     wages = (person.wages() for name, person of g.crew)
     wages = Math.sum wages
@@ -213,7 +215,11 @@ applyHire = (element)->
 
     # Old crew to be fired
     $('.hires .hired', element).each ->
-      g.crew.remove $(@).attr('data-key')
+      console.log $(@), $(@).attr('data-key')
+      delete g.crew[$(@).attr('data-key')]
+    console.log g.crew
+    g.crew.reArray()
+    console.log g.crew
 
     newCrew = new Collection
     if context.Assistant
@@ -224,7 +230,10 @@ applyHire = (element)->
       key = $(@).attr 'data-key'
       person = context.hires[key]
       newCrew.push person
-      context.hires.remove key
+      delete context.hires[key]
+    context.hires.reArray()
+    console.log context.hires
+    console.log newCrew
 
     if newCrew.length is 1
       g.queue.unshift(new Page.HireCrewOne)

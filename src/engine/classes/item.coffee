@@ -34,6 +34,7 @@ window.Item = class Item extends GameObject
     </tr>"""
 
   sellRow: (basePrice, increment, sold, available)->
+    console.log @name, increment
     currentPrice = if basePrice? then @sellPrice(basePrice, increment, sold) else @price
     relativePrice = if currentPrice < @price then "high" else if currentPrice > @price then "low" else ""
     type = switch
@@ -55,10 +56,14 @@ window.Item = class Item extends GameObject
     </tr>"""
 
   buyPrice: (basePrice, increment, amount)->
-    return Math.ceil (@price + basePrice) * (1 + Math.floor(amount / increment) / 10)
+    inc = Math.floor(amount / increment)
+    price = Math.ceil (@price + basePrice) * (1 + inc / 10)
+    return Math.max price, (@price + basePrice + inc)
 
   sellPrice: (basePrice, increment, amount)->
-    return Math.ceil (@price + basePrice) * (1 - Math.floor(amount / increment) / 10)
+    inc = Math.floor(amount / increment)
+    price = Math.ceil (@price + basePrice) * (1 - inc / 10)
+    return Math.max 1, Math.min(price, (@price + basePrice - inc))
 
   buyCost: (basePrice, increment, amount)->
     total = 0

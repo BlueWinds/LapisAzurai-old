@@ -3,7 +3,7 @@
 lastP = null
 window.q = (person = lastP)->
   lastP = person
-  return "<q style='color: #{person.text or '#FFF'}' title='#{person}'>"
+  return "<q style='color: #{person.text or '#FFF'}'>"
 q.toString = q
 
 # Minor linguistic note - events have to be written in the male form in code because his->her, him->her are impossible to tell apart from the feminine side.

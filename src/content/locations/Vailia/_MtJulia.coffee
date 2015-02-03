@@ -75,13 +75,13 @@ Place.MountJulia::firstVisit = Page.VisitJulia = class VisitJulia extends Page
 
 Place.MountJulia::jobs.market = Job.MtJuliaMarket = class MtJuliaMarket extends Job.Market
   buy: new Collection
-    Barley: [10, 1]
+    Barley: [10, 2]
     "Maiden's Tea": [15, 8]
     "Naval Supplies": [20, 0]
     Wood: [40, 5]
   sell: new Collection
     "Maiden's Tea": [15, 7]
-    Barley: [5, 2]
+    Barley: [5, 1]
     "Naval Supplies": [20, 0]
   description: ->"""<p>As usual, the same little girl cheerfully greeted Natalie. She was happy to leave off sweeping her bar ("her parents' bar," she still insisted) and haggle over the value of the Lapis' goods. She had some items in stock, but was mostly interested in purchasing supplies for maintaining the trading post.</p>"""
   next: Page.firstMatch

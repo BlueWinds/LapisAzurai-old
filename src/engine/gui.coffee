@@ -83,9 +83,13 @@ $.fn?.addTooltips = ->
       placement: 'auto left'
       title: description
     }
-  $('[title]', @).tooltip {
+  $('[title]', @).not('button').tooltip {
     delay: {show: 300, hide: 100}
     placement: 'bottom'
+  }
+  $('button[title]', @).tooltip {
+    delay: {show: 300, hide: 100}
+    placement: 'top'
   }
 
   $('.person-info, .location', @).dblclick ->
