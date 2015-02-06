@@ -27,7 +27,7 @@ $ grunt full-build
 
 The default grunt task (invoked with just `grunt`) compiles all of the game's Coffeescript and copies the css into the "/public/game" directory. It then monitors the files in "/src" for changes and recompiles as necessary for as long as you leave it running in the background.
 
-If that all went well (no errors), you can now open "/public/index.html" and it will load your new freshly compiled copy of the game :)
+If that all went well (no errors), you can now open "/public/index.html" and it will load your new freshly compiled copy of the game. For the development you can use the task `grunt dev` to start a process which opens a new window and refreshes the browser automatically on changes :)
 
 # License
 
