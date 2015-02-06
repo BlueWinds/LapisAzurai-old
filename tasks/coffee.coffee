@@ -12,6 +12,8 @@ sfw = files.map (f)->('./src/' + f)
 nsfw = sfw.concat files.nsfw.map (f)->('./src/' + f)
 
 module.exports = (grunt)->
+  options:
+    sourceMap: true
   sfw:
     files: './public/game/compiled.js': sfw
   nsfw:
