@@ -41,7 +41,7 @@ Page.HireCrewMulti = class HireCrewMulti extends Page
     Assistant: {optional: true}
       # '0' and '1' will be set by the hiring event. '2' - '5' may or may not be.
   text: ->
-    wages = Math.sum(crew.wages() for crew in @asArray())
+    wages = Math.sum((crew.wages() for crew in @asArray()))
     names = @asArray().map (p)->p.name
     """<page bg="#{g.location.images.night}">
       #{g.officers.Nat.image 'normal', 'mid-left'}

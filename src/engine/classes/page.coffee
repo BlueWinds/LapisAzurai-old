@@ -201,7 +201,7 @@ Page.randomMatch = ->
     page.contextFill()
     if page.contextMatch()
       results[index] = page
-      weights[index] = 11 - (g.events[page.constructor.name]?.length or 0)
+      weights[index] = Math.max(0, 8 - (g.events[page.constructor.name]?.length or 0))
 
   return results[Math.weightedChoice weights]
 

@@ -29,7 +29,7 @@ window.GameObject = class GameObject
 
   valid: ->
     level = @constructor
-    while !level.schema
+    while not level.schema
       level = level.__super__?.constructor
 
     result = SchemaInspector.validate level.schema, @

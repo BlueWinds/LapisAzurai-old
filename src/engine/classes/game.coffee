@@ -81,7 +81,7 @@ window.Game = class Game extends GameObject
     element = $ '.nav'
     $('.day', element).html @day
     $('.money', element).html @officers.Nat.money
-    wages = Math.sum(person.wages() for name, person of @officers)
+    wages = Math.sum((person.wages() for name, person of @officers))
     wages += Math.sum(person.wages() for name, person of @crew)
     $('.wages', element).html wages
     $('.progress-bar', element).css 'width', (Math.sumObject(g.cargo) * 100 / Game.cargo) + "%"
