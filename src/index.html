@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <title>Lapis Azuri</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+
+    <script src="game/engine/lib.js"></script>
+    <script src="game/compiled.js"></script>
+
+    <link href="game/engine/bootstrap.css" rel="stylesheet">
+    <link href="game/engine/style.css" rel="stylesheet">
+  </head>
+  <body>
+    <div class="container">
+      <div class="navbar navbar-default">
+        <div class="navbar-header">
+          <img src="game/content/misc/logo-horizontal.png" class="navbar-brand">
+          <div id="game-info" class="full">
+            <div class="page active">
+              <img>
+              <div class="description"></div>
+              <div class="arrow-right"><span class="glyphicon glyphicon-chevron-right"></span></div>
+            </div>
+          </div>
+        </div>
+        <ul class="nav navbar-nav">
+          <li class="day"></li>
+          <li class="money"></li>
+  <!--         <li class="wages"></li> -->
+          <li class="cargo">
+            <div class="progress-label">Cargo</div>
+            <div class="progress"><div class="progress-bar"></div></div>
+          </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li id="new-game"><a>New</a></li>
+          <li id="save-game"><a>Save<span class="glyphicon glyphicon-ok text-success"></span></a></li>
+          <li id="load-game"><a>Load</a></li>
+          <li><a href="http://winds.blue">Site</a></li>
+        </ul>
+      </div>
+      <div id="content"></div>
+    </div>
+  </body>
+</html>
