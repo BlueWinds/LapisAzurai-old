@@ -1,5 +1,6 @@
-node_modules
-game
-dump.html
-LapisAzurai.zip
-LapisAzuraiSFW.zip
+# modules
+node_modules/
+
+# build
+public/
+dist/
