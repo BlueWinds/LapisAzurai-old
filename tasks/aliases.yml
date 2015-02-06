@@ -9,6 +9,11 @@ default:
   - 'compile'
   - 'watch:compile'
 
+dev:
+  - 'full-build'
+  - 'browserSync'
+  - 'watch:compile'
+
 sfw:
  - 'lib'
  - 'coffeelint'
