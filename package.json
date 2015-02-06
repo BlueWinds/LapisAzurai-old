@@ -1,30 +1,39 @@
 {
-  "name": "",
+  "name": "Lapis-Azurai",
   "description": "Adult business management / exploration game",
-  "readmeFilename": "../README.md",
   "version": "0.0.1",
-  "main": "index.html",
-  "repository": {},
-  "scripts": {
-    "test": "grunt"
-  },
-  "keywords": [
-    "nsfw"
-  ],
   "author": "BlueWinds",
-  "license": "GNU GPL 3.0",
   "devDependencies": {
     "async": "0.9.x",
     "canvas": "1.1.x",
     "grunt": "0.4.x",
+    "grunt-browser-sync": "^1.9.1",
     "grunt-cli": "0.1.x",
     "grunt-coffeelint": "0.0.x",
+    "grunt-contrib-clean": "~0.6.0",
     "grunt-contrib-coffee": "^0.12.0",
+    "grunt-contrib-compress": "~0.13.0",
     "grunt-contrib-copy": "^0.7.0",
     "grunt-contrib-uglify": "^0.7.0",
     "grunt-contrib-watch": "0.6.x",
-    "grunt-contrib-clean": "~0.6.0",
-    "grunt-contrib-compress": "~0.13.0",
-    "shelljs": "~0.3.0"
+    "load-grunt-config": "^0.16.0",
+    "shelljs": "~0.3.0",
+    "time-grunt": "^1.0.0"
+  },
+  "keywords": [
+    "lapis",
+    "game",
+    "nsfw"
+  ],
+  "license": "GNU GPL 3.0",
+  "main": "public/index.html",
+  "readmeFilename": "./README.md",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com:BlueWinds/LapisAzurai.git"
+  },
+  "scripts": {
+    "postinstall": "grunt full-build",
+    "test": "grunt"
   }
 }
