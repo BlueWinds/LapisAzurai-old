@@ -1,3 +1,12 @@
+# Grunt Configurations
+# ====================
+#
+# Seperate tasks and configurations are declared in '/tasks'.
+#
+# Link: https://github.com/firstandthird/load-grunt-config
+
+'use strict';
+
 fs = require 'fs'
 async = require 'async'
 Canvas = require 'canvas'
@@ -11,7 +20,9 @@ module.exports = (grunt) ->
   # common task handlers
   require('load-grunt-config')(grunt, {
     configPath: __dirname + '/tasks'
-    jitGrunt: true
+    jitGrunt:
+      staticMappings:
+        'nodewebkit': 'grunt-node-webkit-builder'
   })
 
   # custom tasks

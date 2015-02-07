@@ -14,6 +14,16 @@ dev:
   - 'browserSync'
   - 'watch:compile'
 
+release:
+  - 'nodewebkit'
+  - 'compress:win64'
+  - 'compress:win32'
+  - 'compress:linux64'
+  - 'compress:linux32'
+  # - 'compress:osx64'
+  # - 'compress:osx32'
+  - 'clean:builds'
+
 sfw:
  - 'lib'
  - 'coffeelint'
