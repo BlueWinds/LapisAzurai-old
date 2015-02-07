@@ -16,6 +16,7 @@
     "grunt-contrib-copy": "^0.7.0",
     "grunt-contrib-uglify": "^0.7.0",
     "grunt-contrib-watch": "0.6.x",
+    "grunt-node-webkit-builder": "^1.0.0",
     "load-grunt-config": "^0.16.0",
     "shelljs": "~0.3.0",
     "time-grunt": "^1.0.0"
@@ -26,7 +27,7 @@
     "nsfw"
   ],
   "license": "GNU GPL 3.0",
-  "main": "public/index.html",
+  "main": "./public/index.html",
   "readmeFilename": "./README.md",
   "repository": {
     "type": "git",
@@ -35,5 +36,15 @@
   "scripts": {
     "postinstall": "grunt full-build",
     "test": "grunt"
+  },
+  "nodejs": false,
+  "window": {
+    "fullscreen": false,
+    "toolbar": false,
+    "frame": true,
+    "position": "center",
+    "width": 800,
+    "height": 600,
+    "resizable": true
   }
 }

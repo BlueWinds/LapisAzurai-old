@@ -7,3 +7,4 @@
 
 module.exports = (grunt)->
   game: ['./public/game']
+  builds: ['./dist/builds']
