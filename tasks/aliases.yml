@@ -1,0 +1,57 @@
+# Grunt Commands
+# ==============
+#
+# Use 'grunt' in the root directory to select and run a specific task.
+
+default:
+  - 'lib'
+  - 'coffeelint'
+  - 'compile'
+  - 'watch:compile'
+
+dev:
+  - 'full-build'
+  - 'browserSync'
+  - 'watch:compile'
+
+sfw:
+ - 'lib'
+ - 'coffeelint'
+ - 'compile-sfw'
+ - 'watch:sfw'
+
+lib:
+  - 'uglify'
+  - 'copy:html'
+  - 'copy:libs'
+  - 'copy:images'
+
+compile:
+  - 'coffee:nsfw'
+  - 'copy:css'
+
+compile-sfw:
+  - 'coffee:sfw'
+  - 'copy:css'
+
+full-build:
+  - 'clean'
+  - 'lib'
+  - 'coffeelint'
+  - 'compile'
+  - 'dump'
+  - 'sprites'
+  - 'compress:nsfw'
+  - 'compile-sfw'
+  - 'dump'
+  - 'compress:sfw'
+
+full-compile:
+  - 'lib'
+  - 'coffeelint'
+  - 'compile'
+  - 'dump'
+  - 'compress:nsfw'
+  - 'compile:sfw'
+  - 'dump'
+  - 'compress:sfw'

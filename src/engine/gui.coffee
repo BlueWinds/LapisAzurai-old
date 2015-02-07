@@ -200,7 +200,7 @@ $ ->
     (new Page.Load).show()
     gotoPage()
 
-  last = Object.keys(localStorage).sort().pop()
+  last = Object.keys(localStorage).map((key) -> parseFloat(key) or 0).sort().pop()
   if last
     window.g = new Game jsyaml.safeLoad(localStorage[last])
     g.last.show()

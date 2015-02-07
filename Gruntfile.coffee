@@ -1,136 +1,35 @@
 fs = require 'fs'
-async = require('async')
-Canvas = require('canvas')
-shell = require('shelljs')
+async = require 'async'
+Canvas = require 'canvas'
+shell = require 'shelljs'
 
-files = require './src/loadOrder'
-sfw = files.map (f)->('src/' + f)
-nsfw = sfw.concat files.nsfw.map (f)->('src/' + f)
+module.exports = (grunt) ->
 
-grunt = null
+  # show how long a task takes
+  require 'time-grunt', grunt;
 
-module.exports = (g) ->
-  grunt = g
-  grunt.loadNpmTasks 'grunt-contrib-coffee'
-  grunt.loadNpmTasks 'grunt-coffeelint'
-  grunt.loadNpmTasks 'grunt-contrib-watch'
-  grunt.loadNpmTasks 'grunt-contrib-copy'
-  grunt.loadNpmTasks 'grunt-contrib-uglify'
-  grunt.loadNpmTasks 'grunt-contrib-clean'
-  grunt.loadNpmTasks 'grunt-contrib-compress'
+  # common task handlers
+  require('load-grunt-config')(grunt, {
+    configPath: __dirname + '/tasks'
+    jitGrunt: true
+  })
 
-  config = {
-    coffee:
-      sfw:
-        files: 'game/compiled.js': sfw
-      nsfw:
-        files: 'game/compiled.js': nsfw
-    coffeelint:
-      app: ['src/**/*.coffee']
-      options:
-        arrowspacing: {level: 'error'}
-        colon_asignment_spacing: {level: 'error', left: 0, right: 1}
-        ensure_comprehensions: {level: 'error'}
-        line_endings: {level: 'error', value: 'unix'}
-        max_line_length: {level: 'ignore'}
-        no_empty_param_list: {level: 'error'}
-        no_interpolation_in_single_quotes: {level: 'error'}
-        no_standalone_at: {level: 'error'}
-        prefer_english_operator: {level:  'error'}
-        space_operators: {level: 'error'}
-        spacing_after_comma: {level: 'error'}
-    copy:
-      libs:
-        files: [{
-          cwd: 'src/lib/fonts'
-          expand: true
-          src: ['**']
-          dest: 'game/engine/fonts'
-        },
-        {
-          cwd: 'src/lib'
-          expand: true
-          src: ['*.css']
-          dest: 'game/engine'
-        }]
-      css:
-        files:
-          'game/engine/style.css': ['src/engine/style.css']
-      images:
-        files: [{
-          cwd: 'src/content/locations'
-          expand: true
-          src: ['**/*.png', '**/*.jpg']
-          dest: 'game/content/locations'
-        },
-        {
-          cwd: 'src/content/misc'
-          expand: true
-          src: ['**.png', '**.jpg']
-          dest: 'game/content/misc'
-        }]
-    uglify:
-      options:
-        mangle: false
-      libs:
-        files:
-          'game/engine/lib.js': ['src/lib/*.js']
-    watch:
-      compile:
-        files: ['src/**/*']
-        tasks: ['compile']
-      sfw:
-        files: ['src/**/*']
-        tasks: ['compile-sfw']
-    clean:
-      game: ['game', 'game.zip']
-    compress:
-      nsfw:
-        options:
-          archive: 'LapisAzurai.zip'
-        src: ['index.html', 'dump.html', 'Credits', 'game/**/*']
-      sfw:
-        options:
-          archive: 'LapisAzuraiSFW.zip'
-        src: ['index.html', 'dump.html', 'Credits', 'game/**/*']
-  }
-  grunt.initConfig config
-
+  # custom tasks
   grunt.registerTask 'sprites', (name)->
     done = @async()
-    createAllSprites name, done
+    createAllSprites grunt, name, done
 
   grunt.registerTask 'dump', ->
     buildDump()
 
-  grunt.registerTask 'compile', ['coffee:nsfw', 'copy:css']
-  grunt.registerTask 'compile-sfw', ['coffee:sfw', 'copy:css']
-  grunt.registerTask 'lib', ['uglify', 'copy:libs', 'copy:images']
-  grunt.registerTask 'full-build', ['clean', 'lib', 'coffeelint', 'compile', 'dump', 'sprites', 'compress:nsfw', 'compile-sfw', 'dump', 'compress:sfw']
-  grunt.registerTask 'full-compile', ['lib', 'coffeelint', 'compile', 'dump', 'compress:nsfw', 'compile-sfw', 'dump', 'compress:sfw']
-  grunt.registerTask 'default', ['lib', 'coffeelint', 'compile', 'watch:compile']
-  grunt.registerTask 'sfw', ['lib', 'coffeelint', 'compile-sfw', 'watch:sfw']
-
-
-loadGameObjects = ->
-  html = fs.readFileSync('index.html').toString()
-
-  unless global.window
-    global.window = global
-    global.$ = ->
-    global.$.extend = ->
-
-    require('./game/compiled')
-
-  return global.window
 
 ###
   Sprite generation functions
 ###
 
-createAllSprites = (runFor, finished)->
+createAllSprites = (grunt, runFor, finished)->
   try
-    fs.mkdirSync('game/sprites')
+    fs.mkdirSync("./public/game/sprites")
   catch e
     null
 
@@ -151,7 +50,7 @@ createAllSprites = (runFor, finished)->
       return nextPerson()
     grunt.log.subhead person::name
     try
-      fs.mkdirSync("game/sprites/#{person.name}")
+      fs.mkdirSync("./public/game/sprites/#{person.name}")
     catch e
       null
     sampleImage = new Canvas.Image
@@ -167,14 +66,14 @@ createAllSprites = (runFor, finished)->
 
         unless person.colors
           path = person.images.path
-          target = "game/sprites/#{person.name}/#{image}.png"
+          target = "./public/game/sprites/#{person.name}/#{image}.png"
           scale = person.images.scale or 1
           return buildSingleSprite scale, path, imageInfo, target, logNext
 
         async.each [0...imageInfo.length], (layer, nextLayer)->
           path = person.images.path + imageInfo[layer]
           unless path then return nextLayer()
-          target = "game/sprites/#{person.name}/#{image}-#{layer}-"
+          target = "./public/game/sprites/#{person.name}/#{image}-#{layer}-"
           scale = person.images.scale or 1
           createColorizedSprites person.colors[layer], scale, path, target, nextLayer
         , logNext
@@ -184,6 +83,18 @@ createAllSprites = (runFor, finished)->
 
   , finished
 
+
+loadGameObjects = ->
+  html = fs.readFileSync('./src/index.html').toString()
+
+  unless global.window
+    global.window = global
+    global.$ = ->
+    global.$.extend = ->
+
+    require('./public/game/compiled')
+
+  return global.window
 
 createColorizedSprites = (colors, scale, path, target, done)->
   image = new Canvas.Image
@@ -293,24 +204,11 @@ hslValue = (n1, n2, hue)->
   else
     n1
 
-dumpObj = ->
 
-  result = shell.exec '''ag --no-numbers --nogroup -C 0 'class (.+?) extends|"""(<page[^~]+?</page>)"""' src/content/''', {silent: true}
 
-  data = {}
-
-  _class = null
-  for line in result.output.split("\n") when line
-    if line.match(/class (.+?) extends/)
-      _class = line.match(/class (.+?) extends/)[1]
-      data[_class] or= []
-    else if line.match(/"""</)
-      data[_class]?.push line.match(/"""(.*)/)[1]
-    else if line.match(/>"""/)
-      data[_class]?.push line.match(/.+?:#?(.*)"""/)[1]
-    else
-      data[_class]?.push line.match(/.+?:#?(.*)/)[1]
-  return data
+###
+  Dump file generation
+###
 
 buildDump = ->
   data = dumpObj()
@@ -331,5 +229,25 @@ buildDump = ->
 
   html = html.replace(/<\/?q>/g, '"')
   html = html.replace(/#\{q.*?\}/g, '"')
-  fs.writeFileSync 'dump.html', html
+  fs.writeFileSync './public/dump.html', html
+  return data
+
+
+dumpObj = ->
+
+  result = shell.exec '''ag --no-numbers --nogroup -C 0 'class (.+?) extends|"""(<page[^~]+?</page>)"""' src/content/''', {silent: true}
+
+  data = {}
+
+  _class = null
+  for line in result.output.split("\n") when line
+    if line.match(/class (.+?) extends/)
+      _class = line.match(/class (.+?) extends/)[1]
+      data[_class] or= []
+    else if line.match(/"""</)
+      data[_class]?.push line.match(/"""(.*)/)[1]
+    else if line.match(/>"""/)
+      data[_class]?.push line.match(/.+?:#?(.*)"""/)[1]
+    else
+      data[_class]?.push line.match(/.+?:#?(.*)/)[1]
   return data
