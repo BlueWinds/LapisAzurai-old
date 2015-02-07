@@ -121,7 +121,7 @@ Job.MtJuliaMarket.next.unshift Page.MtJuliaMarketIntro = class MtJuliaMarketIntr
   </page>
   <page>
     #{g.officers.Nat.image 'normal', 'left'}
-    <text continue><p>#{q}Well, I suppose. I have some Maiden's Tea I'd like to unload.</q></p></text>
+    <text continue><p>#{q}Well, I suppose. I have some #{Object.keys(g.cargo).sort((a, b)->Item[b].price - Item[a].price)[0]} I'd like to unload.</q></p></text>
   </page>
   <page>
     <text><p><q>Ooh, that's nice. Much more interesting'an watching you an' a buncha rowdy sailors get shitfaced,</q> she lay her broom aside with a grin, rubbing her hands together gleefully.</p></text>

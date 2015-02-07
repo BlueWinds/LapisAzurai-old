@@ -9,6 +9,10 @@ module.exports = (grunt)->
   html:
     files:
       './public/index.html': ['./src/index.html']
+      './public/Credits.txt': ['./src/Credits.txt']
+      './public/CC-by-nc-sa-4.0.txt': ['./src/CC-by-nc-sa-4.0.txt']
+      './public/game/GPL.txt': ['./src/engine/GPL.txt']
+      './public/README.txt': ['./src/README.txt']
   libs:
     files: [{
       cwd: './src/lib/fonts'

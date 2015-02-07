@@ -132,16 +132,25 @@ window.Game = class Game extends GameObject
             @getItem(parts.join '|')[property] = false
 
     if effects.cargo
+      adding = {}
       for key, value of effects.cargo
         if typeof value is 'string'
           value = context[value]
 
-        val = g.cargo[key] or 0
-        val += value
-        if val > 0
-          g.cargo[key] = val
+        # Wait to add new cargo until we've removed everything (so we know we have space left)
+        if value > 0
+          positive[key] = value
         else
-          delete g.cargo[key]
+          g.cargo[key] += value
+          unless g.cargo[key] > 0 then delete g.cargo[key]
+
+      space = Game.cargo - Math.sumObject(g.cargo)
+      for key, value of adding
+        unless space then break
+        g.cargo[key] or= 0
+        g.cargo[key] += Math.min(space, value)
+        space -= Math.min(space, value)
+
     if effects.money
       g.officers.Nat.money += effects.money[0]
       g.money.push {amount: effects.money[0], reason: effects.money[1], day: g.day}

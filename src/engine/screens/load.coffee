@@ -42,6 +42,7 @@ Page.Load = class Load extends Page
           window.g = new Game jsyaml.safeLoad(reader.result)
           $('#content').empty()
           g.last.show()
+          g.setGameInfo()
           Game.gotoPage()
         catch e
           error = $ '<tr class="import-error danger"><td colspan="3">That doesn\'t seem to be a valid save file.</td></tr>'
@@ -73,6 +74,7 @@ Page.Load = class Load extends Page
       window.g = new Game jsyaml.safeLoad(localStorage[key])
       $('#content').empty()
       g.last.show()
+      g.setGameInfo()
       Game.gotoPage()
 
     return element
