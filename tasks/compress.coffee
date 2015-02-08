@@ -9,18 +9,12 @@ module.exports = (grunt)->
   nsfw:
     options:
       archive: './dist/LapisAzurai.zip'
-    src: [
-      './public/index.html',
-      './public/dump.html',
-      './Credits',
-      './public/game/**/*'
-    ]
+    src: ['**/*']
+    cwd: 'public'
+    expand: true
   sfw:
     options:
       archive: './dist/LapisAzuraiSFW.zip'
-    src: [
-      './public/index.html',
-      './public/dump.html',
-      './Credits',
-      './public/game/**/*'
-    ]
+    src: ['**/*']
+    cwd: 'public'
+    expand: true
