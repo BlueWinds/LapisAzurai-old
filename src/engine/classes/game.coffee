@@ -133,13 +133,13 @@ window.Game = class Game extends GameObject
 
     if effects.cargo
       adding = {}
-      for key, value of effects.cargo
+      for key, value of effects.cargo when Item[key]
         if typeof value is 'string'
           value = context[value]
 
         # Wait to add new cargo until we've removed everything (so we know we have space left)
         if value > 0
-          positive[key] = value
+          adding[key] = value
         else
           g.cargo[key] += value
           unless g.cargo[key] > 0 then delete g.cargo[key]
@@ -152,8 +152,9 @@ window.Game = class Game extends GameObject
         space -= Math.min(space, value)
 
     if effects.money
-      g.officers.Nat.money += effects.money[0]
-      g.money.push {amount: effects.money[0], reason: effects.money[1], day: g.day}
+      amount = if typeof effects.money[0] is 'string' then context[effects.money[0]] else effects.money[0]
+      g.officers.Nat.money += amount
+      g.money.push {amount, reason: effects.money[1], day: g.day}
 
 days = ['1st', '2nd', '3rd', '4th', '5th', '6th', '7th', '8th', '9th', '10th', '11th', '12th', '13th', '14th', '15th', '16th', '17th', '18th', '19th', '20th', '21st', '22nd', '23rd', '24th', '25th', '26th', '27th', '23rd', '24th', '25th', '26th', '27th', '28th', '29th', '30th']
 months = ['Rising', 'Ascendant', 'Descending']

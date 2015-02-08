@@ -33,6 +33,14 @@ Place.Ship = Game::map.Ship = class Ship extends Place
     when @damage >= heavyDamage then "and will sail at #{String.rate g.map.Ship.sailSpeed()} the normal rate."
     when @damage >= lightDamage then "and will sail at #{String.rate g.map.Ship.sailSpeed()} the normal rate."
     else "but will still sail af full speed."
+
+  applyDamage: (damage)->
+    damage += @damage
+    if damage >= Place.Ship.heavyDamage
+      g.officers.Nat.add('energy', (Place.Ship.heavyDamage - g.map.Ship.damage) * 2)
+      g.officers.Nat.energy = Math.max(g.officers.Nat.energy, minEnergy)
+    @damage = Math.min(Place.Ship.maxDamage, damage)
+
   @lightDamage: lightDamage
   @heavyDamage: heavyDamage
   @maxDamage: maxDamage

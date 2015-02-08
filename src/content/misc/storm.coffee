@@ -14,8 +14,8 @@ Page.SailDay::next = ->
 
 stormDamage = ->
   damage = Math.random() * (stormDamageMax - stormDamageMin) + stormDamageMin
-  damage -= Person.sumStat('sailing', g.officers, g.crew) / sailPerDamageSaved
-  damage -= Person.sumStat('sailing', g.officers, g.officers) / sailPerDamageSaved
+  damage -= Page.sumStat('sailing', g.crew) / sailPerDamageSaved
+  damage -= Page.sumStat('sailing', g.officers) / sailPerDamageSaved
   damage = Math.round(damage)
 
   return damage
@@ -99,7 +99,7 @@ Page.StormBatten = class StormBatten extends Page
   </page>"""
   apply: ->
     super()
-    applyDamage Math.round(@context.damage * battenDownMultiplier)
+    g.map.Ship.applyDamage Math.round(@context.damage * battenDownMultiplier)
 
 Page.StormRun = class StormRun extends Page
   conditions:
@@ -113,12 +113,4 @@ Page.StormRun = class StormRun extends Page
   </page>"""
   apply: ->
     super()
-    applyDamage Math.round @context.damage
-
-applyDamage = (damage)->
-  damage += g.map.Ship.damage
-  if damage >= Place.Ship.heavyDamage
-    g.officers.Nat.add('energy', (Place.Ship.heavyDamage - g.map.Ship.damage) * 2)
-    g.officers.Nat.energy = Math.max(g.officers.Nat.energy, minEnergy)
-
-  g.map.Ship.damage = Math.min(Place.Ship.maxDamage, damage)
+    g.map.Ship.applyDamage Math.round @context.damage

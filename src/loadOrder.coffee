@@ -18,6 +18,7 @@ module.exports = [
   'engine/screens/load.coffee'
   'engine/screens/nextDay.coffee'
   'engine/screens/port.coffee'
+  'engine/screens/sailEvent.coffee'
   'engine/screens/sail.coffee'
   'engine/screens/hireCrew.coffee'
   'engine/screens/market.coffee'
@@ -50,6 +51,7 @@ module.exports = [
 
 # Locations
   'content/locations/Ship/_Ship.coffee'
+  'content/misc/sailEvents.coffee'
   'content/locations/Vailia/_Vailia.coffee'
   'content/locations/Vailia/_Jobs.coffee'
   'content/locations/Vailia/_MtJulia.coffee'

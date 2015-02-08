@@ -34,7 +34,6 @@ window.Item = class Item extends GameObject
     </tr>"""
 
   sellRow: (basePrice, increment, sold, available)->
-    console.log @name, increment
     currentPrice = if basePrice? then @sellPrice(basePrice, increment, sold) else @price
     relativePrice = if currentPrice < @price then "high" else if currentPrice > @price then "low" else ""
     type = switch
@@ -85,7 +84,7 @@ window.Food = class Food extends Item
 
 Item.costDescription = (cost)->
   items = for item, amount of cost when Item[item] and amount
-    left = g.cargo[item] - amount
+    left = g.cargo[item] + amount
     item = Item[item]
-    "#{item.name.capitalize()}: #{-amount} (#{item.amount(left)} left)"
+    "#{item.name.capitalize()}: #{amount} (#{item.amount(left)} left)"
   return items.join(', ')

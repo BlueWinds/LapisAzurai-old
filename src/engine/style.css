@@ -984,3 +984,10 @@ page h4 {
 .tooltip .no-pad td:first-child {
   text-align: right;
 }
+.sail .job.special .block-label {
+  color: #77b300;
+}
+.tooltip ul {
+  padding-left: 13px;
+  text-align: left;
+}

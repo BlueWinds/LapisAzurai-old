@@ -79,7 +79,7 @@ sailCost = ->
       used.noLuxury = 1
     else
       lux = Math.weightedChoice(luxury)
-      used[lux] = 1
+      used[lux] = -1
 
   # If people go hungry, they get unhappy.
   if people > totalFood
@@ -90,7 +90,7 @@ sailCost = ->
     f = Math.weightedChoice food
     food[f] -= 1
     used[f] or = 0
-    used[f] += 1
+    used[f] -= 1
 
   used.happiness = (used.noLuxury or 0) * noLuxuryUnhappiness + (used.noFood or 0) * noFoodUnhappiness
   unless used.happiness then delete used.happiness
@@ -126,9 +126,7 @@ Page.SailDay = class SailDay extends Page
     for name, officer of g.officers
       officer.add('energy', 1)
 
-    for item, amount of cost when Item[item]
-      g.cargo[item] -= amount
-      unless g.cargo[item] then delete g.cargo[item]
+    g.applyEffects {cargo: cost}
 
     if cost.happiness
       for name, person of g.crew
@@ -178,49 +176,6 @@ Page.SailDone = class SailDone extends Page
     if @context.destination.firstVisit and @context.destination.arrive.length is 1
       return @context.destination.firstVisit
     return
-
-Page.SailEvent = class SailEvent extends Page
-  conditions:
-    Ship: '|map|Ship'
-  text: ->
-
-    jobs = $('')
-    for key, job of @Ship.jobs when job instanceof Job or job.prototype instanceof Job
-      if typeof job is 'function'
-        job = @Ship.jobs[key] = new job
-      job.contextFill()
-      unless job.contextMatch()
-        continue
-      jobs = jobs.add job.renderBlock(key)
-      jobs.last().data 'job', job
-
-    Array::sort.call(jobs, Job.jobSort)
-
-    img = Math.choice ['deckDay', 'deckNight', 'day', 'night']
-    page = $("""<page verySlow class="screen sail" bg="#{@Ship.images[img]}">
-      <div class="col-xs-8 col-xs-offset-2">
-      </div>
-    </page>""")
-    $('.col-xs-8', page).append jobs
-    jobs.wrap('<div class="col-xs-6"></div>')
-
-    return sailClick page
-
-  apply: ->
-    super()
-    g.passDay()
-  next: false
-
-sailClick = (element)->
-  $('.job', element).click (e)->
-    e.preventDefault()
-    g.queue.unshift $(@).data('job')
-
-    Game.gotoPage()
-    return false
-
-  return element
-
 
 Page.OneCrewLeaving = class OneCrewLeaving extends Page
   # context[0] will be filled in when this event is triggered

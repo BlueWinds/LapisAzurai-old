@@ -64,6 +64,12 @@ Math.keyChoice = (items)->
 Math.choice = (items)->
   return items[Math.keyChoice items]
 
+Math.otherChoice = (items, last)->
+  choice = Math.choice items
+  while choice is last
+    choice = Math.choice items
+  return choice
+
 Math.weightedChoice = (weights)->
   sum = Math.sumObject weights
   choice = Math.floor(Math.random() * sum)

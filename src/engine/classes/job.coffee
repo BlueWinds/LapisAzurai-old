@@ -1,9 +1,3 @@
-sumStat = Person.sumStat = (stat, officers, context)->
-  sum = 0
-  for key, person of context when officers[key] or key <= 10
-    sum += person.get stat, context
-  return sum
-
 isPage = (funct)-> funct?.prototype instanceof Page
 
 window.Job = class Job extends Page
@@ -56,7 +50,7 @@ window.Job = class Job extends Page
   requiresBlock: ->
     unless @requires then return ''
     requires = for stat, val of @requires
-      sum = sumStat stat, @officers, @context
+      sum = Page.sumStat stat, @context, @officers
       unmet = if sum >= val then '' else 'unmet'
       "<span class='#{stat} #{unmet}'>#{val}</span>"
 
@@ -98,7 +92,7 @@ window.Job = class Job extends Page
     if @context.length < @crew
       return false
     for stat, amount of @requires
-      if amount > sumStat(stat, @officers, @context)
+      if amount > Page.sumStat(stat, @context, @officers)
         return false
     for key, value of @officers
       unless @context[key] or value.optional
@@ -152,7 +146,7 @@ window.ShipJob = class ShipJob extends Job
       return false
 
     for stat, amount of @requires
-      if amount > sumStat(stat, @officers, @context)
+      if amount > Page.sumStat(stat, @context, @officers)
         return false
 
     for key, value of @officers

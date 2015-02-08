@@ -150,3 +150,63 @@ $ ->
       $('.full', @).removeClass 'right'
     else
       $('.full', @).addClass 'right'
+
+Page.schema.properties.stat = # If this page uses next = Page.statCheck, then its "stat" and "difficulty" properties determine what's checked.
+  type: 'string'
+  optional: true
+  match: Object.keys(Person.stats).join '|'
+Page.schema.properties.difficulty =
+  type: 'integer'
+  gte: 1
+  optional: true
+
+statCheckChances = (stat, diff)->
+  sum = Page.sumStat stat, g.officers
+  sum += Page.sumStat stat, g.crew
+  chances = {
+    veryBad: Math.pow(diff / (sum * 2), 2)
+    bad: diff / sum
+    good: sum / diff
+    veryGood: Math.pow(sum / (diff * 2), 2)
+  }
+  normalize = Math.sumObject(chances)
+  for key, value of chances
+    chances[key] /= normalize
+  return chances
+
+Page.statCheck = ->
+  items = @constructor.next
+  chances = statCheckChances(@stat, @difficulty)
+  r = Math.random()
+
+  r -= chances.veryBad
+  if items.veryBad and r <= 0
+    return items.veryBad
+  r -= chances.bad
+  if r <= 0
+    return items.bad
+  r -= chances.good
+  if r <= 0
+    return items.good
+  return items.veryGood or items.good
+
+Page.statCheckDescription = (stat, difficulty, items)->
+  chances = statCheckChances(stat, difficulty)
+  percent = (chance)-> Math.round(chance * 100) + '%'
+  results = []
+
+  if items.veryGood
+    results.push "Very Good: #{percent chances.veryGood}"
+    results.push "Good: #{percent chances.good}"
+  else
+    results.push "Good: #{percent chances.good + chances.veryGood}"
+  if results.veryBad
+    results.push "Bad: #{percent chances.bad}"
+    results.push "Very Bad: #{percent chances.veryBad}"
+  else
+    results.push "Bad: #{percent chances.bad + chances.veryBad}"
+
+  return "<span class='#{stat}'>#{stat.capitalize()}</span>, difficulty #{difficulty}:
+  <ul class='stat-check'>
+    <li>" + results.join('</li><li>') + '</li>
+  </ul>'

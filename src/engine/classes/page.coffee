@@ -48,6 +48,12 @@ conditionsSchema =
         items: [
           type: 'function'
         ]
+      isnt: # The object is not an instanceof this class or one of these classes
+        type: ['array', 'function']
+        optional: true
+        items: [
+          type: 'function'
+        ]
       matches: # Matches if matches(obj) returns truthy
         type: 'function'
         optional: true
@@ -103,7 +109,7 @@ window.Page = class Page extends GameObject
           money: # Give or take money from the player - [amount, reason]
             type: 'array'
             items: [
-                type: 'integer'
+                type: ['integer', 'string'] # Either an amount, or a property to pull out of the current context
               ,
                 type: 'string'
             ]
@@ -192,6 +198,12 @@ Game.schema.properties.events =
       items:
         type: 'integer'
 
+Page.sumStat = (stat, context, officers = g.officers)->
+  sum = 0
+  for key, person of context when officers[key] or key <= 10
+    sum += person.get stat, context
+  return sum
+
 Page.randomMatch = ->
   weights = {}
   results = {}
@@ -201,7 +213,7 @@ Page.randomMatch = ->
     page.contextFill()
     if page.contextMatch()
       results[index] = page
-      weights[index] = Math.max(0, 8 - (g.events[page.constructor.name]?.length or 0))
+      weights[index] = Math.max(1, 8 - (g.events[page.constructor.name]?.length or 0))
 
   return results[Math.weightedChoice weights]
 

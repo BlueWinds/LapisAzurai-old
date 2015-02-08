@@ -79,6 +79,12 @@ partMatches = (value, condition)->
         return false
     else unless value is condition.is or value instanceof condition.is
       return false
+  if condition.isnt
+    if condition.isnt instanceof Array
+      if condition.isnt.some((c)-> value instanceof c)
+        return false
+    else if value is condition.isnt or value instanceof condition.isnt
+      return false
   if condition.matches and not condition.matches(value)
     return false
   return true
