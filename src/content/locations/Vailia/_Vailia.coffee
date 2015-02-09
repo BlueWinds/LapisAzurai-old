@@ -107,7 +107,7 @@ Job.Beach.next.push Page.VailiaRumorsSteel = class VailiaRumorsSteel extends Pag
     <text continue><p><q>I heard it straight from my master – they're shipping out the last load this morning, and it's all but emptied the storehouse. I carried half those crates myself, I'll have you know,</q> he gave an exaggerated groan and slapped his back.</p></text>
   </page>
   <page>
-    <text continue><p><q>And I say that just because you shipped out all that steel doesn't mean you should be buying up iron stock. Your arms're stronger than your brain, stick with them.</q> He punched his friend in the arm, and any further conversation was lost in the crowd as they continued away from #{@worker}.</p></text>
+    <text continue><p><q>And I say that just because you shipped out all that steel doesn't mean you should be buying up iron stock. Your arms are stronger than your brain, stick with them.</q> He punched his friend in the arm, and any further conversation was lost in the crowd as they continued away from #{@worker}.</p></text>
   </page>"""
 
 Job.Beach.next.push Page.VailiaRumorsEndOfYear = class VailiaRumorsEndOfYear extends Page
@@ -116,7 +116,7 @@ Job.Beach.next.push Page.VailiaRumorsEndOfYear = class VailiaRumorsEndOfYear ext
     '|month': {eq: 'Descending'}
     '|season': {eq: 'Water'}
   text: ->"""<page bg="#{g.location.images.day}">
-    <text><p>The Guild would be putting on its turning-of-the-year ball soon – though #{@worker} already knew, it was hard to find news of anything else, so well did it occupy the minds of everyone she talked with. Well, to be fair, it probably deserved it – a merchant might sell as much on that night as the rest of Water put together, and anyone willing to ply their trade in the week before rather  than spend it with friends and family could change nearly whatever they pleased.</p></text>
+    <text><p>The Guild would be putting on its turning-of-the-year ball soon – though #{@worker} already knew, it was hard to find news of anything else, so well did it occupy the minds of everyone #{he} talked with. Well, to be fair, it probably deserved it – a merchant might sell as much on that night as the rest of Water put together, and anyone willing to ply their trade in the week before rather than spend it with friends and family could change nearly whatever they pleased.</p></text>
   </page>
   <page>
     <text continue><p>Which, often as not, wasn't all that much more than normal – even Vailian enterprise couldn't overcome the spirit of hope and excitement that accompanied a new year.</p></text>

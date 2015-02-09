@@ -61,7 +61,7 @@ Page.Pirates.next['Fight'] = Page.PiratesFight = class PiratesFight extends Page
     <text><p>#{q}Yah!</q> Natalie raised one arm to the sky, her cheer echoed by that of the crew. Though outnumbered, they would put an end to this sea-born menace. The watery depths were dangerous enough on their own, without human marauders adding to the menace.</p></text>
   </page>
   <page>
-    <text><p>She spun the wheel, turning the Azurai into the wind at the last moment, so the two ship shuddered together with a minimum of damage, hulls grinding together with the sound of splintering wood. From the deck of the pirate ship – for that's surely what it was, up close – attackers leapt over the gap between the decks, or swung across on ropes.</p></text>
+    <text><p>She spun the wheel, turning the Azurai into the wind at the last moment, so the two ships shuddered together with a minimum of damage, hulls grinding together with the sound of splintering wood. From the deck of the pirate ship – for that's surely what it was, up close – attackers leapt over the gap between the decks, or swung across on ropes.</p></text>
   </page>
   <page>
     <text continue><p>James drew his sword, a ferocious snarl upon his lips directed at anyone who would dare lay hand upon his captain. #{Math.choice g.crew} let out a whooping war cry, and battle was joined on the deck of the Lapis Azurai.</p></text>
@@ -76,7 +76,7 @@ Page.PiratesFight.next.veryGood = Page.PiratesFightEasy = class PiratesFightEasy
     <text><p>Shouting, confusion, blood everywhere... Natalie watched from the poop deck, feeling lightheaded and giddy. Flames licked at both ships, dropped torches and spilled lanterns, but somehow never managed to get a hold of the Azurai, no matter how many tarred-ropes or oiled sails they were thrust against.</p></text>
   </page>
   <page>
-    <text continue><p>She clung to the wheel, dazed, as the other ship's sails roared up in flames – and somehow even then they didn't spread, flames warded away from the her ship even as her crew finished driving off the attackers. #{firstSailor = Math.choice g.crew} even managed to swing across to the other ship and cut several crates of supplies free and toss them into the ocean, but had to cut #{his} daring raid short as it and the Azurai began to drift apart.</p></text>
+    <text continue><p>She clung to the wheel, dazed, as the other ship's sails roared up in flames - and somehow even then they didn't spread, flames warded away from her ship even as her crew finished driving off the attackers. #{firstSailor = Math.choice g.crew} even managed to swing across to the other ship and cut several crates of supplies free and toss them into the ocean, but had to cut #{his} daring raid short as it and the Azurai began to drift apart.</p></text>
   </page>
   <page>
     <text><p>#{q g.officers.Nat}How is everyone? Casualties?</q> Natalie called out.</p></text>
@@ -138,7 +138,7 @@ Page.PiratesFight.next.bad = Page.PiratesFightLose = class PiratesFightLose exte
     <text continue><p>#{Math.choice g.crew} screamed on the stairway as #{he} took a gash across the chest, and stumbled back to give up #{his} position to James. Natalie let out a groan and stumbled as well, feeling the wind shift overhead. James looked back at her, nearly letting a spear in through his guard with the distraction.</p></text>
   </page>
   <page bg="#{g.map.Ship.images.deckStorm}">
-    <text><p>CRACK. A sudden, deafened silence fell over the battle as everyone stopped, ears ringing from the thunder. What had once been the main mast of the pirate ship was now a twisted mess of splinters, tottering slowly, sails majestically tipping into the waves. CRACK. Another thunder stroke, out of a sky that had been clear only a few minutes earlier, this one of the far side of the pirate ship, missing both vessels.</p></text>
+    <text><p>CRACK. A sudden, deafened silence fell over the battle as everyone stopped, ears ringing from the thunder. What had once been the main mast of the pirate ship was now a twisted mess of splinters, tottering slowly, sails majestically tipping into the waves. CRACK. Another pilar of lightning struck from a sky that had been clear only a few minutes earlier, this one of the far side of the pirate ship, missing both vessels.</p></text>
   </page>
   <page bg="">
     <text continue><p>Natalie passed out.</p></text>
@@ -198,7 +198,7 @@ Page.Pirates.next['Negotiate'] = Page.PiratesNegotiate = class PiratesNegotiate 
     <text><p>#{q}Hail!</q> Natalie waved her arm overhead enthusiastically, heading forward across the deck to be closer to her counterparts on the other ship. Seeing the Azurai wasn't attempting to flee, they slowed, coming to a bobbing halt alongside it. From up close it was entirely obvious that the other ship was a pirate vessel – no merchant would sail with such a motley band.</p></text>
   </page>
   <page>
-    <text><p><q>Sensible of 'ye to let us come up so nice and clean. We have to sink ships that run, just on principle.</q> The other captain shouted across the gap, moving so they stood opposite each other, rails and twenty feet of water in between. <q>So, goin'to keep being sensible, and we can work out some sort of deal for your cargo that doesn't involve a whole lot of fish food?</q> His none-to-subtle ultimatum drew chuckles from his crew – they certainly outnumbered those aboard the Azurai.</p></text>
+    <text><p><q>Sensible of 'ye to let us come up so nice and clean. We have to sink ships that run, just on principle.</q> The other captain shouted across the gap, moving so they stood opposite each other, rails and twenty feet of water in between. <q>So, goin' ta keep being sensible, and we can work out some sort of deal for your cargo that doesn't involve a whole lot of fish food?</q> His none-to-subtle ultimatum drew chuckles from his crew – they certainly outnumbered those aboard the Azurai.</p></text>
   </page>
   <page>
     #{g.officers.Nat.image 'normal', 'left'}
@@ -340,7 +340,7 @@ Page.AbandonedShip.next['Search'] = Page.AbandonedShipSearch = class AbandonedSh
 Page.AbandonedShipSearch.next.push Page.AbandonedShipNothing = class AbandonedShipNothing extends Page
   text: ->"""<page bg="#{g.map.Ship.images.deckDay}">
     <text><p>Natalie led the expedition, guiding from the prow of the Azurai's longboat as they rowed in closer than she wished to risk the larger vessel. It was with a solemn air that they searched the wreck.</p>
-    <p>Despite a thorough search, they didn't find anything of value. Other than waterlogged timbers and rotten sailcloth, it had already been stripped bare. Tired out and on edge from having wasted a day to no gain, Natalie ordered the other wreck torched.</p></text>
+    <p>Despite a thorough search, they didn't find anything of value. Other than waterlogged timbers and rotten sailcloth, it had already been stripped bare. Tired out and on edge from having wasted a day to no gain, Natalie ordered the wreck torched.</p></text>
   </page>"""
   next: Page.AbandonedShipDone
 
