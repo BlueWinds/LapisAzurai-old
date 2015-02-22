@@ -12,6 +12,8 @@ window.Game = class Game extends GameObject
       weather:
         type: 'string'
         match: /calm|storm/
+      version:
+        type: 'integer'
     strict: true
   @passDay: [
     ->
@@ -24,8 +26,14 @@ window.Game = class Game extends GameObject
         @queue.push new (g.location.constructor.port or Page.Port)
       g.queue.unshift new Page.NextDay
   ]
+  @update: [] #Update items are in the format {pre: ()->, post: ()->}, both properties optional.
+  version: 0
 
   constructor: (gameData)->
+    if gameData and gameData.version isnt Game.update.length
+      for i in [gameData ... Game.update.length]
+        Game.update[i].pre?.call(gameData)
+
     objects = []
     super null, objects, ''
     for item in objects
@@ -53,6 +61,11 @@ window.Game = class Game extends GameObject
           obj[key] = value
 
     recursiveCopy @, gameData
+
+    unless @version is Game.update.length
+      for i in [@version ... Game.update.length]
+        Game.update[i].post?.call(@)
+      @version = Game.update.length
 
   export: ->
     super [], [], ''

@@ -59,7 +59,7 @@ Person.VailianCrewM = class VailianCrewM extends RandomPerson
     }
     { # Hair
       fiery: false
-      raven: [0, 0, -10]
+      raven: [0, 0, -60]
       ash: [34, 23, -42]
       chestnut: [32, 40, -23]
       copper: [19, 53, -29]

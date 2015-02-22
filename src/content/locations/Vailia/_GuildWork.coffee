@@ -425,7 +425,7 @@ Page.GuildNatDomSure::next = Page.GuildNatDomSure2 = class GuildNatDomSure2 exte
     <text continue class="full"><p>No rejection here.</p>
   </page>
   <page>
-    <text continue class="full"><p>Derria returned to her task enthusiastically, lapping and slurping at her friend's pussy with a variety of rather lewd noises, and as much as her friend was enjoying the sensations, Natalie could also tell that she was equally anxious to return the favor and make sure Derria felt good as well. It was rather endearing – and also somewhat arousing to watch, leaving Natalie horny but unneeded, still dressed. At least she could make sure they both had a good time – she dipped her fingers it's Derria's slit, pushing the curl brown head deeper into her friend's crotch.</p></text>
+    <text continue class="full"><p>Derria returned to her task enthusiastically, lapping and slurping at her friend's pussy with a variety of rather lewd noises, and as much as her friend was enjoying the sensations, Natalie could also tell that she was equally anxious to return the favor and make sure Derria felt good as well. It was rather endearing – and also somewhat arousing to watch, leaving Natalie horny but unneeded, still dressed. At least she could make sure they both had a good time – she dipped her fingers into Derria's slit, pushing the curly brown head deeper into her friend's crotch.</p></text>
   </page>
   <page verySlow bg="#{g.location.images.tavern}">
     <text><p>Natalie wiped her hands on a towel and examined herself in the mirror – still presentable. She hadn't even taken her shirt off. Quietly she opened the door and stepped out, so as not to wake them.</p></text>

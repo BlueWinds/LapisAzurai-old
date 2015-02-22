@@ -66,8 +66,8 @@ Game::officers.Nat = Officer.Natalie = class Natalie extends Officer
       tanned: [34, 52, -16]
       golden: [40, 53, -30]
       cinnamon: [30, 50, -63]
-      coffee: [27, 43, -61]
-      chocolate: [23, 44, -77]
+      mocha: [27, 43, -61]
+      ebony: [23, 44, -77]
     }
     { # Eyes
       green: [110, 56, 0]
@@ -78,7 +78,7 @@ Game::officers.Nat = Officer.Natalie = class Natalie extends Officer
     }
     { # Hair
       fiery: false
-      raven: [0, 0, -10]
+      raven: [0, 0, -60]
       ash: [34, 23, -42]
       chestnut: [32, 40, -23]
       copper: [19, 53, -29]

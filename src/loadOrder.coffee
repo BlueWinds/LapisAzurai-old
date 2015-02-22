@@ -29,6 +29,7 @@ module.exports = [
   'content/items/trade.coffee'
   'content/items/food.coffee'
   'content/items/luxury.coffee'
+  'content/misc/update.coffee'
   'content/misc/storm.coffee'
   'content/misc/universalJobs.coffee'
 
@@ -54,6 +55,7 @@ module.exports = [
   'content/misc/sailEvents.coffee'
   'content/locations/Vailia/_Vailia.coffee'
   'content/locations/Vailia/_Jobs.coffee'
+  'content/locations/Vailia/_GuildWork.coffee'
   'content/locations/Vailia/_MtJulia.coffee'
   'content/locations/Vailia/_Alkenia.coffee'
 #   'content/locations/Kantis/_Kantis.coffee'
@@ -66,8 +68,4 @@ module.exports = [
   'content/intro/introCity.coffee'
   'content/intro/introText.coffee'
   'content/intro/firstStorm.coffee'
-]
-
-module.exports.nsfw = [
-  'content/locations/Vailia/_GuildWork.coffee'
 ]
