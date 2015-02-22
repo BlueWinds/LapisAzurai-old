@@ -17,7 +17,7 @@ $ cd /wherever/you/downloaded/the/repository
 $ npm install
 ```
 
-Now you should be able to build the game:
+In addition to downloading the necessary dependencies, this will try and build the game. You can also perform a build later, with
 
 ```
 $ grunt full-build
