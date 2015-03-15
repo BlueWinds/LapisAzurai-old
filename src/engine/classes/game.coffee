@@ -113,12 +113,12 @@ window.Game = class Game extends GameObject
 
   Object.defineProperty @::, 'year', {get: -> Math.floor((@day + startDay) / 360) + startYear}
   Object.defineProperty @::, 'dayOfYear', {get: -> (@day + startDay) % 360}
-  Object.defineProperty @::, 'season', {get: -> seasons[Math.floor(@dayOfYear / 90)]}
+  Object.defineProperty @::, 'season', {get: -> seasonList[Math.floor(@dayOfYear / 90)]}
   Object.defineProperty @::, 'dayOfSeason', {get: -> @dayOfYear % 90}
-  Object.defineProperty @::, 'month', {get: -> months[Math.floor(@dayOfSeason / 30)]}
+  Object.defineProperty @::, 'month', {get: -> monthList[Math.floor(@dayOfSeason / 30)]}
   Object.defineProperty @::, 'dayOfMonth', {get: -> @dayOfYear % 30}
   Object.defineProperty @::, 'date',
-    get: -> "#{days[@dayOfMonth]} of #{@month} #{@season}, #{@year}"
+    get: -> "#{dayList[@dayOfMonth]} of #{@month} #{@season}, #{@year}"
 
   applyEffects: (effects, context)->
     if effects.add
@@ -169,6 +169,6 @@ window.Game = class Game extends GameObject
       g.officers.Nat.money += amount
       g.money.push {amount, reason: effects.money[1], day: g.day}
 
-days = ['1st', '2nd', '3rd', '4th', '5th', '6th', '7th', '8th', '9th', '10th', '11th', '12th', '13th', '14th', '15th', '16th', '17th', '18th', '19th', '20th', '21st', '22nd', '23rd', '24th', '25th', '26th', '27th', '23rd', '24th', '25th', '26th', '27th', '28th', '29th', '30th']
-months = ['Rising', 'Ascendant', 'Descending']
-seasons = ['Wood', 'Fire', 'Earth', 'Water']
+dayList = ['1st', '2nd', '3rd', '4th', '5th', '6th', '7th', '8th', '9th', '10th', '11th', '12th', '13th', '14th', '15th', '16th', '17th', '18th', '19th', '20th', '21st', '22nd', '23rd', '24th', '25th', '26th', '27th', '23rd', '24th', '25th', '26th', '27th', '28th', '29th', '30th']
+monthList = ['Ascending', 'Resplendant', 'Descending']
+seasonList = ['Wood', 'Fire', 'Earth', 'Water']

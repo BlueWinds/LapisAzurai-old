@@ -19,6 +19,7 @@ Place.Ship::jobs.otherShip = ShipJob.OtherShip = class OtherShip extends ShipJob
     chance:
       matches: -> return Math.random() <= 0.1
       optional: true
+    '|events|IntroStorm': {}
   text: ->"""<p>In the distance, #{Math.choice g.crew} spots another ship. It'll be easy to avoid, or you could investigate.</p>"""
 
 ShipJob.OtherShip::next = Page.OtherShip = class OtherShip extends Page
