@@ -52,3 +52,10 @@ Item["Maiden's Tea"] = new Item
   description: "A bitter herb made into contraceptive tea. Valued the world over, and commonly available."
   price: 21
   unit: 'basket'
+
+Item["Weapons"] = new Item
+  name: "Weapons"
+  description: "Bows, spears and even the occasional sword, sometimes you just need to kill some folks."
+  price: 120
+  unit: 'crate'
+  

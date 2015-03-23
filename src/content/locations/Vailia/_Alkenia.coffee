@@ -143,14 +143,58 @@ Job.AlkeniaRest.next.push Page.AlkeniaRestStorm = class AlkeniaRestStorm extends
 Place.Alkenia::jobs.forestry = Job.AlkeniaForestry = class AlkeniaForestry extends Job
   officers:
     Nat: '|officers|Nat'
-    worker2: {optional: true}
   label: 'Explore Forest'
+  type: 'special'
   text: ->"""Alkenia provides most of the lumber for Vailia's shipyards. Some contacts in the industry would be advantageous for a young captain."""
   energy: 2
-  next: Page.firstNew
-  @next: []
 
-Job.AlkeniaForestry.next.push Page.AlkeniaForestry = class AlkeniaForestry extends Page
+Mission.AlkeniaWeapons = class AlkeniaWeapons extends Mission
+  label: "Weapons for Alkenia"
+  tasks: [
+      description: "Have 6 crates of Vailian weapons"
+      conditions:
+        '|cargo|Weapons': {gte: 6}
+    ,
+      description: "Bring them to Alkenia to defend against Nonkenian raiders"
+      conditions:
+        '|location': {is: Place.Alkenia}
+  ]
+  
+Job.AlkeniaForestry2 = class AlkeniaForestry2 extends Page
+  officers:
+    Nat: '|officers|Nat'
+  label: 'Explore Forest'
+  conditions:
+    '|cargo|Weapons': {gte: 6}
+  type: 'special'
+  text: ->"""Alkenia provides most of the lumber for Vailia's shipyards. One of their foremen asked her to bring weapons to defend against raiders from Nonkenai."""
+  energy: 2
+
+Job.AlkeniaForestry::next = Page.AlkeniaForestry = class AlkeniaForestry extends Page
+  conditions:
+    Nat: {}
+  text: ->"""<page bg="day|storm">
+    <text><p>Alkenia was something of an exception to the normal rules - few cities dared venture as far and as regularly into the wild as they did. And more amazing still was the fact that, as best Natalie could tell from rumours and talk, almost no one disappeared.</p></text>
+  <page>
+    <text full><p><q>The biggest danger is raiders from Nonkenia,</q> the lumberjack spat the name. <q>They have some devilish pact or other that keeps 'em hidden until too late. You take my advice, miss,</q> he leaned against his burden, a tree trunk almost as big around and tall as as she was, <q>you won't go out there without a nice big group to keep you safe.</q></p>
+    <p>#{q @Nat}I'm not planning on going myself, but thanks for the tip. Mostly I was wondering if there's anything you need?</q> She hadn't been expecting to find the owner of a relatively large company out and carrying logs himself, but it was a pleasant surprise. He was easier to deal with by far than a conniving desk clerk.</p>
+    <p><q>Hah, a Vailian looking to help, there's a new one. You said you were a captain? Not much use to me, then. Kind of you to ask, though.</q> With a grunt he heaved the log back to his shoulder, getting ready to leave. He paused, turning back to her, and she had to duck the swing of his beam. <q>Well, maybe there is something. Bring me a dozen bows with spears and knives to match - good Vailian ones, not the dreck they make down by the pier - I might start thinking you mean it.</q> He laughed at her expression - that much weaponry was, not to put too fine a point on it, rather expensive.</p></text>
+  </page>
+  <page>
+    <text continue full><p><em>New quest: Weapons for Alkenia</em></p>
+    <p><em>Bring 6 crates of Weapons to Alkenia</em></p></text>
+  </page>"""
+  apply: ->
+    super()
+    g.Map.Vailia.jobs.market.buy.weapons or= [6, 10]
+  effect:
+    remove:
+      '|location|jobs|forestry': Job.AlkeniaForestry
+    add:
+      '|missions|AlkeniaWeapons': Mission.AlkeniaWeapons
+      '|location|jobs|forestry': Job.AlkeniaForestry2
+
+Job.AlkeniaForestry2::next = Page.AlkeniaForestry2 = class AlkeniaForestry2 extends Page
   text: ->"""<page bg="day|storm">
     <text><p></p></text>
   </page>"""
