@@ -170,6 +170,14 @@ Job.AlkeniaForestry2 = class AlkeniaForestry2 extends Page
   text: ->"""Alkenia provides most of the lumber for Vailia's shipyards. One of their foremen asked her to bring weapons to defend against raiders from Nonkenai."""
   energy: 2
 
+ShipJob.JamesNoWeapons = class JamesNoWeapons extends ShipJob
+  label: "James upset"
+  type: 'special'
+  conditions:
+    '|cargo|Weapons': {gte: 6}
+  text: ->"""<p>James isn't entirely happy with selling weapons to Alkenia. Time to speak with him and address his concerns.</p>"""
+
+
 Job.AlkeniaForestry::next = Page.AlkeniaForestry = class AlkeniaForestry extends Page
   conditions:
     Nat: {}
@@ -186,14 +194,57 @@ Job.AlkeniaForestry::next = Page.AlkeniaForestry = class AlkeniaForestry extends
   </page>"""
   apply: ->
     super()
-    g.Map.Vailia.jobs.market.buy.weapons or= [6, 10]
+    g.Map.Vailia.jobs.market.buy.weapons or= [6, 7]
+    g.Map.Vailia.jobs.market.sell.weapons or= [6, -2]
   effect:
     remove:
       '|location|jobs|forestry': Job.AlkeniaForestry
     add:
       '|missions|AlkeniaWeapons': Mission.AlkeniaWeapons
       '|location|jobs|forestry': Job.AlkeniaForestry2
+      '|map|Ship|jobs|jamesNoWeapons': ShipJob.JamesNoWeapons
 
+ShipJob.JamesNoWeapons::next = Page.JamesNoWeapons = class JamesNoWeapons extends PlayerOptionPage
+  conditions:
+    James: '|officers|James'
+    Nat: '|officers|Nat'
+  text: ->"""<page bg="Ship.cabinNight">
+    <text><p>#{q @James}Are you sure we should be doing this, Nat?</q> James kicked the crate, producing no sound. The bows inside were well packed, and compared to the beating they'd take during loading or unloading, a stray kick was nothing. It did waft out the scent of pine oil, sealing the contents against saltwater in case the hold flooded. #{q}I don't like being an arms merchant.</q></p>
+    <p>#{q @Nat}Alkeina's a next door neighbor. It's not like we're selling them to some bloodthirsty warlord - he's just a lumberjack. This is hunting gear anyway, bows and spears and knives.</q> The lantern swayed in her hand, casting dancing shadows across the interior of the cargo hold.</p>
+    <p>#{@q}I know, I know what we're doing isn't wrong. It just feels like a foot in the door - once you do this, you're the sort of person who does it, you know? Do me a favor. Let's take these back to Vailia and sell them there.</q></p>
+    #{options ['Carry on', 'Abandon mission'], ["Try to convince him that it's not a big deal", "Listen to your friend"]}</text>
+  </page>"""
+  @next: {}
+
+Page.JamesNoWeapons.next['Carry on'] = Page.JamesNoWeaponsIgnore = class JamesNoWeaponsIgnore extends Page
+  conditions:
+    James: {}
+    Nat: {}
+  text: ->"""<page>
+    <text><p>She laid a hand on Jame's forearm with an encouraging smile. #{q @Nat}We won't be those sorts of people, I promise. I'm doing this to make a friend, not for money. Thank you for telling me - I really do want to hear it, even if I don't agree this time.</q></p>
+    <p>#{q @James}I'm glad you listened, at least. Can I say I told you so, next time?</q>He sighed, nodded, and kicked the crate again. A smile took the sting out of his words though, and he wasn't the sort to say something like that without meaning it.</p>
+    <p><em><span class="happiness">+2 happiness</span> for James</em></p></text>
+  </page>"""
+  apply: ->
+    super()
+    @context.James.add 'happiness', 2
+
+Page.JamesNoWeapons.next['Abandon Mission'] = Page.JamesNoWeaponsAgree = class JamesNoWeaponsAgree extends Page
+  conditions:
+    James: {}
+    Nat: {}
+  text: ->"""<page>
+    <text><p>She laid a hand on Jame's forearm with an encouraging smile. #{q @Nat}We won't be those sorts of people, I promise. We'll take them back to Vailia, though I'll probably take a loss on the deal.</q></p>
+    <p>James tilted his head, eyebrows rising. #{q @James}I didn't think you'd actually listen. Huh.</q> His surprise turned into a pleased smile, and he patted her hand where it still lay on her arm. #{q}Thank you, Natalie.</q></p>
+    <p><em><span class="happiness">+6 happiness</span> for James</em></p></text>
+  </page>"""
+  apply: ->
+    super()
+    @context.James.add 'happiness', 6
+  effects:
+    remove:
+      'missions|AlkeniaWeapons'
+  
 Job.AlkeniaForestry2::next = Page.AlkeniaForestry2 = class AlkeniaForestry2 extends Page
   text: ->"""<page bg="day|storm">
     <text><p></p></text>
