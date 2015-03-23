@@ -31,7 +31,7 @@ Page.Intro = class Intro extends Page
     <page slow>
       <text class="full center" continue><p>And she dreamt of Love. Neither fire nor water, she finally had a body made of flesh, and in her heart grew a secret warmth that even the end of the world could not smother. Her secret love could neither be burned nor drowned, and it would flower into a beautiful life if only it would grow large enough, surrounded by chaos and flood and storm. She curled around it protectively.</p></text>
     </page>
-    <page verySlow bg="#{@Ship.images.cabinDay}">
+    <page verySlow bg="Ship.cabinDay">
       <text><p>Thud.</p></text>
     </page>
     <page>
@@ -79,9 +79,7 @@ Page.Intro2 = class Intro2 extends Page
   conditions:
     James: '|officers|James'
     Nat: '|officers|Nat'
-    Ship: '|map|Ship'
-    Vailia: '|map|Vailia'
-  text: -> """<page bg="#{@Ship.images.cabinDay}">
+  text: -> """<page bg="Ship.cabinDay">
     <text><p>#{q @James}Nat! You ok?</q> James called.</p></text>
   </page>
   <page>
@@ -99,11 +97,11 @@ Page.Intro2 = class Intro2 extends Page
   <page>
     <text><p>#{q @James}Should have left ten minutes ago!</q> He hadn't woken her up though – Natalie had learned long ago that James would worry himself sick at the slightest excuse, but it wasn't until he was practically vibrating with impatience that she actually needed to hurry.</p></text>
   </page>
-  <page slow bg="#{@Ship.images.deckDay}">
+  <page slow bg="Ship.deckDay">
     #{@Nat.image 'serious', 'left'}
     <text><p>#{q}I don't believe you,</q> she opened the door and stepping out to join him on deck. #{q}You were rather drunk last night. How are your eyes not red?</q></p></text>
   </page>
-  <page bg="#{@Ship.images.deckDay}">
+  <page bg="Ship.deckDay">
     #{@Nat.image 'excited', 'left'}
     <text continue-inline> Natalie poked James in the forehead, causing him to wince. #{q}I knew it, you just woke up too.</q></text>
   </page>
@@ -131,7 +129,7 @@ Job.IntroVisitGuildmaster::next = Page.IntroVisitGuildmaster = class IntroVisitG
     Nat: '|officers|Nat'
     Guildmaster: '|people|Guildmaster'
     Vailia: '|map|Vailia'
-  text: ->"""<page bg="#{@Vailia.images.guildOffice}">
+  text: ->"""<page bg="guildOffice">
     <text><p>The Guild.</p></text>
   </page>
   <page>
@@ -200,15 +198,15 @@ Job.IntroSail::next = Page.IntroSail = class IntroSail extends Page
     James: {}
     Nat: {}
     Ship: '|map|Ship'
-  text: ->"""<page bg="#{@Ship.images.cabinDay}">
+  text: ->"""<page bg="Ship.cabinDay">
     #{@Nat.image 'serious', 'right'}
     <text><p>Natalie laid aside her pen and admonished James, looming in the doorway. #{q}If you're going to fill the room with dread, at least enter all the way.</q> </p></text>
   </page>
-  <page bg="#{@Ship.images.cabinDay}">
+  <page bg="Ship.cabinDay">
     #{@James.image 'sad', 'left'}
     <text continue><p>He started guiltily, and stepped into her bedroom, closing the door behind him with a foot. He remained standing – other than the chair she occupied, the only place to sit would be on her bed, and he wasn't the sort to be comfortable with that.</p></text>
   </page>
-  <page bg="#{@Ship.images.cabinDay}">
+  <page bg="Ship.cabinDay">
     #{@James.image 'sad', 'left'}
     <text continue-inline> The space was cramped, but a private room was still more than most people aboard a ship this size would get, even the quartermaster. He'd have to share with the first-mate, once they had one.</text>
   </page>

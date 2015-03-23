@@ -1,10 +1,5 @@
 Place.Vailia.adultPay = 11
 
-marketImage = ->
-  if g.weather is 'storm' then g.map.Vailia.images.marketStorm else g.map.Vailia.images.marketDay
-portImage = ->
-  if g.weather is 'storm' then g.map.Vailia.images.storm else g.map.Vailia.images.day
-
 Job.GuildWork = class GuildWork extends Job
   label: 'Guild Work'
   text: ->"<p>Work as a whore in Ben Oakly's brothel.</p>"
@@ -52,7 +47,7 @@ Job.SearchGuildWork.next.push Page.SearchGuildWorkNatalie = class SearchGuildWor
     worker: {is: Officer.Natalie}
   effects:
     add: '|location|jobs|guildWork': Job.GuildWork
-  text: ->"""<page bg="#{marketImage()}">
+  text: ->"""<page bg="marketDay|marketStorm">
     <text><p>There were other ways of making money than taking goods between ports. And however distasteful James might find them, Natalie had both the skills and the will to use them. Not forever – she had no intention of giving up the Azurai to work as a whore – but to fill some time, to make some extra money while the others repaired the ship? Sure.</p></text>
   </page>
 
@@ -96,11 +91,11 @@ Job.SearchGuildWork.next.push Page.SearchGuildWorkNatalie = class SearchGuildWor
 Page.SearchGuildWorkNatalie::next = Page.SearchGuildWorkNatalie2 = class SearchGuildWorkNatalie2 extends Page
   conditions:
     worker: {}
-  text: ->"""<page bg="#{portImage()}">
+  text: ->"""<page bg="day|storm">
     <text><p>Ben Oakly's business establishment straddled the line between legitimate business brothel and shady slum-servicing whorehouse. Not a distinction most bothered with, but Natalie knew the difference, and for her purposes, straddling the line was perfect. She knocked.</p></text>
   </page>
 
-  <page bg="#{g.map.Vailia.images.tavern}">
+  <page bg="tavern">
     <text><p><q>Not open yet,</q> a voice called out from the closed door.</p></text>
   </page>
   <page>
@@ -134,7 +129,8 @@ Job.SearchGuildWork.next.push Page.SearchGuildWorkJames = class SearchGuildWorkJ
   conditions:
     worker: {is: Officer.James}
     Nat: '|officers|Nat'
-  text: ->"""<page bg="#{if g.weather is 'storm' then g.map.Ship.images.deckStorm else g.map.Ship.images.deckDay}">#{@worker.image 'angry', 'right'}
+  text: ->"""<page bg="Ship.deckDay|Ship.deckStorm">
+    #{@worker.image 'angry', 'right'}
     <text><p>#{q}Absolutely not.</q> James stomped his foot on the deck, face beet red.</p></text>
   </page>
   <page>
@@ -163,7 +159,7 @@ Job.SearchGuildWork.next.push Page.SearchGuildWorkJames = class SearchGuildWorkJ
 #   conditions:
 #     worker: {is: Officer.Asara}
 #     Nat: '|officers|Nat'
-#   text: ->"""<page bg="#{if g.weather is 'storm' then g.map.Ship.images.deckStorm else g.map.Ship.images.deckDay}">
+#   text: ->"""<page bg="Ship.deckDay|Ship.deckStorm">
 #     <text><p>Asara hung her head despondently, clutching her arms across her chest.</p></text>
 #   </page>
 #   <page>
@@ -188,7 +184,7 @@ Job.SearchGuildWork.next.push Page.SearchGuildWorkKat = class SearchGuildWorkKat
   conditions:
     worker: {is: Officer.Kat}
     Nat: '|officers|Nat'
-  text: ->"""<page bg="#{if g.weather is 'storm' then g.map.Ship.images.deckStorm else g.map.Ship.images.deckDay}">
+  text: ->"""<page bg="ship.deckDay|Ship.deckStorm">
     <text><p>#{q @worker}I told you a long time ago I don't want to be a whore,</q> Kat turned her back on Natalie, leaning over the edge of the ship.</p></text>
   </page>
   <page>
@@ -234,12 +230,10 @@ Page.SearchGuildWorkKat::next = SearchGuildWorkKat2 = class SearchGuildWorkKat2 
     <text continue><p>Natalie quirked an eyebrow at Kat and smirked. #{q}So, my cute little doxy, shall we sally forth?</q></p></text>
   </page>"""
 
-portNightImage = -> if g.weather is 'storm' then g.location.images.storm else g.location.images.night
-
 Job.GuildWork.next.push Page.GuildNat = class GuildNat extends Page
   conditions:
     worker: {is: Officer.Natalie}
-  text: ->"""<page bg="#{portNightImage()}">
+  text: ->"""<page bg="night|storm">
     <text><p>Natalie knocked on Ben Oakly's back door half an hour before sunset – late enough that she wouldn't have to waste time loitering around and trying to pick up stragglers, but early enough that not too many would have drifted away.</p></text>
   </page>
   <page>
@@ -258,7 +252,7 @@ Job.GuildWork.next.push Page.GuildNat = class GuildNat extends Page
 Page.GuildNat.next.push Page.GuildNatBang = class GuildNatBang extends PlayerOptionPage
   conditions:
     worker: {}
-  text: ->"""<page bg="#{portNightImage()}">
+  text: ->"""<page bg="night|storm">
     <text><p><q>I have just the thing. Party of six, looking for a cumslut for the night. All men, though they don't look like the type of play too rough. All my girls were already too tired for that when they came in, though I have a private room. Interested?</q></p>
     #{options ['Sure', 'No']}</text>
   </page>"""
@@ -267,7 +261,7 @@ Page.GuildNat.next.push Page.GuildNatBang = class GuildNatBang extends PlayerOpt
 Page.GuildNatBang.next['No'] = Page.GuildNatBangNo = class GuildNatBangNo extends Page
   conditions:
     worker: {}
-  text: ->"""<page bg="#{portNightImage()}">
+  text: ->"""<page bg="night|storm">
     #{@worker.image 'normal', 'left'}
     <text><p>#{q}Sorry, I think I'll pass. They sound like delightful people, though, so give them my regards.</q> Though she wasn't particularly sensitive about her body or sex, Ben made it sound like just <em>sooooo</em> much fun.</p></text>
   </page>
@@ -278,7 +272,7 @@ Page.GuildNatBang.next['No'] = Page.GuildNatBangNo = class GuildNatBangNo extend
 Page.GuildNatBang.next['Sure'] = Page.GuildNatBangSure = class GuildNatBangSure extends Page
   conditions:
     worker: {}
-  text: ->"""<page bg="#{portNightImage()}">
+  text: ->"""<page bg="night|storm">
     #{@worker.image 'normal', 'left'}
     <text><p>#{q}Sounds good. What do they look like?</q></p></text>
   </page>
@@ -289,7 +283,7 @@ Page.GuildNatBang.next['Sure'] = Page.GuildNatBangSure = class GuildNatBangSure 
   <page>
     <text><p>She ignored the insinuation and pushed past him. Through the kitchen she went, pausing only to straighten her messy hair at least a little and nodding to another woman resting against one of the counters.</p></text>
   </page>
-  <page bg="#{g.map.Vailia.images.tavern}">
+  <page bg="tavern">
     <text continue><p>The main room was surprisingly busy for such a relatively irreputible business. She spotted her boys easily – as he'd said, hard to miss, in their matching blue uniforms. They looked sharp, despite rough faces. Probably the crew for some important diplomat – a merchant would never waste money outfitting their sailors so, no matter how well off.</p></text>
   </page>
 
@@ -321,7 +315,7 @@ Page.GuildNatBangSure::next = Page.GuildNatBangSure2 = class GuildNatBangSure2 e
   <page verySlow>
     <text><p>Natalie didn't think of anything much as she collected the coins scattered around the room. Though she'd resisted becoming a whore with all her cunning and might, working as one was something she was used to. One didn't grow up serving drinks at a brothel or cleaning rooms the morning after without losing the inhibitions around a subject.</p></text>
   </page>
-  <page bg="#{g.map.Vailia.images.tavern}">
+  <page bg="tavern">
     #{@worker.image 'normal', 'left'}
     <text continue><p>And it had felt good, after all. She was not indifferent to the attractions of having sex with half a dozen sculpted and beautiful men. No sense lying about that to herself.</p></text>
   </page>
@@ -346,7 +340,7 @@ Page.GuildNatBangSure::next = Page.GuildNatBangSure2 = class GuildNatBangSure2 e
 Page.GuildNat.next.push Page.GuildNatDom = class GuildNatDom extends PlayerOptionPage
   conditions:
     worker: {}
-  text: ->"""<page bg="#{portNightImage()}">
+  text: ->"""<page bg="night|storm">
     <text><p><q>Hm, I think I have something you might enjoy. Two girls, nervous, who get scared whenever I send someone to try and grease them up. You can have whatever they'll pay you for. Minus my part, of course.</q></p></text>
   </page>
   <page>
@@ -362,7 +356,7 @@ Page.GuildNat.next.push Page.GuildNatDom = class GuildNatDom extends PlayerOptio
 Page.GuildNatDom.next['No'] = Page.GuildNatDomNo = class GuildNatDomNo extends Page
   conditions:
     worker: {}
-  text: ->"""<page bg="#{portNightImage()}">
+  text: ->"""<page bg="night|storm">
     #{@worker.image 'upset', 'left'}
     <text><p>She swatted him on the shoulder. #{q}Keep your mind out of my pants, and let them make up their own decisions. I'm not in the business of convincing people to do things they'll regret.</q></p></text>
   </page>
@@ -373,7 +367,7 @@ Page.GuildNatDom.next['No'] = Page.GuildNatDomNo = class GuildNatDomNo extends P
 Page.GuildNatDom.next['Sure'] = Page.GuildNatDomSure = class GuildNatDomSure extends Page
   conditions:
     worker: {}
-  text: ->"""<page bg="#{portNightImage()}">
+  text: ->"""<page bg="night|storm">
     #{@worker.image 'normal', 'left'}
     <text><p>She swatted him on the shoulder. #{q}Keep your mind out of my pants.</q></p></text>
   </page>
@@ -382,7 +376,7 @@ Page.GuildNatDom.next['Sure'] = Page.GuildNatDomSure = class GuildNatDomSure ext
     <text continue><p>#{q}I'll see what I can do.</q> Natalie nodded and stepped inside, pushing her way past him. A pair of whores twittered in one corner of the kitchen, waiting for their bread to toast over the fire and talking about nonsense. One waved at Natalie, and she waved back with a smile. Sisters in the business – worlds apart in everything else.</p>
   </page>
 
-  <page bg="#{g.map.Vailia.images.tavern}">
+  <page bg="tavern">
     <text><p>The women in question sat in one corner, occupying both seats of a couch and watching the scene around them nervously. Natalie stopped before they noticed her and observed for a moment. They looked at the ground whenever anyone came too close, but Ben hadn't been wrong – their nerves were those of anticipation, their body language towards each other geared towards seeming braver than they really were to work up courage.</p></text>
   </page>
 
@@ -427,7 +421,7 @@ Page.GuildNatDomSure::next = Page.GuildNatDomSure2 = class GuildNatDomSure2 exte
   <page>
     <text continue class="full"><p>Derria returned to her task enthusiastically, lapping and slurping at her friend's pussy with a variety of rather lewd noises, and as much as her friend was enjoying the sensations, Natalie could also tell that she was equally anxious to return the favor and make sure Derria felt good as well. It was rather endearing – and also somewhat arousing to watch, leaving Natalie horny but unneeded, still dressed. At least she could make sure they both had a good time – she dipped her fingers into Derria's slit, pushing the curly brown head deeper into her friend's crotch.</p></text>
   </page>
-  <page verySlow bg="#{g.location.images.tavern}">
+  <page verySlow bg="tavern">
     <text><p>Natalie wiped her hands on a towel and examined herself in the mirror – still presentable. She hadn't even taken her shirt off. Quietly she opened the door and stepped out, so as not to wake them.</p></text>
   </page>
   <page>

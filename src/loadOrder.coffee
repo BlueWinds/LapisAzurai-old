@@ -30,7 +30,6 @@ module.exports = [
   'content/items/food.coffee'
   'content/items/luxury.coffee'
   'content/misc/update.coffee'
-  'content/misc/storm.coffee'
   'content/misc/universalJobs.coffee'
 
 # Specific People
@@ -52,7 +51,8 @@ module.exports = [
 
 # Locations
   'content/locations/Ship/_Ship.coffee'
-  'content/misc/sailEvents.coffee'
+  'content/locations/Ship/_meetShip.coffee'
+  'content/locations/Ship/_storm.coffee'
   'content/locations/Vailia/_Vailia.coffee'
   'content/locations/Vailia/_Jobs.coffee'
   'content/locations/Vailia/_GuildWork.coffee'

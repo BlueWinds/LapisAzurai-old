@@ -46,8 +46,6 @@ Place.Vailia::jobs.beach = Job.Beach = class Beach extends Job
     worker: {}
     worker2: {optional: true}
     worker3: {optional: true}
-  conditions:
-    '|weather': {eq: 'calm'}
   label: 'Rest'
   text: ->"""Visit the beach, spend time wandering the city, explore a pub - all great ways to relax and restore energy."""
   energy: 3
@@ -57,8 +55,9 @@ Place.Vailia::jobs.beach = Job.Beach = class Beach extends Job
 Job.Beach.next.push Page.BeachWood = class BeachWood extends Page
   conditions:
     worker: {}
+    '|weather': {eq: 'calm'}
     '|season': {eq: 'Wood'}
-  text: ->"""<page bg="#{g.location.images.day}">
+  text: ->"""<page bg="day">
     <text><p>With Descending Water finally behind them, many Vailians greeted the returning warmth with a visit to the beach, and #{@worker} was no exception. Gentle waves lapped against smooth sand, wetting the feet of hundreds of visitors. Not for long though – the air was pleasantly warm, but not enough to dispel the water's chill. Playing in the sand was the order of the day.</p>
   </text>
   </page>
@@ -73,16 +72,18 @@ Job.Beach.next.push Page.BeachWood = class BeachWood extends Page
 Job.Beach.next.push Page.BeachFire = class BeachFire extends Page
   conditions:
     worker: {}
+    '|weather': {eq: 'calm'}
     '|season': {eq: 'Fire'}
-  text: ->"""<page bg="#{ g.location.images.day}">
+  text: ->"""<page bg="day">
     <text><p>The hot days of #{g.month} Fire demanded nothing other than a visit to the beach, and #{@worker} was perfectly obliging towards such a demand. #{He} was also obliging towards another demand – that #{he} join in a game of volleyball, to make the teams even. Win, lose or draw - #{he} honestly lost track when the game devolved into a giggling wrestling match, with the entirely of the other team running under the net to tackle them into the sand.</p></text>
   </page>"""
 
 Job.Beach.next.push Page.BeachEarth = class BeachEarth extends Page
   conditions:
     worker: {}
+    '|weather': {eq: 'calm'}
     '|season': {eq: 'Earth'}
-  text: ->"""<page bg="#{g.location.images.day}">
+  text: ->"""<page bg="day">
     <text><p>Stealing one of the final days of warmth from #{g.month}, #{@worker} took a walk along the beach. It was nearly empty at this time of year, weather uncertain and plenty of work to be done before the cold arrived, leaving #{@worker} plenty of space for #{his} wanderings.</p></text>
   </page>
   <page>
@@ -92,15 +93,16 @@ Job.Beach.next.push Page.BeachEarth = class BeachEarth extends Page
 Job.Beach.next.push Page.BeachWater = class BeachWater extends Page
   conditions:
     worker: {}
+    '|weather': {eq: 'calm'}
     '|season': {eq: 'Water'}
-  text: ->"""<page bg="#{g.location.images.day}">
+  text: ->"""<page bg="day">
     <text><p>In the biting cold of #{g.month} Water the beach was completely deserted, leaving #{@worker} alone with #{his} thoughts. #{He} sat and watched the waves roll in for a while, before finally spotting another watcher of the waves. They walked together for a while, saying nothing, merely enjoying the company of another human. Finally the #{Math.choice ['old man', 'old woman', 'young man', 'young woman', 'girl', 'boy']} returned to the city, and #{@worker} did the same shortly after.</p></text>
   </page>"""
 
 Job.Beach.next.push Page.VailiaRumorsSteel = class VailiaRumorsSteel extends Page
   conditions:
     worker: {}
-  text: ->"""<page bg="#{g.location.images.day}">
+  text: ->"""<page bg="day">
     <text><p><q>You're full of shit, Thomas,</q> two arguing young toughs bumped into #{@worker}, causing #{him} to in turn jostle another shopper in the market.</p></text>
   </page>
   <page>
@@ -115,7 +117,7 @@ Job.Beach.next.push Page.VailiaRumorsEndOfYear = class VailiaRumorsEndOfYear ext
     worker: {}
     '|month': {eq: 'Descending'}
     '|season': {eq: 'Water'}
-  text: ->"""<page bg="#{g.location.images.day}">
+  text: ->"""<page bg="day">
     <text><p>The Guild would be putting on its turning-of-the-year ball soon – though #{@worker} already knew, it was hard to find news of anything else, so well did it occupy the minds of everyone #{he} talked with. Well, to be fair, it probably deserved it – a merchant might sell as much on that night as the rest of Water put together, and anyone willing to ply their trade in the week before rather than spend it with friends and family could change nearly whatever they pleased.</p></text>
   </page>
   <page>
@@ -126,7 +128,7 @@ Job.Beach.next.push Page.VailiaRumorsWitch = class VailiaRumorsWitch extends Pag
   conditions:
     worker: {isnt: Officer.Natalie}
     '|events|FirstStorm': {}
-  text: ->"""<page bg="#{g.location.images.day}">
+  text: ->"""<page bg="day">
     <text><p>The old woman shook her head, muttering to herself as she swept dust out of her doorway. She looked up at #{@worker}, stopped her sweeping for a moment, muttered something seeming directed at #{him}. Curious, #{@worker} left #{his} errand aside for the moment and retraced a few steps.</p></text>
   </page>
   <page>
@@ -145,7 +147,7 @@ Job.Beach.next.push Page.VailiaRumorsWitch = class VailiaRumorsWitch extends Pag
 Job.Beach.next.push Page.VailiaRumorsPeaceTreaty = class VailiaRumorsPeaceTreaty extends Page
   conditions:
     worker: {}
-  text: ->"""<page bg="#{g.location.images.day}">
+  text: ->"""<page bg="day">
     <text><p><q>There's a whole delegation coming through, just tomorrow. You wouldn't believe the number of flowers we have to provide,</q> a harried looking middle-aged woman nearly bowled #{@worker} over with a huge bouquet, talking to her daughter who trailed several paces behind, apologizing and bowing cutely to everyone her mother trampled out of the way.</p></text>
   </page>
   <page>

@@ -7,7 +7,7 @@ ShipJob.JamesUpset::next = Page.JamesUpset = class JamesUpset extends Page
   conditions:
     James: '|officers|James'
     Nat: '|officers|Nat'
-  text: ->"""<page bg="#{g.map.Ship.images.cabinNight}">
+  text: ->"""<page bg="Ship.cabinNight">
     #{@Nat.image 'serious', 'right'}
     <text><p>#{q}So, when're you going to say something?</q></p></text>
   </page>

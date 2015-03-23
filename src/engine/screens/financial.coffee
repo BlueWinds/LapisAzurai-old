@@ -44,7 +44,7 @@ Page.Financial = class Financial extends Page
     missions = for key, mission of g.missions
       "<li>#{mission.label}</li>"
 
-    """<page bg="#{g.map.Ship.images.cabinNight}">
+    """<page bg="Ship.cabinNight">
       <div class="col-md-4 col-md-offset-2 col-sm-6">
         <div class="expenses column-block">
           <div class="block-label">The last month</div>

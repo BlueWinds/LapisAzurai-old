@@ -18,7 +18,7 @@ Place.Alkenia::jobs.meetKat = Job.MeetKat = class MeetKat extends Job
 Job.MeetKat.next.push Page.MeetKat2 = class MeetKat2 extends Page
   conditions:
     Natalie: {}
-  text: ->"""<page bg="#{g.location.images.day}">
+  text: ->"""<page bg="day">
     <text><p>Alkenia's market was a crowded place, stalls buying and selling almost every imaginable good - though, Natalie noted, the prices were often rather inflated compared to what one would pay in Vailia itself. She had never before had enough money to even consider most of the items on sale – or at least not had the intention to spend that much money, since she was too busy saving up for her grand adventure. Now, though... now she could sample whatever she liked, and call it a business expense. A merchant had to know what exactly they were selling, after all!</p></text>
   </page>
   <page>
@@ -70,7 +70,7 @@ Job.MeetKat.next.push Page.MeetKat3 = class MeetKat3 extends PlayerOptionPage
     Natalie: {}
     Kat: '|people|Kat'
     Guard: '|people|AlkeniaGuard'
-  text: ->"""<page bg="#{g.location.images.day}">
+  text: ->"""<page bg="day">
     #{@Natalie.image 'normal', 'left'}
     <text><p>Wandering the market, enjoying the scene, looking for new and exotic items, Natalie was enjoying her afternoon. A slight breeze, a feeling of lightness, a...</p></text>
   </page>
@@ -136,7 +136,7 @@ Page.MeetKat3.next.Sure = Page.MeetKatSure = class MeetKatSure extends Page
     Natalie: {}
     Kat: {}
     Guard: {}
-  text: ->"""<page bg="#{g.location.images.day}">
+  text: ->"""<page bg="day">
     #{@Natalie.image 'normal', 'left'}
     <text><p>#{q}I'll be there.</q> Natalie took a moment to count the money in her pouch.</p></text>
   </page>
@@ -163,7 +163,7 @@ Page.MeetKat3.next['Stolen purse?'] = Page.MeetKatMoney = class MeetKatMoney ext
     Natalie: {}
     Kat: {}
     Guard: {}
-  text: ->"""<page bg="#{g.location.images.day}">
+  text: ->"""<page bg="day">
     #{@Natalie.image 'normal', 'left'}
     <text><p>#{q}Any chance I can get the other money she stole back?</q> Natalie took a moment to count the contents of her returned pouch.</p></text>
   </page>
@@ -190,7 +190,7 @@ Page.MeetKat3.next['Not interested'] = Page.MeetKatNo = class MeetKatNo extends 
     Natalie: {}
     Kat: {}
     Guard: {}
-  text: ->"""<page bg="#{g.location.images.day}">
+  text: ->"""<page bg="day">
     #{@Natalie.image 'normal', 'left'}
     <text><p>#{q}No thanks, I have better things to do.</q> She took a moment to count the money in her pouch, steadfastly ignoring her as the thief began to cry. Kat hicced as the guard cuffed her ear, and sobbed silently.</p></text>
   </page>
@@ -226,7 +226,7 @@ Job.KatTrial::next = Page.KatTrial = class KatTrial extends PlayerOptionPage
   conditions:
     Natalie: {}
     Kat: '|people|Kat'
-  text: ->"""<page bg="#{if g.weather is 'calm' then g.location.images.day else g.location.images.storm}">
+  text: ->"""<page bg="day|storm">
     <text><p>Natalie arrived somewhat early to the courthouse – one of two in Alkenia, and by far the poorest and busiest. This one handled justice for those neither wealthy nor influential enough to arrange trial away from all the noise and bustle.</p></text>
   </page>
   <page>
@@ -269,7 +269,7 @@ Page.KatTrial.next['Help her'] = Page.KatTrialHelp = class KatTrialHelp extends 
     Natalie: {}
     Kat: {}
     Guard: '|people|AlkeniaGuard'
-  text: ->"""<page bg="#{if g.weather is 'calm' then g.location.images.day else g.location.images.storm}">
+  text: ->"""<page bg="day|storm">
     #{@Natalie.image 'excited', 'right'}
     <text><p>Natalie laughed again – the girl definitely had spirit. #{q}I'll keep that in mind. Guess I might as well head out now, if there's not going to be a trial.</q></p></text>
   </page>
@@ -310,7 +310,7 @@ Page.KatTrial.next['Do nothing'] = Page.KatTrialNothing = class KatTrialNothing 
     Natalie: {}
     Kat: {}
     Guard: '|people|AlkeniaGuard'
-  text: ->"""<page bg="#{if g.weather is 'calm' then g.location.images.day else g.location.images.storm}">
+  text: ->"""<page bg="day|storm">
     #{@Natalie.image 'normal', 'right'}
     <text><p>#{q}How did you even get those keys,</q> Natalie shoved the chains back into Kat's arms, or at least tried to. The thief was too busy grinning, and had no intention of taking them back.</p></text>
   </page>
@@ -335,7 +335,7 @@ Page.KatTrial.next['Hold her'] = Page.KatTrialHinder = class KatTrialHinder exte
   conditions:
     Natalie: {}
     Kat: {}
-  text: ->"""<page bg="#{if g.weather is 'calm' then g.location.images.day else g.location.images.storm}">
+  text: ->"""<page bg="day|storm">
     #{@Natalie.image 'normal', 'right'}
     <text><p>Natalie decided that, rather than wrestle with her, it might be easier to simply keep her talking. #{q}Neat trick, escaping out of the courthouse right before your hearing. Couldn't pick the lock to your cell?</q></p></text>
   </page>
@@ -366,7 +366,7 @@ Job.KatJames::next = Page.KatJames = class KatJames extends Page
   conditions:
     James: {}
     Kat: '|people|Kat'
-  text: ->"""<page bg="#{g.location.images.night}">
+  text: ->"""<page bg="night">
     #{@Kat.image 'excited', 'left'}
     <text><p>#{q}Hiya!</q></p></text>
   </page>

@@ -70,8 +70,7 @@ Job.Market::next = Page.Market = class Market extends Page
 
     cargoPercent = Math.sumObject(g.cargo) / Game.cargo * 100
 
-    img = if g.weather is 'calm' then g.location.images.marketDay else g.location.images.marketStorm
-    element = """<page class="screen" bg="#{img}">
+    element = """<page class="screen" bg="marketDay|marketStorm">
       <form class="clearfix">
         <div class="col-lg-4 col-lg-offset-2 col-sm-6">
           <div class="buy column-block">

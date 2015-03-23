@@ -145,11 +145,17 @@ window.Page = class Page extends GameObject
       @contextFill()
 
     div = $(@text.call @context).filter('page')
-    bg = null
+    bg = 'none'
     div.each ->
       if $(@).attr 'bg'
         bg = $(@).attr 'bg'
-      if bg and bg isnt 'none'
+        if '|' in bg
+          bg = if g.weather is 'calm' then bg.split('|')[0] else bg.split('|')[1]
+
+        location = if '.' in bg then g.Map[bg.split('.')[0]] else g.location
+        bg = location.images[bg]
+
+      if bg isnt 'none'
         $(@).css('background-image', 'url("' + bg + '")')
 
     $('text', div).each ->

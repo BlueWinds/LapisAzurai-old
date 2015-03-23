@@ -79,7 +79,7 @@ Page.Port = class Port extends Page
     else
       ""
 
-    page = $ """<page verySlow class="screen" bg="#{if g.weather is 'calm' then @port.images.day else @port.images.storm}">
+    page = $ """<page verySlow class="screen" bg="day|storm">
       <form class="clearfix">
         <div class="col-md-2">
           <ul class="job-tabs list-group"></ul>

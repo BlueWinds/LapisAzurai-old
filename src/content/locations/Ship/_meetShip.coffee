@@ -19,14 +19,14 @@ Place.Ship::jobs.otherShip = ShipJob.OtherShip = class OtherShip extends ShipJob
     chance:
       matches: -> return Math.random() <= 0.1
       optional: true
-    '|events|IntroStorm': {}
+    '|events|FirstStorm': {}
   text: ->"""<p>In the distance, #{Math.choice g.crew} spots another ship. It'll be easy to avoid, or you could investigate.</p>"""
 
 ShipJob.OtherShip::next = Page.OtherShip = class OtherShip extends Page
   conditions:
     sailor:
       fill: -> Math.choice g.crew
-  text: ->"""<page bg="#{g.map.Ship.images.deckDay}">
+  text: ->"""<page bg="deckDay">
     #{@sailor.image 'normal', 'right'}
     <text><p>#{q @sailor}Ship ahoy!</q> #{@sailor} called out from #{his} position on the starboard side of the deck, and everyone turned to look. Natalie shaded her eyes, trying to make out anything in the bright sun.</p></text>
   </page>"""
@@ -42,7 +42,7 @@ Page.OtherShip.next.push Page.Pirates = class Pirates extends PlayerOptionPage
       Page.statCheckDescription('diplomacy', 70, Page.PiratesNegotiate.next)
       Page.statCheckDescription('sailing', 65, Page.PiratesFlee.next)
     ]
-    return """<page bg="#{g.map.Ship.images.deckDay}">
+    return """<page bg="deckDay">
       <text><p>#{q @sailor}Ship ahoy!</q> #{@sailor} called out from #{his} position on the starboard side of the deck, and everyone turned to look. Natalie shaded her eyes, trying to make out anything in the bright sun.</p>
       <p>There was indeed a dark spot on the horizon – and watching it for several minutes, one by one everyone convinced themselves it was a ship, sailing in their direction, crossing paths at an angle.</p></text>
     </page>
@@ -57,7 +57,7 @@ Page.OtherShip.next.push Page.Pirates = class Pirates extends PlayerOptionPage
   @next: {}
 
 Page.Pirates.next['Fight'] = Page.PiratesFight = class PiratesFight extends Page
-  text: ->"""<page bg="#{g.map.Ship.images.deckDay}">
+  text: ->"""<page bg="deckDay">
     #{g.officers.Nat.image 'angry', 'left'}
     <text><p>#{q}Yah!</q> Natalie raised one arm to the sky, her cheer echoed by that of the crew. Though outnumbered, they would put an end to this sea-born menace. The watery depths were dangerous enough on their own, without human marauders adding to the menace.</p></text>
   </page>
@@ -73,7 +73,7 @@ Page.Pirates.next['Fight'] = Page.PiratesFight = class PiratesFight extends Page
   @next = {}
 
 Page.PiratesFight.next.veryGood = Page.PiratesFightEasy = class PiratesFightEasy extends Page
-  text: ->"""<page bg="#{g.map.Ship.images.deckDay}">
+  text: ->"""<page bg="deckDay">
     <text><p>Shouting, confusion, blood everywhere... Natalie watched from the poop deck, feeling lightheaded and giddy. Flames licked at both ships, dropped torches and spilled lanterns, but somehow never managed to get a hold of the Azurai, no matter how many tarred-ropes or oiled sails they were thrust against.</p></text>
   </page>
   <page>
@@ -99,7 +99,7 @@ Page.PiratesFight.next.veryGood = Page.PiratesFightEasy = class PiratesFightEasy
       sailor.add 'happiness', 3
 
 Page.PiratesFight.next.good = Page.PiratesFightWin = class PiratesFightWin extends Page
-  text: ->"""<page bg="#{g.map.Ship.images.deckDay}">
+  text: ->"""<page bg="deckDay">
     <text><p>Shouting, confusion, blood everywhere... Natalie stumbled backwards, nearly tripping over a a fallen pirate. She'd been forced away from the poop deck by the attackers, most of whom had disappeared below decks to find what they could, leaving her to face only two.</p></text>
   </page>
   <page continue>
@@ -129,7 +129,7 @@ Page.PiratesFight.next.good = Page.PiratesFightWin = class PiratesFightWin exten
       sailor.add 'happiness', 1
 
 Page.PiratesFight.next.bad = Page.PiratesFightLose = class PiratesFightLose extends Page
-  text: ->"""<page bg="#{g.map.Ship.images.deckDay}">
+  text: ->"""<page bg="deckDay">
     <text><p>Outnumbered and outmatched, the crew of the Azurai fought bravely, making the attackers pay for every inch of deck. Pressed back onto the poop deck, they managed to hold the high ground – mostly because the lower deck held everything the pirates were interested in, including the cargo hatch and captain's quarters. Overhead tho skies rapidly darkened, clouds swirling in to blanket the battlefield in dim grey.</p></text>
   </page>
   <page>
@@ -138,7 +138,7 @@ Page.PiratesFight.next.bad = Page.PiratesFightLose = class PiratesFightLose exte
   <page>
     <text continue><p>#{Math.choice g.crew} screamed on the stairway as #{he} took a gash across the chest, and stumbled back to give up #{his} position to James. Natalie let out a groan and stumbled as well, feeling the wind shift overhead. James looked back at her, nearly letting a spear in through his guard with the distraction.</p></text>
   </page>
-  <page bg="#{g.map.Ship.images.deckStorm}">
+  <page bg="Ship.deckStorm">
     <text><p>CRACK. A sudden, deafened silence fell over the battle as everyone stopped, ears ringing from the thunder. What had once been the main mast of the pirate ship was now a twisted mess of splinters, tottering slowly, sails majestically tipping into the waves. CRACK. Another pilar of lightning struck from a sky that had been clear only a few minutes earlier, this one of the far side of the pirate ship, missing both vessels.</p></text>
   </page>
   <page bg="">
@@ -160,7 +160,7 @@ Page.PiratesFightLose::next = Page.PiratesFightLose2 = class PiratesFightLose2 e
   conditions:
     James: '|officers|James'
     Natalie: '|officers|Nat'
-  text: ->"""<page slow bg="#{g.map.Ship.images.cabinNight}">
+  text: ->"""<page slow bg="Ship.cabinNight">
     #{@James.image 'normal', 'right'}
     <text><p>#{q}You're making a bad habit of this, you know,</q> James smiled as Natalie's eyes fluttered open. He had a bandage wrapped around one shoulder, holding the arm in a sling.</p></text>
   </page>
@@ -194,7 +194,7 @@ Page.PiratesFightLose::next = Page.PiratesFightLose2 = class PiratesFightLose2 e
   </page>"""
 
 Page.Pirates.next['Negotiate'] = Page.PiratesNegotiate = class PiratesNegotiate extends Page
-  text: ->"""<page bg="#{g.map.Ship.images.deckDay}">
+  text: ->"""<page bg="deckDay">
     #{g.officers.Nat.image 'excited', 'left'}
     <text><p>#{q}Hail!</q> Natalie waved her arm overhead enthusiastically, heading forward across the deck to be closer to her counterparts on the other ship. Seeing the Azurai wasn't attempting to flee, they slowed, coming to a bobbing halt alongside it. From up close it was entirely obvious that the other ship was a pirate vessel – no merchant would sail with such a motley band.</p></text>
   </page>
@@ -217,7 +217,7 @@ Page.Pirates.next['Negotiate'] = Page.PiratesNegotiate = class PiratesNegotiate 
   @next = {}
 
 Page.PiratesNegotiate.next.good = Page.PiratesNegotiateSuccess = class PiratesNegotiateSuccess extends Page
-  text: ->"""<page bg="#{g.map.Ship.images.day}">
+  text: ->"""<page bg="Ship.day">
     <text><p>He hesitated, eyes darting around to his crew, torn between a desire not to antagonize a woman who could throw fire and the demand that he not lose face before the other members of the band – an excellent way to become an ex-captain.</p></text>
   </page>
   <page>
@@ -240,7 +240,7 @@ Page.PiratesNegotiate.next.good = Page.PiratesNegotiateSuccess = class PiratesNe
     money: ['money', '"Sold" goods to pirates']
 
 Page.PiratesNegotiate.next.bad = Page.PiratesNegotiateFail = class PiratesNegotiateFail extends Page
-  text: ->"""<page bg="#{g.map.Ship.images.day}">
+  text: ->"""<page bg="Ship.day">
     <text><p><q>You're a bold one, I'll grant you that,</q> he chuckled, clearly unimpressed with her display. <q>Tell you what. You take my boy over, show him your cargo, and he'll pick out what he thinks is fair, eh?</q> He slapped a scrawny, scared looking teenager on the back, sending him staggering. Clearly the boy didn't think he was being done any sort of favor.</p></text>
   </page>
   <page>
@@ -255,7 +255,7 @@ Page.PiratesNegotiate.next.bad = Page.PiratesNegotiateFail = class PiratesNegoti
     super()
 
 Page.Pirates.next['Flee'] = Page.PiratesFlee = class PiratesFlee extends Page
-  text: ->"""<page bg="#{g.map.Ship.images.deckDay}">
+  text: ->"""<page bg="deckDay">
     #{g.officers.Nat.image 'upset', 'left'}
     <text><p>#{q}Ok, I've changed my mind, not good. Full sail!</q> Natalie called out commands, setting the crew back in motion. They kept their weapons close at hand as they worked, canvas billowing up to catch the wind</p></text>
   </page>"""
@@ -265,7 +265,7 @@ Page.Pirates.next['Flee'] = Page.PiratesFlee = class PiratesFlee extends Page
   @next = {}
 
 Page.PiratesFlee.next.good = Page.PiratesFleeSuccess = class PiratesFleeSuccess extends Page
-  text: ->"""<page bg="#{g.map.Ship.images.day}">
+  text: ->"""<page bg="Ship.day">
     <text><p>#{q g.officers.Nat}Ok, I've changed my mind, not good. Full sail!</q> Natalie called out commands, setting the crew back in motion. They kept their weapons close at hand as they worked, canvas billowing up to catch the wind</p>
     <p>Groaning against its weight, the Azurai bobbed precipitously in the wind, full sails tipping it at an uncomfortable angle before the rudder caught hold and swung the prow around. Then, like a bow sprung from an arrow, the ship surged forward. Perpendicular to the wind they cut away.</p></text>
   </page>
@@ -277,11 +277,11 @@ Page.PiratesFlee.next.good = Page.PiratesFleeSuccess = class PiratesFleeSuccess 
   </page>"""
 
 Page.PiratesFlee.next.bad = Page.PiratesFleeFail = class PiratesFleeFail extends Page
-  text: ->"""<page bg="#{g.map.Ship.images.day}">
+  text: ->"""<page bg="Ship.day">
     <text><p>#{q g.officers.Nat}Ok, I've changed my mind, not good. Full sail!</q> Natalie called out commands, setting the crew back in motion. They kept their weapons close at hand as they worked, canvas billowing up to catch the wind</p>
     <p>Groaning against its weight, the Azurai bobbed precipitously in the wind, full sails tipping it at an uncomfortable angle before the rudder caught hold and swung the prow around. A moment too slow – Natalie ducked as an arrow sailed across the deck, too close for comfort, then was thrown from her feet by a grinding collision.</p></text>
   </page>
-  <page bg="#{g.map.Ship.images.deckDay}">
+  <page bg="Ship.deckDay">
     <text><p>The horrible sound of wrenching wood and burbling water finding ways to run inside were nothing compared to the massed roar of the pirates – for that was surely what they were, at close range – leaped or swung over towards the Azurai. James stood in front of her, ready to protect his captain from all comers, a grim expression covering his face in the brief moment before he turned away and prepared to fight for his life. #{Math.choice g.crew} let out a shout and met the attackers on deck. Battle was joined.</p></text>
   </page>
   <page>
@@ -298,7 +298,7 @@ Page.PiratesFlee.next.bad = Page.PiratesFleeFail = class PiratesFleeFail extends
 Page.OtherShip.next.push Page.AbandonedShip = class AbandonedShip extends PlayerOptionPage
   conditions:
     sailor: {}
-  text: ->"""<page bg="#{g.map.Ship.images.day}">
+  text: ->"""<page bg="Ship.day">
     <text><p>#{q @sailor}Ship ahoy!</q> #{@sailor} called out from #{his} position on the starboard side of the deck, and everyone turned to look. Natalie shaded her eyes, trying to make out anything in the bright sun.</p>
     <p>Drifting slowly closer, it became apparent that the other ship was abandoned, listing to one side as though it had taken on a great deal of water. The Azurai put on sail to approach more rapidly.</p></text>
   </page>
@@ -309,7 +309,7 @@ Page.OtherShip.next.push Page.AbandonedShip = class AbandonedShip extends Player
   @next = {}
 
 Page.AbandonedShip.next['Fire it'] = Page.AbandonedShipBurn = class AbandonedShipBurn extends Page
-  text: ->"""<page bg="#{g.map.Ship.images.deckDay}">
+  text: ->"""<page bg="deckDay">
     <text><p>Bowing to tradition and the crew's unease about robbing a grave, Natalie ordered a bow produced, and had James soak a rag in oil.</p></text>
   </page>
   <page>
@@ -324,7 +324,7 @@ Page.AbandonedShip.next['Fire it'] = Page.AbandonedShipBurn = class AbandonedShi
       crew.add 'happiness', 2
 
 Page.AbandonedShipDone = class AbandonedShipDone extends Page
-  text: ->"""<page bg="#{g.map.Ship.images.deckDay}">
+  text: ->"""<page bg="deckDay">
     <text><p>Burning an abandoned ship wasn't hard – with pitch rubbed into the hull, oil in the ropes and wax in the canvas, even a nearly-rotten hulk like this one was soon ablaze. They watched solemnly, Natalie giving voice to a prayer they were all thinking.</p></text>
   </page>
   <page>
@@ -332,21 +332,21 @@ Page.AbandonedShipDone = class AbandonedShipDone extends Page
   </page>"""
 
 Page.AbandonedShip.next['Search'] = Page.AbandonedShipSearch = class AbandonedShipSearch extends Page
-  text: ->"""<page bg="#{g.map.Ship.images.deckDay}">
+  text: ->"""<page bg="deckDay">
     <text><p>Natalie led the expedition, guiding from the prow of the Azurai's longboat as they rowed in closer than she wished to risk the larger vessel. It was with a solemn air that they searched the wreck.</p></text>
   </page>"""
   next: Page.randomMatch
   @next: []
 
 Page.AbandonedShipSearch.next.push Page.AbandonedShipNothing = class AbandonedShipNothing extends Page
-  text: ->"""<page bg="#{g.map.Ship.images.deckDay}">
+  text: ->"""<page bg="deckDay">
     <text><p>Natalie led the expedition, guiding from the prow of the Azurai's longboat as they rowed in closer than she wished to risk the larger vessel. It was with a solemn air that they searched the wreck.</p>
     <p>Despite a thorough search, they didn't find anything of value. Other than waterlogged timbers and rotten sailcloth, it had already been stripped bare. Tired out and on edge from having wasted a day to no gain, Natalie ordered the wreck torched.</p></text>
   </page>"""
   next: Page.AbandonedShipDone
 
 Page.AbandonedShipSearch.next.push Page.AbandonedShipSupplies = class AbandonedShipSupplies extends Page
-  text: ->"""<page bg="#{g.map.Ship.images.deckDay}">
+  text: ->"""<page bg="deckDay">
     <text><p>Natalie led the expedition, guiding from the prow of the Azurai's longboat as they rowed in closer than she wished to risk the larger vessel. It was with a solemn air that they searched the wreck.</p>
     <p>While they didn't find any cargo beyond thoroughly water-ruined provisions, #{sailor1 = Math.choice g.crew} did discover a stash of well-preserved canvas, and #{Math.otherChoice g.crew, sailor1} stumbled upon a still-sealed barrel of pitch. Not the most glamorous of treasure, but combined with a some usable boards pried up from the deck, nothing to scoff at.</p></text>
   </page>
@@ -360,7 +360,7 @@ Page.AbandonedShipSearch.next.push Page.AbandonedShipSupplies = class AbandonedS
   next: Page.AbandonedShipDone
 
 Page.AbandonedShipSearch.next.push Page.AbandonedShipCargo = class AbandonedShipCargo extends Page
-  text: ->"""<page bg="#{g.map.Ship.images.deckDay}">
+  text: ->"""<page bg="deckDay">
     <text><p>Natalie led the expedition, guiding from the prow of the Azurai's longboat as they rowed in closer than she wished to risk the larger vessel. It was with a solemn air that they searched the wreck.</p>
     <p>Though most of it was ruined, the crew managed to salvage several crates full of raw iron. The vessel must have been floating abandoned for quite some time for rust to have done as much damage as it had.</p></text>
   </page>
@@ -373,7 +373,7 @@ Page.AbandonedShipSearch.next.push Page.AbandonedShipCargo = class AbandonedShip
   next: Page.AbandonedShipDone
 
 Page.AbandonedShipSearch.next.push Page.AbandonedShipMoney = class AbandonedShipMoney extends Page
-  text: ->"""<page bg="#{g.map.Ship.images.deckDay}">
+  text: ->"""<page bg="deckDay">
     <text><p>Natalie led the expedition, guiding from the prow of the Azurai's longboat as they rowed in closer than she wished to risk the larger vessel. It was with a solemn air that they searched the wreck.</p>
     <p>The cargo hold was empty, but following some instinct or other, Natalie searched the captain's cabin carefully – whoever gutted the ship before had missed a small hidden compartment, just below the waterline. Though the papers within were ruined, gold and silver coins didn't care about spending a few months underwater.</p></text>
   </page>
@@ -383,3 +383,37 @@ Page.AbandonedShipSearch.next.push Page.AbandonedShipMoney = class AbandonedShip
   effects:
     money: [93, 'Found an abandoned ship']
   next: Page.AbandonedShipDone
+
+Page.OtherShip.next.push Page.LocalMerchants = class LocalMerchants extends Page
+  conditions:
+    location: match: -> g.location.name not in ['Vailia', 'MtJulia']
+  text: ->"""<page bg="Ship.day">
+    <text><p>The ship heading for them looking like it might be local to the area, and appearances did not deceive. Slightly larger than the Lapis, it held on its deck a dozen friendly looking sailors. Though they were all armed – a crew would be foolish not to carry weapons when greeting strangers – Natalie sensed no hostility from them, and the assessment was mutual. No blades were drawn as the ships drew up next to each other.</p></text>
+  </page>
+  <page>
+    <text><p>After a few shouted words, they lay a plank across the gap between the ships, and #{g.officers.toArray().wordJoin()} crossed over to the other deck where there was more room. Though both captains had a schedule to keep, they agreed that at least a few minutes exchanging news was in order.</p>
+    <p><em><span class="happiness">+1 happiness</span>, <span class="business">+1 business</span> for crew</em></p></text>
+  </page>"""
+  apply: ->
+    super()
+    for i, sailor of g.crew
+      sailor.add('happiness', 1)
+      sailor.add('business', 1)
+
+Page.OtherShip.next.push Page.VailianMerchants = class VailianMerchants extends PlayerOptionPage
+  conditions:
+    location: match: -> g.location.name not in ['Vailia', 'MtJulia', 'Alkenia', 'Nonkenia', 'BlackSands']
+  text: ->"""<page bg="Ship.day">
+    <text><p>Triangular sales - #{Math.choice g.crew} was the first to spot them on the other ship, and #{he} loudly guessed that it was a Vailian vessel. Despite all odds, so far from home, #{he} was proven right half an hour later, when they were close enough to make out more details. A Vailian-made ship meant Vailian crew – the city did not sell to outsiders, jealously guarding its ship-building secrets.</p></text>
+  </page>
+  <page>
+    <text><p>The two vessels pulled up alongside each other, and after a few shouted exchanges, two of officers jumped over to the Lapis for a closer discussion. They were just as eager as Natalie and James to share news of home, and the crews spent half an hour shooting the breeze while the officers shared knowledge of the winds and currents in the area.</p>
+    <p><em><span class="sailing">+1 sailing</span> for each officer, <span class="happiness">+2 happiness</span> for crew</em></p></text>
+  </page>"""
+  apply: ->
+    super()
+    for i, sailor of g.crew
+      sailor.add('happiness', 2)
+    for i, officer of g.officers
+      officer.add('sailing', 1)
+

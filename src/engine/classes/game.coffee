@@ -1,5 +1,5 @@
-stormStartChance = 0.02
-stormEndChance = 0.75
+stormStartChance = 0.03
+stormEndChance = 0.66
 
 window.Game = class Game extends GameObject
   @cargo: 100

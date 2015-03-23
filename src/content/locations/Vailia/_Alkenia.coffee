@@ -31,7 +31,7 @@ Place.Alkenia::jobs.market = Job.AlkeniaMarket = class AlkeniaMarket extends Job
   next: Page.Market
 
 Place.Alkenia::firstVisit = Page.AlkeniaArrive = class AlkeniaArrive extends Page
-  text: ->"""<page bg="#{g.location.images.day}">
+  text: ->"""<page bg="day">
     <text><p>Excited shouts and waving arms guided the Azurai into dock at Alkenia, one of Vailia's primary trading partners. Another free city, Alkenia nestled in the arms of an encircling mountain, stone bluffs trailing into the sea on either side of the city and providing protection from storms. A stream ran down the valley though the center of town fed by springs further up the slope. The Alkenians made their livings from the forest and the shore, supplying Vailia with timber in return for steady shipments manufactured goods or other items from farther afield – without the vast and relatively safe forests, Natalie's homeland would be unable to keep a significant navy afloat against the terrible attrition of the open ocean.</p></text>
   </page>
   <page>
@@ -82,7 +82,7 @@ Place.Alkenia::jobs.rest = Job.AlkeniaRest = class AlkeniaRest extends Job
 Job.AlkeniaRest.next.push Page.AlkeniaRestForest = class AlkeniaRestForest extends Page
   conditions:
     worker: {}
-  text: ->"""<page bg="#{if g.weather is 'calm' then g.location.images.day else g.location.images.storm}">
+  text: ->"""<page bg="day|storm">
     <text><p><q>Another forester went missing today,</q> the woman pursed her lips and lowered her head in closer to her friend. She didn't lower her voice, though, and #{@worker} couldn't help but overhear.</p></text>
   </page>
   <page>
@@ -98,7 +98,7 @@ Job.AlkeniaRest.next.push Page.AlkeniaRestForest = class AlkeniaRestForest exten
 Job.AlkeniaRest.next.push Page.AlkeniaRestDerya = class AlkeniaRestDerya extends Page
   conditions:
     worker: {}
-  text: ->"""<page bg="#{if g.weather is 'calm' then g.location.images.day else g.location.images.storm}">
+  text: ->"""<page bg="day|storm">
     <text><p><q>I hear Derya won another battle.</q></p></text>
   </page>
   <page>
@@ -114,7 +114,7 @@ Job.AlkeniaRest.next.push Page.AlkeniaRestDerya = class AlkeniaRestDerya extends
 Job.AlkeniaRest.next.push Page.AlkeniaRestSteel = class AlkeniaRestSteel extends Page
   conditions:
     worker: {}
-  text: ->"""<page bg="#{if g.weather is 'calm' then g.location.images.day else g.location.images.storm}">
+  text: ->"""<page bg="day|storm">
     <text><p><q>Do you think the price of steel is going to rise,</q> a neighboring merchant poked his head through the curtain to ask his neighbor, while they weighed out #{@worker}'s order.</p></text>
   </page>
   <page>
@@ -130,7 +130,7 @@ Job.AlkeniaRest.next.push Page.AlkeniaRestSteel = class AlkeniaRestSteel extends
 Job.AlkeniaRest.next.push Page.AlkeniaRestStorm = class AlkeniaRestStorm extends Page
   conditions:
     worker: {}
-  text: ->"""<page bg="#{if g.weather is 'calm' then g.location.images.day else g.location.images.storm}">
+  text: ->"""<page bg="day|storm">
     <text><p>#{@worker} couldn't tell what was being said, but based on whispers and pointing, it was clear the two old men were looking at #{him} and thinking about the Azurai docked somewhere below in the harbor. Seeing that they'd been noticed, one of them tipped his hat at #{@worker} and approached.</p></text>
   </page>
   <page>
@@ -138,4 +138,19 @@ Job.AlkeniaRest.next.push Page.AlkeniaRestStorm = class AlkeniaRestStorm extends
   </page>
   <page>
     <text continue><p>#{@worker} nodded, neither wanting to lie about it nor to spread any more rumors than necessary. Fortunately the man sensed his reluctance, and with another polite hat-tip, retreated.</p></text>
+  </page>"""
+
+Place.Alkenia::jobs.forestry = Job.AlkeniaForestry = class AlkeniaForestry extends Job
+  officers:
+    Nat: '|officers|Nat'
+    worker2: {optional: true}
+  label: 'Explore Forest'
+  text: ->"""Alkenia provides most of the lumber for Vailia's shipyards. Some contacts in the industry would be advantageous for a young captain."""
+  energy: 2
+  next: Page.firstNew
+  @next: []
+
+Job.AlkeniaForestry.next.push Page.AlkeniaForestry = class AlkeniaForestry extends Page
+  text: ->"""<page bg="day|storm">
+    <text><p></p></text>
   </page>"""

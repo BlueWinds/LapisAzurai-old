@@ -39,16 +39,15 @@ Place.MountJulia::firstVisit = Page.VisitJulia = class VisitJulia extends Page
   conditions:
     'Nat': '|officers|Nat'
     'James': '|officers|James'
-    'Mt': '|map|MountJulia'
   text: ->
     sailor = Math.choice g.crew
-    return """<page bg="#{@Mt.images.day}">
+    return """<page bg="MtJulia.day">
       <text><p>Mount Julia loomed up out of the ocean, a jagged peak that had been growing on the horizon all day. If the current wind held steady, the Lapis would arrive just after midnight – enough time for everyone to rest and catch their breath before exploring the city in the morning. A week of sailing had settled the crew into a comfortable routine – #{g.crew[0]} preferred the night shift, watching the helm while the captain slept, and #{g.crew[1]} was a natural up in the rigging, scurrying up and down the masts to adjust the lines.</p></text>
     </page>
     <page>
       <text continue><p>#{if g.crew.length < 4 then "It was still only the skeleton of a real crew though – in rough weather, they'd quickly run out of hands to perform all the necessary tasks, a disaster in the making." else ("Though she could perhaps stand to hire a few more crew members to help get them through rough weather, the crew of " + g.crew.length + " was enough for now.")} The Azurai had been lucky so far, sailing in clear weather and steady wind. Auspicious beginning for a first voyage – hopefully the trip home would be as smooth.</p></text>
     </page>
-    <page bg="#{g.map.Ship.images.deckDay}">
+    <page bg="Ship.deckDay">
       #{g.officers.Nat.image 'excited', 'left'}
       <text><p>#{q}Tell James what you were telling me last night,</q> Natalie waved over #{sailor.name} and her Quartermaster. #{sailor.name} saluted the officers, bringing a smile to Natalie's face – she loved that feeling – and began again.</p></text>
     </page>
@@ -106,7 +105,7 @@ Job.MtJuliaMarket.next.unshift Page.MtJuliaMarketIntro = class MtJuliaMarketIntr
   conditions:
     '|events|MtJuliaMarketIntro': false # Only show this the first time
     worker: {}
-  text: ->"""<page bg="#{g.map.Vailia.images.tavern}">
+  text: ->"""<page bg="tavern">
     <text><p>#{@worker} was surprised, walking in, to see a little girl tending the bar. Perhaps twelve, she smiled and greeted #{@worker} with a cheerful wave, not pausing in her current attempt to mop the floor into some state of cleanliness. Rather than spilled beer, though, her main enemy at the moment seemed to be leaves, seeds, and other detritus from the forest. It wasn't hard to understand why – other than the Azurai, there are no other ships docked in the bay.</p></text>
   </page>
   <page>
@@ -143,7 +142,7 @@ Place.MountJulia::jobs.rest = Job.MtJuliaRest = class MtJuliaRest extends Job
 Job.MtJuliaRest::next = Page.MtJuliaRest = class MtJuliaRest extends Page
   conditions:
     worker: {}
-  text: ->"""<page bg="#{g.location.images.tavern}">
+  text: ->"""<page bg="tavern">
     #{@worker.image 'normal', 'left'}
     <text><p>#{q}So, what's your name?</q> #{@worker} asked the bartender – a cute little girl, perhaps twelve. She claimed to have parents around here somewhere, but #{@worker} hadn't seen or heard them yet.</p></text>
   </page>
@@ -171,7 +170,7 @@ Job.Scavenge.next.push Page.ScavengeStorm = class ScavengeStorm extends Page
     '|weather': {eq: 'storm'}
     worker: {}
     woodFound: scavenge(0.5)
-  text: ->"""<page bg="#{g.location.images.day}">
+  text: ->"""<page bg="day">
     <text><p>Though venturing out into the storm was not a pleasant task, #{@worker} found that, once away from the shore, the forest at least did a tolerable job of cutting the wind. Not so the rain or the noise – by the time the crew was halfway done working on their first tree, they were soaked and shivering. #{@worker} called the expedition off short.</p>
     <p><em>+#{@woodFound} wood</em></p></text>
   </page>"""
@@ -184,7 +183,7 @@ Job.Scavenge.next.push Page.ScavengeWood = class ScavengeWood extends ScavengeSt
     '|season': {eq: 'Wood'}
     worker: {}
     woodFound: scavenge(2)
-  text: ->"""<page bg="#{g.location.images.day}">
+  text: ->"""<page bg="day">
     <text><p>The woods around Mt. Julia were pleasant enough to wander around in the mild #{g.month} Wood weather. #{@worker} marked several of the straightest trees to donate their lives to the cause, and the crew quickly set to work chopping them down and stripping bark and branches. Heavy work, but the Azurai carried tools for exactly this task, and progress was quick.</p>
     <p><em>+#{@woodFound} wood</em></p></text>
   </page>"""
@@ -194,7 +193,7 @@ Job.Scavenge.next.push Page.ScavengeFire = class ScavengeFire extends ScavengeSt
     '|season': {eq: 'Fire'}
     worker: {}
     woodFound: scavenge(1.5)
-  text: ->"""<page bg="#{g.location.images.day}">
+  text: ->"""<page bg="day">
     <text><p>Walking through the woods around Mt. Julia was a welcome respite from the heat of the #{g.month} Fire, cooled by a pleasant breeze blowing in from the ocean. #{@worker} found several trees knocked down by a recent storm, and the crew set to stripping them of bark and branches, and hauling them back to the beach for final work.</p>
     <p><em>+#{@woodFound} wood</em></p></text>
   </page>"""
@@ -204,7 +203,7 @@ Job.Scavenge.next.push Page.ScavengeEarth = class ScavengeEarth extends Scavenge
     '|season': {eq: 'Earth'}
     worker: {}
     woodFound: scavenge(2)
-  text: ->"""<page bg="#{g.location.images.day}">
+  text: ->"""<page bg="day">
     <text><p>Mt. Julia's forested surroundings were an excellent source of timber, untamed and mostly unexploited by human hands. #{@worker} pointed out several trees to the crew, marking them for felling and disassembly into the planks and boards needed to keep the ship in good repair.</p>
     <p><em>+#{@woodFound} wood</em></p></text>
   </page>"""
@@ -214,7 +213,7 @@ Job.Scavenge.next.push Page.ScavengeWater = class ScavengeWater extends Scavenge
     '|season': {eq: 'Water'}
     worker: {}
     woodFound: scavenge(1)
-  text: ->"""<page bg="#{g.location.images.day}">
+  text: ->"""<page bg="day">
     <text><p>Pulling #{his @worker} cloak tighter around #{him} neck, #{@worker} explored the woods around Mt. Julia, leading a gaggle of the Azurai's crew. #{He} didn't wander far, choosing trees more on the basis of their proximity to the beach than pure quality. Once they set to work cutting down and cleaning the trees the temperature was more bearable – heavy labor made warm bodies.</p>
     <p><em>+#{@woodFound} wood</em></p></text>
   </page>"""
@@ -222,16 +221,16 @@ Job.Scavenge.next.push Page.ScavengeWater = class ScavengeWater extends Scavenge
 Job.MtJuliaCheckShip::next = Page.MtJuliaCheckShip = class MtJuliaCheckShip extends Page
   conditions:
     James: {}
-  text: ->"""<page bg="#{g.location.images.day}">
+  text: ->"""<page bg="day">
     <text><p>The Azurai shouldn't have taken any damage from such a minor voyage in calm weather, but it didn't hurt to check. James stripped down to his trunks – any issues would begin under the waterline on the outside of the hull long before they became visible to the occupants.</p></text>
   </page>
   <page>
     #{@James.image 'blush', 'left'}
     <text continue><p>The back of his neck burned as someone whistled behind him, but he refused to dignify the catcall with a glance. Let Natalie have her fun. Or one of the sailors, if they were so bold. He didn't really want to know who it was. Yes he did, actually, but he still wasn't going to turn his head and look.</p></text>
   </page>
-  <page bg="#{g.map.Ship.images.day}">
+  <page bg="Ship.day">
     <text><p>He dove over the rail, hitting the icy water with nary a splash. The ocean water stung his open eyes for a moment, but he spun around and began inspecting the hull for damage without surfacing. No child in Vailia avoided learning to swim – if not intentionally, then at least when older children threw you over a cliff into the ocean.</p></text>
   </page>
-  <page bg="#{g.map.Ship.images.deckDay}">
+  <page bg="Ship.deckDay">
     <text><p>#{q}Nothing, we're clean,</q> James accepted the towel from #{Math.choice g.crew}, tussling it through his hair and rubbing the water off his back. No scrapes, no barnacles yet, no leaks. Not some rickety junk from Kantis, the Guild hadn't skimped in giving Natalie a good vessel. The Lapis Azurai was a solid ship, straight out of the Vailian shipyards. If there were ships anywhere in the world to match Vailian ones, even rumor hadn't reached James' ears.</p></text>
   </page>"""

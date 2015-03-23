@@ -8,7 +8,7 @@ Page.SailEvent = class SailEvent extends Page
     Array::sort.call(jobs, Job.jobSort)
 
     img = Math.choice ['deckDay', 'deckNight', 'day', 'night']
-    page = $("""<page verySlow class="screen sail" bg="#{g.map.Ship.images[img]}">
+    page = $("""<page verySlow class="screen sail" bg="Ship.#{img}">
       <div class="col-xs-8 col-xs-offset-2">
       </div>
     </page>""")
@@ -18,8 +18,6 @@ Page.SailEvent = class SailEvent extends Page
     return sailClick page
 
   apply: ->
-    plot = false
-
     for key, job of g.map.Ship.jobs when job instanceof Job or job.prototype instanceof Job
       if typeof job is 'function'
         job = g.map.Ship.jobs[key] = new job
@@ -27,9 +25,9 @@ Page.SailEvent = class SailEvent extends Page
       unless job.contextMatch()
         continue
       if job.type is 'plot'
-        plot = true
-        unless plot then g.queue.push plot
-        continue
+        while @context.length then @context.pop()
+        @context.push job
+        break
       @context.push job
 
     super()

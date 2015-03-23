@@ -111,7 +111,7 @@ Page.SailDay = class SailDay extends Page
     ship = g.map.Ship
 
     img = Math.choice ['deckDay', 'deckNight', 'day', 'night']
-    page = $ """<page slow auto="3000" class="screen sail" bg="#{g.map.Ship.images[img]}"><text>
+    page = $ """<page slow auto="3000" class="screen sail" bg="Ship.#{img}"><text>
       <p><em>#{costDescription}</em></p>
       #{if other.length then "<p><em>" + other.join(' ') + "</em></p>" else ""}
       #{if ship.damage then "<p><em>" + ship.damageDescription() + "</em></p>" else ""}
@@ -180,8 +180,7 @@ Page.SailDone = class SailDone extends Page
 Page.OneCrewLeaving = class OneCrewLeaving extends Page
   # context[0] will be filled in when this event is triggered
   text: ->
-    img = if g.weather is 'calm' then g.location.images.marketDay else g.location.images.marketStorm
-    """<page bg=#{img}>
+    """<page bg="marketDay|marketStorm">
       #{@[0].image 'sad', 'right'}
       <text><p>#{q}I'm sorry, but I think it's time for me to look for another berth,</q> #{@[0]} maintained a bit of politeness, but not too much. #{}</p></text>
     <page>
@@ -192,10 +191,9 @@ Page.OneCrewLeaving = class OneCrewLeaving extends Page
 Page.ManyCrewLeaving = class ManyCrewLeaving extends Page
   # context[0 -> n] will be filled in when this event is triggered
   text: ->
-    img = if g.weather is 'calm' then g.location.images.marketDay else g.location.images.marketStorm
     names = @toArray()
     name.shift()
-    """<page bg=#{img}>
+    """<page bg="marketDay|marketStorm">
       #{@[0].image 'sad', 'right'}
       <text><p>#{q}I'm sorry, Natalie, but we've talked it over and we think it's time to go our separate ways.</q> #{@[0]} spoke quietly, glancing over #{his} shoulder at the other#{if @length > 2 then 's who were' else 'who was'} also departing. #{names.wordJoin()} nodded in agreement. They were also leaving.</p></text>
     <page>

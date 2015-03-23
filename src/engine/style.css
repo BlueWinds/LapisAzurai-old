@@ -119,6 +119,7 @@ page.no-prev::before {
 
 @media (max-width: 1199px) {
   text {
+    max-width: 100%;
     width: 940px;
   }
 }
