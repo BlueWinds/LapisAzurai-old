@@ -154,6 +154,7 @@ continueText = (element)->
   if element.attr('continue')?
     last = element.parent().prev().children('text')
     element.prepend(last.children().clone())
+    element.removeAttr('continue')
 
 window.toggle = (options, selected)->
   options = optionList options, selected
@@ -166,10 +167,7 @@ window.bigOptions = (options, selected)->
 
 window.dropdown = (options, selected)->
   lis = optionList options, selected
-  return """<button type="button" class="btn btn-default dropdown-toggle inline">#{options[selected]}</button>
-  <span class="dropdown-menu inline">
-    <span>#{lis.join '</span><span>'}</span>
-  </span>"""
+  return """<button type="button" class="btn btn-default dropdown-toggle inline">#{options[selected]}</button><span class="dropdown-menu inline"><span>#{lis.join '</span><span>'}</span></span>"""
 
 window.options = (texts, titles = [])->
   buttons = for text, index in texts
