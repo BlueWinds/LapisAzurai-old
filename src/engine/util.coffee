@@ -109,6 +109,52 @@ String.randomName.chains = (names)->
 
   return [chains, start]
 
+$.render = (element)->
+  element = $(element).filter('page')
+
+  element.each ->
+    addBackground($ @)
+
+  $('text', element).each ->
+    dedashifyText($ @)
+    continueText($ @)
+
+  return element
+
+addBackground = (element)->
+  if element.attr 'bg'
+    bg = element.attr 'bg'
+    if '|' in bg
+      bg = bg.split('|')[if g.weather is 'calm' then 0 else 1]
+
+    if '.' in bg
+      [location, bg] = bg.split('.')
+      bg = g.map[location].images[bg]
+    else
+      bg = g.location.images[bg]
+    bg = 'url("' + bg + '")'
+  else
+    bg = element.prev().css('background-image')
+
+  if bg and bg isnt 'none'
+    element.css('background-image', bg)
+
+dedashifyText = (element)->
+  if element.children('p').length
+    return
+  lines = element.html().split("\n")
+  element.empty()
+  for line in lines
+    if line and not line.match(/<options>/)
+      element.append "<p>#{line.trim()}</p>"
+    else if line
+      element.append line.trim()
+
+continueText = (element)->
+  if element.attr('continue')?
+    last = element.parent().prev().children('text')
+    element.prepend(last.children().clone())
+
 window.toggle = (options, selected)->
   options = optionList options, selected
   return """<span class="btn-group toggle">#{options.join ''}</span>"""
@@ -128,7 +174,7 @@ window.dropdown = (options, selected)->
 window.options = (texts, titles = [])->
   buttons = for text, index in texts
     """<button class="btn btn-default" title="#{titles[index] or ""}">#{text}</button>"""
-  return "<options>#{buttons.join("\n")}</options>"
+  return "<options>#{buttons.join("")}</options>"
 
 optionList = (options, selected)->
   name = 'o-' + Math.random()

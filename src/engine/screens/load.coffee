@@ -23,7 +23,7 @@ Page.Load = class Load extends Page
       ].join('</td><td>')
       "<tr game='#{key}'><td>" + row + '</td></tr>'
 
-    element = $ """<page class="screen load">
+    element = $.render """<page class="screen load">
       <div class="col-lg-6 col-lg-offset-3 col-sm-8 col-sm-offset-2 col-xs-12">
         <table class="table table-striped table-hover">
           <tr><td colspan="3"><input type="file"></td></tr>

@@ -42,7 +42,7 @@ Job.universal.push Job.RepairShip = class RepairShip extends Job
       when @missing is 'wood' then "The lack of wood will #{if noRepair then '<b>prevent</b>' else 'slow down'} repairs"
       else "The lack of naval supplies will #{if noRepair then '<b>completely prevent</b>' else 'slow down'} repairs"
 
-    """The ship is <b title="#{@Ship.damageDescription()}">#{@Ship.shortDamage()}</b>, and could use some attention. #{lackingMaterials} #{unless noRepair then ' (' + String.rate lackingMaterialsRepairSpeed[@missing] + ' speed)' else ''}. Send more workers - and workers with higher <span class="sailing">sailing</span> to speed up repairs."""
+    """The ship is <b title="#{@Ship.damageDescription()}">#{@Ship.shortDamage()}</b>, and could use some attention. #{lackingMaterials} #{unless noRepair then ' (' + String.rate(lackingMaterialsRepairSpeed[@missing]) + ' speed)' else ''}. Send more workers - and workers with higher <span class="sailing">sailing</span> to speed up repairs."""
 
 Job.RepairShip::next = Page.RepairShip = class RepairShip extends Page
   conditions:
@@ -69,8 +69,8 @@ Job.RepairShip::next = Page.RepairShip = class RepairShip extends Page
       fill: -> Page.sumStat 'sailing', g.last.context, Job.RepairShip::officers
   text: ->
     cost =
-      Wood: Math.ceil Math.min(g.cargo.Wood, @repair * woodPerRepair)
-      'Naval Supplies': Math.ceil Math.min(g.cargo['Naval Supplies'], @repair * suppliesPerRepair)
+      Wood: -Math.ceil Math.min(g.cargo.Wood, @repair * woodPerRepair)
+      'Naval Supplies': -Math.ceil Math.min(g.cargo['Naval Supplies'], @repair * suppliesPerRepair)
 
     missingMaterials = switch
       when @missing is 'both' then "Without proper materials in the hold - neither spare planks nor any of the other necessities to make a ship seaworthy - it was painful and slow work, and some tasks were simply impossible."
@@ -82,10 +82,13 @@ Job.RepairShip::next = Page.RepairShip = class RepairShip extends Page
       else "Repaired #{@repair} (#{g.map.Ship.damage - @repair} damage left)"
 
     """<page bg="day|storm">
-      <text><p>#{@worker} pitched in along with #{@crew.toWord()} sailors to set the Lapis aright. Torn canvas and snapped ropes they spliced, patched and replaced. Some weakened wood could be made good as new with a binding, while sections too damaged for that had to be taken out and refitted entirely. A well-put together ship was designed with repair in mind, as well as sea-worthiness - every plank in the ship save the spine itself might be taken out and replaced over the course of years of service.</p>
-      #{if missingMaterials then "<p>" + missingMaterials + "</p>" else ""}
-      <p><em>#{repair}</em></p>
-      <p><em>#{Item.costDescription(cost)}</em></p></text>
+      <text>
+        #{@worker} pitched in along with #{@crew.toWord()} sailors to set the Lapis aright. Torn canvas and snapped ropes they spliced, patched and replaced. Some weakened wood could be made good as new with a binding, while sections too damaged for that had to be taken out and refitted entirely. A well-put together ship was designed with repair in mind, as well as sea-worthiness - every plank in the ship save the spine itself might be taken out and replaced over the course of years of service.
+
+        #{missingMaterials or ""}
+        <em>#{repair}</em>
+        <em>#{Item.costDescription(cost)}</em>
+      </text>
     </page>"""
 
   apply: ->

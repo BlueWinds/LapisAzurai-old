@@ -144,30 +144,7 @@ window.Page = class Page extends GameObject
     if @conditions and not @context.objectLength
       @contextFill()
 
-    div = $(@text.call @context).filter('page')
-    bg = 'none'
-    div.each ->
-      if $(@).attr 'bg'
-        bg = $(@).attr 'bg'
-        if '|' in bg
-          bg = if g.weather is 'calm' then bg.split('|')[0] else bg.split('|')[1]
-
-        location = if '.' in bg then g.Map[bg.split('.')[0]] else g.location
-        bg = location.images[bg]
-
-      if bg isnt 'none'
-        $(@).css('background-image', 'url("' + bg + '")')
-
-    $('text', div).each ->
-      if $(@).attr('continue')?
-        last = $(@).parent().prev().children('text')
-        $(@).prepend(last.children().clone())
-      if $(@).attr('continue-inline')?
-        last = $(@).parent().prev().children('text')
-        text = $(@).html()
-        $(@).empty().prepend(last.children().clone())
-        final = $(@).children().last()
-        final.html(final.html() + text)
+    div = $.render(@text.call @context)
 
     div.appendTo('#content').addTooltips()
     div.not(div[0]).css 'display', 'none'

@@ -79,7 +79,7 @@ Page.Port = class Port extends Page
     else
       ""
 
-    page = $ """<page verySlow class="screen" bg="day|storm">
+    page = $.render """<page verySlow class="screen" bg="day|storm">
       <form class="clearfix">
         <div class="col-md-2">
           <ul class="job-tabs list-group"></ul>

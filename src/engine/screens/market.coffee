@@ -28,7 +28,7 @@ Job.Market = class Market extends Job
   buy: new Collection
   sell: new Collection
   description: ->
-    """<p>#{@worker} wandered the marketplace, searching for bargains and opportunities. #{if g.weather is 'calm' then "It was a pleasant day, so the area was well packed, everyone trying to get their business done before the next storm rolled in." else "Customers were rare in the blustry winds, the few brave souls clutching at their cloaks and hurrying through the winds. Vendors huddled in their stalls, and those with light or water-damageable merchandise had long since packed it away."}</p>"""
+    """#{@worker} wandered the marketplace, searching for bargains and opportunities. #{if g.weather is 'calm' then "It was a pleasant day, so the area was well packed, everyone trying to get their business done before the next storm rolled in." else "Customers were rare in the blustry winds, the few brave souls clutching at their cloaks and hurrying through the winds. Vendors huddled in their stalls, and those with light or water-damageable merchandise had long since packed it away."}"""
 
   valid: ->
     for key of @buy
@@ -99,7 +99,7 @@ Job.Market::next = Page.Market = class Market extends Page
       <text class="short">
         #{@market.description.call @}
         #{options ['Done']}
-        </text>
+      </text>
     </page>"""
     return applyMarket.call(@, element)
 

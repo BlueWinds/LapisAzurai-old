@@ -30,7 +30,7 @@ Page.SetSail = class SetSail extends Page
       g.map[key].renderBlock(key, distance)
     locations.push @port.renderBlock('', 0, )
 
-    page = $ """<page slow class="screen set-sail">
+    page = $.render """<page slow class="screen set-sail">
       <form>
         <div class="bg"></div>
         #{locations.join ''}
@@ -111,13 +111,11 @@ Page.SailDay = class SailDay extends Page
     ship = g.map.Ship
 
     img = Math.choice ['deckDay', 'deckNight', 'day', 'night']
-    page = $ """<page slow auto="3000" class="screen sail" bg="Ship.#{img}"><text>
-      <p><em>#{costDescription}</em></p>
-      #{if other.length then "<p><em>" + other.join(' ') + "</em></p>" else ""}
-      #{if ship.damage then "<p><em>" + ship.damageDescription() + "</em></p>" else ""}
+    return """<page slow auto="3000" class="screen sail" bg="Ship.#{img}"><text>
+      <em>#{costDescription}</em>
+      #{if other.length then "<em>" + other.join(' ') + "</em>" else ""}
+      #{if ship.damage then "<em>" + ship.damageDescription() + "</em>" else ""}
     </text></page>"""
-
-    return page
 
   apply: ->
     @context.days or= 0
@@ -179,14 +177,17 @@ Page.SailDone = class SailDone extends Page
 
 Page.OneCrewLeaving = class OneCrewLeaving extends Page
   # context[0] will be filled in when this event is triggered
-  text: ->
-    """<page bg="marketDay|marketStorm">
-      #{@[0].image 'sad', 'right'}
-      <text><p>#{q}I'm sorry, but I think it's time for me to look for another berth,</q> #{@[0]} maintained a bit of politeness, but not too much. #{}</p></text>
-    <page>
-      #{g.officers.Nat.image 'serious', 'left'}
-      <text continue><p>#{q}Good luck.</q> She nodded sadly. It was clear that #{@[0]} had been planning to leave for some time, and this was as good a time as any. The Lapis had been having a rough time recently - it was hard to hold it against #{him @[0]}.</p></text>
-    </page>"""
+  text: ->"""<page bg="marketDay|marketStorm">
+    #{@[0].image 'sad', 'right'}
+    <text>
+      #{q}I'm sorry, but I think it's time for me to look for another berth,</q> #{@[0]} maintained a bit of politeness, but not too much.
+    </text>
+  <page>
+    #{g.officers.Nat.image 'serious', 'left'}
+    <text continue>
+      #{q}Good luck.</q> She nodded sadly. It was clear that #{@[0]} had been planning to leave for some time, and this was as good a time as any. The Lapis had been having a rough time recently - it was hard to hold it against #{him @[0]}.
+    </text>
+  </page>"""
 
 Page.ManyCrewLeaving = class ManyCrewLeaving extends Page
   # context[0 -> n] will be filled in when this event is triggered
@@ -195,8 +196,12 @@ Page.ManyCrewLeaving = class ManyCrewLeaving extends Page
     name.shift()
     """<page bg="marketDay|marketStorm">
       #{@[0].image 'sad', 'right'}
-      <text><p>#{q}I'm sorry, Natalie, but we've talked it over and we think it's time to go our separate ways.</q> #{@[0]} spoke quietly, glancing over #{his} shoulder at the other#{if @length > 2 then 's who were' else 'who was'} also departing. #{names.wordJoin()} nodded in agreement. They were also leaving.</p></text>
+      <text>
+        #{q}I'm sorry, Natalie, but we've talked it over and we think it's time to go our separate ways.</q> #{@[0]} spoke quietly, glancing over #{his} shoulder at the other#{if @length > 2 then 's who were' else 'who was'} also departing. #{names.wordJoin()} nodded in agreement. They were also leaving.
+      </text>
     <page>
       #{g.officers.Nat.image 'serious', 'left'}
-      <text continue><p>#{q}I'm sorry to see you all go, but if that's what you have to do, then good luck.</q> She nodded sadly. It had been clear that they were already decided, and trying to hold onto them was a losing proposition. The Lapis had been having a rough time recently - it was hard to hold it against them.</p></text>
+      <text continue>
+        #{q}I'm sorry to see you all go, but if that's what you have to do, then good luck.</q> She nodded sadly. It had been clear that they were already decided, and trying to hold onto them was a losing proposition. The Lapis had been having a rough time recently - it was hard to hold it against them.
+      </text>
     </page>"""

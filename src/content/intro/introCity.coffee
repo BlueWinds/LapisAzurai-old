@@ -131,7 +131,7 @@ Mission.CrewCargo = class CrewCargo extends Mission
 
 
 Job.IntroMarket = class IntroMarket extends Job.Market
-  description: ->"""<p>Natalie wanders the marketplace, searching for bargains and opportunities. Maiden Tea is a good deal here, but there's not much available - the price will increase if she buys too much. Wood is at a premium on a small island like Vailia, but the city does import a great deal of it to construct ships.</p>"""
+  description: ->"""Natalie wanders the marketplace, searching for bargains and opportunities. Maiden Tea is a good deal here, but there's not much available - the price will increase if she buys too much. Wood is at a premium on a small island like Vailia, but the city does import a great deal of it to construct ships."""
   buy: new Collection
     Fish: [50, 0]
     Barley: [50, 0]

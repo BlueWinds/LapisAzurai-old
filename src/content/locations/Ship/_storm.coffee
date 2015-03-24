@@ -6,10 +6,8 @@ battenDownMultiplier = 2 / 3
 
 stormDamage = ->
   damage = Math.random() * (stormDamageMax - stormDamageMin) + stormDamageMin
-  console.log damage
   damage -= Page.sumStat('sailing', g.crew) / sailPerDamageSaved
   damage -= Page.sumStat('sailing', g.officers) / sailPerDamageSaved
-  console.log damage
   damage = Math.round(damage)
   return damage
 
@@ -26,12 +24,12 @@ Place.Ship::jobs.storm = ShipJob.Storm = class Storm extends ShipJob
   type: 'plot'
   conditions:
     chance:
-      matches: -> return Math.random() <= 1
+      matches: -> return Math.random() <= 0.1
       optional: true
     '|events|FirstStorm': {}
     damage: {fill: stormDamage}
     sailing: '|last'
-  text: ->"""<p>The sky in darkening, winds blowing in. It looks like you're in for <b>#{intensity @context.damage}</b>. Time to either run for shore or batten down the hatches and pray.</p>"""
+  text: ->"""The sky in darkening, winds blowing in. It looks like you're in for <b>#{intensity @context.damage}</b>. Time to either run for shore or batten down the hatches and pray."""
 
 ShipJob.Storm::next = Page.Storm = class Storm extends Page
   conditions:
@@ -53,19 +51,21 @@ ShipJob.Storm::next = Page.Storm = class Storm extends Page
       "Preparing for the storm will reduce the damage to #{String.rate battenDownMultiplier}."
     ]
 
-    page = $ """<page slow short class="screen sail" bg="Ship.deckStorm"><text>
-      <p>Dark clouds on the horizon and growing waves - a storm was rolling in. Natalie felt it in her bones - this was going to be <b>#{intensity @damage}</b>. There were still a few hours before it arrived though, time to make preparations.</p>
-      <p><em>Your crew's <span class="sailing">sailing</span> reduces the damage from a storm</em></p>
-      #{options buttons, titles}
-    </text></page>"""
+    page = $.render """<page slow short class="screen sail" bg="Ship.deckStorm">
+      <text>
+        Dark clouds on the horizon and growing waves - a storm was rolling in. Natalie felt it in her bones - this was going to be <b>#{intensity @damage}</b>. There were still a few hours before it arrived though, time to make preparations.
+        <em>Your crew's <span class="sailing">sailing</span> reduces the damage from a storm</em>
+        #{options buttons, titles}
+      </text>
+    </page>"""
 
     $('button', page).eq(0).click ->
       [g.location, sail.destination] = [sail.destination, g.location]
-      sail.days = sail.daysNeeded - sail.days + @Ship.sailSpeed()
+      sail.days = sail.daysNeeded - sail.days + g.map.Ship.sailSpeed()
       arrive()
 
     $('button', page).eq(1).click ->
-      sail.days += @Ship.sailSpeed()
+      sail.days += g.map.Ship.sailSpeed()
       arrive()
 
     $('button', page).eq(2).click ->
@@ -97,7 +97,9 @@ Page.StormBatten = class StormBatten extends Page
     damage: {}
   text: ->"""<page bg="Ship.storm"></page>
   <page>
-    <text><p>With enough warning to tie down everything that could be tied down and bring in the sails, the Lapis Azurai was as ready as any ship could be to survive a storm on the open ocean. Waves tossed it to and fro, and even with the crew doing all they could to weather the tempest and waves, some damage was inevitable.</p></text>
+    <text>
+      With enough warning to tie down everything that could be tied down and bring in the sails, the Lapis Azurai was as ready as any ship could be to survive a storm on the open ocean. Waves tossed it to and fro, and even with the crew doing all they could to weather the tempest and waves, some damage was inevitable.
+    </text>
   </page>
   <page>
     <text continue>#{damageDescription (@damage * battenDownMultiplier)}</text>
@@ -111,10 +113,14 @@ Page.StormRun = class StormRun extends Page
     damage: {}
   text: ->"""<page bg="Ship.storm"></page>
   <page>
-    <text><p>Running on the wings of the storm, the Lapis Azurai fairly flew through the water, picking up speed even as the waves grew taller and the winds more intense - it made a full day's progress, ropes humming and sails straining before finally the groaning of the masts and hull convinced Natalie that she could push no further.</p></text>
+    <text>
+      Running on the wings of the storm, the Lapis Azurai fairly flew through the water, picking up speed even as the waves grew taller and the winds more intense - it made a full day's progress, ropes humming and sails straining before finally the groaning of the masts and hull convinced Natalie that she could push no further.
+    </text>
   </page>
   <page>
-    <text continue>#{damageDescription @damage}</text>
+    <text continue>
+       #{damageDescription @damage}
+     </text>
   </page>"""
   apply: ->
     super()

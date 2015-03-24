@@ -138,7 +138,7 @@ window.ShipJob = class ShipJob extends Job
   renderBlock: (key)->
     """<div class="#{@type or 'normal'} job column-block" data-key="#{key}">
       <div class="block-label">#{@label}</div>
-      <div class="job-description">#{@text()}</div>
+      <div class="job-description">#{@text().replace("\n", "<br>")}</div>
     </div>"""
 
   contextReady: ->
