@@ -1,4 +1,4 @@
 #!/bin/bash
-grunt full-compile
+grunt full-compile compress
 scp LapisAzurai.zip 192.254.186.53:LapisAzurai.zip
 ssh 192.254.186.53 "cd LapisAzurai && rm -rf * && mv ../LapisAzurai.zip . && unzip -q LapisAzurai.zip"

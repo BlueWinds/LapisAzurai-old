@@ -106,7 +106,7 @@ Job.Market::next = Page.Market = class Market extends Page
   next: false
 
 applyMarket = (element)->
-  element = $(element)
+  element = $.render(element)
   buy = @market.buy
   sell = @market.sell
   context = @

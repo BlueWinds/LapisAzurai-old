@@ -194,7 +194,7 @@ Place.Alkenia::jobs.forestry = Job.AlkeniaForestry = class AlkeniaForestry exten
   label: 'Explore Forest'
   type: 'special'
   text: ->"""Alkenia provides most of the lumber for Vailia's shipyards. Some contacts in the industry would be advantageous for a young captain."""
-  energy: 2
+  energy: -2
 
 Mission.AlkeniaWeapons = class AlkeniaWeapons extends Mission
   label: "Weapons for Alkenia"
@@ -203,20 +203,22 @@ Mission.AlkeniaWeapons = class AlkeniaWeapons extends Mission
       conditions:
         '|cargo|Weapons': {gte: 6}
     ,
-      description: "Bring them to Alkenia to defend against Nonkenian raiders"
+      description: "Bring them to Alkenia"
       conditions:
+        '|cargo|Weapons': {gte: 6}
         '|location': {is: Place.Alkenia}
   ]
 
-Job.AlkeniaForestry2 = class AlkeniaForestry2 extends Page
+Job.AlkeniaForestry2 = class AlkeniaForestry2 extends Job
   officers:
     Nat: '|officers|Nat'
+    James: '|officers|James'
   label: 'Explore Forest'
   conditions:
     '|cargo|Weapons': {gte: 6}
   type: 'special'
   text: ->"""Alkenia provides most of the lumber for Vailia's shipyards. One of their foremen asked her to bring weapons to defend against raiders from Nonkenai."""
-  energy: 2
+  energy: -2
 
 ShipJob.JamesNoWeapons = class JamesNoWeapons extends ShipJob
   label: "James upset"
@@ -233,32 +235,34 @@ Job.AlkeniaForestry::next = Page.AlkeniaForestry = class AlkeniaForestry extends
     <text>
       Alkenia was something of an exception to the normal rules - few cities dared venture as far and as regularly into the wild as they did. And more amazing still was the fact that, as best Natalie could tell from rumours and talk, almost no one disappeared.
     </text>
+  </page>
   <page>
-    <text full>
+    <text>
       <q>The biggest danger is raiders from Nonkenia,</q> the lumberjack spat the name. <q>They have some devilish pact or other that keeps 'em hidden until too late. You take my advice, miss,</q> he leaned against his burden, a tree trunk almost as big around and tall as as she was, <q>you won't go out there without a nice big group to keep you safe.</q>
 
       #{q @Nat}I'm not planning on going myself, but thanks for the tip. Mostly I was wondering if there's anything you need?</q> She hadn't been expecting to find the owner of a relatively large company out and carrying logs himself, but it was a pleasant surprise. He was easier to deal with by far than a conniving desk clerk.
-
+    </text>
+  </page>
+  <page>
+    <text>
       <q>Hah, a Vailian looking to help, there's a new one. You said you were a captain? Not much use to me, then. Kind of you to ask, though.</q> With a grunt he heaved the log back to his shoulder, getting ready to leave. He paused, turning back to her, and she had to duck the swing of his beam. <q>Well, maybe there is something. Bring me a dozen bows with spears and knives to match - good Vailian ones, not the dreck they make down by the pier - I might start thinking you mean it.</q> He laughed at her expression - that much weaponry was, not to put too fine a point on it, rather expensive.
     </text>
   </page>
   <page>
-    <text continue full
+    <text continue>
       <em>New quest: Weapons for Alkenia</em>
-
-      <em>Bring 6 crates of Weapons to Alkenia</em>
     </text>
   </page>"""
   apply: ->
     super()
-    g.Map.Vailia.jobs.market.buy.weapons or= [6, 7]
-    g.Map.Vailia.jobs.market.sell.weapons or= [6, -2]
-  effect:
+    g.map.Vailia.jobs.market.buy.Weapons or= [6, 7]
+    g.map.Vailia.jobs.market.sell.Weapons or= [6, -2]
+  effects:
     remove:
       '|location|jobs|forestry': Job.AlkeniaForestry
     add:
       '|missions|AlkeniaWeapons': Mission.AlkeniaWeapons
-      '|location|jobs|forestry': Job.AlkeniaForestry2
+      '|location|jobs|forestry2': Job.AlkeniaForestry2
       '|map|Ship|jobs|jamesNoWeapons': ShipJob.JamesNoWeapons
 
 ShipJob.JamesNoWeapons::next = Page.JamesNoWeapons = class JamesNoWeapons extends PlayerOptionPage
@@ -268,10 +272,13 @@ ShipJob.JamesNoWeapons::next = Page.JamesNoWeapons = class JamesNoWeapons extend
   text: ->"""<page bg="Ship.cabinNight">
     <text>
       #{q @James}Are you sure we should be doing this, Nat?</q> James kicked the crate, producing no sound. The bows inside were well packed, and compared to the beating they'd take during loading or unloading, a stray kick was nothing. It did waft out the scent of pine oil, sealing the contents against saltwater in case the hold flooded. #{q}I don't like being an arms merchant.</q>
-
+    </text>
+  </page>
+  <page>
+    <text>
       #{q @Nat}Alkeina's a next door neighbor. It's not like we're selling them to some bloodthirsty warlord - he's just a lumberjack. This is hunting gear anyway, bows and spears and knives.</q> The lantern swayed in her hand, casting dancing shadows across the interior of the cargo hold.
 
-      #{@q}I know, I know what we're doing isn't wrong. It just feels like a foot in the door - once you do this, you're the sort of person who does it, you know? Do me a favor. Let's take these back to Vailia and sell them there.</q>
+      #{q @James}I know, I know what we're doing isn't wrong. It just feels like a foot in the door - once you do this, you're the sort of person who does it, you know? Do me a favor. Let's take these back to Vailia and sell them there.</q>
       #{options ['Carry on', 'Abandon mission'], ["Try to convince him that it's not a big deal", "Listen to your friend"]}
     </text>
   </page>"""
@@ -300,11 +307,12 @@ Page.JamesNoWeapons.next['Abandon Mission'] = Page.JamesNoWeaponsAgree = class J
     Nat: {}
   text: ->"""<page bg="Ship.cabinNight">
     <text>
-    She laid a hand on Jame's forearm with an encouraging smile. #{q @Nat}We won't be those sorts of people, I promise. We'll take them back to Vailia, though I'll probably take a loss on the deal.</q>
+      She laid a hand on Jame's forearm with an encouraging smile. #{q @Nat}We won't be those sorts of people, I promise. We'll take them back to Vailia, though I'll probably take a loss on the deal.</q>
 
-    James tilted his head, eyebrows rising. #{q @James}I didn't think you'd actually listen. Huh.</q> His surprise turned into a pleased smile, and he patted her hand where it still lay on his arm. #{q}Thank you, Natalie.</q>
+      James tilted his head, eyebrows rising. #{q @James}I didn't think you'd actually listen. Huh.</q> His surprise turned into a pleased smile, and he patted her hand where it still lay on his arm. #{q}Thank you, Natalie.</q>
 
-    <em><span class="happiness">+6 happiness</span> for James</em></text>
+      <em><span class="happiness">+6 happiness</span> for James</em>
+    </text>
   </page>"""
   apply: ->
     super()
@@ -317,14 +325,24 @@ Page.JamesNoWeapons.next['Abandon Mission'] = Page.JamesNoWeaponsAgree = class J
 Job.AlkeniaForestry2::next = Page.AlkeniaForestry2 = class AlkeniaForestry2 extends Page
   text: ->"""<page bg="day|storm">
     <text>
-    <q>Ha, now those are fine</q>
+      <q>Ha, now those are some fine bows,</q> he grinned as he ran his hand along the curve. Smooth, beautiful wood, laminated with horn and polished until it gleamed - though more expensive than locally made self-bows, the smaller size of Vailian composite weapons made them better suited for dealing with dense folliage and tight spaces, he'd explained. Natalie had simply nodded along, while James wondered in a quiet whisper whether the benefit was really worth the cost of importing them across the ocean.
+    </text>
+  </page>
+  <page>
+    <text>
+      #{q g.officers.Nat}I'm glad you like them. It makes my quartermaster a bit uncomfortable shipping weapons though, so I'm afraid it'll be difficult to obtain replacements from me.</q>
 
-    <em>-2β Wood cost in Alkenia</em></text>
+      He slapped her on the back, making her stagger with the force of his friendly approval. <q>Nonkenians won't know what hit 'em.</q>
+
+      <em>-2β Wood cost in Alkenia</em>
+    </text>
   </page>"""
   apply: ->
     super()
     g.map.Alkenia.jobs.market.buy.Wood[0] -= 2
     delete g.map.Vailia.jobs.market.buy.Weapons
-  effect:
+  effects:
     cargo:
       Weapons: -6
+    remove:
+      '|location|jobs|forestry2': Job.AlkeniaForestry2

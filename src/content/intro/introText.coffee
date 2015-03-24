@@ -16,7 +16,7 @@ Page.Intro = class Intro extends Page
     Nat: '|officers|Nat'
     Ship: '|map|Ship'
   text: ->
-    element = $("""<page>
+    element = $.render("""<page>
       <text class="full center"><em>Click anywhere on the page or use the down arrow key to advance</em></text>
     </page>
     <page slow>
