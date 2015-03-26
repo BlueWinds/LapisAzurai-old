@@ -23,14 +23,14 @@ Page.Load = class Load extends Page
       ].join('</td><td>')
       "<tr game='#{key}'><td>" + row + '</td></tr>'
 
-    element = $.render """<page class="screen load">
-      <div class="col-lg-6 col-lg-offset-3 col-sm-8 col-sm-offset-2 col-xs-12">
-        <table class="table table-striped table-hover">
-          <tr><td colspan="3"><input type="file"></td></tr>
-          #{rows.join("\n")}
-        </table>
-      </div>
-    </page>"""
+    table = """<table class="table table-striped table-hover">
+      <tr><td colspan="3"><input type="file"></td></tr>
+      #{rows.join("\n")}
+    </table>""".replace("\n", '')
+
+    element = $.render """|| class="screen load"
+      <div class="col-lg-6 col-lg-offset-3 col-sm-8 col-sm-offset-2 col-xs-12">#{table}</div>
+    """
 
     $('input', element).change ->
       unless file = @files[0]
@@ -64,7 +64,6 @@ Page.Load = class Load extends Page
         name = $(@).parent().prev().prev().html()
 
         link = $("<a class='btn btn-xs btn-link'>Export</a>")
-        console.log link
         link.replaceAll(@)
         link.attr('href', blob)
         link.attr('download', name)

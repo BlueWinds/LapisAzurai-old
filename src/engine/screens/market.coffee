@@ -70,37 +70,38 @@ Job.Market::next = Page.Market = class Market extends Page
 
     cargoPercent = Math.sumObject(g.cargo) / Game.cargo * 100
 
-    element = """<page class="screen" bg="marketDay|marketStorm">
-      <form class="clearfix">
-        <div class="col-lg-4 col-lg-offset-2 col-sm-6">
-          <div class="buy column-block">
-            <div class="block-label">#{@worker} buys...</div>
-            <table>
-              #{buy.join ''}
-            </table>
+    form = """<form class="clearfix">
+      <div class="col-lg-4 col-lg-offset-2 col-sm-6">
+        <div class="buy column-block">
+          <div class="block-label">#{@worker} buys...</div>
+          <table>
+            #{buy.join ''}
+          </table>
+        </div>
+      </div>
+      <div class="col-lg-4 col-sm-6">
+        <div class="sell column-block">
+          <div class="block-label">And Sells...</div>
+          <table>#{sell.join ''}</table>
+          <div class="block-summary">
+            #{@workers.toWord().capitalize()} worker#{if @workers is 1 then '' else 's'} can carry <span class="carry">#{maxLoad(@workers)}</span> more loads today.
+            <br>
+            This will cost <span class="spend">0β</span> and earn <span class="earn">0β</span>, leaving you with <span class="result">#{g.officers.Nat.money}β</span>
+          </div>
+          <div class="block-summary">
+            <div class="progress-label">The Lapis Azurai</div>
+            <div class="progress"><div class="progress-bar" style="width: #{cargoPercent}%;"></div></div>
           </div>
         </div>
-        <div class="col-lg-4 col-sm-6">
-          <div class="sell column-block">
-            <div class="block-label">And Sells...</div>
-            <table>#{sell.join ''}</table>
-            <div class="block-summary">
-              #{@workers.toWord().capitalize()} worker#{if @workers is 1 then '' else 's'} can carry <span class="carry">#{maxLoad(@workers)}</span> more loads today.
-              <br>
-              This will cost <span class="spend">0β</span> and earn <span class="earn">0β</span>, leaving you with <span class="result">#{g.officers.Nat.money}β</span>
-            </div>
-            <div class="block-summary">
-              <div class="progress-label">The Lapis Azurai</div>
-              <div class="progress"><div class="progress-bar" style="width: #{cargoPercent}%;"></div></div>
-            </div>
-          </div>
-        </div>
-      </form>
-      <text class="short">
+      </div>
+    </form>""".replace("\n", '')
+
+    element = """|| class="screen" bg="marketDay|marketStorm"
+      #{form}
+      -- class="short"
         #{@market.description.call @}
         #{options ['Done']}
-      </text>
-    </page>"""
+    """
     return applyMarket.call(@, element)
 
   next: false

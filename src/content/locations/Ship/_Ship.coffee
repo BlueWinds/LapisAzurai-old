@@ -62,30 +62,27 @@ ShipJob.Talk.next.push Page.ShipTalkStories = class ShipTalkStories extends Page
   conditions:
     Nat: '|officers|Nat'
     '|season': {eq: ['Fire', 'Earth']}
-  text: ->"""<page bg="Ship.deckNight">
-    <text>
+  text: ->"""|| bg="Ship.deckNight"
+    --
       In the evenings, while a pair of lookouts kept watch, most of the crew gathered on-deck, to share stories and drinks and company amid the stars. Natalie made it a point to find herself leaning against the same rail as #{Math.choice g.crew}. The ocean lapped against the hull somewhere below, mild waves gently rocking the Lapis Azurai. They talked for some time, content to watch the others from a distance, letting bonds deepen with the setting of the sun.
 
       <em>Crew: <span class="happiness">+2 happiness</span></em>
-    </text>
-  </page>"""
+  """
 
 ShipJob.Talk.next.push Page.ShipTalkIndoors = class ShipTalkIndoors extends Page
   conditions:
     Nat: '|officers|Nat'
     '|season': {eq: ['Earth', 'Water']}
-  text: ->"""<page bg="Ship.deckNight">
-    <text>
+  text: ->"""|| bg="Ship.deckNight"
+    --
       With colder weather setting in, those not on duty preferred to gather in the cargo hold, if it was empty enough, or squeeze into the sleeping area if not. Hot and crowded was better than windy and chill, and those too near the doorway still kept cloaks on to protect against stray drafts.
-    </text>
-  </page>
-  <page>
-    <text>
+
+  ||
+    --
       Though she often preferred to keep her own company, or entertain a smaller group in her own quarters, Natalie also made it a point to spend plenty of time mingling with the crew, especially when off duty. Aside from the purely practical considerations to keeping in touch with their mood and fostering a sense of companionship, she also found it fascinating to listen to them – why they left their homes to risk lives on the open ocean, what they wanted, who they wanted to be... she spent hours listening to and talking with #{Math.choice g.crew}.
 
       <em>Crew: <span class="happiness">+2 happiness</span></em>
-    </text>
-  </page>"""
+  """
 
 ShipJob.Talk.next.push Page.ShipTalkMusic = class ShipTalkMusic extends Page
   conditions:
@@ -95,26 +92,19 @@ ShipJob.Talk.next.push Page.ShipTalkMusic = class ShipTalkMusic extends Page
       return g.crew.asArray().sort((c1, c2)->c1.diplomacy - c2.diplomacy)[0]
     sailor2: fill: ->
       return g.crew.asArray().sort((c1, c2)->c1.diplomacy - c2.diplomacy)[2]
-  text: ->"""<page bg="Ship.deckNight">
-    <text>
+  text: ->"""|| bg="Ship.deckNight"
+    --
       As often as not it had rained in the evenings recently, so those not on watch found themselves crammed into the sleeping quarters. The humidity made the confines not entirely comfortable, but at least they could easily regulate temperature, between body heat and frozen rain outside.
-    </text>
-  </page>
-  <page>
-    <text continue>
+  ||
+    -->
       Tonight the crew played music, rather than talk, rain beating a staccato counterpoint on the deck overhead. A beat up old guitar was passed around, everyone who knew how to use it taking turns until it finally made its way into #{@sailor}'s hands. #{He} was the best, and everyone knew it, strong and clear #{if @sailor.gender is 'f' then 'alto' else 'baritone'} voice filling the space.
-    </text>
-  </page>
-  <page>
-    <text>
+  ||
+    --
       Sitting side by side on the to top level of a bunk, Natalie and #{@sailor2}, relaxed, and it wasn't long before a drowsy captain was leaning on her sailor, lulled by the soothing tones and a sad song of home-far-away. #{@sailor2} gently shifted her to lean against the wall instead, and covered her with a blanket when the song ended.
-    </text>
-  </page>
-  <page>
-    <text continue>
+  ||
+    -->
       <em>Crew: <span class="happiness">+2 happiness</span></em>
-    </text>
-  </page>"""
+  """
 
 ShipJob.Talk.next.push Page.ShipTalkSports = class ShipTalkSports extends Page
   conditions:
@@ -124,17 +114,14 @@ ShipJob.Talk.next.push Page.ShipTalkSports = class ShipTalkSports extends Page
       return g.crew.asArray().sort((c1, c2)->c1.combat - c2.combat)[0]
     sailor2: fill: ->
       return g.crew.asArray().sort((c1, c2)->c1.combat - c2.combat)[1]
-  text: ->"""<page bg="Ship.deckNight">
-  <text>
+  text: ->"""|| bg="Ship.deckNight"
+    --
       Some evenings, once most of the day's work was done, rather than lay about and rest or play music, the crew decided to be a little more energetic. Tossing items around wasn't entirely practical on a small ship, but wrestling or running games were entirely too popular. Natalie hadn't intended to participate, but when #{@sailor} bowled her over on the way to one of the goals, she couldn't resist.
-    </text>
-  </page>
-  <page>
+  ||
     #{@Nat.image 'excited', 'left'}
-    <text>
+    --
       Wrapping both arms around #{@sailor}'s thigh she clung on like a burr, hanging from #{his} leg and slowing #{him} down enough for the other team to catch up. Together Natalie and #{@sailor2} wrestled away control of the colored strip of cloth that was the aim, and #{@sailor} fled back to the other side of the ship. Natalie stuck her tongue out at #{@sailor}, and #{he} good naturedly cursed at #{his} captain before chasing the fleeing #{@sailor2}.
-    </text>
-  </page>"""
+  """
 
 Ship::jobs.trainCombat = ShipJob.TrainCombat = class TrainCombat extends ShipJob
   label: "Mock Combat"
@@ -145,12 +132,13 @@ Ship::jobs.trainCombat = ShipJob.TrainCombat = class TrainCombat extends ShipJob
 ShipJob.TrainCombat::next = Page.TrainCombat = class TrainCombat extends Page
   conditions:
     James: '|officers|James'
-  text: ->"""<page bg="Ship.day">
-    #{@James.image 'angry', ''}<text>
-    James divided the crew up into two teams - half of them practiced boarding while the others repeled using oars and poles wrapped in cloth as weapons. It was still unbelievably noisy as some of the sailors got very much into the spirit, with battle cries and dramatic 'death scenes' as they were slain.
+  text: ->"""|| bg="Ship.day"
+    #{@James.image 'angry', ''}
+    --
+      James divided the crew up into two teams - half of them practiced boarding while the others repeled using oars and poles wrapped in cloth as weapons. It was still unbelievably noisy as some of the sailors got very much into the spirit, with battle cries and dramatic 'death scenes' as they were slain.
 
-    <em>Crew: <span class="combat">+1 combat</span><br>James: <span class="energy">-2 energy</span></em>
-  </text></page>"""
+      <em>Crew: <span class="combat">+1 combat</span><br>James: <span class="energy">-2 energy</span></em>
+  """
   apply: ->
     super()
     for i, sailor of g.crew then sailor.add('combat', 1)
@@ -164,14 +152,13 @@ Ship::jobs.trainBusiness = ShipJob.TrainBusiness = class TrainBusiness extends S
 ShipJob.TrainBusiness::next = Page.TrainBusiness = class TrainBusiness extends Page
   conditions:
     Nat: '|officers|Nat'
-  text: ->"""<page bg="Ship.deckDay">
+  text: ->"""|| bg="Ship.deckDay"
     #{@Nat.image 'normal', ''}
-    <text>
+    --
       While the world may be a vast place, the officers of the Lapis are some of the most well-traveled and educated individuals in it - Natalie can read and write, for example, which places her in the top 25% of the Vailian population, much less other nations. A bit of teaching is a fun way to pass the time.
 
       <em>Crew: <span class="business">+1 business</span><br>Natalie: <span class="happiness">+1 happiness</span>, <span class="energy">-1 energy</span></em>
-    </text>
-  </page>"""
+  """
   apply: ->
     super()
     for i, sailor of g.crew then sailor.add('business', 1)
@@ -187,14 +174,13 @@ Ship::jobs.trainSailing = ShipJob.TrainSailing = class TrainSailing extends Ship
 ShipJob.TrainSailing::next = Page.TrainSailing = class TrainSailing extends Page
   conditions:
     Nat: '|officers|Nat'
-  text: ->"""<page bg="Ship.day">
+  text: ->"""|| bg="Ship.day"
     #{@Nat.image 'serious', ''}
-    <text>
+    --
       Scrubbing the deck is hardly the most glamorous work, but that and a flurry of other menial tasks are necessary to keep a sailing vessel in proper shape - it's not just make-work when all their lives can depend on whether someone slips or not.
 
       <em>Crew: <span class="sailing">+1 sailing</span>, <span class="happiness">-1 happiness</span><br>Natalie: <span class="energy">-2 energy</span></em>
-    </text>
-  </page>"""
+  """
   apply: ->
     super()
     for i, sailor of g.crew

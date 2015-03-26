@@ -16,22 +16,19 @@ Page.HireCrewOne = class HireCrewOne extends Page
   conditions:
     Assistant: {optional: true}
     # '0' will be set by the hiring event
-  text: ->"""<page bg="tavern">
+  text: ->"""|| bg="tavern"
     #{@[0].image 'normal', 'mid-right reversed'}
-    <text>
+    --
       Natalie talked with several sailors, but most of them weren't exactly prime material - too old, too young, sickly or untrustworthy. If they were just sailing around lakes, hauling cargo up rivers with a barge she might let them aboard anyway, but not on the open ocean. It was dangerous out there. Those terrible storms which made landfall, that tore houses from the ground and uprooted trees were nothing compared to the hurricanes that raged across open water. And the monsters. Always the monsters. Natalie had to trust her crewmates with her life.
 
       #{@[0]} was the only one who fits the bill tonight. #{He @[0]}'ll do.
-    </text>
-  </page>
-  <page>
+  ||
     #{g.officers.Nat.image 'normal', 'mid-left'}
-    <text>
+    --
       Tradition dictated that a new sailor was entitled to a handsome signup bonus, paid before departure - they were putting their life in the hands of a captain they didn't know, after all, and should be able to leave something behind even if they never returned. After a bit of negotiation, #{@[0]} finally settled for #{hireCost @asArray(), @}β immediately and #{@[0].wages()}β daily thereafter. #{@Assistant or 'Natalie'} handed over a one obol coin and told #{@[0]} where they're docked.
 
       #{q}Welcome aboard.</q>
-    </text>
-  </page>"""
+  """
   apply: ->
     super()
     cost = -hireCost(@context.asArray(), @context)
@@ -45,16 +42,15 @@ Page.HireCrewMulti = class HireCrewMulti extends Page
   text: ->
     wages = Math.sum((crew.wages() for crew in @asArray()))
     names = @asArray().map (p)->p.name
-    """<page bg="night">
+    """|| bg="night"
       #{g.officers.Nat.image 'normal', 'mid-left'}
-      <text>
+      --
         Of the many people interested, Natalie eventually settled on #{@asArray().length.toWord()}: #{names.wordJoin()}.
 
         Tradition dictated that a new crewmembe was entitled to a handsome signup bonus, paid before departure - they were putting their life in the hands of a captain they didn't know, after all, and should be able to leave something behind even if they never returned. After arguing with #{Math.choice names} for a while, Natalie finally convinced them to accept #{hireCost @asArray, @}β immediately, and #{wages}β daily thereafter. #{@Assistant or g.officers.Nat} handed an obol coin to each recruit and told them where to find the ship in the morning.
 
         #{q}Welcome aboard.</q>
-      </text>
-    </page>"""
+    """
   apply: ->
     super()
     cost = -hireCost(@context.asArray(), @context)
@@ -155,30 +151,31 @@ Job.HireCrew::next = Page.HireCrew = class HireCrew extends Page
     for name, person of g.officers
       wages += person.wages()
 
-    element = """<page class="screen" bg="tavern">
-      <form class="clearfix">
-        <div class="col-md-4 col-sm-6 col-md-offset-2">
-          <div class="hires clearfix column-block">
-            <div class="block-label">Sailors</div>
-            #{hires.join ''}
-          </div>
+    form = """<form class="clearfix">
+      <div class="col-md-4 col-sm-6 col-md-offset-2">
+        <div class="hires clearfix column-block">
+          <div class="block-label">Sailors</div>
+          #{hires.join ''}
         </div>
-        <div class="col-md-4 col-sm-6">
-          <div class="crew clearfix column-block">
-            <div class="block-label">Crew</div>
-            #{officers.join ''}
-            <div class="block-summary">
-              <span class="cost">0β</span> today, <span class="wages">#{wages}β</span> daily
-            </div>
-            #{crew.join ''}
+      </div>
+      <div class="col-md-4 col-sm-6">
+        <div class="crew clearfix column-block">
+          <div class="block-label">Crew</div>
+          #{officers.join ''}
+          <div class="block-summary">
+            <span class="cost">0β</span> today, <span class="wages">#{wages}β</span> daily
           </div>
+          #{crew.join ''}
         </div>
-      </form>
-      <text class="short">
+      </div>
+    </form>""".replace("\n", '')
+
+    element = """|| class="screen" bg="tavern"
+      #{form}
+      -- class="short"
         #{@job.description.call @}
         #{options ['Done']}
-      </text>
-    </page>"""
+    """
     return applyHire.call @, element
 
   next: false

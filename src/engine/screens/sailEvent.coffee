@@ -8,10 +8,9 @@ Page.SailEvent = class SailEvent extends Page
     Array::sort.call(jobs, Job.jobSort)
 
     img = Math.choice ['deckDay', 'deckNight', 'day', 'night']
-    page = $("""<page verySlow class="screen sail" bg="Ship.#{img}">
-      <div class="col-xs-8 col-xs-offset-2">
-      </div>
-    </page>""")
+    page = $.render """|| verySlow="true" class="screen sail" bg="Ship.#{img}"
+      <div class="col-xs-8 col-xs-offset-2"></div>
+    """
     $('.col-xs-8', page).append jobs
     jobs.wrap('<div class="col-xs-6"></div>')
 

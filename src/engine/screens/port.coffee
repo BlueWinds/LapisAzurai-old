@@ -79,23 +79,24 @@ Page.Port = class Port extends Page
     else
       ""
 
-    page = $.render """<page verySlow class="screen" bg="day|storm">
-      <form class="clearfix">
-        <div class="col-md-2">
-          <ul class="job-tabs list-group"></ul>
-        </div>
-        <div class="col-lg-4 col-md-5">
-          <div class="jobs column-block"></div>
-        </div>
-        <div class="col-lg-4 col-md-5">
-          <div class="crew clearfix column-block">#{officers.join('') + crew.join('')}</div>
-        </div>
-      </form>
-      <text class="short">
+    form = """<form class="clearfix">
+      <div class="col-md-2">
+        <ul class="job-tabs list-group"></ul>
+      </div>
+      <div class="col-lg-4 col-md-5">
+        <div class="jobs column-block"></div>
+      </div>
+      <div class="col-lg-4 col-md-5">
+        <div class="crew clearfix column-block">#{officers.join('') + crew.join('')}</div>
+      </div>
+    </form>""".replace("\n", '')
+
+    page = $.render """|| verySlow="true" class="screen" bg="day|storm"
+      #{form}
+      -- class="short"
         #{@port.description?() or @port.description}
         #{options ['Work in ' + @port, 'Set Sail'], ["All officers must have an assignment", noSail]}
-      </text>
-    </page>"""
+    """
     $('.jobs', page).append(jobs)
     $('.job-tabs', page).append(jobLabels)
 

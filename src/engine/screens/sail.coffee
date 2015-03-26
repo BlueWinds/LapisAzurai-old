@@ -30,12 +30,9 @@ Page.SetSail = class SetSail extends Page
       g.map[key].renderBlock(key, distance)
     locations.push @port.renderBlock('', 0, )
 
-    page = $.render """<page slow class="screen set-sail">
-      <form>
-        <div class="bg"></div>
-        #{locations.join ''}
-      </form>
-    </page>"""
+    page = $.render """---- slow="true" class="screen set-sail"
+      <form><div class="bg"></div>#{locations.join ''}</form>
+    """
     page.dragScroll()
     setTimeout ->
       page.scrollLeft(x)
@@ -111,11 +108,12 @@ Page.SailDay = class SailDay extends Page
     ship = g.map.Ship
 
     img = Math.choice ['deckDay', 'deckNight', 'day', 'night']
-    return """<page slow auto="3000" class="screen sail" bg="Ship.#{img}"><text>
-      <em>#{costDescription}</em>
-      #{if other.length then "<em>" + other.join(' ') + "</em>" else ""}
-      #{if ship.damage then "<em>" + ship.damageDescription() + "</em>" else ""}
-    </text></page>"""
+    return """---- slow="true" auto="3000" class="screen sail" bg="Ship.#{img}"
+      --
+        <em>#{costDescription}</em>
+        #{if other.length then "<em>" + other.join(' ') + "</em>" else ""}
+        #{if ship.damage then "<em>" + ship.damageDescription() + "</em>" else ""}
+    """
 
   apply: ->
     @context.days or= 0
@@ -177,17 +175,15 @@ Page.SailDone = class SailDone extends Page
 
 Page.OneCrewLeaving = class OneCrewLeaving extends Page
   # context[0] will be filled in when this event is triggered
-  text: ->"""<page bg="marketDay|marketStorm">
+  text: ->"""|| bg="marketDay|marketStorm"
     #{@[0].image 'sad', 'right'}
-    <text>
+    --
       #{q}I'm sorry, but I think it's time for me to look for another berth,</q> #{@[0]} maintained a bit of politeness, but not too much.
-    </text>
-  <page>
+  ||
     #{g.officers.Nat.image 'serious', 'left'}
-    <text continue>
+    -->
       #{q}Good luck.</q> She nodded sadly. It was clear that #{@[0]} had been planning to leave for some time, and this was as good a time as any. The Lapis had been having a rough time recently - it was hard to hold it against #{him @[0]}.
-    </text>
-  </page>"""
+  """
 
 Page.ManyCrewLeaving = class ManyCrewLeaving extends Page
   # context[0 -> n] will be filled in when this event is triggered

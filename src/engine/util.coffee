@@ -109,17 +109,67 @@ String.randomName.chains = (names)->
 
   return [chains, start]
 
+###
+Formatting guide:
+
+  New <page>
+    || attr="val"
+    <div>Tags will be appended to the page, until a text starts</div>
+
+  Start <text>
+    -- Can be followed by contents
+    Each new line after this starts a new paragraph.
+
+    Extra new lines will be ignored.
+    <b>After a text has started in a page, all following lines will be included in it. Any line that starts with a tag won't be wrapped in a paragraph.</b>
+
+  Start short <text>
+    --.
+
+  Start full <text>
+    --|
+
+  Continue last <text>
+    -->
+###
+
 $.render = (element)->
-  element = $(element).filter('page')
+  if typeof element isnt 'string'
+    return element
 
-  element.each ->
-    addBackground($ @)
+  pages = $('')
+  page = false
+  text = false
+  for line in element.split("\n")
+    line = line.trim()
+    if line.match /^----/
+      page = $('<page></page>')
+      pages = pages.add page
+      text = false
 
-  $('text', element).each ->
-    dedashifyText($ @)
-    continueText($ @)
+      addAttrs(page, line)
+      addBackground(page)
+      continue
 
-  return element
+    if line.match(/^-->/)
+      text = pages.find('text').last().clone()
+    else if line.match(/^--/)
+      text = $('<text></text>')
+      if line.match(/^--\./) then text.addClass 'short'
+      if line.match(/^--\|/) then text.addClass 'full'
+      line = line.replace(/--[\.\|]?/, '')
+
+    if line.match(/^</)
+      (text or page).append(line)
+    else if line
+      text.append('<p>' + line + '</p>')
+
+  return pages
+
+addAttrs = (element, text)->
+  for attr in text.match(/\w+=".+?"/g)
+    match = attr.match(/(\w+)="(.+?)"/)
+    element.attr(match[1], match[2])
 
 addBackground = (element)->
   if element.attr 'bg'
@@ -138,23 +188,6 @@ addBackground = (element)->
 
   if bg and bg isnt 'none'
     element.css('background-image', bg)
-
-dedashifyText = (element)->
-  if element.children('p').length
-    return
-  lines = element.html().split("\n")
-  element.empty()
-  for line in lines
-    if line and not line.match(/<options>/)
-      element.append "<p>#{line.trim()}</p>"
-    else if line
-      element.append line.trim()
-
-continueText = (element)->
-  if element.attr('continue')?
-    last = element.parent().prev().children('text')
-    element.prepend(last.children().clone())
-    element.removeAttr('continue')
 
 window.toggle = (options, selected)->
   options = optionList options, selected
