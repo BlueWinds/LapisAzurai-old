@@ -121,7 +121,6 @@ window.Game = class Game extends GameObject
     get: -> "#{dayList[@dayOfMonth]} of #{@month} #{@season}, #{@year}"
 
   applyEffects: (effects, context)->
-    console.log effects
     if effects.add
       for key, value of effects.add
         parts = key.split '|'

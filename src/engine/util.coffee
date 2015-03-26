@@ -134,6 +134,8 @@ Formatting guide:
 ###
 
 $.render = (element)->
+  unless element
+    return $('')
   if typeof element isnt 'string'
     return element
 
@@ -162,7 +164,7 @@ $.render = (element)->
       if line.match(/^--\|/) then text.addClass 'full'
       line = line.replace(/--[\.\|]?/, '')
 
-    if line.match(/^</)
+    if line.match(/^</) and not text
       (text or page).append(line)
     else if line
       text.append('<p>' + line + '</p>')

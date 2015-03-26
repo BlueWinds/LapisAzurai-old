@@ -30,8 +30,8 @@ Page.SetSail = class SetSail extends Page
       g.map[key].renderBlock(key, distance)
     locations.push @port.renderBlock('', 0, )
 
-    page = $.render """---- slow="true" class="screen set-sail"
-      <form><div class="bg"></div>#{locations.join ''}</form>
+    page = $.render """|| slow="true" class="screen set-sail"
+      <form><div class="bg"></div>#{locations.join('').replace(/\n/g, '')}</form>
     """
     page.dragScroll()
     setTimeout ->
@@ -108,9 +108,8 @@ Page.SailDay = class SailDay extends Page
     ship = g.map.Ship
 
     img = Math.choice ['deckDay', 'deckNight', 'day', 'night']
-    return """---- slow="true" auto="3000" class="screen sail" bg="Ship.#{img}"
-      --
-        <em>#{costDescription}</em>
+    return """|| slow="true" auto="3000" class="screen sail" bg="Ship.#{img}"
+      -- <em>#{costDescription}</em>
         #{if other.length then "<em>" + other.join(' ') + "</em>" else ""}
         #{if ship.damage then "<em>" + ship.damageDescription() + "</em>" else ""}
     """

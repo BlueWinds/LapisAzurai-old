@@ -182,11 +182,15 @@ ShipJob.JamesNoWeapons::next = Page.JamesNoWeapons = class JamesNoWeapons extend
     James: '|officers|James'
     Nat: '|officers|Nat'
   text: ->"""|| bg="Ship.cabinNight"
-    -- #{q @James}Are you sure we should be doing this, Nat?</q> James kicked the crate, producing no sound. The bows inside were well packed, and compared to the beating they'd take during loading or unloading, a stray kick was nothing. It did waft out the scent of pine oil, sealing the contents against saltwater in case the hold flooded. #{q}I don't like being an arms merchant.</q>
+    #{@James.image 'serious', 'left'}
+    -- #{q}Are you sure we should be doing this, Nat?</q> James kicked the crate, producing no sound. The bows inside were well packed, and compared to the beating they'd take during loading or unloading, a stray kick was nothing. It did waft out the scent of pine oil, sealing the contents against saltwater in case the hold flooded. #{q}I don't like being an arms merchant.</q>
   ||
-    -- #{q @Nat}Alkeina's a next door neighbor. It's not like we're selling them to some bloodthirsty warlord - he's just a lumberjack. This is hunting gear anyway, bows and spears and knives.</q> The lantern swayed in her hand, casting dancing shadows across the interior of the cargo hold.
+    #{@Nat.image 'normal', 'right'}
+    -- #{q}Alkeina's a next door neighbor. It's not like we're selling them to some bloodthirsty warlord - he's just a lumberjack. This is hunting gear anyway, bows and spears and knives.</q> The lantern swayed in her hand, casting dancing shadows across the interior of the cargo hold.
 
-    #{q @James}I know, I know what we're doing isn't wrong. It just feels like a foot in the door - once you do this, you're the sort of person who does it, you know? Do me a favor. Let's take these back to Vailia and sell them there.</q>
+  ||
+    #{@James.image 'serious', 'left'}
+    --> #{q}I know, I know what we're doing isn't wrong. It just feels like a foot in the door - once you do this, you're the sort of person who does it, you know? Do me a favor. Let's take these back to Vailia and sell them there.</q>
       #{options ['Carry on', 'Abandon mission'], ["Try to convince him that it's not a big deal", "Listen to your friend"]}"""
   @next: {}
 
@@ -195,23 +199,29 @@ Page.JamesNoWeapons.next['Carry on'] = Page.JamesNoWeaponsIgnore = class JamesNo
     James: {}
     Nat: {}
   text: ->"""|| bg="Ship.cabinNight"
-    -- She laid a hand on Jame's forearm with an encouraging smile. #{q @Nat}We won't be those sorts of people, I promise. I'm doing this to make a friend, not for money. Thank you for telling me - I really do want to hear it, even if I don't agree this time.</q>
+    #{@Nat.image 'normal', 'right'}
+    -- She laid a hand on Jame's forearm with an encouraging smile. #{q}We won't be those sorts of people, I promise. I'm doing this to make a friend, not for money. Thank you for telling me - I really do want to hear it, even if I don't agree this time.</q>
 
-    #{q @James}I'm glad you listened, at least. Can I say I told you so, next time?</q>He sighed, nodded, and kicked the crate again. A smile took the sting out of his words though, and he wasn't the sort to say something like that without meaning it.
+  ||
+    #{@James.image 'serious', 'left'}
+    --> #{q}I'm glad you listened, at least. Can I say I told you so, next time?</q>He sighed, nodded, and kicked the crate again. A smile took the sting out of his words though, and he wasn't the sort to say something like that without meaning it.
 
     <em><span class="happiness">+2 happiness</span> for James</em>"""
   apply: ->
     super()
     @context.James.add 'happiness', 2
 
-Page.JamesNoWeapons.next['Abandon Mission'] = Page.JamesNoWeaponsAgree = class JamesNoWeaponsAgree extends Page
+Page.JamesNoWeapons.next['Abandon mission'] = Page.JamesNoWeaponsAgree = class JamesNoWeaponsAgree extends Page
   conditions:
     James: {}
     Nat: {}
   text: ->"""|| bg="Ship.cabinNight"
-    -- She laid a hand on Jame's forearm with an encouraging smile. #{q @Nat}We won't be those sorts of people, I promise. We'll take them back to Vailia, though I'll probably take a loss on the deal.</q>
+    #{@Nat.image 'serious', 'right'}
+    -- She laid a hand on Jame's forearm with an encouraging smile. #{q @Nat}We won't be those sorts of people, I promise. We'll take them back to Vailia, though I'll take a loss.</q>
 
-    James tilted his head, eyebrows rising. #{q @James}I didn't think you'd actually listen. Huh.</q> His surprise turned into a pleased smile, and he patted her hand where it still lay on his arm. #{q}Thank you, Natalie.</q>
+  ||
+    #{@James.image 'normal', 'left'}
+    --> James tilted his head, eyebrows rising. #{q @James}I didn't think you'd actually listen. Huh.</q> His surprise turned into a pleased smile, and he patted her hand where it still lay on his arm. #{q}Thank you, Natalie.</q>
 
     <em><span class="happiness">+6 happiness</span> for James</em>"""
   apply: ->
@@ -234,7 +244,7 @@ Job.AlkeniaForestry2::next = Page.AlkeniaForestry2 = class AlkeniaForestry2 exte
     super()
     w = g.map.Alkenia.jobs.market.buy.Wood
     w = [w[0], w[1] - 2]
-    g.map.Alkenia.jobs.market.buy.Wood -= w
+    g.map.Alkenia.jobs.market.buy.Wood = w
   effects:
     cargo:
       Weapons: -6

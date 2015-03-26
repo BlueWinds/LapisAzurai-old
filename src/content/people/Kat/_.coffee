@@ -8,7 +8,7 @@ Game::people.Kat = Officer.Kat = class Kat extends Officer
   happiness: 30
   endurance: 7
   energy: 7
-  text: '#DA9FAF'
+  text: '#9ADFAF'
   description: ->"Growing up on the streets, Kat has somehow managed to come through it all with a grin and a sparkle in her eye."
   @images:
     path: 'src/content/people/Kat/'

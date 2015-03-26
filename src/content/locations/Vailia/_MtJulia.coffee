@@ -41,7 +41,7 @@ Place.MountJulia::firstVisit = Page.VisitJulia = class VisitJulia extends Page
     'James': '|officers|James'
   text: ->
     sailor = Math.choice g.crew
-    return """|| bg="MtJulia.day"
+    return """|| bg="MountJulia.day"
       -- Mount Julia loomed up out of the ocean, a jagged peak that had been growing on the horizon all day. If the current wind held steady, the Lapis would arrive just after midnight – enough time for everyone to rest and catch their breath before exploring the city in the morning. A week of sailing had settled the crew into a comfortable routine – #{g.crew[0]} preferred the night shift, watching the helm while the captain slept, and #{g.crew[1]} was a natural up in the rigging, scurrying up and down the masts to adjust the lines.
 
     ||
