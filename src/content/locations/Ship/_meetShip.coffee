@@ -45,17 +45,15 @@ Page.OtherShip.next.push Page.Pirates = class Pirates extends PlayerOptionPage
       --   #{q @sailor}Ship ahoy!</q> #{@sailor} called out from #{his} position on the starboard side of the deck, and everyone turned to look. Natalie shaded her eyes, trying to make out anything in the bright sun.
 
       There was indeed a dark spot on the horizon – and watching it for several minutes, one by one everyone convinced themselves it was a ship, sailing in their direction, crossing paths at an angle.
-    </page>
+
     ||
       #{g.officers.Nat.image 'normal', 'left'}
       --   #{q}Everyone take a rest, we're letting them catch us!</q> Natalie's shouted command slowed shipboard activity to a crawl. Meeting with another vessel out in the middle of the ocean might not be the safest possible action, and it would be good to have everyone rested and alert by the time they were close in case there was trouble. James fetched his sword, buckled it on. The rest of the crew did the same. Just in case.
-      </text>
-    </page>
+
     ||
       -->   Coming in from the windward-side, the vessel bearing down on them was significantly larger than the Azurai, though not nearly as sleek. Harder angles, square sails, and flying no colors. It was fast for its size. The number of crew on its deck and their drawn swords weren't particularly encouraging.
         #{options ['Fight', 'Negotiate', 'Flee'], pirateOptions}
-      </text>
-    </page>"""
+    """
   @next: {}
 
 Page.Pirates.next['Fight'] = Page.PiratesFight = class PiratesFight extends Page
@@ -299,7 +297,7 @@ Page.OtherShip.next.push Page.AbandonedShip = class AbandonedShip extends Player
   ||
     -- It was more of a half-floating wreck than a real ship at this point, wind-slashed sails and rotting timbers. #{Math.choice g.crew} suggested immediately that they fire the thing and be on their way – a funeral fitting an abandoned ship. Hard to say though – there might still be something valuable aboard, and even if not, some of the wood or sailcloth might still be salvageable. Not to mention curiosity for its own sake.
 
-    #{options ['Fire it', 'Search'], ["<span class='happiness'>+2 happiness</span> for crew", "You might find something good"]}</text>"""
+    #{options ['Fire it', 'Search'], ["<span class='happiness'>+2 happiness</span> for crew", "You might find something good"]}"""
   @next = {}
 
 Page.AbandonedShip.next['Fire it'] = Page.AbandonedShipBurn = class AbandonedShipBurn extends Page

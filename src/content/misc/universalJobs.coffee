@@ -81,15 +81,13 @@ Job.RepairShip::next = Page.RepairShip = class RepairShip extends Page
       when @repair is 0 then "You can't repair the ship any further without the right materials"
       else "Repaired #{@repair} (#{g.map.Ship.damage - @repair} damage left)"
 
-    """<page bg="day|storm">
-      <text>
-        #{@worker} pitched in along with #{@crew.toWord()} sailors to set the Lapis aright. Torn canvas and snapped ropes they spliced, patched and replaced. Some weakened wood could be made good as new with a binding, while sections too damaged for that had to be taken out and refitted entirely. A well-put together ship was designed with repair in mind, as well as sea-worthiness - every plank in the ship save the spine itself might be taken out and replaced over the course of years of service.
+    """|| bg="day|storm"
+      -- #{@worker} pitched in along with #{@crew.toWord()} sailors to set the Lapis aright. Torn canvas and snapped ropes they spliced, patched and replaced. Some weakened wood could be made good as new with a binding, while sections too damaged for that had to be taken out and refitted entirely. A well-put together ship was designed with repair in mind, as well as sea-worthiness - every plank in the ship save the spine itself might be taken out and replaced over the course of years of service.
 
-        #{missingMaterials or ""}
-        <em>#{repair}</em>
-        <em>#{Item.costDescription(cost)}</em>
-      </text>
-    </page>"""
+      #{missingMaterials or ""}
+      <em>#{repair}</em>
+      <em>#{Item.costDescription(cost)}</em>
+    """
 
   apply: ->
     super()

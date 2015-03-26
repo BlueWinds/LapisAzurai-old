@@ -219,7 +219,7 @@ Page.JamesNoWeapons.next['Abandon Mission'] = Page.JamesNoWeaponsAgree = class J
     @context.James.add 'happiness', 6
   effects:
     remove:
-      '|missions|AlkeniaWeapons'
+      '|missions|AlkeniaWeapons': Mission.AlkeniaWeapons
 
 Job.AlkeniaForestry2::next = Page.AlkeniaForestry2 = class AlkeniaForestry2 extends Page
   text: ->"""|| bg="day|storm"
@@ -240,4 +240,4 @@ Job.AlkeniaForestry2::next = Page.AlkeniaForestry2 = class AlkeniaForestry2 exte
       Weapons: -6
     remove:
       '|location|jobs|forestry2': Job.AlkeniaForestry2
-      '|missions|AlkeniaWeapons'
+      '|missions|AlkeniaWeapons': Mission.AlkeniaWeapons

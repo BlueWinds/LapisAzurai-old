@@ -7,7 +7,7 @@ Job.KantisHireCrew = class KantisHireCrew extends Job.HireCrew
 
 Place.Kantis = class Kantis extends Place
   name: 'Kantis'
-  description: ->"<p>Kantis is the primier power in the Dialis region, a proud democracy with a long history of sea-going adventure. It is completely in the grip of the UTC.</p>"
+  description: ->"Kantis is the primier power in the Dialis region, a proud democracy with a long history of sea-going adventure. It is completely in the grip of the UTC."
   images:
     port: 'game/content/locations/Vailia/Market Night.jpg'
     bar: 'game/content/locations/Vailia/Market Night.jpg'

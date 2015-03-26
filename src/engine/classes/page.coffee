@@ -78,9 +78,9 @@ window.Page = class Page extends GameObject
         type: 'function'
         exec: (schema, text)->
           text = text.toString()
-          match = text.match(/<page/g)
+          match = text.match(/\|\|/g)
           if match?.length > 16
-            @report "can't have more than 15 <page>s in one text block"
+            @report "can't have more than 15 ||s in one text block"
       effects:
         type: 'object'
         optional: true

@@ -137,14 +137,14 @@ $.render = (element)->
   if typeof element isnt 'string'
     return element
 
-  pages = $('')
+  pages = $('<div></div>')
   page = false
   text = false
   for line in element.split("\n")
     line = line.trim()
-    if line.match /^----/
+    if line.match /^\|\|/
       page = $('<page></page>')
-      pages = pages.add page
+      pages.append page
       text = false
 
       addAttrs(page, line)
@@ -153,8 +153,11 @@ $.render = (element)->
 
     if line.match(/^-->/)
       text = pages.find('text').last().clone()
+      page.append(text)
+      line = line.replace(/-->/, '')
     else if line.match(/^--/)
       text = $('<text></text>')
+      page.append(text)
       if line.match(/^--\./) then text.addClass 'short'
       if line.match(/^--\|/) then text.addClass 'full'
       line = line.replace(/--[\.\|]?/, '')
@@ -164,10 +167,10 @@ $.render = (element)->
     else if line
       text.append('<p>' + line + '</p>')
 
-  return pages
+  return pages.children()
 
 addAttrs = (element, text)->
-  for attr in text.match(/\w+=".+?"/g)
+  for attr in text.match(/\w+=".+?"/g) or []
     match = attr.match(/(\w+)="(.+?)"/)
     element.attr(match[1], match[2])
 

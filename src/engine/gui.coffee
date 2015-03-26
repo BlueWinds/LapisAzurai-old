@@ -101,11 +101,11 @@ $.fn?.addTooltips = ->
   )
 
 errorPage = (page, error)->
-  element = $ """<page><text>
-    <p>Problem in #{page.constructor.name}</p>
-    <p>#{error.toString()}</p>
+  element = $.render """||
+    -- Problem in #{page.constructor.name}
+    #{error.toString()}
     <blockquote><pre></pre></blockquote>
-  </text></page>"""
+  """
   $('pre', element).text(error.stack)
   return element
 

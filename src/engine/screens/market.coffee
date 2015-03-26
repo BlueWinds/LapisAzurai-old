@@ -94,13 +94,13 @@ Job.Market::next = Page.Market = class Market extends Page
           </div>
         </div>
       </div>
-    </form>""".replace("\n", '')
+    </form>""".replace(/\n/g, '')
 
     element = """|| class="screen" bg="marketDay|marketStorm"
       #{form}
-      -- class="short"
-        #{@market.description.call @}
-        #{options ['Done']}
+
+      --. #{@market.description.call @}
+      #{options ['Done']}
     """
     return applyMarket.call(@, element)
 

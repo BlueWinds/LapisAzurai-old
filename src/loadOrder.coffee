@@ -54,18 +54,18 @@ module.exports = [
   'content/locations/Ship/_meetShip.coffee'
   'content/locations/Ship/_storm.coffee'
   'content/locations/Vailia/_Vailia.coffee'
-#   'content/locations/Vailia/_Jobs.coffee'
-#   'content/locations/Vailia/_GuildWork.coffee'
-#   'content/locations/Vailia/_MtJulia.coffee'
+  'content/locations/Vailia/_Jobs.coffee'
+  'content/locations/Vailia/_GuildWork.coffee'
+  'content/locations/Vailia/_MtJulia.coffee'
   'content/locations/Vailia/_Alkenia.coffee'
-# #   'content/locations/Kantis/_Kantis.coffee'
-#
-# # Route content
-#   'content/people/James/_preRoute.coffee'
-#   'content/people/Kat/_preRoute.coffee'
+#   'content/locations/Kantis/_Kantis.coffee'
+
+# Route content
+  'content/people/James/_preRoute.coffee'
+  'content/people/Kat/_preRoute.coffee'
 #
 # # Introduction & help
-#   'content/intro/introCity.coffee'
-#   'content/intro/introText.coffee'
-#   'content/intro/firstStorm.coffee'
+  'content/intro/introCity.coffee'
+  'content/intro/introText.coffee'
+  'content/intro/firstStorm.coffee'
 ]

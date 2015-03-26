@@ -60,7 +60,7 @@ Page.Financial = class Financial extends Page
           #{missions.join ''}
         </ul>
       </div>
-    </div>""".replace("\n", '')
+    </div>""".replace(/\n/g, '')
 
     return """|| bg="Ship.cabinNight"
       #{divs}

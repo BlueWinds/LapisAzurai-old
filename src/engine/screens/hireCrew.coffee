@@ -168,11 +168,11 @@ Job.HireCrew::next = Page.HireCrew = class HireCrew extends Page
           #{crew.join ''}
         </div>
       </div>
-    </form>""".replace("\n", '')
+    </form>""".replace(/\n/g, '')
 
     element = """|| class="screen" bg="tavern"
       #{form}
-      -- class="short"
+      --.
         #{@job.description.call @}
         #{options ['Done']}
     """

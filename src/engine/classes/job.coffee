@@ -100,7 +100,9 @@ window.Job = class Job extends Page
     return @contextMatch()
 
   show: ->
-    div = $("""<page class="jobStart" auto="1800"><h4>#{@label}</h4></page>""")
+    div = $.render("""|| class="jobStart" auto="1800"
+      <h4>#{@label}</h4>
+    """)
 
     div.appendTo('#content').addTooltips()
     div.not(div[0]).css 'display', 'none'

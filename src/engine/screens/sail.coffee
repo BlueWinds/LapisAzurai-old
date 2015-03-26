@@ -190,14 +190,11 @@ Page.ManyCrewLeaving = class ManyCrewLeaving extends Page
   text: ->
     names = @toArray()
     name.shift()
-    """<page bg="marketDay|marketStorm">
+    """|| bg="marketDay|marketStorm"
       #{@[0].image 'sad', 'right'}
-      <text>
-        #{q}I'm sorry, Natalie, but we've talked it over and we think it's time to go our separate ways.</q> #{@[0]} spoke quietly, glancing over #{his} shoulder at the other#{if @length > 2 then 's who were' else 'who was'} also departing. #{names.wordJoin()} nodded in agreement. They were also leaving.
-      </text>
-    <page>
+      -- #{q}I'm sorry, Natalie, but we've talked it over and we think it's time to go our separate ways.</q> #{@[0]} spoke quietly, glancing over #{his} shoulder at the other#{if @length > 2 then 's who were' else 'who was'} also departing. #{names.wordJoin()} nodded in agreement. They were also leaving.
+
+    ||
       #{g.officers.Nat.image 'serious', 'left'}
-      <text continue>
-        #{q}I'm sorry to see you all go, but if that's what you have to do, then good luck.</q> She nodded sadly. It had been clear that they were already decided, and trying to hold onto them was a losing proposition. The Lapis had been having a rough time recently - it was hard to hold it against them.
-      </text>
-    </page>"""
+      --> #{q}I'm sorry to see you all go, but if that's what you have to do, then good luck.</q> She nodded sadly. It had been clear that they were already decided, and trying to hold onto them was a losing proposition. The Lapis had been having a rough time recently - it was hard to hold it against them.
+    """

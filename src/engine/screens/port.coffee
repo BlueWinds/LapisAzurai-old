@@ -89,11 +89,11 @@ Page.Port = class Port extends Page
       <div class="col-lg-4 col-md-5">
         <div class="crew clearfix column-block">#{officers.join('') + crew.join('')}</div>
       </div>
-    </form>""".replace("\n", '')
+    </form>""".replace(/\n/g, '')
 
     page = $.render """|| verySlow="true" class="screen" bg="day|storm"
       #{form}
-      -- class="short"
+      --.
         #{@port.description?() or @port.description}
         #{options ['Work in ' + @port, 'Set Sail'], ["All officers must have an assignment", noSail]}
     """
