@@ -33,7 +33,11 @@ Page.SetSail = class SetSail extends Page
     page = $.render """|| slow="true" class="screen set-sail"
       <form><div class="bg"></div>#{locations.join('').replace(/\n/g, '')}</form>
     """
-    page.dragScroll()
+
+    # Triggering mousemove with touchmove so that dragscroll will work on touchscreen devices
+    page.dragScroll().on 'touchmove', (e)->
+      page.trigger('mousemove', e)
+
     setTimeout ->
       page.scrollLeft(x)
       page.scrollTop(y)

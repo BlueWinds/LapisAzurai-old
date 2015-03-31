@@ -92,7 +92,7 @@ window.Person = class Person extends GameObject
       fullStats.unshift """<tr><td class="energy">Energy</td><td>
         <span class="energy">#{@energy}</span>/<span class="endurance">#{@endurance}</span>
       </td></tr>"""
-    fullStats.push """<tr class="wages" title="Wage<br>How much Natalie pays this person weekly"><td>Wage</td><td>#{@wages()}</td></tr>"""
+    fullStats.push """<tr class="wages" title="Wage<br>How much Natalie pays this person daily"><td>Wage</td><td>#{@wages()}</td></tr>"""
     if @money?
       fullStats.push """<tr class="savings" title="Savings<br>How much money this person has saved"><td>Money</td><td>#{@money}</td></tr>"""
 

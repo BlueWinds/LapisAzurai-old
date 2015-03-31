@@ -219,3 +219,25 @@ optionList = (options, selected)->
     checked = if selected is key then 'checked' else ''
     """<input type="radio" id="#{_id}" value="#{key}" #{checked} name="#{name}"><label for="#{_id}">#{option}</label>"""
   return options
+
+###
+  Based on dragScroll by James Climer. https://github.com/jaclimer/JQuery-DraggScroll
+###
+$.fn.dragScroll = ->
+  dragging = false
+  $scrollArea = $(this)
+
+  $scrollArea.on 'mousedown touchstart', (e)->
+    e.preventDefault()
+    dragging =
+      x: e.pageX
+      y: e.pageY
+      top: $(this).scrollTop()
+      left: $(this).scrollLeft()
+
+  $("body").on 'mouseup mouseleave touchend touchcancel', -> dragging = false
+
+  $("body").on 'mousemove touchmove', (e)->
+    unless dragging then return
+    $scrollArea.scrollTop(dragging.top - e.pageY + dragging.y)
+    $scrollArea.scrollLeft(dragging.left - e.pageX + dragging.x)

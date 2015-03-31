@@ -114,7 +114,7 @@ Job.AlkeniaRest.next.push Page.AlkeniaRestStorm = class AlkeniaRestStorm extends
   ||
     --> <q>Is it true your captain sailed right through a storm?</q>
   ||
-    --> #{@worker} nodded, neither wanting to lie about it nor to spread any more rumors than necessary. Fortunately the man sensed his reluctance, and with another polite hat-tip, retreated."""
+    --> #{@worker} nodded, neither wanting to lie about it nor to spread any more rumors than necessary. Fortunately the man sensed #{his} reluctance, and with another polite hat-tip, retreated."""
 
 Place.Alkenia::jobs.forestry = Job.AlkeniaForestry = class AlkeniaForestry extends Job
   officers:
@@ -192,6 +192,9 @@ ShipJob.JamesNoWeapons::next = Page.JamesNoWeapons = class JamesNoWeapons extend
     #{@James.image 'serious', 'left'}
     --> #{q}I know, I know what we're doing isn't wrong. It just feels like a foot in the door - once you do this, you're the sort of person who does it, you know? Do me a favor. Let's take these back to Vailia and sell them there.</q>
       #{options ['Carry on', 'Abandon mission'], ["Try to convince him that it's not a big deal", "Listen to your friend"]}"""
+  effects:
+    remove:
+      '|map|Ship|jobs|jamesNoWeapons': ShipJob.JamesNoWeapons
   @next: {}
 
 Page.JamesNoWeapons.next['Carry on'] = Page.JamesNoWeaponsIgnore = class JamesNoWeaponsIgnore extends Page
@@ -251,3 +254,17 @@ Job.AlkeniaForestry2::next = Page.AlkeniaForestry2 = class AlkeniaForestry2 exte
     remove:
       '|location|jobs|forestry2': Job.AlkeniaForestry2
       '|missions|AlkeniaWeapons': Mission.AlkeniaWeapons
+      '|map|Ship|jobs|jamesNoWeapons': ShipJob.JamesNoWeapons
+
+Place.Alkenia::jobs.raid = Job.AlkeniaRaid = class AlkeniaRaid extends Job
+  officers:
+    James: '|officers|James'
+  label: 'Raid'
+  conditions:
+    '|weather': {eq: 'storm'}
+  type: 'special'
+  text: ->"""Shouting and the clamor of battle is barely audible over the sounds of the storm, but they're getting closer...
+
+  Send <span class="combat">strong</span> crewmembers along to help out. With currently assigned workers:
+  #{Page.statCheckDescription('combat', 50, Job.AlkeniaRaid.next)}"""
+  energy: -4

@@ -241,7 +241,7 @@ Job.IntroSail::next = Page.IntroSail = class IntroSail extends Page
 
   ||
     #{@James.image 'blush', 'left'}
-    --> Red crept along his cheeks as he considered the question. Young, attractive, raised by the Guild... really, there was only one way to that question. She'd be selling her body, same as plenty of other Vailian girls her age pretty enough to make it a trade. #{q}I, ah, sorry,</q> he apologized lamely.</q>
+    --> Red crept along his cheeks as he considered the question. Young, attractive, raised by the Guild... really, there was only one answer to that question. She'd be selling her body, same as plenty of other Vailian girls her age pretty enough to make it a trade. #{q}I, ah, sorry,</q> he apologized lamely.</q>
 
   ||
     #{@Nat.image 'normal', 'right'}

@@ -224,7 +224,7 @@ Page.PiratesNegotiate.next.good = Page.PiratesNegotiateSuccess = class PiratesNe
   ||
     -- <em><span class="money">+#{@money}β</span>, #{Item.costDescription(@goods)}</em>"""
   apply: ->
-    [value, sold] = randomLoot(150)
+    [value, sold] = randomLoot(200)
     @context.money = Math.floor(value * 0.8)
     @context.goods = sold
     super()
@@ -237,12 +237,12 @@ Page.PiratesNegotiate.next.bad = Page.PiratesNegotiateFail = class PiratesNegoti
     -- <q>You're a bold one, I'll grant you that,</q> he chuckled, clearly unimpressed with her display. <q>Tell you what. You take my boy over, show him your cargo, and he'll pick out what he thinks is fair, eh?</q> He slapped a scrawny, scared looking teenager on the back, sending him staggering. Clearly the boy didn't think he was being done any sort of favor.
 
   ||
-    --> Though James didn't like being robbed without putting up a fight, and whispered such in her ear, none of the crew objected to Natalie's decision. They could see easily enough how outnumbered and outmatched they were. The whole transaction was surprisingly civil, if somewhat tense – the pirates took almost half their cargo, but decided to cut their gains rather than remain under #{Math.choice g.crew}'s glare for too long.
+    --> Though James didn't like being robbed without putting up a fight, and whispered such in her ear, none of the crew objected to Natalie's decision. They could see easily enough how outnumbered and outmatched they were. The whole transaction was surprisingly civil, if somewhat tense – the pirates took what they wanted most, but decided to cut their gains rather than remain under #{Math.choice g.crew}'s glare for too long.
 
   ||
     -- <em>#{Item.costDescription(@goods)}</em>"""
   apply: ->
-    [value, sold] = randomLoot(150)
+    [value, sold] = randomLoot(300)
     @context.goods = sold
     super()
 

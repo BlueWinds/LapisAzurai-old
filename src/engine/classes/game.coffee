@@ -101,9 +101,10 @@ window.Game = class Game extends GameObject
     cargo = Object.keys(g.cargo).map (item)->"<tr><td>#{g.cargo[item]}</td><td>#{item}</td></tr>"
     $('.cargo').tooltip('destroy').tooltip {
       placement: 'bottom'
-      title: "<table class='table table-striped'>#{cargo.join "\n"}</table>"
+      title: "<div>#{Math.sumObject g.cargo} / #{Game.cargo}</div><table class='table table-striped'>#{cargo.join "\n"}</table>"
       html: true
       template: '<div class="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner no-pad"></div></div>'
+      container: 'body'
     }
     $('#game-info img').attr 'src', @location.images[if @weather is 'calm' then 'day' else 'storm']
     $('#game-info .description').html @location.description?() or @location.description

@@ -89,7 +89,7 @@ Job.Market::next = Page.Market = class Market extends Page
             This will cost <span class="spend">0β</span> and earn <span class="earn">0β</span>, leaving you with <span class="result">#{g.officers.Nat.money}β</span>
           </div>
           <div class="block-summary">
-            <div class="progress-label">The Lapis Azurai</div>
+            <div class="progress-label" title="#{Math.sumObject g.cargo} / #{Game.cargo}">The Lapis Azurai</div>
             <div class="progress"><div class="progress-bar" style="width: #{cargoPercent}%;"></div></div>
           </div>
         </div>
@@ -125,7 +125,13 @@ applyMarket = (element)->
       increment: incrementMultiplier buy[item][0], business
       cost: buy[item][1]
 
-  $('.buy', element).on 'click', '.plus', (e)->
+  updateRow = (row, newRow)->
+    row.children('.price').replaceWith newRow.children('.price')
+    row.children('.count').replaceWith newRow.children('.count')
+    row.children('.total').replaceWith newRow.children('.total')
+
+  $('.buy .plus', element).on 'click do', (e)->
+    console.log this
     if carry is 0 or cargo is Game.cargo then return
 
     item = $(@).parent().attr('item')
@@ -134,12 +140,12 @@ applyMarket = (element)->
     carry--
     cargo++
     buyData.bought++
-    row = $(@).closest 'tr'
-    row.replaceWith $(Item[item].buyRow buyData.cost, buyData.increment, buyData.bought)
+    newRow = $(Item[item].buyRow buyData.cost, buyData.increment, buyData.bought)
+    updateRow($(@).closest('tr'), newRow)
     unless updateSummary()
       $('.buy tr[item="' + item + '"] .minus', element).click()
 
-  $('.buy', element).on 'click', '.minus', (e)->
+  $('.buy .minus', element).on 'click do', (e)->
     item = $(@).parent().attr('item')
     buyData = buying[item]
     unless buyData.bought then return
@@ -147,9 +153,20 @@ applyMarket = (element)->
     carry++
     cargo--
     buyData.bought--
-    row = $(@).closest 'tr'
-    row.replaceWith $(Item[item].buyRow buyData.cost, buyData.increment, buyData.bought)
+    newRow = $(Item[item].buyRow buyData.cost, buyData.increment, buyData.bought)
+    updateRow($(@).closest('tr'), newRow)
     updateSummary()
+
+  $('.buy', element).on 'mousedown touchstart', '.plus, .minus', (e)->
+    plus = $(@).hasClass 'plus'
+    item = $(@).parent().attr('item')
+    id = setInterval ->
+      if item
+        $('.buy tr[item="' + item + '"] .' + (if plus then 'plus' else 'minus'), element).trigger('do')
+    , 150
+    $('body').one 'mouseup touchend touchcancel', ->
+      item = false
+      clearInterval(id)
 
   selling = {}
   $('.sell tr', element).each ->
@@ -196,6 +213,7 @@ applyMarket = (element)->
     $('.earn', element).html earn + 'β'
     $('.result', element).html(total + 'β').toggleClass('negative', total < 0)
     $('.carry', element).html(carry).toggleClass('out', carry is 0)
+    $('.progress-label', element).tooltip('destroy').attr('title', "#{cargo} / #{Game.cargo}").addTooltips()
     $('.progress-bar', element).css 'width', (cargo * 100 / Game.cargo) + '%'
 
     if total < 0 and total < g.officers.Nat.money

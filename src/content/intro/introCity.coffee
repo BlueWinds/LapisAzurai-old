@@ -156,7 +156,7 @@ Job.IntroMarket::next = Page.IntroMarket = class IntroMarket extends Page.Market
         placement: 'bottom'
         title: "The amount you can load or unload from the ship depends on how many workers you bring, and on the weather. Outdoor work slows to a crawl during storms."
       ).help(
-        target: '.progress-label'
+        target: '.progress'
         placement: 'bottom'
         title: "The Lapis Azurai can hold #{Game.cargo} crates. Balancing provisions and supplies vs. trade goods to make a profit is an important judgement."
       ).help(

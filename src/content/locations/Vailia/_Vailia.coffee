@@ -21,6 +21,7 @@ Job.VailiaMarket = class VailiaMarket extends Job.Market
     Wheat: [40, 0]
     "Naval Supplies": [20, 0]
     Charcoal: [10, 0]
+    Iron: [20, 0]
     Weapons: [5, -2]
 
 Place.Vailia = Game::map.Vailia = class Vailia extends Place
