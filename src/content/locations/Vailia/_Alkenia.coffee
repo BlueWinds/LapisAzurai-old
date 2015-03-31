@@ -259,12 +259,69 @@ Job.AlkeniaForestry2::next = Page.AlkeniaForestry2 = class AlkeniaForestry2 exte
 Place.Alkenia::jobs.raid = Job.AlkeniaRaid = class AlkeniaRaid extends Job
   officers:
     James: '|officers|James'
+  crew: 2
   label: 'Raid'
   conditions:
     '|weather': {eq: 'storm'}
+    '|events|AlkeniaForestry|length': {gte: 1}
   type: 'special'
+  energy: -4
   text: ->"""Shouting and the clamor of battle is barely audible over the sounds of the storm, but they're getting closer...
 
   Send <span class="combat">strong</span> crewmembers along to help out. With currently assigned workers:
-  #{Page.statCheckDescription('combat', 50, Job.AlkeniaRaid.next)}"""
-  energy: -4
+  #{Page.statCheckDescription('combat', 50, Page.AlkeniaRaid.next)}"""
+
+Job.AlkeniaRaid::next = Page.AlkeniaRaid = class AlkeniaRaid extends Page
+  text: ->"""|| bg="storm"
+    --| An alarm beat in the distance, brass gong barely audible over the crash of waves in the harbor. James shielded his eyes, trying to keep the driving rain out of them long enough to see something useful, but to no avail - Alkenia looked quiet as ever, the same buildings huddling together for shelter and same empty streets washing stormwater down to the harbor.
+
+    Another alarm, still distant. He and Natalie had heard them a few times in the city, warnings that attackers were in the area. Usually the Alkenians would muster quickly, a show of force and a few quick arrows enough to scare away the small raiding party. A lumber mill would be set fire, a house looted - small damages, mostly meant to reassure the city that the Nonkenians had neither forgotten nor forgiven them.
+
+    It was easy to see how the attackers had penetrated so far into the city today without being confronted. James had to keep a hand on the rail to prevent being tossed about by powerful gusts of wind, and he shuddered to imagine trying to direct a military force in brutal conditions like these.
+
+    Time to get moving. They'd have to defend themselves if the Alkenians were too busy hiding from the storm.
+  ||
+    #{@James.image 'serious', 'left' }
+    -- #{q}Far enough,</q> James held up an empty hand, other resting on the sword at his hip. He had to shout to make himself heard. #{q}Docks are off limits.</q> The sailors around him held steady, forming a grim line.
+    -- The raiders stopped. Half a dozen woman, each with the same barbed vine painted across their left cheek and running down their necks, slowly smudging as rain washed them clean, each with the same vicous looking dagger in one hand. They didn't say anything. The silence was more terrifying shouting would have been.
+  """
+  difficulty: 50
+  next: Page.statCheck
+  @next: {}
+
+Page.AlkeniaRaid.next['good'] = Page.AlkeniaRaidGood = class AlkeniaRaidGood extends Page
+  conditions:
+    James: {}
+    0: {}
+  text: ->"""|| bg="storm"
+  ||
+    -- Finally, without word or any seeming need to communicate, they turned and departed. #{@[0]} raised a hand to throw a spear at their backs, but James stopped #{him} with a hand on the shoulder. Even if the wind hadn't made the attempt useless, it was better not to provoke them.
+
+    <em><span class="happiness">+3 happiness</span> for James</em>
+  """
+  apply: ->
+    @context.James.add('happiness', 4)
+  effects:
+    remove:
+      '|location|jobs|raid': Job.AlkeniaRaid
+
+Page.AlkeniaRaid.next['bad'] = Page.AlkeniaRaidBad = class AlkeniaRaidBad extends Page
+  conditions:
+    James: {}
+    victim:
+      fill: ->
+        crew = g.last.context.filter((p)-> not p instanceof Officer)
+        return Math.choice(crew)
+  text: ->"""|| bg="storm"
+    -- Without warning and almost in unison they swept forward again, and James barely drew his sword in time to parry the wicked dagger aimed at his chest. Beside him, #{@victim} screamed and fell, tangled with a vine-woman, but he had his own problems to attend to. His attacker ducked under his counterattack and came at him again.
+  ||
+    -- It was over in an instant. #{@victim} lay in a bloody heap, while the Nonkenian attackers fled sliently. Two of them supported a wounded woman between them, her lip curled back in a silent snarl as she tried to hold the wound closed where James had slashed her. The Vailians were too busy crowding around #{@victim} to pursue, even had they felt the taste for further violence.
+
+    <em>#{if @victim.happiness < 40 then @victim + " has left the crew to recoved from " + his + " wounds" else ("<span class='happiness'>-40 happiness</span> for " + @victim)}</em>
+  """
+  apply:
+    super()
+    if @context.victim.happiness < 40
+      g.crew.remove(@context.victim)
+    else
+      @context.victim.add('happiness', -40)

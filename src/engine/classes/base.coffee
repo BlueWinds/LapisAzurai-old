@@ -223,6 +223,11 @@ window.Collection = class Collection
 
   Object.defineProperty @::, 'remove',
     value: (index)->
+      unless index instanceof Number
+        index = @indexOf(index)
+        if index < 0 then throw new Error 'Index not found'
+        return @remove(index)
+
       while @[index + 1]
         @[index] = @[index + 1]
         index++
