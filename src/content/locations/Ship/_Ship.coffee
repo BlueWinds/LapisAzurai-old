@@ -17,6 +17,7 @@ Place.Ship = Game::map.Ship = class Ship extends Place
     deckDay: 'game/content/locations/Ship/Deck Day.jpg'
     deckNight: 'game/content/locations/Ship/Deck Night.jpg'
     deckStorm: 'game/content/locations/Ship/Deck Storm.jpg'
+    deckFog: 'game/content/locations/Ship/Deck Fog.jpg'
 
   destinations: new Collection
   jobs: new Collection # Unlike normal locations, this collection takes ShipJobs rather than normal Jobs

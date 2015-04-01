@@ -53,6 +53,7 @@ module.exports = [
   'content/locations/Ship/_Ship.coffee'
   'content/locations/Ship/_meetShip.coffee'
   'content/locations/Ship/_storm.coffee'
+  'content/locations/Ship/_spirit.coffee'
   'content/locations/Vailia/_Vailia.coffee'
   'content/locations/Vailia/_Jobs.coffee'
   'content/locations/Vailia/_GuildWork.coffee'
