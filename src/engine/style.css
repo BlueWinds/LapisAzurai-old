@@ -298,6 +298,13 @@ input.inline:disabled {
   background: #000;
   border-radius: 0;
   border: 1px solid #666;
+  font-size: 0.9em;
+}
+.job-tabs .new:after {
+  content: " *";
+  font-weight: 300;
+  font-size: 0.7em;
+  vertical-align: top;
 }
 .job-tabs .list-group-item:first-child {
   border-top-left-radius: 6px;
@@ -480,22 +487,11 @@ input.inline:disabled {
 .center {
   text-align: center;
 }
-.job-requirements span {
-  display: inline-block;
-  padding: 5px 0;
-  text-align: center;
-  text-decoration: line-through;
-  width: 25%;
-}
 .business { color: #ffb600; cursor: default; }
 .diplomacy { color: #ff8500; cursor: default; }
 .sailing { color: #ff2c00; cursor: default; }
 .combat { color: #a65600; cursor: default; }
 .happiness { font-weight: 700; cursor: default; }
-.job-requirements .unmet {
-  font-weight: 700;
-  text-decoration: none;
-}
 .person-info .full {
   clip: rect(-40px, 450px, -40px, 0);
   background: #000;

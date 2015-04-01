@@ -60,49 +60,6 @@ window.GameObject = class GameObject
       return g.getItem(conditions) is @
     return partMatches(@, conditions)
 
-partMatches = (value, condition)->
-  unless value? or condition.optional
-    return false
-  if value >= condition.lt or value > condition.lte
-    return false
-  if value <= condition.gt or value < condition.gte
-    return false
-  if condition.eq?
-    if condition.eq instanceof Array
-      unless condition.eq.some((c)-> value is c)
-        return false
-    else if value isnt condition.eq
-      return false
-  if condition.is
-    if condition.is instanceof Array
-      unless condition.is.some((c)-> value instanceof c)
-        return false
-    else unless value is condition.is or value instanceof condition.is
-      return false
-  if condition.isnt
-    if condition.isnt instanceof Array
-      if condition.isnt.some((c)-> value instanceof c)
-        return false
-    else if value is condition.isnt or value instanceof condition.isnt
-      return false
-  if condition.matches and not condition.matches(value)
-    return false
-  return true
-
-simpleMatch = (parent, child)->
-  if parent is child
-    return true
-  unless parent and child
-    return false
-  for key, value of parent
-    if child[key] isnt value
-      return false
-  for key, value of child
-    if parent[key] isnt value
-      return false
-
-  return true
-
 window.Collection = class Collection
   constructor: (data)->
     $.extend @, data
@@ -162,7 +119,7 @@ window.Collection = class Collection
       return @
 
   Object.defineProperty @::, 'fill',
-    value: (conditions)->
+    value: (conditions, last = g.last?.context)->
       for key, value of conditions
         if key[0] is '|'
           continue
@@ -172,8 +129,8 @@ window.Collection = class Collection
           if item = g.getItem value.path
             @[key] = item
         else
-          if g.last.context[key]
-            @[key] = g.last.context[key]
+          if last[key]
+            @[key] = last[key]
 
       for key, value of conditions when value.fill
         @[key] = value.fill.call(@)
@@ -223,8 +180,10 @@ window.Collection = class Collection
 
   Object.defineProperty @::, 'remove',
     value: (index)->
-      unless index instanceof Number
+      unless typeof index is 'number'
+        console.log index
         index = @indexOf(index)
+        console.log index
         if index < 0 then throw new Error 'Index not found'
         return @remove(index)
 
@@ -261,5 +220,55 @@ window.Collection = class Collection
   Object.defineProperty @::, 'indexOf',
     value: (item)->
       for key, value of @
-        if value is item then return key
+        if value is item then return Number(key)
       return -1
+
+  Object.defineProperty @::, 'find',
+    value: (compare)->
+      for key, value of @
+        if compare(value) then return value
+      return
+
+Collection.partMatches = partMatches = (value, condition)->
+  unless value? or condition.optional
+    return false
+
+  if value >= condition.lt or value > condition.lte
+    return false
+  if value <= condition.gt or value < condition.gte
+    return false
+  if condition.eq?
+    if condition.eq instanceof Array
+      unless condition.eq.some((c)-> value is c)
+        return false
+    else if value isnt condition.eq
+      return false
+  if condition.is
+    if condition.is instanceof Array
+      unless condition.is.some((c)-> value instanceof c)
+        return false
+    else unless value is condition.is or value instanceof condition.is
+      return false
+  if condition.isnt
+    if condition.isnt instanceof Array
+      if condition.isnt.some((c)-> value instanceof c)
+        return false
+    else if value is condition.isnt or value instanceof condition.isnt
+      return false
+  if condition.matches and not condition.matches(value)
+    return false
+  return true
+
+simpleMatch = (parent, child)->
+  if parent is child
+    return true
+  unless parent and child
+    return false
+  for key, value of parent
+    if child[key] isnt value
+      return false
+  for key, value of child
+    if parent[key] isnt value
+      return false
+
+  return true

@@ -14,7 +14,8 @@ updateJob = (job, jobDiv)->
   else if Object.keys(workers).length
     divs.addClass 'half-ready'
 
-  $('.job-requirements').replaceWith(job.requiresBlock(workers))
+  newText = job.text.call(job.context).replace(/\n/g, "<br>")
+  $('.job-description', jobDiv).html(newText)
 
 ordering =
   plot: 0
@@ -44,26 +45,24 @@ Page.Port = class Port extends Page
   text: ->
     jobs = $('')
     jobLabels = $('')
+
+    maybeAddJob = (job)->
+      job.contextFill()
+      unless job.contextMatch()
+        return
+      jobs = jobs.add job.renderBlock(key)
+      jobs.last().data 'job', job
+      jobLabels = jobLabels.add """<li class="#{job.type or 'normal'} list-group-item #{if job.isNew() then 'new' else ''}">#{job.label}</li>"""
+      jobLabels.last().data 'job', job
+
     for key, job of @port.jobs when job instanceof Job or job.prototype instanceof Job
       if typeof job is 'function'
         job = @port.jobs[key] = new job
-      job.contextFill()
-      unless job.contextMatch()
-        continue
-      jobs = jobs.add job.renderBlock(key)
-      jobs.last().data 'job', job
-      jobLabels = jobLabels.add """<li class="#{job.type or 'normal'} list-group-item">#{job.label}</li>"""
-      jobLabels.last().data 'job', job
+      maybeAddJob(job)
 
     for job, key in Job.universal
       job = new job
-      job.contextFill()
-      unless job.contextMatch()
-        continue
-      jobs = jobs.add job.renderBlock(key)
-      jobs.last().data 'job', job
-      jobLabels = jobLabels.add """<li class="#{job.type or 'normal'} list-group-item">#{job.label}</li>"""
-      jobLabels.last().data 'job', job
+      maybeAddJob(job)
 
     jobs = Array::sort.call(jobs, Job.jobSort)
     jobLabels = Array::sort.call(jobLabels, Job.jobSort)
@@ -185,6 +184,13 @@ applyPort = (element)->
       if prevJobDiv.length
         prevJob = port.jobs[prevJobDiv.attr('data-key')]
         updateJob(prevJob, prevJobDiv)
+
+    $('.job', element).dblclick (e)->
+      if $(e.target).closest('.person-info').length
+        return
+      $('.crew .person-info').addClass 'active'
+      $(@).click()
+      $('.crew .person-info').removeClass 'active'
 
     if $('.crew .person-info.officer', element).length is 0
       work.removeClass('dis').tooltip 'disable'

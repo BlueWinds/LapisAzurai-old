@@ -131,7 +131,6 @@ applyMarket = (element)->
     row.children('.total').replaceWith newRow.children('.total')
 
   $('.buy .plus', element).on 'click do', (e)->
-    console.log this
     if carry is 0 or cargo is Game.cargo then return
 
     item = $(@).parent().attr('item')
@@ -157,12 +156,13 @@ applyMarket = (element)->
     updateRow($(@).closest('tr'), newRow)
     updateSummary()
 
-  $('.buy', element).on 'mousedown touchstart', '.plus, .minus', (e)->
-    plus = $(@).hasClass 'plus'
+  $('.buy, .sell', element).on 'mousedown touchstart', '.plus, .minus', (e)->
     item = $(@).parent().attr('item')
+    plus = if $(@).hasClass('plus') then 'plus' else 'minus'
+    buy = if $(@).closest('.buy').length then 'buy' else 'sell'
     id = setInterval ->
       if item
-        $('.buy tr[item="' + item + '"] .' + (if plus then 'plus' else 'minus'), element).trigger('do')
+        $('.' + buy + ' tr[item="' + item + '"] .' + plus, element).trigger('do')
     , 150
     $('body').one 'mouseup touchend touchcancel', ->
       item = false
@@ -179,7 +179,7 @@ applyMarket = (element)->
       increment: incrementMultiplier sell[item][0], business
       cost: sell[item][1]
 
-  $('.sell', element).on 'click', '.plus', (e)->
+  $('.sell', element).on 'click do', '.plus', (e)->
     item = $(@).parent().attr('item')
 
     sellData = selling[item]
@@ -192,7 +192,7 @@ applyMarket = (element)->
     row.replaceWith $(Item[item].sellRow sellData.cost, sellData.increment, sellData.sold, sellData.available)
     updateSummary()
 
-  $('.sell', element).on 'click', '.minus', (e)->
+  $('.sell', element).on 'click do', '.minus', (e)->
     item = $(@).parent().attr('item')
     sellData = selling[item]
     if sellData.sold is 0 or cargo is Game.cargo then return

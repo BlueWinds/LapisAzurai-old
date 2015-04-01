@@ -54,6 +54,11 @@ Page.PortIntro = class PortIntro extends Page.Port
             placement: 'bottom'
             title: "Some jobs allow you to send any number of workers along with the necessary officers. Both sailors and officers can fill these slots, and they don't require any energy."
           )
+          element.help(
+            target: '.active .job-crew'
+            placement: 'bottom'
+            title: "You can double-click on a job to assign everyone (without another job already chosen) to it and save some clicking."
+          )
 
     return element
 

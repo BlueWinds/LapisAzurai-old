@@ -15,7 +15,7 @@ Job.GuildWork = class GuildWork extends Job
   @next = []
 
 Place.Vailia::jobs.searchGuildWork = Job.SearchGuildWork = class SearchGuildWork extends Job
-  label: 'Search for Sex Work'
+  label: 'Find Sex Work'
   text: ->"""Have the assigned officer search for safe, fun and well-paid work through Natalie's connections with The Guild."""
   type: 'special'
   conditions:
@@ -247,6 +247,7 @@ Page.GuildNat.next.push Page.GuildNatBang = class GuildNatBang extends PlayerOpt
   @next: {}
 
 Page.GuildNatBang.next['No'] = Page.GuildNatBangNo = class GuildNatBangNo extends Page
+  ignoreNew: true
   conditions:
     worker: {}
   text: ->"""|| bg="night|storm"
@@ -338,6 +339,7 @@ Page.GuildNat.next.push Page.GuildNatDom = class GuildNatDom extends PlayerOptio
   @next: {}
 
 Page.GuildNatDom.next['No'] = Page.GuildNatDomNo = class GuildNatDomNo extends Page
+  ignoreNew: true
   conditions:
     worker: {}
   text: ->"""|| bg="night|storm"

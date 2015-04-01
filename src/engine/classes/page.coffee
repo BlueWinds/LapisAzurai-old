@@ -130,6 +130,11 @@ window.Page = class Page extends GameObject
         type: Collection
         optional: true
 
+      ignoreNew:
+        # This event is too insignificant to show up as "new" on the port screen.
+        eq: true
+        optional: true
+
   # If a page's context hasn't been filled in, then we don't need to export it.
   export: (ids, paths, path)->
     if @hasOwnProperty 'context' then super(ids, paths, path)
@@ -137,8 +142,41 @@ window.Page = class Page extends GameObject
   context: new Collection
 
   contextMatch: -> return @context.matches @conditions
+  couldMatch: ->
+    for key, val of @conditions
+      if key[0] is '|'
+        target = g.getItem(key)
+        if not val and target then return false
+        unless target or val.optional then return false
+        unless Collection.partMatches(target, val) then return false
+        continue
 
-  contextFill: -> @context = (new Collection).fill @conditions
+      if val.optional or val.fill or val.matches then continue
+      target = false
+      if val.path
+        target = get.getItem val.path
+      if val.is
+        if target and not (target instanceof val.is) then return false
+        target or= g.officers.find((o)-> o instanceof val.is)
+        target or= g.officers.find((c)-> c instanceof val.is)
+        unless target then return false
+      if val.isnt
+        if target and target instanceof val.isnt then return false
+
+      if target >= val.lt or target > val.lte
+        return false
+      if target <= val.gt or target < val.gte
+        return false
+      if val.eq?
+        if val.eq instanceof Array
+          unless val.eq.some((c)-> target is c)
+            return false
+        else if target isnt val.eq
+          return false
+
+    return true
+
+  contextFill: (last)-> @context = (new Collection).fill(@conditions, last)
 
   show: ->
     if @conditions and not @context.objectLength
@@ -162,6 +200,25 @@ window.Page = class Page extends GameObject
     if g.events[@constructor.name].length > 10
       g.events[@constructor.name].pop()
     return
+
+  isNew: ->
+    unless g.events[@constructor.name] or @ignoreNew
+      return true
+
+    if @next instanceof Page
+      next = new @constructor::next
+      return @next.isNew()
+    else if @next?.prototype instanceof Page
+      next = new @next
+      return @next.isNew()
+
+    for key, val of @constructor.next
+      next = new val
+      next.contextFill(@context)
+      if next.couldMatch(true) and next.isNew()
+        return true
+
+    return false
 
 Game::queue = new Collection
 Game.schema.properties.queue =

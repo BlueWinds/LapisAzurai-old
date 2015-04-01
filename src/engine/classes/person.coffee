@@ -26,7 +26,7 @@ statSchema = {type: 'number', gte: 0, lte: 100}
 
 window.Person = class Person extends GameObject
   @stats:
-    happiness: "Happiness<br>How content a person is serving on the Lapis Azurai. As long as it's above 20 you're fine."
+    happiness: "Happiness<br>How content a person is serving on the Lapis Azurai. If it's below 20, they'll consider leaving the crew."
     business: "Business<br>Knowledge of goods, prices, book keeping and other parts of making a profit."
     diplomacy: "Diplomacy<br>Charm, wit or intimidation factor, whatever makes someone want to agree to a deal."
     sailing: "Sailing<br>Ships, sails, winds and waves, the knowledge and experience of dealing with the ocean."
@@ -160,9 +160,13 @@ Page.schema.properties.difficulty =
   gte: 1
   optional: true
 
-statCheckChances = (stat, diff)->
-  sum = Page.sumStat stat, g.officers
-  sum += Page.sumStat stat, g.crew
+statCheckChances = (stat, diff, context)->
+  sum = 1
+  if context
+    sum += Page.sumStat stat, context
+  else
+    sum += Page.sumStat stat, g.officers
+    sum += Page.sumStat stat, g.crew
   chances = {
     veryBad: Math.pow(diff / (sum * 2), 2)
     bad: diff / sum
@@ -190,8 +194,8 @@ Page.statCheck = ->
     return items.good
   return items.veryGood or items.good
 
-Page.statCheckDescription = (stat, difficulty, items)->
-  chances = statCheckChances(stat, difficulty)
+Page.statCheckDescription = (stat, difficulty, items, context)->
+  chances = statCheckChances(stat, difficulty, context)
   percent = (chance)-> Math.round(chance * 100) + '%'
   results = []
 
@@ -200,7 +204,7 @@ Page.statCheckDescription = (stat, difficulty, items)->
     results.push "Good: #{percent chances.good}"
   else
     results.push "Good: #{percent chances.good + chances.veryGood}"
-  if results.veryBad
+  if items.veryBad
     results.push "Bad: #{percent chances.bad}"
     results.push "Very Bad: #{percent chances.veryBad}"
   else

@@ -26,11 +26,6 @@ window.Job = class Job extends Page
       crew:
         type: 'integer'
         optional: true
-      requires: # requires is a list of stat: total pairs, specifying how much of a given stat the workers (officers + crew) must total up to (150 total business, for example)
-        type: 'object'
-        optional: true
-        strict: true
-        properties: {}
       apply: # Called once when the job is run to modify the game state with the results of this job. Be absolutely sure to call super() inside this function.
         type: 'function'
         optional: true
@@ -41,23 +36,9 @@ window.Job = class Job extends Page
         optional: true
         type: Collection
 
-  for stat of Person.stats
-    @schema.properties.requires.properties[stat] = {type: 'integer', optional: true, gte: 0}
-
   @universal = [] # An array of jobs that can show up at any port
 
   type: 'normal'
-  requiresBlock: ->
-    unless @requires then return ''
-    requires = for stat, val of @requires
-      sum = Page.sumStat stat, @context, @officers
-      unmet = if sum >= val then '' else 'unmet'
-      "<span class='#{stat} #{unmet}'>#{val}</span>"
-
-    return """<div class="job-requirements">
-      <div class="center">Needs</div>
-      #{requires.join ''}
-    </div>"""
 
   renderBlock: (mainKey)->
     slots = for key, conditions of @officers
@@ -65,8 +46,7 @@ window.Job = class Job extends Page
 
     return """<div class="#{@type} job clearfix" data-key="#{mainKey}">
       <div class="col-xs-6">
-        <div class="job-description">#{@text.call @context}</div>
-        #{@requiresBlock()}
+        <div class="job-description">#{@text.call(@context).replace(/\n/g, "<br>")}</div>
       </div>
       <ul class="job-officers col-xs-6">#{slots.join ''}</ul>
       #{if @crew? then '<div class="job-crew-label">Crew (need ' + @crew + ')</div><ul class="job-crew col-xs-12"></ul>' else ''}
@@ -91,9 +71,6 @@ window.Job = class Job extends Page
   contextReady: ->
     if @context.length < @crew
       return false
-    for stat, amount of @requires
-      if amount > Page.sumStat(stat, @context, @officers)
-        return false
     for key, value of @officers
       unless @context[key] or value.optional
         return false
@@ -140,16 +117,12 @@ window.ShipJob = class ShipJob extends Job
   renderBlock: (key)->
     """<div class="#{@type or 'normal'} job column-block" data-key="#{key}">
       <div class="block-label">#{@label}</div>
-      <div class="job-description">#{@text().replace("\n", "<br>")}</div>
+      <div class="job-description">#{@text().replace(/\n/g, "<br>")}</div>
     </div>"""
 
   contextReady: ->
     if @context.length < @crew
       return false
-
-    for stat, amount of @requires
-      if amount > Page.sumStat(stat, @context, @officers)
-        return false
 
     for key, value of @officers
       unless @context[key] or value.optional
