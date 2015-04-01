@@ -169,7 +169,8 @@ Ship::jobs.trainSailing = ShipJob.TrainSailing = class TrainSailing extends Ship
   label: "Maintenence"
   text: ->"""Repairing the Lapis will help the crew learn to work together better.
 
-  Crew: <span class="sailing">+1 sailing</span>, <span class="happiness">-1 happiness</span><br>Natalie: <span class="energy">-2 energy</span>"""
+  Crew: <span class="sailing">+1 sailing</span>, <span class="happiness">-1 happiness</span>
+  Natalie: <span class="energy">-2 energy</span> #{if g.map.Ship.damage then "\nShip: -1 damage" else""}"""
 
 ShipJob.TrainSailing::next = Page.TrainSailing = class TrainSailing extends Page
   conditions:
@@ -179,7 +180,7 @@ ShipJob.TrainSailing::next = Page.TrainSailing = class TrainSailing extends Page
     --
       Scrubbing the deck is hardly the most glamorous work, but that and a flurry of other menial tasks are necessary to keep a sailing vessel in proper shape - it's not just make-work when all their lives can depend on whether someone slips or not.
 
-      <em>Crew: <span class="sailing">+1 sailing</span>, <span class="happiness">-1 happiness</span><br>Natalie: <span class="energy">-2 energy</span></em>
+      <em>Crew: <span class="sailing">+1 sailing</span>, <span class="happiness">-1 happiness</span><br>Natalie: <span class="energy">-2 energy</span> #{if g.map.Ship.damage then "<br>Ship: -1 damage" else ""}</em>
   """
   apply: ->
     super()
@@ -187,3 +188,5 @@ ShipJob.TrainSailing::next = Page.TrainSailing = class TrainSailing extends Page
       sailor.add('sailing', 1)
       sailor.add('happiness', -1)
     @context.Nat.add('energy', -2)
+    if g.map.Ship.damage
+      g.map.Ship.applyDamage(-1)

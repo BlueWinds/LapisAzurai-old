@@ -25,6 +25,11 @@ Object.defineProperty Number.prototype, 'toWord', { value: -> switch Number(@)
   when 4 then 'four'
   when 5 then 'five'
   when 6 then 'six'
+  when 7 then 'seven'
+  when 8 then 'eight'
+  when 9 then 'nine'
+  when 10 then 'ten'
+  when 11 then 'eleven'
   else Number(@).toString()
 }
 
