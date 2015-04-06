@@ -20,7 +20,10 @@ Job.Library::next = Page.Library = class Library extends Page
 
 Page.Library.next.push Page.LibraryTravel = class LibraryTravel extends Page
   conditions:
-    '|events|LibraryTravel|length': {lt: 2, optional: true}
+    '|events|LibraryTravel|length': {lt: 3, optional: true}
+    '|events|LibraryTravel':
+      match: (days)-> return days?[0] < g.day - 7
+      optional: true
     worker: {}
   text: ->"""|| bg="marketDay|marketStorm"
     -- With some careful searching of various travel journals and map fragments, and the (un)help of a thorny librarian, #{@worker} managed to find and copy down the details of a new route. With a detailed chart and location, the Lapis could now travel to another destination.
@@ -53,10 +56,16 @@ Page.LibraryTravel.next.push Page.LibraryTravelDirect = class LibraryTravelDirec
     g.map.Vailia.destinations.Alkenia = 13
     g.map.Alkenia.destinations.Vailia = 17
 
-# Page.LibraryTravel.next.push Page.LibraryTravelNonkenai = class LibraryTravelNonkenai extends Page
-#   text: ->"""|| bg="marketDay|marketStorm"
-#     -- After passing through Alkenia, one can reach <strong>Nonkenai</strong>, Alkenia's rival city and spiritual center for the continent. Though they stubbornly maintain their independence, they still welcome Vailian merchants and the quality manufactured goods they bring, with a special interest in weapons and other metalwork.
-#   """
+Page.LibraryTravel.next.push Page.LibraryTravelNonkenia = class LibraryTravelNonkenia extends Page
+  text: ->"""|| bg="marketDay|marketStorm"
+    -- With some careful searching of various travel journals and map fragments, and the (un)help of a thorny librarian, #{@worker} managed to find and copy down the details of a new route. With a detailed chart and location, the Lapis could now travel to another destination.
+
+    After passing through Alkenia, one can reach <strong>Nonkenia</strong>, Alkenia's rival city and spiritual center for the continent. Though they stubbornly maintain their independence, they still welcome Vailian merchants and the quality manufactured goods they bring, with a special interest in weapons and other metalwork.
+  """
+  apply: ->
+    super()
+    g.map.Alkenia.destinations.Nonkenia = 3
+    g.map.MountJulia.destinations.Nonkenia = 10
 #
 # Page.LibraryTravel.next.push Page.LibraryTravelBlackSands = class LibraryTravelBlackSands extends Page
 #   text: ->"""|| bg="marketDay|marketStorm"

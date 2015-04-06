@@ -871,6 +871,9 @@ options button.btn {
   margin-top: 4px;
   position: absolute;
 }
+.location.no-sail {
+  cursor: default;
+}
 .location::before {
   color: #FFF;
   content: "・";
@@ -880,10 +883,16 @@ options button.btn {
   position: absolute;
   top: -30px;
 }
+.location.no-sail:before {
+  color: #BBB;
+}
 .location .name {
   border: none;
   color: #FFF;
   padding: 0;
+}
+.location.no-sail .name {
+  color: #BBB;
 }
 .location .full {
   clip: rect(-25px, 350px, -25px, 0);
@@ -899,14 +908,12 @@ options button.btn {
   width: 350px;
   z-index: 1;
 }
-.location.show-full .full {
+.location.show-full .full, .location:hover .full {
   border-color: #777;
   clip: rect(-25px, 350px, 350px, 0);
 }
-.location:hover .full {
-  border-color: #777;
-  clip: rect(-25px, 350px, 350px, 0);
-  transition: clip 0.5s ease 0.75s;
+.location.no-sail.show-full .full, .location.no-sail:hover .full {
+  clip: rect(-25px, 350px, -25px, 0);
 }
 .location .full > .name {
   cursor: default;

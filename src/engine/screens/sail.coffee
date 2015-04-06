@@ -25,10 +25,28 @@ Page.SetSail = class SetSail extends Page
     x = (@port.location[0] - content.width() / 2)
     y = (@port.location[1] - content.height() / 2)
 
-    locations = for key, distance of @port.destinations
+    visited = {}
+    visited[g.location] = true
+    locations = []
+
+    for key, distance of @port.destinations
       distance = Math.ceil(distance / g.map.Ship.sailSpeed())
-      g.map[key].renderBlock(key, distance)
-    locations.push @port.renderBlock('', 0, )
+      visited[key] = true
+      locations.push g.map[key].renderBlock(key, distance)
+      
+    traceNetwork = (loc)->
+      for key, distance of loc.destinations
+        if visited[key]
+          continue
+        visited[key] = true
+        console.log key
+        locations.push g.map[key].renderBlock(key, false)
+        traceNetwork(g.map[key])
+
+    for key, distance of @port.destinations
+      traceNetwork(g.map[key])
+
+    locations.push @port.renderBlock('', -1)
 
     page = $.render """|| slow="true" class="screen set-sail"
       <form><div class="bg"></div>#{locations.join('').replace(/\n/g, '')}</form>

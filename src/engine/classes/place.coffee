@@ -47,11 +47,17 @@ window.Place = class Place extends GameObject
   image: (tag, title)-> "<img src='#{@images[tag]}' #{if title then 'title="' + title + '"' else ''}>"
 
   renderBlock: (key, distance)->
-    return """<div data-key="#{key}" class="location" style="left: #{@location[0]}px; top: #{@location[1]}px;">
+    distanceDesc = if distance is -1
+      ""
+    else if distance
+      "- #{distance} #{if distance is 1 then 'day' else 'days'}"
+    else ""
+
+    return """<div data-key="#{key}" class="location #{if distance then '' else 'no-sail'}" style="left: #{@location[0]}px; top: #{@location[1]}px;">
       <div class="name">#{@name}</div>
       <div class="full">
-        <div class="name">#{@name} - #{distance} #{if distance is 1 then 'day' else 'days'}</div>
-        #{@image 'day', (if distance then 'Sail to ' else 'Return to ') + @name}
+        <div class="name">#{@name} #{distanceDesc}</div>
+        #{@image 'day', (if distance is -1 then 'Return to ' else if distance then 'Sail to ' else '') + @name}
         <div class="description">#{@description?() or @description}</div>
       </div>
     </div>"""
