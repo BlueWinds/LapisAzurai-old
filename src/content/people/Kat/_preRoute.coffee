@@ -405,3 +405,321 @@ Job.KatJames::next = Page.KatJames = class KatJames extends Page
   effects:
     remove:
       '|location|jobs|katJames': Job.KatJames
+
+Place.Alkenia::jobs.katStorm = Job.KatStorm = class KatStorm extends Job
+  conditions:
+    '|events|KatJames': {matches: (days)-> return days[0] < g.day - 14}
+  label: "Kat in the Rain"
+  type: 'plot'
+  text: ->"""A familiar face in the rain - Kat huddled beneath an awning and looking miserable."""
+  energy: -1
+  officers:
+    Natalie: '|officers|Nat'
+
+Job.KatStorm::next = Page.KatStorm = class KatStorm extends Page
+  conditions:
+    Natalie: {}
+    Kat: '|people|Kat'
+  text: ->"""|| bg="marketNight"
+  || bg="marketStorm" verySlow="true"
+    -- Though the weather had maintained a pleasant tenor all through the day, as the sun set, clouds began to blow in from the horizon. Not a dangerous storm, just a bit of nasty rain to put a damper on Natalie's plans for the evening in town.
+
+    As she hurried back towards the ship, coat pulled close around her, a hint of movement on the mostly deserted street caught her attention. A form, legs pulled up to its chest, half-hidden in the alleyway. There were people living on the street to be sure, but this... Nataile went over for a closer look.
+
+  ||
+    -- It was... what was her name again. The thief. She looked absolutely miserable, huddled up in a corner by the side of the street, raggedy blanket more hole than cloth draped over hunched shoulders. Natalie couldn't blame her – even in a waxed cloak and well-made clothing it was miserable to be outside, much less the scraps she was wearing. Natalie went over, bent against the rain and crouched down next to her.
+
+  ||
+    #{@Kat.image 'sad', 'right'}
+    --> #{q}Hey, Natalie,</q> the woman eyed her, trying to sound cheerful but lacking the energy. A particularly brutal gust of wind showered them with freezing water. #{q}Don't worry, I'm not going after your purse today.</q>
+
+  ||
+    #{@Natalie.image 'sad', 'left'}
+    -- #{q}What are you doing out here?</q> She already knew the answer, of course – there was only one reason someone dressed like that and sat outside in a storm.
+
+  ||
+    #{@Kat.image 'sad', 'right'}
+    --> Kat didn't answer at first, just pulled her legs in closer to her chest. #{q}I wouldn't say no if you dropped your cloak, though,</q> the misery in her voice at asking for something so bluntly cut straight through to Natalie's heart.
+
+  ||
+    #{@Natalie.image 'sad', 'left'}
+    --> #{q}Nope, no cloak. But come on, let's at least get you out of the rain,</q> she reached over and wrapped an arm around Kat's shoulder, pulling her to her feet.
+
+  ||
+    #{@Kat.image 'sad', 'right'}
+    -- #{q}Where are we going?</q>
+
+  ||
+    #{@Natalie.image 'sad', 'left'}
+    --> #{q}My ship. Come on, it's not that far. You stay out here you'll die of exposure.</q>
+
+  ||
+    #{@Kat.image 'normal', 'right'}
+    --> #{q}That would suck,</q> Kat managed a chuckle, declining to rest her weight on Natalie's shoulder and walking on her own. #{q}I've slept in storms before. Killed Don, but I guess I'm made of pretty stern stuff, eh?</q>
+
+  || bg="Ship.deckStorm" slow="true"
+
+  || bg="Ship.cabinStorm" slow="true"
+    -- Kat coughed, the motion wracking her whole body. No matter how many blankets Natalie piled over her, her body still shivered while her forehead burned. More than anything else, Nat worried about food – while she'd been scrawny last time they'd met, Kat had seemed little more than a shadow as she'd peeled off soaking clothes and gotten her in Natalie's bed. She'd asked for something to eat, but fallen asleep before it could be brought.
+
+  ||
+    --> Natalie felt her forehead again and sat by Kat's side. It was going to be a long night.
+"""
+  effects:
+    remove:
+      '|location|jobs|katStorm': Job.KatStorm
+
+Page.KatStorm::next = Page.KatStorm2 = class KatStorm2 extends PlayerOptionPage
+  conditions:
+    Natalie: {}
+    Kat: {}
+  text: ->"""|| bg="Ship.cabinDay" verySlow="true"
+
+  || slow="true"
+    -- #{q @Kat}You're a very nice lady, you know that?</q> Natalie woke to a hand patting her shoulder. She'd fallen asleep while tending to Kat, and now it seemed her charge had awakened first.
+
+  ||
+    #{@Natalie.image 'normal', 'left'}
+    --> #{q}What do you mean?</q>
+
+  ||
+    --> #{q @Kat}You brought me here and took care of me.</q> Kat didn't rise, stayed laying on the bed with the blankets covering her.
+
+  ||
+    #{@Natalie.image 'normal', 'left'}
+    -- #{q}Anyone would do that,</q> Natalie covered the hand on her shoulder with own.
+
+  ||
+    --> #{q @Kat}Not anyone. Two people. You and Don. No one else ever did. Can I get some of that milk?</q> She gestured weakly to the small jar of cream at the bedside – someone, probably James, had left it there before she woke, along with a now cool cup of tea and a biscuit.
+
+  ||
+    #{@Natalie.image 'normal', 'left'}
+    --> #{q}That's cream, you don't want to drink it. Here, have a biscuit instead. Want tea?</q>
+
+  ||
+    #{@Kat.image 'normal', 'right'}
+    -- #{q}I sucked on a maiden's tea leaf once. Pretty nasty. Biscuit sounds good though.</q> She waited for Natalie to fetch it for her, finally biting into the biscuit. She chewed thoughtfully, her face growing into a smile. Slowly she levered herself up to a sitting position. #{q}It's good. Always knew you were a big-shot. It's a nice cabin.</q>
+
+  ||
+    #{@Natalie.image 'blush', 'left'}
+    --> #{q}Thanks. It's not anything like that – I just have some talents The Guild finds useful.</q>
+
+  ||
+    #{@Kat.image 'normal', 'right'}
+    --> #{q}A Vailian guildswoman, eh? A woman of many talents. So, what do you want with the likes of me? Going to turn me in to the guard for the time I took your money?</q>
+
+  ||
+    #{@Natalie.image 'upset', 'left'}
+    -- #{q}What? No! I saw you dieing by the side of the road, and I decided to do something about it, that's all.</q> Natalie felt as though she should be indignant, but really, how many times had she walked past someone in exactly the same situation? Too many.
+    #{options ['Offer gift', 'Set up in city', 'Offer job'], ['Help her get back on her feet', "Natalie has made some friends in Alkenia, one of them might have a position open. <em>+3 happiness for Kat, she might still join you later</em>", "She seems like a fun person to have around"]}
+"""
+  @next: {}
+
+Page.KatStorm2.next['Offer gift'] = Page.KatStormGift = class KatStormGift extends PlayerOptionPage
+  conditions:
+    Natalie: {}
+    Kat: {}
+  text: ->"""|| bg="Ship.cabinDay"
+    #{@Natalie.image 'normal', 'left'}
+   -- #{q}Look, you seemed to be doing well before you met me, and while I can't approve of pickpocketing as a living, I do feel pretty bad about what happened afterwards. What would you do with 20b?</q>
+
+  ||
+    #{@Kat.image 'excited', 'right'}
+    -- That definitely caught Kat's attention. She considered a moment, then answered. #{q}Well, I'd start with some new clothes. Then something to eat, of course – I always wanted to try one of those spiced meat pies in the market, but that cook has eyes like a hawk and I never could snatch one. Then a place to stay – a couple tenths a night gets me a nice place by the fire down in the slums...</q>
+
+  ||
+    #{@Natalie.image 'serious', 'left'}
+    --> Natalie listened with growing dismay. No sense of planning, of saving, of building a plan for the future. Whatever Kat needed, it wasn't a gift, no matter how generous.
+    #{options ['Set up in city', 'Offer job'], ["Natalie has made some friends in Alkenia, one of them might have a position open. <em>+3 happiness for Kat, she might still join you later</em>", "She seems like a fun person to have around"]}
+"""
+  @next: {}
+
+Job.KatVisit = class KatVisit extends Job
+  conditions:
+    '|events|KatStorm': {matches: (days)-> return days[0] < g.day - 7}
+    '|events|KatVisit':
+      optional: true
+      matches: (days)-> return not days or days[0] < g.day - 10
+    '|weather': {eq: 'calm'}
+  label: "Visit Kat"
+  type: 'plot'
+  text: ->"""Time to pay a visit to your favorite thief friend, see how she's doing in her new job as a respectable member of society."""
+  energy: -1
+  officers:
+    Natalie: '|officers|Nat'
+
+
+Page.KatStorm2.next['Set up in city'] = Page.KatStormGift.next['Set up in city'] = Page.KatStormCity = class KatStormCity extends Page
+  conditions:
+    Natalie: {}
+    Kat: {}
+  text: ->"""|| bg="Ship.cabinDay"
+    #{@Natalie.image 'normal', 'left'}
+    -- #{q}I know some people who might want some help, if you're interested,</q> Natalie wondered briefly who would accept a known pickpocket street-person into their employ, even one as irrepressible as Kat seemed to be, still joking around even with pnumonia.
+
+  ||
+    #{@Kat.image 'normal', 'right'}
+    --> #{q}I'm not going to be a whore, guildswoman.</q> Kat shook her head without anger. #{q}I'm not expensive, and I've seen what happens to cheap ones. Rather still be in the gutter.</q>
+
+  ||
+    #{@Natalie.image 'normal', 'left'}
+    --> #{q}I don't mean whoring, there's desk work and the like,</q> though such an objection did rule out 2/3rds of the possibilities Natalie had thought of suggesting. #{q}There are plenty of other jobs. Can you use a mop?</q>
+
+  ||
+    #{@Kat.image 'normal', 'right'}
+    -- #{q}Dunno. Never tried.</q>
+
+  ||
+    #{@Natalie.image 'normal', 'left'}
+    --> #{q}I suppose it's a better answer than 'no,'</q> Natalie laughed, drawing a smile from Kat as well. Despite nearly freezing to death, her mood didn't seem much affected. #{q}Let me ask around a bit today and see what I can arrange.</q>
+
+  ||
+    --> <em><span class="happiness">+2 happiness</span> for Kat</em>
+"""
+  apply: ->
+    super()
+    @context.Kat.add('happiness', 2)
+  effects:
+    add:
+      '|location|jobs|katVisit': Job.KatVisit
+
+Page.KatStorm2.next['Offer job'] = Page.KatStormGift.next['Offer job'] = Page.KatStormJob = class KatStormJob extends Page
+  conditions:
+    Natalie: {}
+    Kat: {}
+  text: ->"""|| bg="Ship.cabinDay"
+    #{@Natalie.image 'normal', 'left'}
+    -- #{q}Maybe we can help each other out. I'm always looking for more crew members, and you might do well.</q>
+
+  ||
+    #{@Kat.image 'excited', 'right'}
+    --> Kat laughed. #{q}I've never set foot on a ship before in my life.</q>
+
+  ||
+    #{@Natalie.image 'normal', 'left'}
+    --> #{q}But you've got a knack for turning people to your side. Just look at me – I must be crazy to be thinking about hiring you, but here I am.</q>
+
+  ||
+    #{@Kat.image 'normal', 'right'}
+    --> #{q}Accepted.</q>
+
+  ||
+    #{@Natalie.image 'normal', 'left'}
+    -- #{q}Besides, it's... um... that's good. No time to consider it? You haven't even heard the pay yet.</q>
+
+  ||
+    #{@Kat.image 'excited', 'right'}
+    --> #{q}I'd get paid?</q> Kat sounded entirely too excited at that prospect, as though getting money for her labor hadn't even crossed her mind. #{q}How much?</q> Another cough wracked her body, and Natalie patted her shoulder.
+
+  ||
+    #{@Natalie.image 'normal', 'left'}
+    --> #{q}Rest more. We'll talk tomorrow.</q>
+
+  ||
+    --> <em>Kat joins the crew</em>
+"""
+  apply: ->
+    super()
+    g.officers.Kat = g.people.Kat
+
+hireText = "Maybe she'd like to try something more exciting? LIke sailing with Natalie"
+Job.KatVisit::next = Page.KatVisit = class KatVisit extends PlayerOptionPage
+  conditions:
+    Natalie: {}
+    Kat: '|people|Kat'
+  text: ->"""  || bg="marketDay"
+    #{@Kat.image 'normal', 'right'}
+    -- #{q}Get me out of here.</q>
+
+  ||
+    #{@Natalie.image 'normal', 'left'}
+    --> Natalie nearly jumped out of her skin at the sudden whisper right in her ear and the weight hanging off her shoulders. She reached up, pried Kat off her back, and turned to face her. #{q}Hey Kat. I just came by to...</q>
+
+  ||
+    #{@Kat.image 'normal', 'right'}
+    --> #{q}Save me, Nat, save me from the eternal repetitive workday, repetitive and boring and how do people stand having jobs?</q> Kat didn't look nearly as skeletal as she had last time they spoke, but there was a glimmer in her eyes suggesting an unhealthy level of stir-craziness. #{q}Repetitive. Boring. Did I mention it's...</q>
+
+  ||
+    #{@Natalie.image 'normal', 'left'}
+    -- #{q}Repetitive. Yes, you did mention it. I take it being a maid isn't to your taste?</q>
+
+  ||
+    #{@Kat.image 'normal', 'right'}
+    --> Kat spun around, swinging her broom as though it were a dance partner. #{q}Oh, no, I love sweeping! And mopping, that's the best, all grimy and disgusting. Do you know what three day old cum smells like? I know what three day old cum smells like now.</q> She gestured upwards, tapping the roof with the broom handle.
+
+  ||
+    #{@Natalie.image 'normal', 'left'}
+    --> #{q}Hey, it's better than being on the streets, isn't it?</q>
+
+  ||
+    #{@Kat.image 'excited', 'reversed'}
+    -- #{q}I don't know! I thought it was during Water, but then I noticed a laundry place I hadn't seen before, with a pretty good crawlspace I could hide in, and I got to thinking that maybe it wasn't so bad after all. But I am so glad to see you! You're not boring.</q>
+    #{if g.events.KatVisit.length is 2 then options(['Spend time together', 'Hire her'], ["She needs to take the rest of the day off and hang out with Natalie. <em class='happiness'>+3 happiness for Kat, Natalie, you can still hire her later</em>", hireText]) else options(['Hire her'], [hireText])}
+"""
+  @next: {}
+
+Page.KatVisit.next['Spend time together'] = Page.KatVisitTime = class KatVisitTime extends Page
+  conditions:
+    Natalie: {}
+    Kat: {}
+  text: ->"""|| bg="marketDay"
+    #{@Natalie.image 'blush', 'left'}
+    -- #{q}I suppose it's nice to be appreciated. But anyway, I just thought I'd drop by, see how you were doing.</q>
+
+  ||
+    #{@Kat.image 'excited', ''}
+    --> #{q}And you've seen how I'm doing. I'm doing great! And going crazy, too, but, you know.</q>
+
+  ||
+    #{@Natalie.image 'excited', 'left'}
+    --> Natalie laughed at the display, and poked Kat's forehead. #{q}We are going to get you out of here, then, at least for the rest of the day.</q>
+
+  ||
+    #{@Kat.image 'excited', 'right'}
+    -- Kat poked back with the broom handle, in the shoulder. Natalie made a grab for it, but her hands closed only on empty air, and she received a rap on the hip for her trouble. Feinting after the broom again, Nat instead lunged forward, wrapping her arms around Kat's waist and lifting, tossing the giggling girl over one shoulder like a sack of potatoes.
+
+  ||
+    #{@Natalie.image 'excited', ''}
+    --> #{q}I'm borrowing her for a bit, if you don't mind?</q> Natalie slapped Kat's rump, addressing her comment to the other maid, a forty something man who shrugged his shoulders – not his job to make sure she worked. Kat giggled more and kicked her feet as Nat carried her away.
+
+  || bg="day"
+    -- It was good to spend some time away from the cares and responsibilities of captaining, and Kat certainly seemed to enjoy herself as well. They ate lunch together, wandered the city streets, built a pyramid out of bricks and ran away when the owner of said bricks tried to scold them. A good day all around.
+
+  ||
+    --> <em><span class="happiness">+3 happiness</span> for Kat and Natalie</em>
+"""
+  apply: ->
+    super()
+    @context.Kat.add 'happiness', 3
+    @context.Natalie.add 'happiness', 3
+
+Page.KatVisit.next['Hire her'] = Page.KatVisitHire = class KatVisitHire extends Page
+  conditions:
+    Natalie: {}
+    Kat: {}
+  text: ->"""|| bg="day"
+    #{@Natalie.image 'normal', 'left'}
+    -- #{q}Well, that's good. I suppose I don't need to remain in suspense, asking if you'd like to join my crew, then?</q>
+
+  ||
+    #{@Kat.image 'excited', ''}
+    --> She was nearly bowled over as Kat leapt into her arms, an excited sound and a fierce hug, legs wrapping around her waist. Natalie staggered back, trying to catch her balance, bumping against a wall. Kat kissed her, right on the mouth, then unwrapped her legs and detached herself again. Natalie laughed at the girl's sudden false-decorum as she wiped dust off her shirt and spoke formally. #{q}Why yes, Captain Natalie, I would be pleased to sign on.</q> It didn't last – she broke back into a grin.
+
+  ||
+    #{@Natalie.image 'serious', 'left'}
+    -- #{q}It's hard work, you know. Messing around is fine, but on the ship I broke no laziness.</q>
+
+  ||
+    #{@Kat.image 'excited', 'right'}
+    --> #{q}Hey, don't worry about it. I kept this shitty job, didn't I? How much worse can it be?</q>
+
+  ||
+    #{@Kat.image 'excited', 'right'}
+    --> <em>Kat has joined the crew</em>
+"""
+  apply: ->
+    super()
+    g.officers.Kat = @context.Kat
+  effects:
+    remove:
+      '|location|jobs|katVisit': Job.KatVisit

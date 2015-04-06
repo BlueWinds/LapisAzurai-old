@@ -375,12 +375,12 @@ Page.AbandonedShipSearch.next.push Page.AbandonedShipMoney = class AbandonedShip
 
 Page.OtherShip.next.push Page.LocalMerchants = class LocalMerchants extends Page
   conditions:
-    location: match: -> g.location.name not in ['Vailia', 'MtJulia']
+    location: matches: -> g.location.name not in ['Vailia', 'MtJulia']
   text: ->"""|| bg="Ship.day"
     -- The ship heading for them looking like it might be local to the area, and appearances did not deceive. Slightly larger than the Lapis, it held on its deck a dozen friendly looking sailors. Though they were all armed – a crew would be foolish not to carry weapons when greeting strangers – Natalie sensed no hostility from them, and the assessment was mutual. No blades were drawn as the ships drew up next to each other.
 
   ||
-    -- After a few shouted words, they lay a plank across the gap between the ships, and #{g.officers.toArray().wordJoin()} crossed over to the other deck where there was more room. Though both captains had a schedule to keep, they agreed that at least a few minutes exchanging news was in order.
+    -- After a few shouted words, they lay a plank across the gap between the ships, and #{g.officers.asArray().wordJoin()} crossed over to the other deck where there was more room. Though both captains had a schedule to keep, they agreed that at least a few minutes exchanging news was in order.
 
     <em><span class="happiness">+1 happiness</span>, <span class="business">+1 business</span> for crew</em>"""
   apply: ->
@@ -391,7 +391,7 @@ Page.OtherShip.next.push Page.LocalMerchants = class LocalMerchants extends Page
 
 Page.OtherShip.next.push Page.VailianMerchants = class VailianMerchants extends PlayerOptionPage
   conditions:
-    location: match: -> g.location.name not in ['Vailia', 'MtJulia', 'Alkenia', 'Nonkenia', 'BlackSands']
+    location: matches: -> g.location.name not in ['Vailia', 'MtJulia', 'Alkenia', 'Nonkenia', 'BlackSands']
   text: ->"""|| bg="Ship.day"
     -- Triangular sales - #{Math.choice g.crew} was the first to spot them on the other ship, and #{he} loudly guessed that it was a Vailian vessel. Despite all odds, so far from home, #{he} was proven right half an hour later, when they were close enough to make out more details. A Vailian-made ship meant Vailian crew – the city did not sell to outsiders, jealously guarding its ship-building secrets.
 

@@ -220,11 +220,8 @@ applyHire = (element)->
 
     # Old crew to be fired
     $('.hires .hired', element).each ->
-      console.log $(@), $(@).attr('data-key')
       delete g.crew[$(@).attr('data-key')]
-    console.log g.crew
     g.crew.reArray()
-    console.log g.crew
 
     newCrew = new Collection
     if context.Assistant
@@ -237,8 +234,6 @@ applyHire = (element)->
       newCrew.push person
       delete context.hires[key]
     context.hires.reArray()
-    console.log context.hires
-    console.log newCrew
 
     if newCrew.length is 1
       g.queue.unshift(new Page.HireCrewOne)

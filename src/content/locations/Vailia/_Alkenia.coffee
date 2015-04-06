@@ -6,6 +6,7 @@ Place.Alkenia = Game::map.Alkenia = class Alkenia extends Place
     night: 'game/content/locations/Town/Port Night.jpg'
     storm: 'game/content/locations/Town/Port Storm.jpg'
     marketDay: 'game/content/locations/Town/Port Day.jpg'
+    marketNight: 'game/content/locations/Town/Port Night.jpg'
     marketStorm: 'game/content/locations/Town/Port Storm.jpg'
     tavern: Place.Vailia::images.tavern
   jobs: new Collection

@@ -15,7 +15,7 @@ updateJob = (job, jobDiv)->
     divs.addClass 'half-ready'
 
   newText = job.text.call(job.context).replace(/\n/g, "<br>")
-  $('.job-description', jobDiv).html(newText)
+  $('.job-description', jobDiv).html(newText).addTooltips()
 
 ordering =
   plot: 0

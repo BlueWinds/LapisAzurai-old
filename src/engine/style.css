@@ -21,6 +21,7 @@ body > .container {
   border: none;
   cursor: default;
   margin: 0;
+  z-index: 1001;
 }
 .navbar-nav {
   float: left;
@@ -113,7 +114,8 @@ page.no-prev::before {
 .person.far-left { left: auto; right: 45%; }
 .person.right { left: 35%; transform: scaleX(-1); }
 .person.far-right { left: 45%; transform: scaleX(-1); }
-.person.left.reversed { transform: scaleX(-1); right: 65% }
+.person.reversed { transform: scaleX(-1); left: 20%; }
+.person.left.reversed { transform: scaleX(-1); right: 65%; }
 .person.right.reversed { transform: none; left: 75%; }
 .person.far-right.reversed { transform: none; left: 70%; }
 
@@ -930,6 +932,10 @@ options button.btn {
 }
 .sail .job {
   cursor: pointer;
+}
+.sail .col-xs-6:last-child:nth-child(odd) {
+  float: none;
+  margin: auto;
 }
 .expenses table {
   margin: 12px 0;

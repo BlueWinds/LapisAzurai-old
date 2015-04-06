@@ -5,11 +5,13 @@ Job.GuildWork = class GuildWork extends Job
   text: ->"Work as a whore in Ben Oakly's brothel."
   officers:
     worker:
-      is: [Officer.Natalie, Officer.Kat]
+      is: Officer.Natalie
+      label: ->'Natalie'
+#       is: [Officer.Natalie, Officer.Kat]
       matches: (person)->g.events['SearchGuildWork' + person.name]?
-      label: -> switch
-        when g.events.SearchGuildWorkKat then 'Nat or Kat'
-        else 'Natalie'
+#       label: -> switch
+#         when g.events.SearchGuildWorkKat then 'Nat or Kat'
+#         else 'Natalie'
   energy: -2
   next: Page.randomMatch
   @next = []
@@ -173,7 +175,7 @@ Job.SearchGuildWork.next.push Page.SearchGuildWorkKat = class SearchGuildWorkKat
   conditions:
     worker: {is: Officer.Kat}
     Nat: '|officers|Nat'
-  text: ->"""|| bg="ship.deckDay|Ship.deckStorm"
+  text: ->"""|| bg="Ship.deckDay|Ship.deckStorm"
     -- #{q @worker}I told you a long time ago I don't want to be a whore,</q> Kat turned her back on Natalie, leaning over the edge of the ship.
 
   ||
@@ -181,13 +183,15 @@ Job.SearchGuildWork.next.push Page.SearchGuildWorkKat = class SearchGuildWorkKat
     --> #{q}Neither do I, Kat, neither do I. But acting like one is fun occasionally. You're a sexy lady, and no one's going to make you do something you don't want to. I just thought you might like a chance to act on some of those lewd comments you're always making.</q>
 
   ||
-    --> #{q @worker}Oh, I like sex alright. But doncha'know, I'd rather sleep with you than anyone else,</q> she wiggled her rear, punctuating the motion by winking over her shoulder.
+    #{@worker.image 'normal', 'right'}
+    --> #{q}Oh, I like sex alright. But doncha'know, I'd rather sleep with you than anyone else,</q> she wiggled her rear, punctuating the motion by winking over her shoulder.
 
   ||
     #{@Nat.image 'excited', 'left'}
     -- #{q}Doesn't work on me. James would blush, but I'll just take you up on the offer.</q> Natalie slapped the presented rump, and Kat squealed. #{q}Tell you what. Do it just this once, and if you don't like it I won't ask again.</q>
 
   ||
+    #{@worker.image 'normal', 'right'}
     --> She got a calculating look in her eye for a moment, then turned back to face Natalie fully. #{q @worker}And what, hypothetically speaking, would you gain from this?</q>
 
   ||
@@ -195,26 +199,21 @@ Job.SearchGuildWork.next.push Page.SearchGuildWorkKat = class SearchGuildWorkKat
     --> #{q}Well, 25%, I'd expect.</q>
 
   ||
-    --> #{q @worker}And why would I pay you, for work I was doing?</q>
-  """
+    -- #{q @worker}And why would I pay you, for work I was doing?</q>
 
-Page.SearchGuildWorkKat::next = SearchGuildWorkKat2 = class SearchGuildWorkKat2 extends Page
-  conditions:
-    worker: {}
-    Nat: {}
-  text: ->"""||
+  ||
     #{@Nat.image 'normal', 'left'}
-    -- #{q}Because I'll find you your clients, of course. And make sure you get paid fairly. Oh, and of course I have a Guild license for you to operate under. I don't think you have 800β to be spending on one of those, at the moment, do you?</q>
+    --> #{q}Because I'll find you your clients, of course. And make sure you get paid fairly. Oh, and of course I have a Guild license for you to operate under. I don't think you have 800β to be spending on one of those, at the moment, do you?</q>
 
   ||
     --> Kat's eyebrows shot up at that figure. If she saved every penny working on the Lapis for five years, she might be able to afford something like that.
 
   ||
     #{@Nat.image 'normal', 'left'}
-    --> #{q}Gifted by the Guildmaster. He's the one you have to pay for them in the first place, and it made a fine birthday present for me when I came of age.</q> Natalie quirked an eyebrow at Kat and smirked.
+    -- #{q}Gifted by the Guildmaster. He's the one you have to pay for them in the first place, and it made a fine birthday present for me when I came of age.</q> Natalie quirked an eyebrow at Kat and smirked.
 
   ||
-    #{@Nat.image 'happy', 'left'}
+    #{@Nat.image 'normal', 'left'}
     --> Natalie quirked an eyebrow at Kat and smirked. #{q}So, my cute little doxy, shall we sally forth?</q>
   """
 
