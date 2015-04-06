@@ -941,6 +941,7 @@ options button.btn {
   cursor: pointer;
 }
 .sail .col-xs-6:last-child:nth-child(odd) {
+  clear: both;
   float: none;
   margin: auto;
 }
