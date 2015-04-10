@@ -24,7 +24,7 @@ Place.Ship::jobs.storm = ShipJob.Storm = class Storm extends ShipJob
   type: 'plot'
   conditions:
     chance:
-      matches: -> return Math.random() <= 0.1
+      matches: -> return Math.random() <= 0.1 and g.events.Storm[0] < g.day - 28
       optional: true
     '|events|FirstStorm': {}
     damage: {fill: stormDamage}

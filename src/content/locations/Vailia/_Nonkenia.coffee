@@ -45,5 +45,29 @@ Job.NonkeniaRest.next.push Page.NonkeniaRest = class NonkeniaRest extends Page
   conditions:
     worker: {}
   text: ->"""|| bg="day|storm"
-    --
+    -- #{@worker} meandered through Nonkenia, exploring the area and people-watching. Eventually #{he} found himself in a quieter part of the town, out of sight of the main roads and walking through increasingly narrow passages between poorly maintained buildings.
+
+  ||
+    --> A building of a different sort caught #{his} eye - stone, ancient stone, weathered with a light coating of moss in some places and rivulets carved down the surface of the rock as though by untold years of rain. The door was open, and from the dimly lit recesses wafted the scent of a pleasant wood fire. #{@worker} entered.
+
+  ||
+    -- The doorway opened to a small chamber, windowless, lit only by a small fire. Curls of smoke drifted towards a hole in the ceiling, and on the opposite side from the entrance sat an old woman. The patched shawl wrapped over her shoulders had seen better days.
+
+  ||
+    --> #{q}Hello?</q> #{@worker} greeted her, falling silent as the old woman looked up with a rheumy stare.
+
+  ||
+    -- She sheek her head slowly, looked back down at her fire. <q>You're not the one I'm waiting for, but you are welcome to join me if you wish.</q>
+
+  ||
+    --> Strangely compelled by the scene, #{@worker} took a seat. #{q}What is this place? It's much older than the rest of the city.</q>
+
+  ||
+    -- She smiled. <q>It is. Much older. I don't know how old, don't ask,</q> she interrupted the upcoming question with a dry chuckle. <q>I just know that this place is waiting for someone, and you are not it. My grandson will be back soon, to take his turn at the watch. You should meet him, he's a nice boy.</q>
+
+  ||
+    --> #{q}How will you know who it's waiting for when they get here?</q>
+
+  ||
+    --> <q>I'll know.</q> She shrugged. <q>Well, probably not me. But my grandson, or his child, or his great-great grandson. We've watched this place for so long now, what's a few more centuries?</q> She repeated the shrug, fed the fire another log.
 """

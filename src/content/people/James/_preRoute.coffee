@@ -37,3 +37,106 @@ ShipJob.JamesUpset::next = Page.JamesUpset = class JamesUpset extends Page
   effects:
     remove:
       '|map|Ship|jobs|jamesUpset': ShipJob.JamesUpset
+
+Place.Ship::jobs.jamesMagic = ShipJob.JamesMagic = class JamesMagic extends ShipJob
+  conditions:
+    '|events|JamesUpset':
+      matches: (days)-> days[0] + 35 < g.day
+    James: '|officers|James'
+    Natalie: '|officers|Nat'
+  type: 'special'
+  text: ->"""Something is bothering James again."""
+
+ShipJob.JamesMagic = Page.JamesMagic = class JamesMagic extends PlayerOptionPage
+  text: ->"""|| bg="Ship.cabinNight"
+    -- A hesitant knock. That could only mean one thing – James never hesitated to address business, no matter how bad the news. He must finally want to discuss whatever had been bothering him. Natalie hesitated a moment, then #{q @Natalie}Enter.</q>
+
+  ||
+    #{@James.image 'serious', 'left'}
+    --> #{q}Can I come in?</q>
+
+  ||
+    #{@James.image 'serious', 'left'}
+    --> She gestured to the bed, the only other place to sit in the room besides her chair, but he remained standing, closing the door behind him. #{q}Why didn't you tell me?</q>
+
+  ||
+    --> Straight to the point – it caught her off guard. How much time must he have spent agonizing over that question, to work up the nerve to ask her straight out?
+
+  ||
+    #{@Natalie.image 'serious', 'right'}
+    -- #{q}I've never told anyone, James. Until the... the storm, there were precisely three people in the world who knew – me, the Guildmaster, and the hedge wizard he hired to try and teach me, with an unbreakable seal upon his mind to keep his silence.</q>
+
+  ||
+    #{@James.image 'upset', 'left'}
+    --> #{q}I would protect your secrets with my life, Nat, you know that.</q>
+
+  ||
+    #{@Natalie.image 'upset', 'right'}
+    --> #{q}That's exactly the problem!</q> She punched his leg – not playfully, but with genuine anger. He didn't flinch. #{q}I don't want you to die!</q> She slumped back in her chair, hating herself for the sudden display. #{q}Do you know what happens to a childless sorceress of my power and inexperience and age?</q>
+
+  ||
+    #{@James.image 'serious', 'left'}
+    -- #{q}I... that's not fair...</q>
+
+  ||
+    #{@Natalie.image 'upset', 'right'}
+    -- #{q}There aren't any. They all learn to use their magic to defend themselves, or they have a child with someone powerful who can protect them. If that secret got out, do you think a famililess little girl wouldn't just disappear? Even from Vailia. In a heartbeat.</q> She'd stood up from her chair by this point – Natalie couldn't tower over him, but she could certainly press him back against the door with her unfair words. #{q} I was eight, when I learned. Could you have kept that secret, for me, at eight? Not even hinted at it to your parents, when you were eight?</q>
+    #{options ["Push him away", "Start crying"], ["<em><span class='happiness'>-2 happiness</span> for Natalie</em>", "<em><span class='happiness'>+4 happiness</span> for James, <span class='happiness'>-4</span> for Natalie</em>"]}
+"""
+  @next: {}
+
+Page.JamesMagic.next['Push him away'] = Page.JamesMagicPush = class JamesMagicPush extends Page
+  conditions:
+    James: {}
+    Natalie: {}
+  text: ->"""|| bg="Ship.cabinNight"
+    #{@Natalie.image 'angry', 'right'}
+    -- James didn't get angry. He just looked uncomfortable and hurt, and somehow that only fueled Natalie's anger. She stood reached around him and slammed the door open, a clear signal of "#{q}"get out" if there ever was one. He opened his mouth to say something, then looking over his shoulder – they had spectators now – snapped it shut again with a click of teeth.
+
+  ||
+    #{@James.image 'sad', 'left'}
+    --> #{q}I would have, Nat, even at eight, I would have died rather than betrayed your trust.</q> He shot her a pleading look, but she turned away. He stepped out and closed the door gently behind him.
+
+  ||
+    -- She slumped into her chair, exhausted and upset – angry far more at herself than at him. He had literally done nothing to provoke that – it was all on her shoulders. She started to cry, softly, muffled sobs so no one outside would be able to hear, occasionally wiping her eyes with the back of her sleeve.
+
+  ||
+    --> He deserved an apology. She deserved a brick to the head. She sniffled and hugged her chest.
+"""
+  apply: ->
+    super()
+    @context.Natalie.add 'happiness', -2
+
+Page.JamesMagic.next['Start crying'] = Page.JamesMagicCry = class JamesMagicCry extends Page
+  conditions:
+    James: {}
+    Natalie: {}
+  text: ->"""|| bg="Ship.cabinNight"
+    #{@Natalie.image 'angry', 'right'}
+    -- James didn't get angry. He just looked uncomfortable and hurt, and somehow that only fueled Natalie's anger. She let out an angry cry and pounded on his chest, unable to find any better way to express herself, but rather than taking this one, he caught her fist in one hand. She struggled a moment, trying to free it, but his grip was too strong, and he pulled her into a hug with his other arm.
+
+  ||
+    #{@James.image 'sad', 'left'}
+    -- #{q}I would have, Nat, even at eight I would have died rather than betrayed your trust.</q>
+
+  ||
+    --> Natalie burst into tears. Sobs wracked her body as she stopped struggling and clung. He let go her hand and wrapped his other arm around her, supporting them both as she sagged against his chest. She wailed and shook in his arms, letting out a tiny portion of two decades of uncertainty and fear.
+
+  ||
+    -- It didn't take long for Natalie to cry herself out. She was too self-aware to let loose for long, and she quickly quieted and stilled. She'd hurt him, even if her fist hadn't connected.
+
+  ||
+    -->  She tilted her head up to look into his eyes, blue and #{@Natalie.color[1]} meeting in a quickly and mutually aborted glance.They both blushed and stepped back to conversational distance. His own glance downward suggested that yes, he'd suddenly become as intensely aware of the way her breasts pressed against him as she had.
+
+  ||
+    -- #{q @Natalie}I'm sorry, please, lets talk another time.</q>
+
+  ||
+    --> He nodded and made a hurried escape from her room.
+
+    Natalie slumped against the wall and rubbed her eyes with the heel of her palms. He deserved an apology. She deserved a brick to the head. She sniffled and hugged her chest.
+"""
+  apply: ->
+    super()
+    @context.Natalie.add 'happiness', -4
+    @context.James.add 'happiness', 4
