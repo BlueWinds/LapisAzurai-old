@@ -425,3 +425,39 @@ Page.GuildNatDomSure::next = Page.GuildNatDomSure2 = class GuildNatDomSure2 exte
   apply: ->
     super()
     @context.worker.add 'happiness', 1
+
+
+Job.GuildWork.next.push Page.GuildKat = class GuildKat extends Page
+  conditions:
+    worker: {is: Officer.Kat}
+  text: ->"""|| bg="night|storm"
+    -- Kat paused in front of the door. Though Natalie had introduced her to Ben Oakly and walked with her through the establishment, she was still somewhat nervous#{if g.events.GuildKat then " her first time here alone" else ""}. She stepped out of the way of a drunken man wobbling out the front door – not the most encouraging sign, beer on his foul breath filling her nose.
+
+  ||
+    --> She slapped her cheeks and stood up straight. Nat had asked her to try this. Asked, not told. She wasn't going to back out now. Sex was fun. She'd had it before. Not something to be afraid of.
+
+  ||
+    --> The front door swung open again, blasting her with the sighs of so many half-dressed bodies, perfume and sweat and alcohol. This time it was a woman holding it open for her. Kat pressed inside.
+"""
+  next: Page.randomMatch
+  @next: []
+
+Page.GuildNat.next.push Page.GuildKatEasy = class GuildKatEasy extends Page
+  conditions:
+    worker: {}
+  text: ->"""|| bg="night|storm"
+    -- #{q}You're a cute one, aren'cha, love?</q> The lady draped a strong over her shoulder, and guided her towards the back halls. #{q}Natalie spoke with me, told me you're new to all this, so don' worry, I'll make sure you have a nice and easy. You like boys or girls?</q>
+
+  ||
+    --> #{q}Both!</q> Kat attempted to reassert some control over the encounter by loudly proclaiming her preference. #{q}Either, I mean. Not both-right-now.</q>
+
+  ||
+    -- The woman laughed at her enthusiasm. #{q}That's a good attitude. Keep that smile on, they'll love you. Now, it's not your job to worry about the money, we'll take care of that. You just go over to that man there – he's a regular – and starting chatting him up. Tell him you're new here, he'll love that. Room 3 in back is yours, when he's ready. Keep in mind that the longer he stays with you, the more you make.</q>
+
+  ||
+    --> He looked nice enough, and entirely too respectable to ever want anything to do with her. On the street, that was – in here, she reminded herself with a grin, he was paying for the privilege of spending time with her. #{q}Hi!</q>
+
+  ||
+    --|
+
+  """
