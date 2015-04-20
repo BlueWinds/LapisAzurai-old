@@ -25,19 +25,21 @@ module.exports = (grunt)->
     return data
 
 dumpObj = ->
-  result = shell.exec '''ag --no-numbers --nogroup -C 0 'class (.+?) extends|"""(<page[^~]+?</page>)"""' src/content/''', {silent: true}
-
+  command = '''ag --no-numbers --nogroup -C 0 'class (.+?) extends|"""[\\s\\S\\n]+?"""' src/content/'''
+  result = shell.exec command, {silent: true}
   data = {}
 
   _class = null
   for line in result.output.split("\n") when line
+    line = line.replace /"""/g, ''
+    line = line.replace 'text: ->', ''
+    line = line.replace 'description: ->', ''
     if line.match(/class (.+?) extends/)
       _class = line.match(/class (.+?) extends/)[1]
       data[_class] or= []
-    else if line.match(/"""</)
-      data[_class]?.push line.match(/"""(.*)/)[1]
-    else if line.match(/>"""/)
-      data[_class]?.push line.match(/.+?:#?(.*)"""/)[1]
+    else if line.match(/\|\|/)
+      end = if data[_class].length then '</page>' else ''
+      data[_class]?.push "#{end}<page><p><em>#{line.match(/\|\|(.*)/)[1]}</em></p>"
     else
-      data[_class]?.push line.match(/.+?:#?(.*)/)[1]
+      data[_class]?.push "<p>#{line.match(/\.coffee:(.*)/)[1]}</p>"
   return data
