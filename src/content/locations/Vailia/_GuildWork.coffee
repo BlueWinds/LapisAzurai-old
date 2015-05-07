@@ -5,13 +5,11 @@ Job.GuildWork = class GuildWork extends Job
   text: ->"Work as a whore in Ben Oakly's brothel."
   officers:
     worker:
-      is: Officer.Natalie
-      label: ->'Natalie'
-#       is: [Officer.Natalie, Officer.Kat]
+      is: [Officer.Natalie, Officer.Kat]
       matches: (person)->g.events['SearchGuildWork' + person.name]?
-#       label: -> switch
-#         when g.events.SearchGuildWorkKat then 'Nat or Kat'
-#         else 'Natalie'
+      label: -> switch
+        when g.events.SearchGuildWorkKat then 'Nat or Kat'
+        else 'Natalie'
   energy: -2
   next: Page.randomMatch
   @next = []
@@ -455,9 +453,16 @@ Page.GuildNat.next.push Page.GuildKatEasy = class GuildKatEasy extends Page
     -- The woman laughed at her enthusiasm. #{q}That's a good attitude. Keep that smile on, they'll love you. Now, it's not your job to worry about the money, we'll take care of that. You just go over to that man there – he's a regular – and starting chatting him up. Tell him you're new here, he'll love that. Room 3 in back is yours, when he's ready. Keep in mind that the longer he stays with you, the more you make.</q>
 
   ||
-    --> He looked nice enough, and entirely too respectable to ever want anything to do with her. On the street, that was – in here, she reminded herself with a grin, he was paying for the privilege of spending time with her. #{q}Hi!</q>
+    --> He looked nice enough, and entirely too respectable to ever want anything to do with her. On the street, that was – in here, she reminded herself with a grin, he was paying for the privilege of spending time with her.
+  ||
+    --> #{q}Hi!</q>
 
   ||
-    --|
+    --| Kat bit her lower lip and arched her back, trying to resist the urge to clamp her legs around his head. Her reactions only encouraged him, and he thrust his tongue deeper inside. He gripped her thighs tightly, pressing his face into her crotch. His nose tickled her clit. Lewd smacking sounds filled the room.
+
+  ||
+    --> She massaged her breasts, squeezing and rolling the flesh in her hands, even tweaking the nipples occasionally. Gods, it felt so good, his hot breath against her pelvis. Her breath came out ragged as she tried to stay silent and resist the tide of sensations flooding through her body.
+
+    
 
   """
