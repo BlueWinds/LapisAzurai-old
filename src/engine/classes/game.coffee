@@ -112,11 +112,11 @@ window.Game = class Game extends GameObject
   startDay = 223
   startYear = 1271
 
-  Object.defineProperty @::, 'year', {get: -> Math.floor((@day + startDay) / 360) + startYear}
+  Object.defineProperty @::, 'year', {get: -> (@day + startDay) // 360 + startYear}
   Object.defineProperty @::, 'dayOfYear', {get: -> (@day + startDay) % 360}
-  Object.defineProperty @::, 'season', {get: -> seasonList[Math.floor(@dayOfYear / 90)]}
+  Object.defineProperty @::, 'season', {get: -> seasonList[@dayOfYear // 90]}
   Object.defineProperty @::, 'dayOfSeason', {get: -> @dayOfYear % 90}
-  Object.defineProperty @::, 'month', {get: -> monthList[Math.floor(@dayOfSeason / 30)]}
+  Object.defineProperty @::, 'month', {get: -> monthList[@dayOfSeason // 30]}
   Object.defineProperty @::, 'dayOfMonth', {get: -> @dayOfYear % 30}
   Object.defineProperty @::, 'date',
     get: -> "#{dayList[@dayOfMonth]} of #{@month} #{@season}, #{@year}"

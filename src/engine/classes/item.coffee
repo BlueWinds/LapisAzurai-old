@@ -55,12 +55,12 @@ window.Item = class Item extends GameObject
     </tr>"""
 
   buyPrice: (basePrice, increment, amount)->
-    inc = Math.floor(amount / increment)
+    inc = amount // increment
     price = Math.ceil (@price + basePrice) * (1 + inc / 10)
     return Math.max price, (@price + basePrice + inc)
 
   sellPrice: (basePrice, increment, amount)->
-    inc = Math.floor(amount / increment)
+    inc = amount // increment
     price = Math.ceil (@price + basePrice) * (1 - inc / 10)
     return Math.max 1, Math.min(price, (@price + basePrice - inc))
 

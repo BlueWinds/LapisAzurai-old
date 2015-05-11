@@ -440,10 +440,10 @@ Job.GuildWork.next.push Page.GuildKat = class GuildKat extends Page
   next: Page.randomMatch
   @next: []
 
-Page.GuildNat.next.push Page.GuildKatEasy = class GuildKatEasy extends Page
+Page.GuildKat.next.push Page.GuildKatEasy = class GuildKatEasy extends Page
   conditions:
     worker: {}
-  text: ->"""|| bg="night|storm"
+  text: ->"""|| bg="tavern"
     -- #{q}You're a cute one, aren'cha, love?</q> The lady draped a strong over her shoulder, and guided her towards the back halls. #{q}Natalie spoke with me, told me you're new to all this, so don' worry, I'll make sure you have a nice and easy. You like boys or girls?</q>
 
   ||
@@ -458,11 +458,15 @@ Page.GuildNat.next.push Page.GuildKatEasy = class GuildKatEasy extends Page
     --> #{q}Hi!</q>
 
   ||
-    --| Kat bit her lower lip and arched her back, trying to resist the urge to clamp her legs around his head. Her reactions only encouraged him, and he thrust his tongue deeper inside. He gripped her thighs tightly, pressing his face into her crotch. His nose tickled her clit. Lewd smacking sounds filled the room.
+    --| Kat trembled and bit her lip, pressing back into bed. Her partner was gentle yet insistant, taking what he wanted and leaving no doubt that he was going to get it. Hot breath against her stomach and intense eyes looking up along her body while his finger worked its magic, thrusting in and out, teasing her insides... they locked eyes for a moment before she dropped her head back to the pillow and gave up trying to be quiet.
 
   ||
-    --> She massaged her breasts, squeezing and rolling the flesh in her hands, even tweaking the nipples occasionally. Gods, it felt so good, his hot breath against her pelvis. Her breath came out ragged as she tried to stay silent and resist the tide of sensations flooding through her body.
+    --> In response to her moans he dipped a second finger inside, eliciting a stronger reaction yet. Though her legs were pinned beneath him, held in place by his weight on half-removed trousers, her hips bucked, at least until he shifted his weight and pressed her stomach down into the bed with one hand. He leaned forward to nip at her breast with his teeth before flashing a grin. "No getting away from me that easily."
 
-    
+  ||
+    --> Getting away was the last thing on her mind when he completely removed his hand, leaving her suddenly empty. Her plaintive sigh changed to a giggle as he tugged at her legs, dragging her closer to the edge of the bed and pulling her ankles up over his shoulders.
+
+  ||
+    --> #{q}Let me help you with that.</q> Kat sat up, leaving her ankles on his shoulders, and began working on his belt.
 
   """
