@@ -737,8 +737,8 @@ Place.Ship::jobs.katClothes = ShipJob.KatClothes = class KatClothes extends Ship
       optional: true
 
 response = [
-  'Kat needs some discouraging to stop her pulling this crap. <span class="happiness">-2 happiness</span> for Kat, <span class="happiness">+5</span> for James'
-  'Stride out on deck with a grin and confront her. <span class="happiness">-2 happiness</span> for James, <span class="happiness">+5</span> for Kat'
+  'Kat needs some discouraging to stop her pulling this crap. <span class="happiness">-2 happiness</span> for Kat, <span class="happiness">+4</span> for James'
+  'Stride out on deck with a grin and confront her. <span class="happiness">-2 happiness</span> for James, <span class="happiness">+4</span> for Kat'
 ]
 
 ShipJob.KatClothes::next = Page.KatClothes = class KatClothes extends PlayerOptionPage
@@ -800,17 +800,16 @@ Page.KatClothes.next.Angry = Page.KatClothesAngry = class KatClothesLaughing ext
     -- #{q}...sorry.</q>
 
   ||
-    --> <span class="happiness">-2 happiness</span> for Kat, <span class="happiness">+5</span> for James
+    --> <span class="happiness">-2 happiness</span> for Kat, <span class="happiness">+4</span> for James
   """
   apply: ->
     super()
     @context.Kat.add 'happiness', -2
-    @context.James.add 'happiness', 5
+    @context.James.add 'happiness', 4
 
 Page.KatClothes.next.Laughing = Page.KatClothesLaughing = class KatClothesLaughing extends Page
   conditions:
     Kat: '|officers|Kat'
-    James: '|officers|James'
     Nat: {}
     crew:
       fill: -> Math.choice g.crew
@@ -849,12 +848,28 @@ Page.KatClothes.next.Laughing = Page.KatClothesLaughing = class KatClothesLaughi
     -- #{q @Nat}Now, as you are all doubtless aware, last night someone stole all your clothing. Go get dressed, and gather back here in a few minutes for Kat's punishment. Kat, you stay right here. Don't move an inch.</q>
 
   ||
-    --> A few minutes later, the crew was gathered back together, noticably happier and significantly less chilly. Except Natalie - she'd gathered only a long overcoat, throwing it over her shoulders
+    --> A few minutes later, the crew was gathered back together, noticably happier and significantly less chilly. Except Natalie - she'd gathered only a long overcoat, leaving it unbelted. Flashes of her breasts were visible as she moved, and plenty of unbroken of pink flesh left no one with any doubt she was naked underneath.
 
   ||
-    --> <span class="happiness">-2 happiness</span> for James, <span class="happiness">+5</span> for Kat
+    -- #{q}Kat! Punishment time. Undress, now.</q> Natalie grinned at Kat's shocked expression. #{q}What exactly did you think would happen? Now, clothes off.</q>
+
+  ||
+    #{@Kat.image 'blush-nude', 'far-right'}
+    --> Slowly, the thief complied. Though James looked away, refusing to make eye contact with either woman, plenty of the crew took their chance to gather an eyefull. Finally she stood back up, the scene reversed from earlier - one naked woman alone, with everyone else dressed.
+
+  ||
+    -- #{q}Now, scrub the deck, stem to stern. I'll be taking those,</q> Natalie bent down to scoop Kat's clothing off the deck. #{q}No clothes for you until you've finished. Yes,</q> she quirked an eyebrow at Kat's dismayed look, #{q}that'll take at least two days. Naked. Put on even a scrap and I'll make you do something even worse. Now, hands and knees. You've got work to do.</q>
+
+  ||
+    -- Natalie turned, her jacket flashing open with the motion. #{q @crew}Are you going to... um... get dressed, captain?</q>
+
+  ||
+    --> #{q}Nah, I'm enjoying the breeze. Besides, it's kind of hot out here, don't you think?</q> She gently shoved Kat's rump with one bare foot, eliciting a squeal of indignation and flashing her pussy to the world. #{q}Actually, you can have shoes. Punishment is one thing, splinters entirely another. No socks though. Your ankles are too sexy to cover up.</q>
+
+  ||
+    --> <span class="happiness">-2 happiness</span> for James, <span class="happiness">+4</span> for Kat
   """
   apply: ->
     super()
     @context.James.add 'happiness', -2
-    @context.Kat.add 'happiness', 5
+    @context.Kat.add 'happiness', 4
