@@ -723,3 +723,138 @@ Page.KatVisit.next['Hire her'] = Page.KatVisitHire = class KatVisitHire extends 
   effects:
     remove:
       '|location|jobs|katVisit': Job.KatVisit
+
+Place.Ship::jobs.katClothes = ShipJob.KatClothes = class KatClothes extends ShipJob
+  label: "Talk with James"
+  type: 'plot'
+  text: ->"""James has been avoiding Natalie. Something's bothering him. They should talk."""
+  conditions:
+    '|events|GuildKatEasy': {}
+    '|events|KatStealClothes': # If it's happened before, must be at least three months ago.
+      matches: (days)->
+        if not days then return true
+        return days[0] + 90 < g.day and days.length < 2
+      optional: true
+
+response = [
+  'Kat needs some discouraging to stop her pulling this crap. <span class="happiness">-2 happiness</span> for Kat, <span class="happiness">+5</span> for James'
+  'Stride out on deck with a grin and confront her. <span class="happiness">-2 happiness</span> for James, <span class="happiness">+5</span> for Kat'
+]
+
+ShipJob.KatClothes::next = Page.KatClothes = class KatClothes extends PlayerOptionPage
+  conditions:
+    Nat: '|officers|Nat'
+  text: ->"""|| bg="Ship.cabinNight"
+    -- ...
+
+  || bg="Ship.cabinDay"
+    -- Natalie blinked at the empty chest. It was empty. There should have been underwear in there. With slowly increasing worry, she wandered over to the closet - also empty. There should have been clothes in there. Her desk was untouched - map, navigation tools, even a couple of coins she'd left sitting out, all still in place. Whatever mysterious force had taken all her clothing while she slept, clothing had been its only goal.
+
+  ||
+    #{@Nat.image 'serious-nude', 'center'}
+    -- She snorted. "Mysterious force," right. Kat's antics were occasionally annoying, but never mysterious. The only mysterious part was how she'd managed to empty the entire closet without either waking Natalie or getting stopped by any of the crew.
+    #{options ['Angry', 'Laughing'], }
+  """
+  @next: {}
+
+Page.KatClothes.next.Angry = Page.KatClothesAngry = class KatClothesLaughing extends Page
+  conditions:
+    Kat: '|officers|Kat'
+    James: '|officers|James'
+    Nat: {}
+    crew:
+      fill: -> Math.choice g.crew
+  text: ->"""|| bg="Ship.cabinDay"
+    #{Nat.image 'angry-nude', 'center'}
+    -- #{q}James! Find Kat, bring her here, now!</q> Natalie opened her door just a sliver and poked her head out, shouting for someone who should have been on duty. No immediate answer, then... a shuffling sound, and #{crew} came into view, clutching a board to mostly cover #{his} private parts.
+
+  ||
+    --> #{q @crew}Sorry, captain, someone stole most of the crew's clothes during the night. I don't think James will be coming out of his room.</q>
+
+  || bg="Ship.deckDay"
+    #{Nat.image 'normal-nude', 'center'}
+    -- #{q}This is getting rediculous. Who had watch last night? They had to have been helping her.</q> Natalie threw the door open and strode on deck. Despite the absurdity of the situation, Natalie had to admire Kat's bravado. Hiding every scrap of clothing on the ship was no mean feat. #{q @Nat}Lots of people have seen me naked, what's a few more,</q> she grinned at the stunned sailor to reassure #{him @crew} that her brazen nudity didn't reflect poorly on him.
+
+  ||
+    ...
+
+  || bg="Ship.cabinDay'
+    #{Kat.image 'nude-excited', 'right'}
+
+  ||
+    #{Kat.image 'nude normal', 'right'}
+
+  ||
+    #{Kat.image 'nude-sad', 'right'}
+
+  ||
+    #{Kat.image 'nude-sad', 'right'}
+    -- #{q}...sorry. Don't be too mad, please Nat?</q>
+
+  ||
+    #{Nat.image 'upset-nude', 'left'}
+    ...
+
+  ||
+    #{Kat.image 'nude-sad', 'right'}
+    -- #{q}...sorry.</q>
+
+  ||
+    --> <span class="happiness">-2 happiness</span> for Kat, <span class="happiness">+5</span> for James
+  """
+  apply: ->
+    super()
+    @context.Kat.add 'happiness', -2
+    @context.James.add 'happiness', 5
+
+Page.KatClothes.next.Laughing = Page.KatClothesLaughing = class KatClothesLaughing extends Page
+  conditions:
+    Kat: '|officers|Kat'
+    James: '|officers|James'
+    Nat: {}
+    crew:
+      fill: -> Math.choice g.crew
+  text: ->"""|| bg="Ship.cabinDay"
+    #{Nat.image 'normal-nude', 'center'}
+    -- Natalie cracked the door to poke her head out, and, to her surprise, saw #{crew} standing on deck, an unhappy hunch to #{his} shoulders. Also, #{he} was completely naked. Natalie threw her door wide open and strode out on deck.
+
+  || bg="Ship.deckDay"
+    #{Nat.image 'normal-nude', 'left'}
+    --> #{q}Report,</q> she demanded, causing #{crew} to jump and spin, shen blush furiously and try to cover #{his} crotch. #{q @Nat}Why are you naked, sailor?</q> Natalie grinned, and as #{crew} stammered for a response, took pitty. #{q}Don't worry, I know. You have to admire her bravado, don't you? Taking just the captains clothing was brazen enough, but I never imagined she'd go for <i>everyone.</i></q>
+
+  ||
+    -- {#q @crew}Kat's barricaded herself in the cargo hold.</q>
+
+  ||
+    --> #{q}Oh has she now? Well, we'll see about that. Cover your ears.</q>
+
+  ||
+    #{Nat.image 'angry-nude', 'center'}
+    -- #{q}ALL HANDS ON DECK!</q> Natalie's shout was ear-shatteringly loud. Cursing and thudding from below decks as sailors scrambled to obey, arriving hodge-podge and covering themselves in a mottly collection of blackets, hands, and various personal belongings.
+
+  ||
+    --> #{q}KAT! Get your ass out here or I will THROW YOU OVER THE RAILING!</q>
+
+  ||
+    -- It took a moment, but that finally produced the desired effect, some scraping and moving sounds, followed by a nervous Kat emerging from below-deck, fully clothed. She looked torn between grinning and being terrified, eyes darting back and forth between everyone present, trying to gauge moods.
+
+  ||
+    #{@Nat.image 'normal', 'far-right'}
+    #{@Kat.image 'normal', 'right'}
+    --> Natalie took her by the shoulders and steered her by them, until she stood facing the entire crew. She kept her hands firmly on Kat's shoulders, brooking no argument or evasion. One clothed person, facing down #{g.crew.objectLength + g.officers.objectLength - 2} naked ones, ranging from upset to amused to, in the case of James hiding all the way in the back, completely mortified.
+
+  ||
+    #{@Nat.image 'normal', 'far-right'}
+    #{@Kat.image 'normal', 'right'}
+    -- #{q @Nat}Now, as you are all doubtless aware, last night someone stole all your clothing. Go get dressed, and gather back here in a few minutes for Kat's punishment. Kat, you stay right here. Don't move an inch.</q>
+
+  ||
+    --> A few minutes later, the crew was gathered back together, noticably happier and significantly less chilly. Except Natalie - she'd gathered only a long overcoat, throwing it over her shoulders
+
+  ||
+    --> <span class="happiness">-2 happiness</span> for James, <span class="happiness">+5</span> for Kat
+  """
+  apply: ->
+    super()
+    @context.James.add 'happiness', -2
+    @context.Kat.add 'happiness', 5

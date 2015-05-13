@@ -61,3 +61,46 @@ Game::people.Kat = Officer.Kat = class Kat extends Officer
       'SadTop.png'
       'Base.png'
     ]
+    'normal-nude': [
+      'NormalSkinNude.png'
+      'NormalEyes.png'
+      'NormalHairNude.png'
+      'NormalTop.png'
+    ]
+    'excited-nude': [
+      'ExcitedSkinNude.png'
+      'ExcitedEyes.png'
+      'ExcitedHairNude.png'
+      'ExcitedTop.png'
+    ]
+    'blush-nude': [
+      'BlushSkinNude.png'
+      'BlushEyes.png'
+      'BlushHairNude.png'
+      'BlushTop.png'
+    ]
+    'upset-nude': [
+      'UpsetSkinNude.png'
+      'UpsetEyes.png'
+      'UpsetHairNude.png'
+      'UpsetTop.png'
+    ]
+    'angry-nude': [
+      'AngrySkinNude.png'
+      'AngryEyes.png'
+      'AngryHairNude.png'
+      'AngryTop.png'
+    ]
+    'serious-nude': [
+      'SeriousSkinNude.png'
+      'SeriousEyes.png'
+      'SeriousHairNude.png'
+      'SeriousTop.png'
+    ]
+    'sad-nude': [
+      'SadSkinNude.png'
+      'SadEyes.png'
+      'SadHairNude.png'
+      'SadTop.png'
+      'Base.png'
+    ]

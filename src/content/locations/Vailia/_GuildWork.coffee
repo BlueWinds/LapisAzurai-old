@@ -299,15 +299,15 @@ Page.GuildNatBangSure::next = Page.GuildNatBangSure2 = class GuildNatBangSure2 e
     -- Natalie didn't think of anything much as she collected the coins scattered around the room. Though she'd resisted becoming a whore with all her cunning and might, working as one was something she was used to. One didn't grow up serving drinks at a brothel or cleaning rooms the morning after without losing the inhibitions around a subject.
 
   || bg="tavern"
-    #{@worker.image 'normal', 'left'}
+    #{@worker.image 'normal-nude', 'left'}
     --> And it had felt good, after all. She was not indifferent to the attractions of having sex with half a dozen sculpted and beautiful men. No sense lying about that to herself.
 
   ||
-    #{@worker.image 'normal', 'left'}
+    #{@worker.image 'normal-nude', 'left'}
     -- She searched about for the dress she'd worn, and found it underneath a chair, torn apart along the back seam. She pursed her lips. It had been a nice dress.
 
   ||
-    #{@worker.image 'serious', 'left'}
+    #{@worker.image 'serious-nude', 'left'}
     --> Natalie tossed it on the bed with the cum-drenched sheets. Let the maid take it home and repair it if she liked. Though it didn't bother her overmuch, to do such things for money, she wanted no reminders. Her panties were mercifully intact, and she wrapped herself in a towel to go downstairs. Ben wanted his share, and she needed to collect her spare clothes.
 
   ||
@@ -412,7 +412,7 @@ Page.GuildNatDomSure::next = Page.GuildNatDomSure2 = class GuildNatDomSure2 exte
     -- Downstairs and back in the #{q}staging area,</q> she tapped Ben Oakly on the shoulder, interrupting his heart-to-heart with a plate of mashed potatoes. #{q}I left them sleeping upstairs. The blond one will pay when they leave.</q>
 
   ||
-    --> <q>Doesn't look like you did much,</q> Ben sniffed experimentally, poking his head closer to her than was strictly speaking appropriate.
+    --> <q>Doesn't look like you did much,</q> Ben sniffed experimentally, poking his head closer to her than was, strictly speaking, appropriate.
 
   ||
     #{@worker.image 'blush', 'left'}
@@ -432,6 +432,7 @@ Job.GuildWork.next.push Page.GuildKat = class GuildKat extends Page
     -- Kat paused in front of the door. Though Natalie had introduced her to Ben Oakly and walked with her through the establishment, she was still somewhat nervous#{if g.events.GuildKat then " her first time here alone" else ""}. She stepped out of the way of a drunken man wobbling out the front door – not the most encouraging sign, beer on his foul breath filling her nose.
 
   ||
+    #{Kat.image 'serious', 'left'}
     --> She slapped her cheeks and stood up straight. Nat had asked her to try this. Asked, not told. She wasn't going to back out now. Sex was fun. She'd had it before. Not something to be afraid of.
 
   ||
@@ -444,9 +445,10 @@ Page.GuildKat.next.push Page.GuildKatEasy = class GuildKatEasy extends Page
   conditions:
     worker: {}
   text: ->"""|| bg="tavern"
-    -- #{q}You're a cute one, aren'cha, love?</q> The lady draped a strong over her shoulder, and guided her towards the back halls. #{q}Natalie spoke with me, told me you're new to all this, so don' worry, I'll make sure you have a nice and easy. You like boys or girls?</q>
+    -- <q>You're a cute one, aren'cha, love?</q> The lady draped a strong over her shoulder, and guided her towards the back halls. <q>Natalie spoke with me, told me you're new to all this, so don' worry, I'll make sure you have a nice and easy. You like boys or girls?</q>
 
   ||
+    #{@worker.image 'excited', 'left'}
     --> #{q}Both!</q> Kat attempted to reassert some control over the encounter by loudly proclaiming her preference. #{q}Either, I mean. Not both-right-now.</q>
 
   ||
@@ -466,7 +468,34 @@ Page.GuildKat.next.push Page.GuildKatEasy = class GuildKatEasy extends Page
   ||
     --> Getting away was the last thing on her mind when he completely removed his hand, leaving her suddenly empty. Her plaintive sigh changed to a giggle as he tugged at her legs, dragging her closer to the edge of the bed and pulling her ankles up over his shoulders.
 
-  ||
-    --> #{q}Let me help you with that.</q> Kat sat up, leaving her ankles on his shoulders, and began working on his belt.
+  """
 
+Page.GuildKatEasy::next = Page.GuildKatEasy2 = class GuildKatEasy2 extends Page
+  conditions:
+    worker: {}
+  text: ->"""|| bg="none"
+    --| <q>Let me help you with that.</q> Kat sat up, leaving her ankles on his shoulders, and laughed at the look her flexibility gathered. She began working on his belt, fumbling a little from the awkward (though from the way he was twitching, entirely arrousing) position.
+
+  ||
+    --> Finally his cock sprang free, and with a growl he wrapped her up in a bear hug. The motion impalled her all the way, his rod slipping into her wet slit effortlessly. She cried out breathlessly at the sudden sensation, filled and crushed and folded in half. She wrapped her arms around his neck, and he responded by burrying his head in her neck and biting down.
+
+  ||
+    --> She moaned and pulled him tighter against her as he began to rock his hips, grinding her pelvis against him and his cock deep inside her. Already dripping from his tongue a moment ago, the motion made a wet mess of the area where they were connected, and from the way he growled into her neck and the tensing in his groins, she could tell he was getting close.
+
+  ||
+    --> She screamed as he came, as much from the force with which he bit into her neck than from the flood of cum he was pumping deep into her pussy. Clamped down like a vampire on her neck, he thrust into her with short strokes while he emptied his load.
+
+  ||
+    --> Finally spent, he relaxed his grip, both teeth and arms. She slid her legs down off his shoulders as her collapsed on top of her, and wrapped arms around his head, holding it nestled against her chest. They crawled further onto the bed, pulled the blanket up, and slept.
+
+  || bg="none" verySlow="verySlow"
+    -- ...
+
+  || bg="tavern"
+    -- <q>That's outrageous!</q>
+    Kat watched from behind a curtain as the man she'd just slept with - both literally and in the sexual sense - argued over the fee with Ben Ookly. Ben just pointed to the sign again - an hourly rate.
+    <q>Just because I fell asleep doesn't mean I'm paying five times the usual! She was great, I'll grant you that,</q> he wandered off with a dreamy look before snapping back to focus, <q>and I'll glady add an extra half, but...</q>
+  ||
+    #{@worker.image 'normal-nude', 'far-left'}
+    --> Time to let Ben do his job. Kat ducked back back into the room to start searching for her clothes. It still smelled like sex. Good times.
   """
