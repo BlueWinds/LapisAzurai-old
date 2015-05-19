@@ -1,76 +1,30 @@
+layer = (g, p)->[
+  "#{g + p}Skin.png"
+  "#{g + p}Hair.png"
+  "#{g + p}Eyes.png"
+  "#{g + p}Top.png"
+]
+
 Person.NobleF = class NobleF extends Person
   name: 'Tandia'
   gender: 'f'
   @images:
     path: 'src/content/people/Nobles/'
-    normal: [
-      'FNormalSkin.png'
-      'FNormalEyes.png'
-      'FNormalHair.png'
-      'FNormalTop.png'
-    ]
-    angry: [
-      'FAngrySkin.png'
-      'FAngryEyes.png'
-      'FAngryHair.png'
-      'FAngryTop.png'
-    ]
-    happy: [
-      'FHappySkin.png'
-      'FHappyEyes.png'
-      'FHappyHair.png'
-      'FHappyTop.png'
-    ]
-    sad: [
-      'FSadSkin.png'
-      'FSadEyes.png'
-      'FSadHair.png'
-      'FSadTop.png'
-    ]
-    serious: [
-      'FSeriousSkin.png'
-      'FSeriousEyes.png'
-      'FSeriousHair.png'
-      'FSeriousTop.png'
-    ]
+
+    normal: layer 'F', 'Normal'
+    happy: layer 'F', 'Happy'
+    sad: layer 'F', 'Sad'
+    serious: layer 'F', 'Serious'
+    angry: layer 'F', 'Angry'
 
 Person.NobleM = class NobleM extends Person
   name: 'Richard'
   gender: 'm'
   @images:
     path: 'src/content/people/Nobles/'
-    normal: [
-      'MBase.png'
-      'MNormalSkin.png'
-      'MNormalEyes.png'
-      'MNormalHair.png'
-      'MNormalTop.png'
-    ]
-    angry: [
-      'MBase.png'
-      'MAngrySkin.png'
-      'MAngryEyes.png'
-      'MAngryHair.png'
-      'MAngryTop.png'
-    ]
-    happy: [
-      'MBase.png'
-      'MHappySkin.png'
-      'MHappyEyes.png'
-      'MHappyHair.png'
-      'MHappyTop.png'
-    ]
-    sad: [
-      'MBase.png'
-      'MSadSkin.png'
-      'MSadEyes.png'
-      'MSadHair.png'
-      'MSadTop.png'
-    ]
-    serious: [
-      'MBase.png'
-      'MSeriousSkin.png'
-      'MSeriousEyes.png'
-      'MSeriousHair.png'
-      'MSeriousTop.png'
-    ]
+
+    normal: layer 'M', 'Normal'
+    happy: layer 'M', 'Happy'
+    sad: layer 'M', 'Sad'
+    serious: layer 'M', 'Serious'
+    angry: layer 'M', 'Angry'

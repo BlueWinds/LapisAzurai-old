@@ -228,7 +228,7 @@ optionList = (options, selected)->
 ###
   Based on dragScroll by James Climer. https://github.com/jaclimer/JQuery-DraggScroll
 ###
-$.fn.dragScroll = ->
+$.fn?.dragScroll = ->
   dragging = false
   $scrollArea = $(this)
 

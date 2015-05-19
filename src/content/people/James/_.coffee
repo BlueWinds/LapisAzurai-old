@@ -1,3 +1,18 @@
+layers = (p)->[
+  "Base.png"
+  "#{p}Skin.png"
+  "#{p}Eyes.png"
+  "#{p}Hair.png"
+  "#{p}Top.png"
+]
+
+layersNude = (p)->[
+  "#{p}SkinNude.png"
+  "#{p}Eyes.png"
+  "#{p}Hair.png"
+  "#{p}Top.png"
+]
+
 Game::officers.James = Officer.James = class James extends Officer
   name: 'James'
   gender: 'm'
@@ -19,52 +34,18 @@ Game::officers.James = Officer.James = class James extends Officer
   description: ->"Born to a Vailian blacksmith, James has been Natalie's friend ever since they were children. He gave up his inheritance and disobeyed his father's wishes to follow on her great adventure."
   @images:
     path: 'src/content/people/James/'
-    normal: [
-      'Base.png'
-      'NormalSkin.png'
-      'NormalEyes.png'
-      'NormalHair.png'
-      'NormalTop.png'
-    ]
-    excited: [
-      'Base.png'
-      'ExcitedSkin.png'
-      'ExcitedEyes.png'
-      'ExcitedHair.png'
-      'ExcitedTop.png'
-    ]
-    blush: [
-      'Base.png'
-      'BlushSkin.png'
-      'BlushEyes.png'
-      'BlushHair.png'
-      'BlushTop.png'
-    ]
-    upset: [
-      'Base.png'
-      'UpsetSkin.png'
-      'UpsetEyes.png'
-      'UpsetHair.png'
-      'UpsetTop.png'
-    ]
-    angry: [
-      'Base.png'
-      'AngrySkin.png'
-      'AngryEyes.png'
-      'AngryHair.png'
-      'AngryTop.png'
-    ]
-    serious: [
-      'Base.png'
-      'SeriousSkin.png'
-      'SeriousEyes.png'
-      'SeriousHair.png'
-      'SeriousTop.png'
-    ]
-    sad: [
-      'Base.png'
-      'SadSkin.png'
-      'SadEyes.png'
-      'SadHair.png'
-      'SadTop.png'
-    ]
+
+    normal: layers 'Normal'
+    excited: layers 'Excited'
+    blush: layers 'Blush'
+    upset: layers 'Upset'
+    angry: layers 'Angry'
+    serious: layers 'Serious'
+    sad: layers 'Sad'
+    'normal-nude': layersNude 'Normal'
+    'excited-nude': layersNude 'Excited'
+    'blush-nude': layersNude 'Blush'
+    'upset-nude': layersNude 'Upset'
+    'angry-nude': layersNude 'Angry'
+    'serious-nude': layersNude 'Serious'
+    'sad-nude': layersNude 'Sad'

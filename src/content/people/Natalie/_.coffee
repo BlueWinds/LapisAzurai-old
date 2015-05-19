@@ -1,3 +1,18 @@
+layers = (p)->[
+  "#{p}Skin.png"
+  "#{p}Eyes.png"
+  "#{p}Hair.png"
+  "#{p}Top.png"
+  "Cloth.png"
+]
+
+layersNude = (p)->[
+  "#{p}SkinNude.png"
+  "#{p}Eyes.png"
+  "#{p}HairNude.png"
+  "#{p}Top.png"
+]
+
 Game::officers.Nat = Officer.Natalie = class Natalie extends Officer
   name: 'Natalie'
   gender: 'f'
@@ -17,48 +32,21 @@ Game::officers.Nat = Officer.Natalie = class Natalie extends Officer
 
   @images:
     path: 'src/content/people/Natalie/'
-    normal: [
-      'NormalSkin.png'
-      'NormalEyes.png'
-      'NormalHair.png'
-      'NormalTop.png'
-    ]
-    excited: [
-      'ExcitedSkin.png'
-      'ExcitedEyes.png'
-      'ExcitedHair.png'
-      'ExcitedTop.png'
-    ]
-    blush: [
-      'BlushSkin.png'
-      'BlushEyes.png'
-      'BlushHair.png'
-      'BlushTop.png'
-    ]
-    upset: [
-      'UpsetSkin.png'
-      'UpsetEyes.png'
-      'UpsetHair.png'
-      'UpsetTop.png'
-    ]
-    angry: [
-      'AngrySkin.png'
-      'AngryEyes.png'
-      'AngryHair.png'
-      'AngryTop.png'
-    ]
-    serious: [
-      'SeriousSkin.png'
-      'SeriousEyes.png'
-      'SeriousHair.png'
-      'SeriousTop.png'
-    ]
-    sad: [
-      'SadSkin.png'
-      'SadEyes.png'
-      'SadHair.png'
-      'SadTop.png'
-    ]
+
+    normal: layers 'Normal'
+    excited: layers 'Excited'
+    blush: layers 'Blush'
+    upset: layers 'Upset'
+    angry: layers 'Angry'
+    serious: layers 'Serious'
+    sad: layers 'Sad'
+    'normal-nude': layersNude 'Normal'
+    'excited-nude': layersNude 'Excited'
+    'blush-nude': layersNude 'Blush'
+    'upset-nude': layersNude 'Upset'
+    'angry-nude': layersNude 'Angry'
+    'serious-nude': layersNude 'Serious'
+    'sad-nude': layersNude 'Sad'
   @colors: [
     { # Skin
       light: false
@@ -88,7 +76,6 @@ Game::officers.Nat = Officer.Natalie = class Natalie extends Officer
       blue: [202, 65, 1]
       purple: [280, 44, -8]
     }
-    { # Top
-      none: false
-    }
+    { none: false } # Top
+    { none: false } # Cloth
   ]
