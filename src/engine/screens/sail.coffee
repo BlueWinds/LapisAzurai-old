@@ -33,7 +33,7 @@ Page.SetSail = class SetSail extends Page
       distance = Math.ceil(distance / g.map.Ship.sailSpeed())
       visited[key] = true
       locations.push g.map[key].renderBlock(key, distance)
-      
+
     traceNetwork = (loc)->
       for key, distance of loc.destinations
         if visited[key]
@@ -190,8 +190,10 @@ Page.SailDone = class SailDone extends Page
     next.context = leaving
 
   next: ->
-    if @context.destination.firstVisit and @context.destination.arrive.length is 1
-      return @context.destination.firstVisit
+    first = @context.destination.firstVisit
+    if first and not g.events[first.constructor.name]
+      console.log first
+      return first
     return
 
 Page.OneCrewLeaving = class OneCrewLeaving extends Page

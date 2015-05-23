@@ -10,6 +10,18 @@ eyeColor = {}
 for color of Officer.Natalie.colors[1]
   eyeColor[color] = color.capitalize()
 
+jamesHairColor = {}
+for color of Officer.James.colors[3]
+  jamesHairColor[color] = color
+
+jamesSkinColor = {}
+for color of Officer.James.colors[1]
+  jamesSkinColor[color] = color
+
+jamesEyeColor = {}
+for color of Officer.James.colors[2]
+  jamesEyeColor[color] = color.capitalize()
+
 Page.Intro = class Intro extends Page
   conditions:
     James: '|officers|James'
@@ -58,6 +70,7 @@ Page.Intro = class Intro extends Page
         checked.eq(1).val()
         checked.eq(0).val()
         'none'
+        'none'
       ]
 
       # Now update the image (including invalidating the cache)
@@ -70,7 +83,6 @@ Page.Intro = class Intro extends Page
 
     $('options button', element).click ->
       (new Page.Intro2).apply()
-      Game.gotoPage()
 
     return element
 
@@ -80,37 +92,72 @@ Page.Intro2 = class Intro2 extends Page
   conditions:
     James: '|officers|James'
     Nat: '|officers|Nat'
-  text: -> """|| bg="Ship.cabinDay"
-    -- #{q @James}Nat! You ok?</q> James called.
+  text: ->
+    element = $.render ("""|| bg="Ship.cabinDay"
+      -- #{q @James}Nat! You ok?</q> James called.
 
-  ||
-    #{@Nat.image 'normal', 'left'}
-    --> #{q}Yeah, fine.</q>
+    ||
+      #{@Nat.image 'normal', 'left'}
+      --> #{q}Yeah, fine.</q>
 
-  ||
-    #{@Nat.image 'normal', 'left'}
-    --> #{q @James}I heard you thumping around.</q>
+    ||
+      #{@Nat.image 'normal', 'left'}
+      --> #{q @James}I heard you thumping around.</q>
 
-  ||
-    #{@Nat.image 'normal', 'left'}
-    --> #{q}It's nothing. How much time do we have?</q> She splashed water on her face, dried it back off with a towel, then started looking for her boots.
+    ||
+      #{@Nat.image 'normal', 'left'}
+      --> #{q}It's nothing. How much time do we have?</q> She splashed water on her face, dried it back off with a towel, then started looking for her boots.
 
-  ||
-    -- #{q @James}Should have left ten minutes ago!</q> He hadn't woken her up though – Natalie had learned long ago that James would worry himself sick at the slightest excuse, but it wasn't until he was practically vibrating with impatience that she actually needed to hurry.
+    ||
+      -- #{q @James}Should have left ten minutes ago!</q> He hadn't woken her up though – Natalie had learned long ago that James would worry himself sick at the slightest excuse, but it wasn't until he was practically vibrating with impatience that she actually needed to hurry.
 
-  || slow bg="Ship.deckDay"
-    #{@Nat.image 'serious', 'left'}
-    -- #{q}I don't believe you,</q> she opened the door and stepping out to join him on deck. #{q}You were rather drunk last night. How are your eyes not red?</q>
+    || slow bg="Ship.deckDay"
+      #{@Nat.image 'serious', 'left'}
+      -- #{q}I don't believe you,</q> she opened the door and stepping out to join him on deck. #{q}You were rather drunk last night. How are your eyes not red?</q>
 
-  || bg="Ship.deckDay"
-    #{@Nat.image 'excited', 'left'}
-    --> Natalie poked James in the forehead, causing him to wince. #{q}I knew it, you just woke up too.</q>
+    || bg="Ship.deckDay"
+      #{@Nat.image 'excited', 'left'}
+      --> Natalie poked James in the forehead, causing him to wince. #{q}I knew it, you just woke up too.</q>
 
-  ||
-    #{@James.image 'blush', 'right'}
-    --> He shook his head, trying to deny it, but she quirked an eyebrow, and he finally relented. #{q}Hey, it was our very first night on board your new ship. A little drinking seemed in order.</q>
+    ||
+      #{@James.image 'blush', 'right'}
+      --> He shook his head, #{dropdown jamesHairColor, @James.color[3]} mop of hair unrully and uncombed, trying to deny it, but she quirked an eyebrow, and he finally relented. #{q}Hey, it was our very first night on board your new ship. A little drinking seemed in order.</q> #{dropdown jamesEyeColor, @James.color[2]} eyes looked away guiltily. His #{dropdown jamesSkinColor, @James.color[1]} limbs were still drying from a dip in the sea.
 
-  ||
+      #{options ['Done']}
+""")
+
+    element.find('input').change =>
+      # Update each layer with a new HSL value
+      checked = $ 'input:checked', element
+      @James.color = [
+        'none'
+        checked.eq(2).val()
+        checked.eq(1).val()
+        checked.eq(0).val()
+        'none'
+      ]
+
+      # Now update the image (including invalidating the cache)
+      $('.person', element).last().replaceWith @James.image 'blush', 'right', false
+
+    element.filter('.select-color').help(
+      target: 'options'
+      title: "Many pages require your input before you can proceed. Like this one, where you can select your appearance."
+    )
+
+    $('options button', element).click ->
+      (new Page.Intro3).apply()
+
+    return element
+
+  next: false
+
+
+Page.Intro3 = class Intro3 extends Page
+  conditions:
+    James: '|officers|James'
+    Nat: '|officers|Nat'
+  text: -> """|| bg="Ship.deckDay"
     #{@Nat.image 'normal', 'left'}
     -- #{q}Never said it wasn't. Now, come on, I want breakfast before we meet with the Guildmaster.</q>
 

@@ -22,7 +22,7 @@ Page.Library.next.push Page.LibraryTravel = class LibraryTravel extends Page
   conditions:
     '|events|LibraryTravel|length': {lt: 3, optional: true}
     '|events|LibraryTravel':
-      match: (days)-> return days?[0] < g.day - 7
+      matches: (days)-> return not days or days[0] < g.day - 7
       optional: true
     worker: {}
   text: ->"""|| bg="marketDay|marketStorm"

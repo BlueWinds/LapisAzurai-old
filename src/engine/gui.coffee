@@ -38,6 +38,7 @@ getNextDiv = ->
 
   until $('page.active + page').length
     currentPage = getNextPage(currentPage) or g.queue.shift()
+    console.log currentPage
     unless currentPage
       g.passDay()
       currentPage = g.queue.shift()
@@ -55,6 +56,7 @@ getNextDiv = ->
 
 # Returns either a Page instance or false. Idempotent.
 getNextPage = (page)->
+  console.log(page)
   unless page then return false
 
   if page.next instanceof Page
@@ -62,7 +64,9 @@ getNextPage = (page)->
   else if isPage page.next
     return new page.next
   else if typeof page.next is 'function'
+    console.log 'func'
     next = page.next()
+    console.log next
     if isPage next
       return new next
     else if page

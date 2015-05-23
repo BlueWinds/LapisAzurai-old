@@ -108,7 +108,7 @@ Job.HireCrew = class HireCrew extends Job
   @hireClasses: []
 
   label: "Hire Crew"
-  text: -> "Search the city for new sailors, or let existing crew members go (bring them along, then remove them from your crew). Send someone <span class='diplomacy'>convincing</span> along to save money."
+  text: -> "Hire or fire sailors (bring them along, then remove them from your crew). Send someone <span class='diplomacy'>convincing</span> along to save money."
   description: ->"""Natalie talked to the bartender, passed over a coin for the trouble and set herself up at a table. It wasn't long before she had some interested recruits."""
   officers:
     Natalie: '|officers|Nat'

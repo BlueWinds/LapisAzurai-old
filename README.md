@@ -3,6 +3,9 @@ Lapis Azurai
 
 The source repository for [Lapis Azurai](http://winds.blue/about).
 
+# Reporting Issues
+The preferred venue for reporting issues - bugs, typos, feature requests, improvements, new content - is via comment on the [development blog](http://winds.blue/). Find the most recent release post and add a comment. Not as fancy as github issues, but better simple and centralized than featurefull and scattered across multiple venues.
+
 # Compiling
 The git repository doesn't include the compiled files, necessary for actually playing. If you just want to play the game, check the [development blog](http://winds.blue/) for the latest download.
 

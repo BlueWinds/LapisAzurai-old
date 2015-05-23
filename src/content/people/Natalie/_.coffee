@@ -14,6 +14,10 @@ layersNude = (p)->[
 ]
 
 Game::officers.Nat = Officer.Natalie = class Natalie extends Officer
+  constructor: (data, objects, path)->
+    super(data, objects, path)
+    if @color.length < 5 then @color.push 'none'
+
   name: 'Natalie'
   gender: 'f'
   business: 35
@@ -28,7 +32,7 @@ Game::officers.Nat = Officer.Natalie = class Natalie extends Officer
   description: ->"""Natalie was barely five when her parents disappeared - she doesn't remember much of them. She's worked for The Guild her whole life, and is optimistic, hardworking, and quick witted - a rising star if the Guildmaster has ever seen one. If only she could control her tongue..."""
   traits: new Collection
     content: new Trait.Content
-  color: ['tanned', 'green', 'ash', 'none']
+  color: ['tanned', 'green', 'ash', 'none', 'none']
 
   @images:
     path: 'src/content/people/Natalie/'

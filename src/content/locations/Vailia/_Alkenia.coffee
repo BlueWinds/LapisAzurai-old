@@ -210,7 +210,7 @@ ShipJob.JamesNoWeapons::next = Page.JamesNoWeapons = class JamesNoWeapons extend
   ||
     #{@James.image 'serious', 'left'}
     --> #{q}I know, I know what we're doing isn't wrong. It just feels like a foot in the door - once you do this, you're the sort of person who does it, you know? Do me a favor. Let's take these back to Vailia and sell them there.</q>
-      #{options ['Carry on', 'Abandon mission'], ["Try to convince him that it's not a big deal", "Listen to your friend"]}"""
+      #{options ['Carry on', 'Abandon mission'], ["<em><span class='happiness'>+2 happiness</span> for James</em>", "<em><span class='happiness'>+6 happiness</span> for James</em>"]}"""
   effects:
     remove:
       '|map|Ship|jobs|jamesNoWeapons': ShipJob.JamesNoWeapons
@@ -252,6 +252,7 @@ Page.JamesNoWeapons.next['Abandon mission'] = Page.JamesNoWeaponsAgree = class J
   effects:
     remove:
       '|missions|AlkeniaWeapons': Mission.AlkeniaWeapons
+      '|location|jobs|forestry2': Job.AlkeniaForestry2
 
 Job.AlkeniaForestry2::next = Page.AlkeniaForestry2 = class AlkeniaForestry2 extends Page
   text: ->"""|| bg="day|storm"
@@ -355,8 +356,8 @@ Page.AlkeniaRaid.next['bad'] = Page.AlkeniaRaidBad = class AlkeniaRaidBad extend
     -- It was over in an instant, too quickly to think. #{@victim} lay in a bloody heap, while the Nonkenian attackers fled sliently. Two of them supported a wounded woman between them, her lip curled back in a silent snarl as she tried to hold the wound closed where James had slashed her. The Vailians were too busy crowding around #{@victim} to pursue, even had they had felt a taste for further violence.
 
   ||
-    --> <em>#{@victim} is severly injured. <span class='happiness'>-35 happiness</span>.</em>
+    --> <em>#{@victim} is severly injured. <span class='happiness'>-45 happiness</span>.</em>
   """
   apply: ->
     super()
-    @context.victim.add('happiness', -25)
+    @context.victim.add('happiness', -45)
