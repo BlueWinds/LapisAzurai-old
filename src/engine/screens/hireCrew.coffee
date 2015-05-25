@@ -107,7 +107,7 @@ Job.HireCrew = class HireCrew extends Job
   # When subclassing, this is the list of person class from which random crewmembers will be generated.
   @hireClasses: []
 
-  label: "Hire Crew"
+  label: "Change Crew"
   text: -> "Hire or fire sailors (bring them along, then remove them from your crew). Send someone <span class='diplomacy'>convincing</span> along to save money."
   description: ->"""Natalie talked to the bartender, passed over a coin for the trouble and set herself up at a table. It wasn't long before she had some interested recruits."""
   officers:

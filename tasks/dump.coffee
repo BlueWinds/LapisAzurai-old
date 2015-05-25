@@ -5,7 +5,8 @@ module.exports = (grunt)->
   grunt.registerTask 'dump', ->
     data = dumpObj()
     html = for event, text of data when text.length
-      "<div class='event'><h1>#{event}</h1>#{text.join "\n"}</div>"
+      label = event.replace(/([a-z])([A-Z0-9])/g, "$1 $2")
+      "<div class='event'><h1 id='#{event}'>#{label}</h1>#{text.join "\n"}</div>"
 
     html = """<html><head>
       <meta charset="UTF-8">
