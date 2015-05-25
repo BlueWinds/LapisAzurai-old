@@ -62,7 +62,7 @@ Page.Pirates.next['Fight'] = Page.PiratesFight = class PiratesFight extends Page
     -- #{q}Yah!</q> Natalie raised one arm to the sky, her cheer echoed by that of the crew. Though outnumbered, they would put an end to this sea-born menace. The watery depths were dangerous enough on their own, without human marauders adding to the menace.
 
   ||
-    -- She spun the wheel, turning the Azurai into the wind at the last moment, so the two ships shuddered together with a minimum of damage, hulls grinding together with the sound of splintering wood. From the deck of the pirate ship – for that's surely what it was, up close – attackers leapt over the gap between the decks, or swung across on ropes.
+    -- She spun the wheel, turning the Azurai into the wind at the last moment, so the two ships shuddered together with a minimum of damage, hulls grinding together with the sound of splintering wood. From the deck of the pirate ship – for that's surely what it was, up close – attackers leaped over the gap between the decks, or swung across on ropes.
 
   ||
     --> James drew his sword, a ferocious snarl upon his lips directed at anyone who would dare lay hand upon his captain. #{Math.choice g.crew} let out a whooping war cry, and battle was joined on the deck of the Lapis Azurai."""
@@ -73,7 +73,7 @@ Page.Pirates.next['Fight'] = Page.PiratesFight = class PiratesFight extends Page
 
 Page.PiratesFight.next.veryGood = Page.PiratesFightEasy = class PiratesFightEasy extends Page
   text: ->"""|| bg="Ship.deckDay"
-    -- Shouting, confusion, blood everywhere... Natalie watched from the poop deck, feeling lightheaded and giddy. Flames licked at both ships, dropped torches and spilled lanterns, but somehow never managed to get a hold of the Azurai, no matter how many tarred-ropes or oiled sails they were thrust against.
+    -- Shouting, confusion, blood everywhere... Natalie watched from the poop deck, feeling lightheaded and giddy. Flames licked at both ships from dropped torches and spilled lanterns, but somehow never managed to get a hold of the Azurai, no matter how many tarred-ropes or oiled sails they were thrust against.
 
   ||
     --> She clung to the wheel, dazed, as the other ship's sails roared up in flames - and somehow even then they didn't spread, flames warded away from her ship even as her crew finished driving off the attackers. #{firstSailor = Math.choice g.crew} even managed to swing across to the other ship and cut several crates of supplies free and toss them into the ocean, but had to cut #{his} daring raid short as it and the Azurai began to drift apart.
@@ -98,7 +98,7 @@ Page.PiratesFight.next.veryGood = Page.PiratesFightEasy = class PiratesFightEasy
 
 Page.PiratesFight.next.good = Page.PiratesFightWin = class PiratesFightWin extends Page
   text: ->"""|| bg="Ship.deckDay"
-    -- Shouting, confusion, blood everywhere... Natalie stumbled backwards, nearly tripping over a a fallen pirate. She'd been forced away from the poop deck by the attackers, most of whom had disappeared below decks to find what they could, leaving her to face only two.
+    -- Shouting, confusion, blood everywhere... Natalie stumbled backwards, nearly tripping over a fallen pirate. She'd been forced away from the poop deck by the attackers, most of whom had disappeared below decks to find what they could, leaving her to face only two.
 
   ||
     --> She felt a surge of light-headedness, and one of the attackers screamed, dropping his suddenly red-hot sword. The other paused in disbelief, rapidly shifting eyes darting back and forth the between his companion and the woman they'd thought helpless. He charged.
@@ -127,7 +127,7 @@ Page.PiratesFight.next.good = Page.PiratesFightWin = class PiratesFightWin exten
 
 Page.PiratesFight.next.bad = Page.PiratesFightLose = class PiratesFightLose extends Page
   text: ->"""|| bg="Ship.deckDay"
-    -- Outnumbered and outmatched, the crew of the Azurai fought bravely, making the attackers pay for every inch of deck. Pressed back onto the poop deck, they managed to hold the high ground – mostly because the lower deck held everything the pirates were interested in, including the cargo hatch and captain's quarters. Overhead tho skies rapidly darkened, clouds swirling in to blanket the battlefield in dim grey.
+    -- Outnumbered and outmatched, the crew of the Azurai fought bravely, making the attackers pay for every inch of deck. Pressed back onto the poop deck, they managed to hold the high ground – mostly because the lower deck held everything the pirates were interested in, including the cargo hatch and captain's quarters. Overhead the skies rapidly darkened, clouds swirling in to blanket the battlefield in dim grey.
 
   ||
     -- Though she dreaded to imagine what was happening to her bedroom, Natalie didn't dare lose focus. Fire was all around, burning brands and spilled oil, and water tried to rush into the cargo hold, first through gaps in the hull from the ramming and now through intentional damage... she felt each axe stroke on the hull like a strike of lightning in her temple. Wind began to pick up, howling out of nowhere, whipping around clothing and ropes.
@@ -136,7 +136,7 @@ Page.PiratesFight.next.bad = Page.PiratesFightLose = class PiratesFightLose exte
     --> #{Math.choice g.crew} screamed on the stairway as #{he} took a gash across the chest, and stumbled back to give up #{his} position to James. Natalie let out a groan and stumbled as well, feeling the wind shift overhead. James looked back at her, nearly letting a spear in through his guard with the distraction.
 
   || bg="Ship.deckStorm"
-    -- CRACK. A sudden, deafened silence fell over the battle as everyone stopped, ears ringing from the thunder. What had once been the main mast of the pirate ship was now a twisted mess of splinters, tottering slowly, sails majestically tipping into the waves. CRACK. Another pilar of lightning struck from a sky that had been clear only a few minutes earlier, this one of the far side of the pirate ship, missing both vessels.
+    -- CRACK. A sudden, deafened silence fell over the battle as everyone stopped, ears ringing from the thunder. What had once been the main mast of the pirate ship was now a twisted mess of splinters, tottering slowly, sails majestically tipping into the waves. CRACK. Another pillar of lightning struck from a sky that had been clear only a few minutes earlier, this one on the far side of the pirate ship, missing both vessels.
 
   || bg="none"
     --> Natalie passed out.
@@ -194,7 +194,7 @@ Page.Pirates.next['Negotiate'] = Page.PiratesNegotiate = class PiratesNegotiate 
     -- #{q}Hail!</q> Natalie waved her arm overhead enthusiastically, heading forward across the deck to be closer to her counterparts on the other ship. Seeing the Azurai wasn't attempting to flee, they slowed, coming to a bobbing halt alongside it. From up close it was entirely obvious that the other ship was a pirate vessel – no merchant would sail with such a motley band.
 
   ||
-    -- <q>Sensible of 'ye to let us come up so nice and clean. We have to sink ships that run, just on principle.</q> The other captain shouted across the gap, moving so they stood opposite each other, rails and twenty feet of water in between. <q>So, goin' ta keep being sensible, and we can work out some sort of deal for your cargo that doesn't involve a whole lot of fish food?</q> His none-to-subtle ultimatum drew chuckles from his crew – they certainly outnumbered those aboard the Azurai.
+    -- <q>Sensible of 'ye to let us come up so nice and clean. We have to sink ships that run, just on principle.</q> The other captain shouted across the gap, moving so they stood opposite each other, rails and twenty feet of water in between. <q>So, goin' ta keep being sensible, and we can work out some sort of deal for your cargo that doesn't involve a whole lot of fish food?</q> His none-too-subtle ultimatum drew chuckles from his crew – they certainly outnumbered those aboard the Azurai.
 
   ||
     #{g.officers.Nat.image 'normal', 'left'}
@@ -249,7 +249,7 @@ Page.PiratesNegotiate.next.bad = Page.PiratesNegotiateFail = class PiratesNegoti
 Page.Pirates.next['Flee'] = Page.PiratesFlee = class PiratesFlee extends Page
   text: ->"""|| bg="Ship.deckDay"
     #{g.officers.Nat.image 'upset', 'left'}
-    -- #{q}Ok, I've changed my mind, not good. Full sail!</q> Natalie called out commands, setting the crew back in motion. They kept their weapons close at hand as they worked, canvas billowing up to catch the wind"""
+    -- #{q}Ok, I've changed my mind; not good. Full sail!</q> Natalie called out commands, setting the crew back in motion. They kept their weapons close at hand as they worked, canvas billowing up to catch the wind"""
   next: Page.statCheck
   stat: 'sailing'
   difficulty: 65
@@ -257,9 +257,9 @@ Page.Pirates.next['Flee'] = Page.PiratesFlee = class PiratesFlee extends Page
 
 Page.PiratesFlee.next.good = Page.PiratesFleeSuccess = class PiratesFleeSuccess extends Page
   text: ->"""|| bg="Ship.day"
-    -- #{q g.officers.Nat}Ok, I've changed my mind, not good. Full sail!</q> Natalie called out commands, setting the crew back in motion. They kept their weapons close at hand as they worked, canvas billowing up to catch the wind.
+    -- #{q g.officers.Nat}Ok, I've changed my mind; not good. Full sail!</q> Natalie called out commands, setting the crew back in motion. They kept their weapons close at hand as they worked, canvas billowing up to catch the wind.
 
-    Groaning against its weight, the Azurai bobbed precipitously in the wind, full sails tipping it at an uncomfortable angle before the rudder caught hold and swung the prow around. Then, like a bow sprung from an arrow, the ship surged forward. Perpendicular to the wind they cut away.
+    Groaning against its weight, the Azurai bobbed precipitously in the wind, full sails heeling it to an uncomfortable angle before the rudder caught hold and swung the prow around. Then, like a bow sprung from an arrow, the ship surged forward. Perpendicular to the wind they cut away.
 
   ||
     -- The Azurai's crew cheered and whooped as the other ship crossed their wake, still sailing with the wind and unable to arrest its momentum in time to pursue. The pirates – for that's what they clearly were, from up close – returned the jeers and shouts, waving swords and axes, impotent as their own vessel carried them further away.
@@ -269,12 +269,12 @@ Page.PiratesFlee.next.good = Page.PiratesFleeSuccess = class PiratesFleeSuccess 
 
 Page.PiratesFlee.next.bad = Page.PiratesFleeFail = class PiratesFleeFail extends Page
   text: ->"""|| bg="Ship.day"
-    -- #{q g.officers.Nat}Ok, I've changed my mind, not good. Full sail!</q> Natalie called out commands, setting the crew back in motion. They kept their weapons close at hand as they worked, canvas billowing up to catch the wind
+    -- #{q g.officers.Nat}Ok, I've changed my mind; not good. Full sail!</q> Natalie called out commands, setting the crew back in motion. They kept their weapons close at hand as they worked, canvas billowing up to catch the wind
 
-    Groaning against its weight, the Azurai bobbed precipitously in the wind, full sails tipping it at an uncomfortable angle before the rudder caught hold and swung the prow around. A moment too slow – Natalie ducked as an arrow sailed across the deck, too close for comfort, then was thrown from her feet by a grinding collision.
+    Groaning against its weight, the Azurai bobbed precipitously in the wind, full sails heeling it to an uncomfortable angle before the rudder caught hold and swung the prow around. A moment too slow – Natalie ducked as an arrow sailed across the deck, too close for comfort, then was thrown from her feet by a grinding collision.
 
   || bg="Ship.deckDay"
-    -- The horrible sound of wrenching wood and burbling water finding ways to run inside were nothing compared to the massed roar of the pirates – for that was surely what they were, at close range – leaped or swung over towards the Azurai. James stood in front of her, ready to protect his captain from all comers, a grim expression covering his face in the brief moment before he turned away and prepared to fight for his life. #{Math.choice g.crew} let out a shout and met the attackers on deck. Battle was joined.
+    -- The horrible sound of wrenching wood and burbling water finding ways to run inside were nothing compared to the massed roar of the pirates – for that was surely what they were, at close range – as they leaped or swung over towards the Azurai. James stood in front of her, ready to protect his captain from all comers, a grim expression covering his face in the brief moment before he turned away and prepared to fight for his life. #{Math.choice g.crew} let out a shout and met the attackers on deck. Battle was joined.
 
   ||
     --> <em>+6 ship damage</em>"""
@@ -305,7 +305,7 @@ Page.AbandonedShip.next['Fire it'] = Page.AbandonedShipBurn = class AbandonedShi
     -- Bowing to tradition and the crew's unease about robbing a grave, Natalie ordered a bow produced, and had James soak a rag in oil.
 
   ||
-    --> Burning an abandoned ship wasn't hard – with pitch rubbed into the hull, oil in the ropes and wax in the canvas, even a nearly-rotten hulk like this one was soon ablaze. They watched solemnly, Natalie giving voice to a prayer they were all thinking.
+    --> Burning an abandoned ship wasn't hard – with pitch rubbed into the hull, oil in the ropes and wax in the canvas, even a nearly-rotten hulk like this was soon ablaze. They watched solemnly, Natalie giving voice to a prayer they were all thinking.
 
   ||
     --> When the wreck finally collapsed down the middle, they set sail again. Time to get going, and hope that the Azurai never met the same fate."""
@@ -316,7 +316,7 @@ Page.AbandonedShip.next['Fire it'] = Page.AbandonedShipBurn = class AbandonedShi
 
 Page.AbandonedShipDone = class AbandonedShipDone extends Page
   text: ->"""|| bg="Ship.deckDay"
-    -- Burning an abandoned ship wasn't hard – with pitch rubbed into the hull, oil in the ropes and wax in the canvas, even a nearly-rotten hulk like this one was soon ablaze. They watched solemnly, Natalie giving voice to a prayer they were all thinking.
+    -- Burning an abandoned ship wasn't hard – with pitch rubbed into the hull, oil in the ropes and wax in the canvas, even a nearly-rotten hulk like this was soon ablaze. They watched solemnly, Natalie giving voice to a prayer they were all thinking.
 
   ||
     --> When the wreck finally collapsed down the middle, they set sail again. Time to get going, and hope that the Azurai never met the same fate."""
@@ -331,7 +331,7 @@ Page.AbandonedShipSearch.next.push Page.AbandonedShipNothing = class AbandonedSh
   text: ->"""|| bg="Ship.deckDay"
     -- Natalie led the expedition, guiding from the prow of the Azurai's longboat as they rowed in closer than she wished to risk the larger vessel. It was with a solemn air that they searched the wreck.
 
-    Despite a thorough search, they didn't find anything of value. Other than waterlogged timbers and rotten sailcloth, it had already been stripped bare. Tired out and on edge from having wasted a day to no gain, Natalie ordered the wreck torched."""
+    Despite a thorough search, they found nothing of value. Other than waterlogged timbers and rotten sailcloth, it had already been stripped bare. Tired out and on edge from having wasted a day to no gain, Natalie ordered the wreck torched."""
   next: Page.AbandonedShipDone
 
 Page.AbandonedShipSearch.next.push Page.AbandonedShipSupplies = class AbandonedShipSupplies extends Page
@@ -393,10 +393,10 @@ Page.OtherShip.next.push Page.VailianMerchants = class VailianMerchants extends 
   conditions:
     location: matches: -> g.location.name not in ['Vailia', 'MtJulia', 'Alkenia', 'Nonkenia', 'BlackSands']
   text: ->"""|| bg="Ship.day"
-    -- Triangular sales - #{Math.choice g.crew} was the first to spot them on the other ship, and #{he} loudly guessed that it was a Vailian vessel. Despite all odds, so far from home, #{he} was proven right half an hour later, when they were close enough to make out more details. A Vailian-made ship meant Vailian crew – the city did not sell to outsiders, jealously guarding its ship-building secrets.
+    -- Triangular sails - #{Math.choice g.crew} was the first to spot them on the other ship - and #{he} loudly guessed that it was a Vailian vessel. Despite all odds, so far from home, #{he} was proven right half an hour later, when they were close enough to make out more details. A Vailian-made ship meant Vailian crew – the city did not sell to outsiders, jealously guarding its ship-building secrets.
 
   ||
-    -- The two vessels pulled up alongside each other, and after a few shouted exchanges, two of officers jumped over to the Lapis for a closer discussion. They were just as eager as Natalie and James to share news of home, and the crews spent half an hour shooting the breeze while the officers shared knowledge of the winds and currents in the area.
+    -- The two vessels pulled up alongside each other and, after a few shouted exchanges, two officers jumped over to the Lapis for a closer discussion. They were just as eager as Natalie and James to share news of home, and the crews spent half an hour shooting the breeze while the officers shared knowledge of the winds and currents in the area.
 
     <em><span class="sailing">+1 sailing</span> for each officer, <span class="happiness">+2 happiness</span> for crew</em>"""
   apply: ->
@@ -405,4 +405,3 @@ Page.OtherShip.next.push Page.VailianMerchants = class VailianMerchants extends 
       sailor.add('happiness', 2)
     for i, officer of g.officers
       officer.add('sailing', 1)
-

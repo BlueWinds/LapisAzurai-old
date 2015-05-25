@@ -65,7 +65,7 @@ ShipJob.Talk.next.push Page.ShipTalkStories = class ShipTalkStories extends Page
     '|season': {eq: ['Fire', 'Earth']}
   text: ->"""|| bg="Ship.deckNight"
     --
-      In the evenings, while a pair of lookouts kept watch, most of the crew gathered on-deck, to share stories and drinks and company amid the stars. Natalie made it a point to find herself leaning against the same rail as #{Math.choice g.crew}. The ocean lapped against the hull somewhere below, mild waves gently rocking the Lapis Azurai. They talked for some time, content to watch the others from a distance, letting bonds deepen with the setting of the sun.
+      In the evenings, while a pair of lookouts kept watch, most of the crew gathered on-deck to share stories and drinks and company amid the stars. Natalie made a point of leaning against the same rail as #{Math.choice g.crew}. The ocean lapped against the hull somewhere below, mild waves gently rocking the Lapis Azurai. They talked for some time, content to watch the others from a distance, letting bonds deepen with the setting of the sun.
 
       <em>Crew: <span class="happiness">+2 happiness</span></em>
   """
@@ -80,7 +80,7 @@ ShipJob.Talk.next.push Page.ShipTalkIndoors = class ShipTalkIndoors extends Page
 
   ||
     --
-      Though she often preferred to keep her own company, or entertain a smaller group in her own quarters, Natalie also made it a point to spend plenty of time mingling with the crew, especially when off duty. Aside from the purely practical considerations to keeping in touch with their mood and fostering a sense of companionship, she also found it fascinating to listen to them – why they left their homes to risk lives on the open ocean, what they wanted, who they wanted to be... she spent hours listening to and talking with #{Math.choice g.crew}.
+      Though she often preferred to keep her own company, or entertain a smaller group in her own quarters, Natalie also made it a point to spend plenty of time mingling with the crew, especially when off duty. Aside from the purely practical considerations of keeping in touch with their mood and fostering a sense of companionship, she also found it fascinating to listen to them – why they left their homes to risk lives on the open ocean, what they wanted, who they wanted to be... - she spent hours listening to and talking with #{Math.choice g.crew}.
 
       <em>Crew: <span class="happiness">+2 happiness</span></em>
   """
@@ -98,10 +98,10 @@ ShipJob.Talk.next.push Page.ShipTalkMusic = class ShipTalkMusic extends Page
       As often as not it had rained in the evenings recently, so those not on watch found themselves crammed into the sleeping quarters. The humidity made the confines not entirely comfortable, but at least they could easily regulate temperature, between body heat and frozen rain outside.
   ||
     -->
-      Tonight the crew played music, rather than talk, rain beating a staccato counterpoint on the deck overhead. A beat up old guitar was passed around, everyone who knew how to use it taking turns until it finally made its way into #{@sailor}'s hands. #{He} was the best, and everyone knew it, strong and clear #{if @sailor.gender is 'f' then 'alto' else 'baritone'} voice filling the space.
+      Tonight the crew played music, rather than talk, rain beating a staccato counterpoint on the deck overhead. A beat up old guitar was passed around, everyone who knew how to play it, taking turns until it finally made its way into #{@sailor}'s hands. #{He} was the best, and everyone knew it, strong and clear #{if @sailor.gender is 'f' then 'alto' else 'baritone'} voice filling the space.
   ||
     --
-      Sitting side by side on the to top level of a bunk, Natalie and #{@sailor2}, relaxed, and it wasn't long before a drowsy captain was leaning on her sailor, lulled by the soothing tones and a sad song of home-far-away. #{@sailor2} gently shifted her to lean against the wall instead, and covered her with a blanket when the song ended.
+      Sitting side by side on the top bunk, Natalie and #{@sailor2}, relaxed, and it wasn't long before a drowsy captain was leaning on her sailor, lulled by the soothing tones and a sad song of home-far-away. #{@sailor2} gently shifted her to lean against the wall instead, and covered her with a blanket when the song ended.
   ||
     -->
       <em>Crew: <span class="happiness">+2 happiness</span></em>
@@ -117,7 +117,7 @@ ShipJob.Talk.next.push Page.ShipTalkSports = class ShipTalkSports extends Page
       return g.crew.asArray().sort((c1, c2)->c1.combat - c2.combat)[1]
   text: ->"""|| bg="Ship.deckNight"
     --
-      Some evenings, once most of the day's work was done, rather than lay about and rest or play music, the crew decided to be a little more energetic. Tossing items around wasn't entirely practical on a small ship, but wrestling or running games were entirely too popular. Natalie hadn't intended to participate, but when #{@sailor} bowled her over on the way to one of the goals, she couldn't resist.
+      Some evenings, once most of the day's work was done, rather than lay about and rest or play music, the crew decided to be a little more energetic. Tossing items around wasn't entirely practical on a small ship, but wrestling or running games were entirely too popular. Natalie hadn't intended to participate, but she couldn't resist when #{@sailor} bowled her over on the way to one of the goals.
   ||
     #{@Nat.image 'excited', 'left'}
     --
@@ -136,7 +136,7 @@ ShipJob.TrainCombat::next = Page.TrainCombat = class TrainCombat extends Page
   text: ->"""|| bg="Ship.day"
     #{@James.image 'angry', ''}
     --
-      James divided the crew up into two teams - half of them practiced boarding while the others repeled using oars and poles wrapped in cloth as weapons. It was still unbelievably noisy as some of the sailors got very much into the spirit, with battle cries and dramatic 'death scenes' as they were slain.
+      James divided the crew up into two teams. Half of them practiced boarding while the others repelled using oars and poles wrapped in cloth as weapons. It was still unbelievably noisy as some of the sailors got very much into the spirit, with battle cries and dramatic 'death scenes' as they were slain.
 
       <em>Crew: <span class="combat">+1 combat</span><br>James: <span class="energy">-2 energy</span></em>
   """
@@ -156,7 +156,7 @@ ShipJob.TrainBusiness::next = Page.TrainBusiness = class TrainBusiness extends P
   text: ->"""|| bg="Ship.deckDay"
     #{@Nat.image 'normal', ''}
     --
-      While the world may be a vast place, the officers of the Lapis are some of the most well-traveled and educated individuals in it - Natalie can read and write, for example, which places her in the top 25% of the Vailian population, much less other nations. A bit of teaching is a fun way to pass the time.
+      While the world may be a vast place, the officers of the Lapis are some of the most well-traveled and educated individuals in it. Natalie can read and write, for example, which places her in the top 25% of the Vailian population, much less other nations. A bit of teaching is a fun way to pass the time.
 
       <em>Crew: <span class="business">+1 business</span><br>Natalie: <span class="happiness">+1 happiness</span>, <span class="energy">-1 energy</span></em>
   """
