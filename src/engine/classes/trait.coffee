@@ -6,11 +6,12 @@ window.Trait = class Trait extends GameObject
       description:
         type: ['string', 'function']
         description: 'A string describing the flavor of the trait, or a function taking (person) returning the same.'
-
-  renderBlock: (person)->"""<div class="trait">
-    <div class="name">#{@constructor.name}</div>
-    <div class="description">#{@description?(person) or @description}</div>
-  </div>"""
+      daily:
+        type: 'function'
+        description: 'A function taking (person), called once per day that passes.'
+      eats:
+        type: 'integer'
+        description: 'Adds (or subtracts) from how much the person eats. {eats: 3} means the person eats as much as 4 normal people (3 extra servings) while sailing.'
 
   for stat of Person.stats
     @schema[stat] =
@@ -24,6 +25,19 @@ window.Trait = class Trait extends GameObject
       lte: 10
       description: "A rate to multiply changes to the stat by, or a function that takes (object, delta) and returns a new delta."
 
+  renderBlock: (person)->"""<div class="trait">
+    <div class="name">#{@constructor.name}</div>
+    <div class="description">#{@description?(person) or @description}</div>
+  </div>"""
+
+Game.passDay.push ->
+  for name, person of g.officers when person.traits
+    for key, trait of person.traits
+      trait.daily?(person)
+  for name, person of g.crew when person.traits
+    for key, trait of person.traits
+      trait.daily?(person)
+
 Person.schema.properties.traits =
   type: Collection
   optional: true
@@ -31,14 +45,16 @@ Person.schema.properties.traits =
     type: Trait
 
 Person::get = (stat, context)->
-  unless @[stat]? then throw new Error "#{@} doesn't have the stat #{stat}"
-  value = @[stat]
+  value = if stat is 'eats' then 1
+  else if @[stat]? then @[stat]
+  else throw new Error "#{@} doesn't have the stat #{stat}"
+
   if @traits
-    for key, trait of @traits when trait[name]
-      value = if typeof trait[name] is 'function'
-        trait[name](@, context, value)
+    for key, trait of @traits when trait[stat]
+      if typeof trait[stat] is 'function'
+        value = trait[stat](@, context, value)
       else
-        value + trait[name]
+        value += trait[stat]
   return value
 
 Person::add = (stat, amount)->

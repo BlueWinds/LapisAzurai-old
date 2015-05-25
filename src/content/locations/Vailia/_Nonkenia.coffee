@@ -54,7 +54,7 @@ Place.Nonkenia::firstVisit = Page.VisitNonkenia = class VisitNonkenia extends Pa
   ||
     --> She did as he asked, and he left a sticky dot on her forehead. He swatted away her finger when she reached up to wipe it away.
   ||
-    -- <q>There you go, girl. The forest isn't dangerous anymore. For you. As long as you take the left trail, then left fork, then right. Got that? Left, left, right.</q> Another dry chuckle, a sound Natalie was beginning to thoroughly loathe. <q>Anyone else who feels like walking to the city, come and take your turn. You can wipe it off once you're inside the city, but make sure you get announted again before you try and return to the ship. It'd be a shame if some of you didn't make it back.</q>
+    -- <q>There you go, girl. The forest isn't dangerous anymore. For you. As long as you take the left trail, then left fork, then right. Got that? Left, left, right.</q> Another dry chuckle, a sound Natalie was beginning to thoroughly loathe. <q>Anyone else who feels like walking to the city, come and take your turn. You can wipe it off once you're inside the city, but make sure you get announced again before you try and return to the ship. It'd be a shame if some of you didn't make it back.</q>
 """
 
 Place.Nonkenia::jobs.rest = Job.NonkeniaRest = class NonkeniaRest extends Job
@@ -101,3 +101,140 @@ Job.NonkeniaRest.next.push Page.NonkeniaRest = class NonkeniaRest extends Page
   ||
     -- <q>I'll know.</q> She shrugged. <q>Well, probably not me. But my grandson, or his child, or his great-great grandson. We've watched this place for so long now, what's a few more centuries?</q> She repeated the shrug, fed the fire another log.
 """
+
+Place.Vailia::jobs.nonkeniaDiplomats = Job.NonkeniaDiplomats = class NonkeniaDiplomats extends Job
+  officers:
+    Nat: '|officers|Nat'
+  conditions:
+    '|events|KatTrial': {}
+  label: 'Mission from Guildmaster'
+  type: 'special'
+  text: ->"""The Guildmaster has a job for Natalie, if she'd like to take it - a delivery of some sort he won't trust to another ship."""
+  energy: -1
+
+Mission.NonkeniaDiplomats = class NonkeniaDiplomats extends Mission
+  label: "Nonkenian Negotiations"
+  tasks: [
+      description: "Bring diplomats to Nonkenia"
+      conditions:
+        '|location': {is: Place.Nonkenia}
+  ]
+
+Job.NonkeniaDiplomats2 = class NonkeniaDiplomats2 extends Job
+  officers:
+    Nat: '|officers|Nat'
+    James: '|officers|James'
+  label: 'Deliver Diplomats'
+  type: 'special'
+  text: ->"""If Ameliss' bodyguard goes back for yet another bowl of food, she will... she'll throw him overbeard. Oh, wait, they've just docked. Someone fetch the plank."""
+  energy: -2
+
+Trait.Diplomats = class Diplomats extends Trait
+  description: """Ameliss sets Natalie's teeth grinding. And her bodyguard if going to eat them out of of business. (<span class="happiness">-0.5 happiness</span>, -1 food daily)"""
+  daily: ->
+    g.officers.Nat.add 'happiness', -0.5
+  eats: 4
+
+natStatus = ->
+  m = g.officers.Nat.money
+  return if m < 0 then 'Poorly'
+  else if m < 2000 then 'Doing ok'
+  else 'Excellent'
+
+Job.NonkeniaDiplomats::next = Page.NonkeniaDiplomats = class NonkeniaDiplomats extends Page
+  conditions:
+    Nat: {}
+    Guildmaster: '|people|Guildmaster'
+  text: ->"""|| bg="guildOffice"
+    #{@Nat.image 'excited', 'left'}
+    -- #{q}Guildmaster Janos,</q> Natalie grinned and sauntered into his office unnannounced. It had cost her an obol at the front desk to see him on the quiet, but the look of surprise on his face as she sat herself down across from him was worth it.
+
+  ||
+    #{@Guildmaster.image 'smiling', 'right'}
+    --> #{q}Ah, welcome. I didn't know your ship was back in already. Doing well, I hope?</q>
+
+  ||
+    #{@Nat.image 'normal', 'left'}
+    --> #{q}#{natStatus()}. But that isn't why I'm here - I'm here because you need me to deliver something irreplacable to Alkenia.</q>
+
+  ||
+    #{@Guildmaster.image 'skeptical', 'right'}
+    -- He quirked an eyebrow. #{q}I'm curious how you know that. I've only told one person, whom I'm sure you've never met.</q>
+
+  ||
+    #{@Nat.image 'normal', 'left'}
+    --> #{q}Easy. <i>You</i> wanted to see me when I got back, which means you want something moved. You wanted to see <i>me</i> when I got back, which means you can't afford to have it lost at sea. You wanted to see me when I <i>got back</i>, which means it has something to do with Alkenia, since I've had a lot of dealings there recently.</q>
+
+  ||
+    #{@Guildmaster.image 'normal', 'right'}
+    --> #{q}Very good, but wrong on two counts - Nonkenia is the destination, and it's a them I want delivered, not an it. You are certainly correct that I would very much prefer to trust them to your care, though.</q>
+
+  ||
+    #{@Guildmaster.image 'serious', 'right'}
+    -- #{q}This fued between Alkenia and Nonkenia is doing no one any good. A war right in our backyard is bad business - while the prince, and thus, Vailia certainly has made a policy of non-interference in foreign politics, as a private individual I have somewhat greater freedom of action.</q> He smiled at the irony in those last words - the Guild was the nobility's equal in all but name.
+
+  ||
+    #{@Guildmaster.image 'normal', 'right'}
+    --> #{q}Please don't make that face. All I'm going to do is arrange peace talks, nothing objectionable. I wish you to carry a pair of diplomats to Nonkenia to arrange things, with all possible haste. You will of course be paid.</q>
+
+  ||
+    -- He didn't need to ask if she'd do it. Any number of reasons would have been sufficient alone - money, loyalty the man who was not that far from a father, a desire to do good for the people of both cities, earning favor from the Guild. She just nodded.
+
+  ||
+    #{@Guildmaster.image 'normal', 'right'}
+    --> #{q}Excellent. I'll tell them to meet you at your ship this afternoon.</q>
+
+  ||
+    --> <em>New quest: Nonkenian Negotiations. Until completed, Natalie has a new trait: <strong>Annoying Diplomats</strong></em>"""
+  effects:
+    money: [-1, 'Bribe to see Guildmaster on the quiet']
+    remove:
+      '|location|jobs|nonkeniaDiplomats': Job.NonkeniaDiplomats
+    add:
+      '|missions|NonkeniaDiplomats': Mission.NonkeniaDiplomats
+      '|officers|Nat|traits|diplomats': Trait.Diplomats
+      '|map|Nonkenia|jobs|nonkeniaDiplomats': Job.NonkeniaDiplomats2
+
+Job.NonkeniaDiplomats2::next = Page.NonkeniaDiplomats2 = class NonkeniaDiplomats2 extends Page
+  conditions:
+    Nat: {}
+    James: {}
+  text: ->"""|| bg="day"
+    -- Sploosh.
+
+  ||
+    #{@Nat.image 'excited', 'left'}
+    --> #{q}Bye-bye!</q> Natalie waved cheerfully at the rippling ocean as an irate bodyguard bobbed to the surface, shot Natalie a dirty look, and began swimming for shore.
+
+  ||
+    #{@James.image 'serious', 'right'}
+    --> #{q @James}...</q>
+
+  ||
+    #{@James.image 'normal', 'right'}
+    --> #{q}...I didn't think you'd really do it.</q>
+
+  ||
+    #{@Nat.image 'normal', 'left'}
+    -- Natalie grinned and turned to Ameliss, the diplomat she was being paid to deliver. #{q}I'll be getting paid now, if you don't mind.</q> She held out her hand, and when Ameliss hesitated, began tapping a foot on the plank she'd rigged in order to make the bodyguard walk it.
+
+  ||
+    --> <q>Treachery! Piracy! Whore!</q> The normally composed diplomat backed towards the rail, hissing insults and clutching the bag of money Janos had given her to pay Natalie with. <q>I'll make you pay for this, see if I don't!</q>
+
+  ||
+    #{@Nat.image 'normal', 'left'}
+    -- Natalie rolled her eyes and sighed. #{q}Can't take a joke, can you? Oh well. Come on boys, lower the boat and I'll take Ms. Not-going-for-a-swim ashore along with her luggage.</q>
+
+  ||
+    --> <em><span class="happiness">+8 happiness</span> for Natalie. +300β</em>
+"""
+  effects:
+    money: [300, 'Delivered diplomats']
+    remove:
+      '|location|jobs|nonkeniaDiplomats': Job.NonkeniaDiplomats2
+      '|missions|NonkeniaDiplomats': Mission.NonkeniaDiplomats
+      '|officers|Nat|traits|diplomats': Trait.Diplomats
+
+  apply: ->
+    super()
+    @context.Nat.add 'happiness', 8
