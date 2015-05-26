@@ -9,7 +9,7 @@ Place.Alkenia::jobs.meetKat = Job.MeetKat = class MeetKat extends Job
     '|weather': {eq: 'calm'}
     '|events|AlkeniaMarket|length': {gte: 1}
     '|officers|Nat|money': {gte: 35}
-    '|events|MeetKat': # It's happened before, must be at least a week ago.
+    '|events|MeetKat': # If is has happened before, must be at least a week ago.
       matches: (days)-> if days then days[0] + 7 < g.day else true
       optional: true
   next: Page.firstNew
@@ -19,7 +19,7 @@ Job.MeetKat.next.push Page.MeetKat2 = class MeetKat2 extends Page
   conditions:
     Natalie: {}
   text: ->"""|| bg="day"
-    -- Alkenia's market was a crowded place, stalls buying and selling almost every imaginable good. Though, Natalie noted, the prices were often inflated compared to what one would pay in Vailia itself. She had never before had enough money to consider most of the items on sale; or, at least, not had the intention to spend that much money. She was too busy saving up for her grand adventure. Now, though... now she could sample whatever she liked and call it a business expense. A merchant had to know what, exactly, they were selling, after all!
+    -- Alkenia's market was a crowded place, stalls buying and selling almost every imaginable good. Though, Natalie noted, the prices were often somewhat inflated compared to what one would pay in Vailia itself. She had never before had enough money to consider most of the items on sale, or at least not had the intention to spend that much money. She was too busy saving up for her grand adventure. Now, though... now she could sample whatever she liked and call it a business expense. A merchant had to know what, exactly, they were selling, after all!
 
   ||
     -- The aroma of a spice rack drew her irresistibly towards it. Most of the scents she could at least identify, but not one that stood out.
@@ -35,7 +35,7 @@ Job.MeetKat.next.push Page.MeetKat2 = class MeetKat2 extends Page
     -- #{q}Tree bark. Boil it or grind it up. 10 obols an ounce, but a little goes a long way. Limited supplies.</q> He gestured to a single, half empty crate behind him.
 
   ||
-    --> Natalie whistled at that. Truly it must come from halfway around the world to warrant that price – or he was a con artist, and a splendid one. The smell though - she'd never scented anything like it in her life, nor heard of it. If she filled a cargo hold full of that, she'd be set for life. #{q}Interesting. Does it taste like it smells? I might consider...</q>
+    --> Natalie whistled at that. Truly it must come from halfway around the world to warrant that price – or he was a con artist, and a splendid one. The smell though - she'd never scented anything like it in her life, nor heard of it. A cargo hold full of that and she'd be set for life. #{q}Interesting. Does it taste like it smells? I might consider...</q>
 
   ||
     -- A flash of movement caught her eye, and a sudden feeling of a breeze. She patted her pocket, and found no bundle of coins. She spun on her heels, catching another flash of motion: a young woman, disappearing into the crowd.
@@ -92,7 +92,7 @@ Job.MeetKat.next.push Page.MeetKat3 = class MeetKat3 extends PlayerOptionPage
 
   ||
     #{@Natalie.image 'upset', 'left'}
-    --> #{q}She was... oof... taking my money!</q> Natalie gasped out, leaning on one arm against a nearby stone wall. #{q}Wasn't expecting a fight.</q>
+    --> #{q}She was... oof... taking my money,</q> Natalie gasped out, leaning on one arm against a nearby stone wall. #{q}Wasn't expecting a fight.</q>
 
   ||
     #{@Guard.image 'serious', 'far-right'}
@@ -143,7 +143,7 @@ Page.MeetKat3.next.Sure = Page.MeetKatSure = class MeetKatSure extends Page
   ||
     #{@Guard.image 'normal', 'far-right'}
     #{@Kat.image 'sad', 'right'}
-    --> Kat started to cry silently, hiccuping as the guard cuffed her ear. She aimed a dispirited kick at his shin, but he didn't much seem to notice through the heavy leggings.
+    --> Kat started to cry silently, hiccing as the guard cuffed her ear. She aimed a dispirited kick at his shin, but he didn't much seem to notice through the heavy leggings.
 
   ||
     #{@Kat.image 'sad', 'right'}
@@ -152,7 +152,7 @@ Page.MeetKat3.next.Sure = Page.MeetKatSure = class MeetKatSure extends Page
 
   ||
     #{@Natalie.image 'sad', 'left'}
-    --> Natalie nodded and looked away. Don't feel too bad for her, indeed.
+    --> Natalie nodded and looked away. Don't feel too bad for her indeed.
 """
   apply: ->
     super()
@@ -170,7 +170,7 @@ Page.MeetKat3.next['Stolen purse?'] = Page.MeetKatMoney = class MeetKatMoney ext
   ||
     #{@Guard.image 'normal', 'far-right'}
     #{@Kat.image 'sad', 'right'}
-    --> #{q}No.</q> Kat finally spoke, tugging at her blouse. It looked brand new, and none too cheap. One of the shoulders was torn where Natalie had grabbed her. She stared at the rip a moment then started to cry silently. She hiccuped as the guard cuffed her ear.
+    --> #{q}No.</q> Kat finally spoke, tugging at her blouse. It looked both brand new and none too cheap. One of the shoulders was torn where Natalie had grabbed her. She stared at the rip a moment then started to cry silently. She hicced as the guard cuffed her ear.
 
   ||
     #{@Kat.image 'sad', 'right'}
@@ -179,7 +179,7 @@ Page.MeetKat3.next['Stolen purse?'] = Page.MeetKatMoney = class MeetKatMoney ext
 
   ||
     #{@Natalie.image 'sad', 'left'}
-    --> Natalie nodded and looked away. Don't feel too bad for her, indeed.
+    --> Natalie nodded and looked away. Don't feel too bad for her indeed.
 """
   apply: ->
     super()
@@ -192,7 +192,7 @@ Page.MeetKat3.next['Not interested'] = Page.MeetKatNo = class MeetKatNo extends 
     Guard: {}
   text: ->"""|| bg="day"
     #{@Natalie.image 'normal', 'left'}
-    -- #{q}No thanks, I have better things to do.</q> She took a moment to count the money in her pouch, steadfastly ignoring the thief as she began to cry. Kat hiccuped as the guard cuffed her ear, and sobbed silently.
+    -- #{q}No thanks, I have better things to do.</q> She took a moment to count the money in her pouch, steadfastly ignoring the thief as she began to cry. Kat hicced as the guard cuffed her ear, and sobbed silently.
 
   ||
     #{@Kat.image 'sad', 'right'}
@@ -230,7 +230,7 @@ Job.KatTrial::next = Page.KatTrial = class KatTrial extends PlayerOptionPage
     -- Natalie arrived early at the courthouse – one of two in Alkenia, and by far the poorest and busiest. This one handled justice for those neither wealthy nor influential enough to arrange trial away from all the noise and bustle.
 
   ||
-    -- She found herself packed in a waiting room with a crowd of supplicants, each waiting their turn before the judge. One could expect no more than fifteen minutes for their complaint heard, case judged, or contract enforced here. Too many waited, or dreaded, for their chance at justice for any single case to take long. For someone like Kat, clearly a child of the streets and with eyewitness testimony against her, the "guilty" verdict was a foregone conclusion. The only thing still to be decided was her punishment.
+    -- She found herself packed in a waiting room with a crowd of supplicants, each waiting their turn before the judge. One could expect no more than fifteen minutes for their complaint heard, case judged, or contract enforced here. Too many waited, or dreaded, their chance at justice for any single case to take long. For someone like Kat, clearly a child of the streets and with eyewitness testimony against her, the "guilty" verdict was a foregone conclusion. The only thing still to be decided was her punishment.
 
   ||
     #{@Kat.image 'normal', 'far-left'}
@@ -275,7 +275,7 @@ Page.KatTrial.next['Help her'] = Page.KatTrialHelp = class KatTrialHelp extends 
 
   ||
     #{@Kat.image 'normal', 'left'}
-    --> #{q}Oh, they'll hold the trial even without me.</q> She stood on her toes, peering above the crowd to try to catch a glance of the guards. They were getting uncomfortably close. #{q}Stick around. Let me know what my punishment is to be. What's your name?</q>
+    --> #{q}Oh, they'll hold the trial even without me.</q> She stood on her toes, peering above the crowd to try and catch a glance of the guards. They were getting uncomfortably close. #{q}Stick around. Let me know what my punishment is to be. What's your name?</q>
 
   ||
     #{@Natalie.image 'normal', 'right'}
@@ -312,7 +312,7 @@ Page.KatTrial.next['Do nothing'] = Page.KatTrialNothing = class KatTrialNothing 
     Guard: '|people|AlkeniaGuard'
   text: ->"""|| bg="day|storm"
     #{@Natalie.image 'normal', 'right'}
-    -- #{q}How did you even get those keys?</q> Natalie shoved the chains back into Kat's arms, or tried to. The thief was too busy grinning, and had no intention of taking them back.
+    -- #{q}How did you even get those keys?</q> Natalie shoved the chains back into Kat's arms, or at least tried to. The thief was too busy grinning, and had no intention of taking them back.
 
   ||
     #{@Kat.image 'normal', 'left'}
@@ -324,7 +324,7 @@ Page.KatTrial.next['Do nothing'] = Page.KatTrialNothing = class KatTrialNothing 
 
   ||
     #{@Kat.image 'excited', 'left'}
-    --> #{q}See you around, Nat.</q> Kat grinned and saluted. She pushed past, on her way to the door. Natalie spun around in time to stop Kat's hand from slapping her ass.
+    --> #{q}See you around, Nat.</q> Kat grinned and saluted. She pushed past, on her way to the door. Natalie spun around in time to swat Kat's hand from before it slapped her ass.
 
   ||
     #{@Guard.image 'angry', 'far-left'}
@@ -411,7 +411,7 @@ Place.Alkenia::jobs.katStorm = Job.KatStorm = class KatStorm extends Job
     '|events|KatJames': {matches: (days)-> return days[0] < g.day - 14}
   label: "Kat in the Rain"
   type: 'plot'
-  text: ->"""A familiar face in the rain: Kat huddled beneath an awning and looking miserable."""
+  text: ->"""A familiar face in the rain, Kat huddled beneath an awning and looking miserable."""
   energy: -1
   officers:
     Natalie: '|officers|Nat'
@@ -460,7 +460,7 @@ Job.KatStorm::next = Page.KatStorm = class KatStorm extends Page
   || bg="Ship.deckStorm" slow="true"
 
   || bg="Ship.cabinStorm" slow="true"
-    -- Kat coughed. The motion wracked her whole body. No matter how many blankets Natalie piled over her, her body still shivered while her forehead burned. More than anything else, Nat worried about food. While she'd been scrawny last time they'd met, Kat had seemed little more than a shadow as she'd peeled off soaking clothes and gotten her in Natalie's bed. She'd asked for something to eat, but fallen asleep before it could be brought.
+    -- Kat coughed, the motion wracking her whole body. No matter how many blankets Natalie piled over her, her body still shivered while her forehead burned. More than anything else, Nat worried about food. While she'd been scrawny last time they'd met, Kat had seemed little more than a shadow as she'd peeled off soaking clothes and gotten her in Natalie's bed. She'd asked for something to eat, but fallen asleep before it could be brought.
 
   ||
     --> Natalie felt her forehead again and sat by Kat's side. It was going to be a long night.
@@ -490,7 +490,7 @@ Page.KatStorm::next = Page.KatStorm2 = class KatStorm2 extends PlayerOptionPage
     -- #{q}Anyone would do that.</q> Natalie covered the hand on her shoulder with own.
 
   ||
-    --> #{q @Kat}Not anyone. Two people: you and Don. No one else ever did. Can I get some of that milk?</q> She gestured weakly to the small jar of cream at the bedside. Someone, probably James, had left it there before she woke, along with a now cool cup of tea and a biscuit.
+    --> #{q @Kat}Not anyone. Two people. You and Don. No one else ever did. Can I get some of that milk?</q> She gestured weakly to the small jar of cream at the bedside. Someone, probably James, had left it there before she woke, along with a now cool cup of tea and a biscuit.
 
   ||
     #{@Natalie.image 'normal', 'left'}
@@ -543,7 +543,7 @@ Job.KatVisit = class KatVisit extends Job
     '|weather': {eq: 'calm'}
   label: "Visit Kat"
   type: 'plot'
-  text: ->"""Time to pay a visit to your favorite thief friend to see how she's doing in her new job as a respectable member of society."""
+  text: ->"""Time to pay a visit to your favorite thief friend, see how she's doing in her new job as a respectable member of society."""
   energy: -1
   officers:
     Natalie: '|officers|Nat'
@@ -700,7 +700,7 @@ Page.KatVisit.next['Hire her'] = Page.KatVisitHire = class KatVisitHire extends 
 
   ||
     #{@Kat.image 'excited', ''}
-    --> She was nearly bowled over as Kat leaped into her arms, an excited sound and a fierce hug, legs wrapping around her waist. Natalie staggered back, trying to catch her balance, bumping against a wall. Kat kissed her, right on the mouth, then unwrapped her legs and detached herself again. Natalie laughed at the girl's sudden false-decorum as she wiped dust off her shirt and spoke formally. #{q}Why yes, Captain Natalie, I would be pleased to sign on.</q> It didn't last. She broke back into a grin.
+    --> She was nearly bowled over as Kat leapt into her arms, an excited sound and a fierce hug, legs wrapping around her waist. Natalie staggered back, trying to catch her balance, bumping against a wall. Kat kissed her, right on the mouth, then unwrapped her legs and detached herself again. Natalie laughed at the girl's sudden false-decorum as she wiped dust off her shirt and spoke formally. #{q}Why yes, Captain Natalie, I would be pleased to sign on.</q> It didn't last. She broke back into a grin.
 
   ||
     #{@Natalie.image 'serious', 'left'}
@@ -746,7 +746,7 @@ ShipJob.KatClothes::next = Page.KatClothes = class KatClothes extends PlayerOpti
 
   ||
     #{@Nat.image 'serious-nude', 'center'}
-    -- She snorted. "Mysterious force," right. Kat's antics were annoying, but never mysterious. The only mysterious part was how she'd managed to empty the entire closet without either waking Natalie or getting stopped by any of the crew.
+    -- She snorted. "Mysterious force," right. Kat's antics were occasionally annoying, but never mysterious. The only mysterious part was how she'd managed to empty the entire closet without either waking Natalie or getting stopped by any of the crew.
     #{options ['Angry', 'Laughing'], }
   """
   @next: {}
@@ -861,7 +861,7 @@ Page.KatClothes.next.Laughing = Page.KatClothesLaughing = class KatClothesLaughi
     --> #{q}Nah, I'm enjoying the breeze. Besides, it's kind of hot out here, don't you think?</q> She gently shoved Kat's rump with one bare foot, eliciting a squeal of indignation and flashing her pussy to the world. #{q}Actually, you can have shoes. Punishment is one thing, splinters are another. No socks though. Your ankles are too sexy to cover up.</q>
 
   ||
-    --> <span class="happiness">-2 happiness</span> for James, <span class="happiness">+4</span> for Kat # How does this make Kat happy? Nat, maybe.
+    --> <span class="happiness">-2 happiness</span> for James, <span class="happiness">+4</span> for Kat
   """
   apply: ->
     super()

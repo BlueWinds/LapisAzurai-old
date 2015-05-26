@@ -28,7 +28,7 @@ Place.Nonkenia::jobs.market = Job.NonkeniaMarket = class NonkeniaMarket extends 
     "Trade Tools": [8, 40]
 #   "Weapons": [?, ?] If description given in the discovery of the route suggests they buy weapons, then should allow weapons to be sold here.
 
-  description: ->"""There's a nervous air among those dealing with #{@worker}. While not considered wrong, per se, dealing with Vailian merchants is unsavory to the Nonkenians. Money is money, though."""
+  description: ->"""There's a nervous air among those dealing with #{@worker}. While not considered wrong, per se, dealing with Vailian merchants seems to be a bit unsavory to the Nonkenians. Money is money, though."""
   next: Page.Market
 
 Place.Nonkenia::firstVisit = Page.VisitNonkenia = class VisitNonkenia extends Page
@@ -47,13 +47,17 @@ Place.Nonkenia::firstVisit = Page.VisitNonkenia = class VisitNonkenia extends Pa
     --> #{q}Of course. I'm Natalie, this is James, and...</q>
   ||
     -- <q>Stop! Do not share your names so freely. Some might think you tried to ensnare them into reciprocating. Not me, of course. I am used to the ways of foreigners and know you mean no harm.</q> He gave a dry chuckle, and Natalie bit her tongue to avoid saying anything unfriendly. <q>What brings you to the shores of Nonkenia?</q>
+
   ||
     #{@Nat.image 'normal', 'left'}
     --> #{q}We come seeking opportunity for trade and mutual profit. I have a cargo hold full of things I think you might be interested in. But I was expecting a city, and all I see is an empty beach?</q>
+
   ||
     -- He chuckled again, and she couldn't help feeling like she was being mocked. <q>Of course you do. I'd be a fool to expect anything else from a Vailian. It's too much to hope that you'd come to visit one of our grand temples, or repent for some devilry or other...</q> He continued to mutter as he took a jar at his hip and popped off the lid. Dipping a finger in, he reached towards her, something sticky looking - honey perhaps - dripping from his finger. <q>Bend down. There's a good girl. I'm not as tall as I used to be.</q>
+
   ||
     --> She did as he asked, and he left a sticky dot on her forehead. He swatted away her finger when she reached up to wipe it away.
+
   ||
     -- <q>There you go, girl. The forest isn't dangerous anymore. For you. As long as you take the left trail, then left fork, then right. Got that? Left, left, right.</q> Another dry chuckle, a sound Natalie was beginning to thoroughly loathe. <q>Anyone else who feels like walking to the city, come and take your turn. You can wipe it off once you're inside the city, but make sure you get anointed again before you try to return to the ship. It'd be a shame if some of you didn't make it back.</q>
 """
@@ -76,22 +80,22 @@ Job.NonkeniaRest.next.push Page.NonkeniaRest = class NonkeniaRest extends Page
     -- #{@worker} meandered through Nonkenia, exploring the area and people-watching. Eventually #{he} found himself in a quieter part of the town, out of sight of the main roads and walking through increasingly narrow passages between poorly maintained buildings.
 
   ||
-    --> A building of a different sort caught #{his} eye - stone, ancient stone, weathered with a light coating of moss, in some places, and rivulets carved down the surface of the rock by untold years of rain. The door was open and, from the dimly lit recesses, wafted the scent of a pleasant wood fire. #{@worker} entered.
+    --> A building of a different sort caught #{his} eye - stone, ancient stone, weathered with a light coating of moss in some places and rivulets carved down the surface of the rock by untold years of rain. The door was open, and from the dimly lit recesses wafted the scent of a pleasant wood fire. #{@worker} entered.
 
   ||
-    -- The doorway opened to a small chamber, windowless, lit only by a small fire. Curls of smoke drifted towards a hole in the ceiling, and on the side opposite the entrance sat an old woman. The patched shawl wrapped over her shoulders had seen better days.
+    -- The doorway opened to a small chamber, windowless, lit only by a small fire. Curls of smoke drifted towards a hole in the ceiling, and opposite the entrance sat an old woman. The patched shawl wrapped over her shoulders had seen better days.
 
   ||
     --> #{q}Hello?</q> #{@worker} greeted her, falling silent as the old woman looked up with a rheumy stare.
 
   ||
-    --> She shook her head, slowly, and looked back down at her fire. <q>You're not the one I'm waiting for, but you are welcome to join me if you wish.</q>
+    --> She shook her slowly head and looked back down at her fire. <q>You're not the one I'm waiting for, but you are welcome to join me if you wish.</q>
 
   ||
     -- Strangely compelled by the scene, #{@worker} took a seat. #{q}What is this place? It's much older than the rest of the city.</q>
 
   ||
-    --> She smiled. <q>It is. Much older. I don't know how old, so don't ask,</q> she interrupted the upcoming question with a dry chuckle. <q>I just know that this place is waiting for someone and you are not it. My grandson will be back soon to take his turn at the watch. You should meet him, he's a nice boy.</q>
+    --> She smiled. <q>It is. Much older. I don't know how old, don't ask,</q> she interrupted the upcoming question with a dry chuckle. <q>I just know that this place is waiting for someone and you are not it. My grandson will be back soon to take his turn at the watch. You should meet him, he's a nice boy.</q>
 
   ||
     --> #{q}How will you know who it's waiting for when they get here?</q>
@@ -127,7 +131,7 @@ Job.NonkeniaDiplomats2 = class NonkeniaDiplomats2 extends Job
     James: '|officers|James'
   label: 'Deliver Diplomats'
   type: 'special'
-  text: ->"""If Ameliss' bodyguard goes back for yet another bowl of food, she will... She'll throw him overboard. Oh, wait, they've just docked. Get the gangway set up."""
+  text: ->"""If Ameliss' bodyguard goes back for yet another bowl of food, she will... She'll throw him overboard. Oh, wait, they're near enough shore that he could swim. Someone fetch the plank."""
   energy: -2
 
 Trait.Diplomats = class Diplomats extends Trait
@@ -171,7 +175,7 @@ Job.NonkeniaDiplomats::next = Page.NonkeniaDiplomats = class NonkeniaDiplomats e
 
   ||
     #{@Guildmaster.image 'serious', 'right'}
-    -- #{q}This feud between Alkenia and Nonkenia is doing no one any good. A war right in our backyard is bad business. While the prince and, thus Vailia, certainly has made a policy of non-interference in foreign politics, as a private individual I have somewhat greater freedom of action.</q> He smiled at the irony in those last words. The Guild was the nobility's equal in all but name.
+    -- #{q}This feud between Alkenia and Nonkenia is doing no one any good. A war right in our backyard is bad business. While the prince, and thus Vailia, certainly has made a policy of non-interference in foreign politics, as a private individual I have somewhat greater freedom of action.</q> He smiled at the irony in those last words. The Guild was the nobility's equal in all but name.
 
   ||
     #{@Guildmaster.image 'normal', 'right'}
@@ -223,7 +227,7 @@ Job.NonkeniaDiplomats2::next = Page.NonkeniaDiplomats2 = class NonkeniaDiplomats
 
   ||
     #{@Nat.image 'normal', 'left'}
-    -- Natalie rolled her eyes and sighed. #{q}Can't take a joke, can you? Oh well. Come on boys, lower the boat. Let's take Ms. Not-going-for-a-swim ashore along with her luggage.</q>
+    -- Natalie rolled her eyes and sighed. #{q}Can't take a joke, can you? Oh well. Come on boys, lower the boat and we'll take Ms. Not-going-for-a-swim ashore along with her luggage.</q>
 
   ||
     --> <em><span class="happiness">+8 happiness</span> for Natalie. +300β</em>

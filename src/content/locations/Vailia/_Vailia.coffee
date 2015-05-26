@@ -27,7 +27,7 @@ Job.VailiaMarket = class VailiaMarket extends Job.Market
 
 Place.Vailia = Game::map.Vailia = class Vailia extends Place
   name: 'Vailia'
-  description: "Vailia is a bustling port city, famous for its brothels, its political neutrality, freedom from the disasters which plague lesser cities, and its merchant-navy; but mostly for its sex workers."
+  description: "Vailia is a bustling port city, famous for its brothels, its political neutrality, freedom from the disasters which plague lesser cities, and its merchant-navy. But mostly for its sex workers."
   images:
     day: 'game/content/locations/Vailia/Port Day.jpg'
     night: 'game/content/locations/Vailia/Port Night.jpg'
@@ -62,7 +62,7 @@ Job.Beach.next.push Page.BeachWood = class BeachWood extends Page
     '|weather': {eq: 'calm'}
     '|season': {eq: 'Wood'}
   text: ->"""|| bg="day"
-    -- With Descending Water finally behind them, many Vailians greeted the returning warmth with a visit to the beach, and #{@worker} was no exception. Gentle waves lapped against smooth sand, wetting the feet of hundreds of visitors. Not for long, though, the air was pleasantly warm, but not enough to dispel the water's chill. Playing in the sand was the order of the day.
+    -- With Descending Water finally behind them, many Vailians greeted the returning warmth with a visit to the beach, and #{@worker} was no exception. Gentle waves lapped against smooth sand, wetting the feet of hundreds of visitors. The air was pleasantly warm, but not enough to dispel the water's chill. Playing in the sand was the order of the day.
 
   ||
     -- #{@worker} entered a sand castle contest, constructing #{Math.choice [
@@ -117,7 +117,7 @@ Job.Beach.next.push Page.VailiaRumorsEndOfYear = class VailiaRumorsEndOfYear ext
     '|month': {eq: 'Descending'}
     '|season': {eq: 'Water'}
   text: ->"""|| bg="day"
-    -- The Guild would be putting on its turning-of-the-year ball soon; though #{@worker} already knew. It was hard to find news of anything else, so well did it occupy the minds of everyone #{he} talked with. To be fair, it probably deserved it. A merchant might sell as much on that night as the rest of Water put together, and anyone willing to ply their trade in the week before, rather than spend it with friends and family, could almost charge whatever they pleased.
+    -- The Guild would be putting on its turning-of-the-year ball soon. Though #{@worker} already knew, it was hard to find news of anything else, so well did it occupy the minds of everyone #{he} talked with. To be fair, it probably deserved it. A merchant might sell as much on that night as the rest of Water put together, and anyone willing to ply their trade in the week before, rather than spend it with friends and family, could charge almost whatever they pleased.
 
   ||
     --> Which, often as not, wasn't all that much more than normal. Even Vailian enterprise couldn't overcome the spirit of hope and excitement that accompanied a new year."""

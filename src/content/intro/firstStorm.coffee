@@ -313,7 +313,7 @@ Job.IntroNatAwake::next = Page.IntroNatAwake = class IntroNatAwake extends Page
 
   ||
     #{@Natalie.image 'normal', 'left'}
-    -- #{q}How long was I asleep?</q> Natalie rubbed her eyes, looking out on the busy port. Standing in her nightshirt and underwear, she attracted no attention - women wearing less were an everyday sight in this city.
+    -- #{q}How long was I asleep?</q> Natalie rubbed her eyes, looking out on the busy port. Standing in her nightshirt and underwear, she attracted no attention. Women wearing less were an everyday sight in this city.
 
   ||
     #{g.crew[0].image 'normal', 'right'}

@@ -37,7 +37,7 @@ Page.LibraryTravel.next.push Page.LibraryTravelAlkenia = class LibraryTravelAlke
   text: ->"""|| bg="marketDay|marketStorm"
     -- With some careful searching of various travel journals and map fragments, and the (un)help of a thorny librarian, #{@worker} managed to find and copy down the details of a new route. With a detailed chart and location, the Lapis could now travel to another destination.
 
-    Passing through Mt. Julia, one can sail to <strong>Alkenia</strong>, a large independent city. The closest real settlement to Vailia, it's nominally independent but firmly under Vailia's influence, and welcoming to merchants. They'll buy textiles and other Vailian manufactured goods at an excellent price.
+    Passing through Mt. Julia, one can sail to <strong>Alkenia</strong>, a moderately large independent city. The closest real settlement to Vailia, nominally independent but firmly under Vailia's influence, and welcoming to merchants. They'll buy textiles and other Vailian manufactured goods at an excellent price.
   """
   apply: ->
     super()
@@ -75,7 +75,8 @@ Page.LibraryTravel.next.push Page.LibraryTravelNonkenia = class LibraryTravelNon
 Page.Library.next.push Page.LibraryNap = class LibraryNap extends Page
   conditions:
     worker: {}
-  text: ->"""|| bg="marketDay" #|marketStorm" heat makes no sense during storm
+    '|weather': {eq: 'calm'}
+  text: ->"""|| bg="marketDay"
     -- Though drawn to the library by the promise of a treasure trove of knowledge, #{@worker} couldn't help but be distracted by the beautiful weather. Really, it was hardly #{his} fault at all that a sunbeam crept across the book #{he} was reading. Who could blame #{him} for feeling a bit drowsy in the comfortable heat? No one at all. An expensive place to nap, but a peaceful one.
 
     <em>#{@worker}: <span class="energy">+2 energy</span></em>
@@ -88,7 +89,7 @@ Page.Library.next.push Page.LibraryBadBook = class LibraryBadBook extends Page
   conditions:
     worker: {}
   text: ->"""|| bg="marketDay|marketStorm"
-    -- Though it seemed to be a somewhat trashy romance novel at first glance, a careful analysis of this particular book convinced #{@worker} that it was, in fact, a <em>very</em> trashy romance novel. At least #{he} learned a thing or two about writing, or at the very least what to avoid. <q>His voice is warm and husky like dark melted chocolate fudge caramel… or something...</q>
+    -- Though it seemed to be a somewhat trashy romance novel at first glance, a careful analysis of this particular book convinced #{@worker} that it was, in fact, a <em>very</em> trashy romance novel. At least #{he} learned a thing or two about writing, or at the very least what to avoid. <q>His voice is warm and husky like dark melted chocolate fudge caramel or something equally sweet...</q>
 
     Or something indeed. #{@worker} closed the book.
   """
@@ -114,7 +115,7 @@ Job.Defense.next.push Page.DefenseNatalie = class DefenseNatalie extends Page
     worker: {is: Officer.Natalie}
   text: ->"""|| bg="marketDay|marketStorm"
     #{@worker.image 'normal', 'left'}
-    -- #{q}Hey! I heard you teach people weapons?</q> Natalie squatted down in front of the man drinking from a clay pitcher. He was rough-faced, at least two meters tall, and wore a broadsword strapped to his back. There was no denying that this was Torril, one of the more famous mercenaries, now retired in Vailia.
+    -- #{q}Hey! I heard you teach people weapons?</q> Natalie squatted down in front of the man drinking from a clay pitcher. He was rough-faced, at least two meters tall, and wore a broadsword strapped to his back. There was no denying that this was Torril, one of the more famous mercenaries in Vailia, now retired.
 
   ||
     --> <q>I do. I take it you're interested?</q>
@@ -197,7 +198,7 @@ Job.Defense.next.push Page.DefenseKat = class DefenseKat extends Page
 
   ||
     #{@worker.image 'normal', 'left'}
-    --> #{q}I can throw a half-brick pretty well and usually kill a rat in one hit,</q> she grinned proudly.
+    --> #{q}I can throw a half-brick pretty well. Usually kill a rat in one hit,</q> she grinned proudly.
 
   ||
     --> Torril rubbed his forehead. Today was going to be a long day.
@@ -207,7 +208,7 @@ pay = 4
 
 Place.Vailia::jobs.shipyard = Job.Shipyard = class Shipyard extends Job
   label: "Shipyard"
-  text: ->"""Work in the shipyard. It's not very profitable, but can help keep the sailors out of trouble and make a little money at the same time. <em><span class="sailing">+1 sailing</span> for officer, +#{pay}β per sailor</em>"""
+  text: ->"""Work in the shipyard. It's not particularly profitable, but can help keep the sailors out of trouble and make a little money at the same time. <em><span class="sailing">+1 sailing</span> for officer, +#{pay}β per sailor</em>"""
   energy: -2
   officers:
     worker: {}

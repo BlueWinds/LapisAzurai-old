@@ -28,12 +28,12 @@ Place.Alkenia::jobs.market = Job.AlkeniaMarket = class AlkeniaMarket extends Job
     "Wool Cloth": [20, 10]
     "Trade Tools": [8, 25]
 
-  description: ->"""There's an excited air in the market as Natalie explores, a definite sense of eyes upon her, all the merchants waiting to see what she's brought and hoping for a chance to buy from or sell to her. While Vailia is only two weeks away by ship, that's still further than most people will travel in their lifetimes."""
+  description: ->"""There's an excited air in the market as Natalie explores, a definite sense of eyes upon her, merchants waiting to see what she's brought and hoping for a chance to buy from or sell to her. While Vailia is only two weeks away by ship, that's still further than most people will travel in their lifetimes."""
   next: Page.Market
 
 Place.Alkenia::firstVisit = Page.AlkeniaArrive = class AlkeniaArrive extends Page
   text: ->"""|| bg="day"
-    -- Excited shouts and waving arms guided the Azurai into dock at Alkenia, one of Vailia's primary trading partners. Another free city, Alkenia is nestled in the arms of an encircling mountain, stone bluffs trailing into the sea on either side of the city and providing protection from storms. A stream ran down the valley though the center of town fed by springs further up the slope. The Alkenians made their livings from the forest and the shore, supplying Vailia with timber in return for steady shipments manufactured goods or other items from farther afield. Without the vast and relatively safe forests, Natalie's homeland would be unable to keep a significant navy afloat against the terrible attrition of the open ocean.
+    -- Excited shouts and waving arms guided the Azurai into dock at Alkenia, one of Vailia's primary trading partners. Another free city, Alkenia nestled in the arms of an encircling mountain, stone bluffs trailing into the sea on either side of the city and providing protection from storms. A stream ran down the valley though the center of town fed by springs further up the slope. The Alkenians made their livings from the forest and the shore, supplying Vailia with timber in return for steady shipments manufactured goods or other items from farther afield. Without the vast and relatively safe forests, Natalie's homeland would be unable to keep a significant navy afloat against the terrible attrition of the open ocean.
 
   ||
     -- For those reasons, and others, the arrival of a ship from the east was always a welcome sight. A gaggle of children stood gaping at them as sailors hopped down from the Azurai and began to secure it to the wharf. A man bearing a clipboard and a pen waited patiently for Natalie to disembark.
@@ -47,10 +47,10 @@ Place.Alkenia::firstVisit = Page.AlkeniaArrive = class AlkeniaArrive extends Pag
 
   ||
     #{g.officers.Nat.image 'normal', 'left'}
-    --> She rattled off the answers and pressed a coin into his palm, somewhat more valuable than strictly necessary for the docking fee. It's always good to make a friend.
+    --> She rattled off the answers and pressed a coin into his palm, somewhat more valuable than strictly necessary for the docking fee. Always good to make a friend.
 
   ||
-    --> <q>Very well. Is there anything else I can help you, Ms?</q> He nodded, unscrewing the lid on his inkwell to jot down a few notes.
+    --> <q>Very well. Is there anything else I can help you with, Ms?</q> He nodded, unscrewing the lid on his inkwell to jot down a few notes.
 
   ||
     #{g.officers.Nat.image 'normal', 'left'}
@@ -111,7 +111,7 @@ Job.AlkeniaRest.next.push Page.AlkeniaRestSteel = class AlkeniaRestSteel extends
     -- <q>Do you think the price of steel is going to rise,</q> a neighboring merchant poked his head through the curtain to ask his neighbor, while they weighed out #{@worker}'s order.
 
   ||
-    --> <q>Why do you care? The only steel you use is a knife, and if there's a war brewing, there won't exactly be a shortage of those, now will there?</q> Clearly this was the continuation of a previous conversation, carried on across the day as they worked.
+    --> <q>Why d'you care? 'Only steel you use is a knife, and if there's a war brewing, won't exactly be a shortage of those, now will there?</q> Clearly this was the continuation of a previous conversation, carried on across the day as they worked.
 
   ||
     --> <q>Not a war, Vailia doesn't fight those, you know that. I just hear they're mighty upset at Kantis over some thing or other.</q>
@@ -298,7 +298,7 @@ Job.AlkeniaRaid::next = Page.AlkeniaRaid = class AlkeniaRaid extends Page
     --| An alarm beat in the distance, brass gong barely audible over the crash of waves in the harbor. James shielded his eyes, trying to keep the driving rain out of them long enough to see something useful, but to no avail. Alkenia looked quiet as ever, the same buildings huddling together for shelter and same empty streets washing storm water down to the harbor.
 
   ||
-    --> Another alarm, still distant. He and Natalie had heard them a few times in the city, warnings that attackers were in the area. Usually the Alkenians would muster quickly. A show of force and a few quick arrows were normally enough to scare away the small raiding party. A lumber mill would be set fire, a house looted - small damages, mostly meant to reassure the city that the Nonkenians had neither forgotten nor forgiven them.
+    --> Another alarm, still distant. He and Natalie had heard them a few times in the city, warnings that attackers were in the area. Usually the Alkenians mustered quickly, and a show of force and a few quick arrows were be enough to scare away the small raiding party. A lumber mill would be set fire, a house looted - small damages, mostly meant to reassure the city that the Nonkenians had neither forgotten nor forgiven them.
 
   ||
     --> It was easy to see how the attackers had penetrated so far into the city today without being confronted. James had to keep a hand on the rail to prevent being tossed about by powerful gusts of wind, and he shuddered to imagine trying to direct a military force in brutal conditions like these.

@@ -45,11 +45,11 @@ Place.MountJulia::firstVisit = Page.VisitJulia = class VisitJulia extends Page
       -- Mount Julia loomed up out of the ocean, a jagged peak that had been growing on the horizon all day. If the current wind held steady, the Lapis would arrive just after midnight – enough time for everyone to rest and catch their breath before exploring the city in the morning. A week of sailing had settled the crew into a comfortable routine. #{g.crew[0]} preferred the night shift, watching the helm while the captain slept, and #{g.crew[1]} was a natural in the rigging, scurrying up and down the masts to adjust the lines.
 
     ||
-      --> #{if g.crew.length < 4 then "It was still only the skeleton of a real crew, though. In rough weather, they'd quickly run out of hands to perform all the necessary tasks; a disaster in the making." else ("Though she could perhaps stand to hire a few more crew members to help get them through rough weather, the crew of " + g.crew.length + " was enough for now.")} The Azurai had been lucky so far, sailing in clear weather and steady wind; an auspicious beginning for a first voyage. Hopefully the trip home would be as smooth.
+      --> Though she could perhaps stand to hire a few more crew members to help get them through rough weather, the crew of #{g.crew.length.toWord()} was enough for now. The Azurai had been lucky so far, sailing in clear weather and steady wind - an auspicious beginning for a first voyage. Hopefully the trip home would be as smooth.
 
     || bg="Ship.deckDay"
       #{g.officers.Nat.image 'excited', 'left'}
-      -- #{q}Tell James what you were telling me last night.</q> Natalie waved over #{sailor.name} and her Quartermaster. #{sailor.name} saluted the officers, bringing a smile to Natalie's face – she loved that feeling – and began again.
+      -- #{q}Tell James what you were telling me last night,</q> Natalie waved over #{sailor.name} and her Quartermaster. #{sailor.name} saluted the officers, bringing a smile to Natalie's face – she loved that feeling – and began again.
 
     ||
       #{sailor.image 'normal', 'right'}
@@ -126,7 +126,7 @@ Job.MtJuliaMarket.next.unshift Page.MtJuliaMarketIntro = class MtJuliaMarketIntr
     -- <q>Ooh, that's nice. Much more interesting'an watching you an' a buncha rowdy sailors get shitfaced.</q> She lay her broom aside with a grin, rubbing her hands together gleefully.
 
   ||
-    --> <q>Easier to clean up after, too. So, what've ya'got?</q>
+    --> <q>Easier to clean up after too. So, what'cha got?</q>
   """
   next: Page.MtJuliaMarketIntro2
 
@@ -171,7 +171,7 @@ Job.Scavenge.next.push Page.ScavengeStorm = class ScavengeStorm extends Page
     worker: {}
     woodFound: scavenge(0.5)
   text: ->"""|| bg="day"
-    -- Though venturing out into the storm was not a pleasant task, #{@worker} found that, once away from the shore, the forest at least did a tolerable job of cutting the wind; less so the rain or the noise. By the time the crew was halfway done working on their first tree, they were soaked and shivering. #{@worker} called the expedition off short.
+    -- Though venturing out into the storm was not a pleasant task, #{@worker} found that, once away from the shore, the forest at least did a tolerable job of cutting the wind. Less so the rain or the noise - by the time the crew was halfway done working on their first tree, they were soaked and shivering. #{@worker} called the expedition off short.
 
       <em>+#{@woodFound} wood</em>
   """
@@ -237,5 +237,5 @@ Job.MtJuliaCheckShip::next = Page.MtJuliaCheckShip = class MtJuliaCheckShip exte
     -- He dove over the rail, hitting the icy water with nary a splash. The ocean water stung his open eyes for a moment, but he spun around and began inspecting the hull for damage without surfacing. No child in Vailia avoided learning to swim – if not intentionally, then at least when older children threw you over a cliff into the ocean.
 
   || bg="Ship.deckDay"
-    -- #{q}Nothing. We're clean.</q> James accepted the towel from #{Math.choice g.crew}, tussling it through his hair and rubbing the water off his back. No scrapes, no barnacles yet, no leaks, not some rickety junk from Kantis. The Guild hadn't skimped in giving Natalie a good vessel. The Lapis Azurai was a solid ship, straight out of the Vailian shipyards. If there were ships anywhere in the world to match Vailian ones, even rumor hadn't reached James' ears.
+    -- #{q}Nothing. We're clean.</q> James accepted the towel from #{Math.choice g.crew}, tussling it through his hair and rubbing the water off his back. No scrapes, no barnacles yet, no leaks.  The Guild hadn't skimped in giving Natalie a good vessel. The Lapis Azurai was a solid ship, straight out of the Vailian shipyards, not some rickety junk from Kantis. If there were ships anywhere in the world to match Vailian ones, even rumor hadn't reached James' ears.
   """

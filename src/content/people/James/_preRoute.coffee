@@ -104,7 +104,7 @@ Page.JamesMagic.next['Push him away'] = Page.JamesMagicPush = class JamesMagicPu
     Natalie: {}
   text: ->"""|| bg="Ship.cabinNight"
     #{@Natalie.image 'angry', 'right'}
-    -- James didn't get angry. He just looked uncomfortable and hurt; and, somehow, that only fueled Natalie's anger. She stood reached around him and slammed the door open, a clear signal of "get out" if there ever was one. He opened his mouth to say something, then looking over his shoulder – they had spectators now – snapped it shut again with a click of teeth.
+    -- James didn't get angry. He just looked uncomfortable and hurt, and, somehow that only fueled Natalie's anger. She stood reached around him and slammed the door open, a clear signal of "get out" if there ever was one. He opened his mouth to say something, then looking over his shoulder – they had spectators now – snapped it shut again with a click of teeth.
 
   ||
     #{@James.image 'sad', 'left'}
@@ -139,7 +139,7 @@ Page.JamesMagic.next['Start crying'] = Page.JamesMagicCry = class JamesMagicCry 
     -- It didn't take long for Natalie to cry herself out. She was too self-aware to let loose for long, and she quickly quieted and stilled. She'd hurt him, even if her fist hadn't connected.
 
   ||
-    -->  She tilted her head up to look into his eyes, #{@James.color[2]} and #{@Natalie.color[1]} meeting in a quick and mutually aborted glance. They both blushed and stepped back to conversational distance. His own glance downward suggested that, yes, he'd suddenly become as intensely aware of the way her breasts pressed against him as she had.
+    -->  She tilted her head up to look into his eyes, #{@James.color[2]} and #{@Natalie.color[1]} meeting in a quick and mutually aborted glance. They both blushed and stepped back to conversational distance. His own glance downward suggested that yes, he'd suddenly become as intensely aware of the way her breasts pressed against him as she had.
 
   ||
     -- #{q @Natalie}I'm sorry. Please, lets talk another time.</q>

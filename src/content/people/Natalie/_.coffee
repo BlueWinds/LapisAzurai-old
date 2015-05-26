@@ -24,7 +24,7 @@ Game::officers.Nat = Officer.Natalie = class Natalie extends Officer
   endurance: 8
   energy: 8
   text: '#8CDAFF'
-  description: ->"""Natalie was barely five years old when her parents disappeared. She doesn't remember much of them. She's worked for The Guild her whole life, and is optimistic, hardworking, and quick witted - a rising star if the Guildmaster has ever seen one. If only she could control her tongue..."""
+  description: ->"""Natalie was barely five when her parents disappeared. She doesn't remember much of them. She's worked for The Guild her whole life, and is optimistic, hardworking, and quick witted - a rising star if the Guildmaster has ever seen one. If only she could control her tongue..."""
   traits: new Collection
     content: new Trait.Content
   color: ['tanned', 'green', 'ash', 'none', 'none']

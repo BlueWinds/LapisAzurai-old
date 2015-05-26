@@ -55,7 +55,7 @@ Job.SearchGuildWork.next.push Page.SearchGuildWorkNatalie = class SearchGuildWor
     -- #{q}So, who's hiring?</q> She leaned over the counter, crossing her arms and resting her head on them.
 
   ||
-    --> <q>I thought you were too good for us these days, Nat?</q> The girl at the desk asked in a teasing voice. Natalie knew her well. They were both Guild children, picked up off the street or abandoned by parents, to work at jobs that didn't need adults. It was hardly a fair deal. The children worked two days a week and in return the Guild fed, housed, raised, educated, and doted upon them. Though James felt bad for her for not having any parents, Natalie preferred to imagine that she instead had hundreds.
+    --> <q>I thought you were too good for us these days, Nat?</q> The girl at the desk teased. Natalie knew her well. They were both Guild children, picked up off the street or abandoned by parents, to work at jobs that didn't need adults. It was hardly a fair deal. The children worked two days a week and in return the Guild fed, housed, raised, educated, and doted upon them. Though James felt bad for her for not having any parents, Natalie preferred to imagine that she instead had hundreds.
 
   ||
     #{@worker.image 'normal', 'left'}
@@ -76,11 +76,11 @@ Job.SearchGuildWork.next.push Page.SearchGuildWorkNatalie = class SearchGuildWor
     --> #{q}Yeah, she told me about a week before they disappeared. My lips are sealed though.</q>
 
   ||
-    --> <q>Huh, I didn't know that. You think she's doing OK?</q> The girl was naturally concerned for Wend. She'd been the first Child. In a way, both of them owed her their lives.
-# TODO: Clarify: Should that be First Child, like a leader, or first Child, like the first one rescued from the streets? Either way, this should somehow be made clear, especially if Wend will factor into the story later.
+    --> <q>Huh, I didn't know that. You think she's doing OK?</q> The girl was naturally concerned for Wend. She'd been the first Child rescued from the streets, blazing the way for those that followed. In a way, both of them owed her their lives.
+
   ||
     #{@worker.image 'normal', 'left'}
-    -- #{q}It's Wend we're talking about here. She could charm blossoms out of a stone if she smiled at it nicely. She'll be fine,</q> Natalie reassured her. #{q}I'll talk with Ben. He's over near the market, isn't he?</q>
+    -- #{q}It's Wend we're talking about here. She could charm blossoms out of a stone with a smile. She'll be fine,</q> Natalie reassured her. #{q}I'll talk with Ben. He's over near the market, isn't he?</q>
 
   ||
     --> <q>Yep. North side.</q>
@@ -229,7 +229,7 @@ Job.GuildWork.next.push Page.GuildNat = class GuildNat extends Page
     -- #{q}I believe Ben will wish to see me, if he's available. Tell him Natalie is here for some work.</q>
 
   ||
-    --> The old woman nodded and closed the door in her face. A few minutes later it opened again, this time with her prospective employer, or, at least prospective middle-man.
+    --> The old woman nodded and closed the door in her face. A few minutes later it opened again, this time with her prospective employer, or at least prospective middle-man.
   """
   next: Page.randomMatch
   @next: []
@@ -269,8 +269,7 @@ Page.GuildNatBang.next['Sure'] = Page.GuildNatBangSure = class GuildNatBangSure 
     -- She ignored the insinuation and pushed past him. Through the kitchen she went, pausing only to straighten her messy hair at least a little and nodding to another woman resting against one of the counters.
 
   || bg="tavern"
-    --> The main room was surprisingly busy for such a disreputable business. She spotted her boys easily – as he'd said, hard to miss, in their matching blue uniforms. They looked sharp, despite rough faces. Probably the crew for some important diplomat. A merchant would never waste money outfitting their sailors so, no matter how well off.
-#This is interesting, and a possible plot hook. Historically, some naval captains DID buy special uniforms for their crews to wear; paid out of their own pockets.
+    --> The main room was surprisingly busy for such a disreputable business. She spotted her boys easily – as he'd said, hard to miss, in their matching blue uniforms. They looked sharp, despite rough faces. Probably the crew for some important diplomat. A merchant would never waste money outfitting their sailors with such fine cloth, no matter how well off.
 
   ||
     #{@worker.image 'excited', 'left'}
@@ -297,8 +296,8 @@ Page.GuildNatBangSure::next = Page.GuildNatBangSure2 = class GuildNatBangSure2 e
     --> He wasn't the first – she was already dripping with semen down there – and he also wasn't the last. Natalie hung from the man in front of her while another took his place in her rear. The fresh cock was shorter, but also thicker. She whimpered as he slid in, the sound only serving to further ignite the passions that surrounded her, and soon she was again being pounded in both holes.
 
   || verySlow="true"
-    -- Natalie didn't think of anything much as she collected the coins scattered around the room. Though she'd resisted becoming a whore with all her cunning and might, working as one was something she was used to. One didn't grow up serving drinks at a brothel or cleaning rooms the morning after without losing the inhibitions around a subject.
-# TODO FIX CONTINUITY- If she had resisted becoming a whore, why is she doing this at all? This paragraph does not fit with the intro to guild work. Also, if she had resisted, why is she pushing James, Kat and other officers into it?
+    -- Natalie didn't think of anything much as she collected the coins scattered around the room. Though she'd used all her cunning to become more than just a whore (the usual fate of Guild children), working as one for a bit of extra cash on the side wasn't bad. One didn't grow up serving drinks and cleaning rooms at a brothel without losing the inhibitions around a subject.
+
   || bg="tavern"
     #{@worker.image 'normal-nude', 'left'}
     --> And it had felt good, after all. She was not indifferent to the attractions of having sex with half a dozen sculpted and beautiful men. There was no sense lying about that to herself.
@@ -328,7 +327,7 @@ Page.GuildNat.next.push Page.GuildNatDom = class GuildNatDom extends PlayerOptio
 
   ||
     #{@worker.image 'upset', 'left'}
-    --> #{q}What makes you think they want anything at all, aren't they just here on a dare?</q>
+    --> #{q}What makes you think they want anything at all, that they aren't just here on a dare?</q>
 
   ||
     --> <q>Oh, they want something alright. They're just too scared to ask for it,</q> Ben gave her a leer.
@@ -433,14 +432,14 @@ Job.GuildWork.next.push Page.GuildKat = class GuildKat extends Page
   conditions:
     worker: {is: Officer.Kat}
   text: ->"""|| bg="night|storm"
-    -- Kat paused in front of the door. Though Natalie had introduced her to Ben Oakly and walked with her through the establishment, she was still somewhat nervous#{if g.events.GuildKat then " her first time here alone" else ""}. She stepped out of the way of a drunken man wobbling out the front door, beer on his foul breath filling her nose, not the most encouraging sign.
+    -- Kat paused in front of the door. Though Natalie had introduced her to Ben Oakly and walked with her through the establishment, she was still somewhat nervous#{if g.events.GuildKat then " her first time here alone" else ""}. She stepped out of the way of a drunken man wobbling out the front door, beer on his foul breath filling her nose. Not the most encouraging sign.
 
   ||
     #{@worker.image 'serious', 'left'}
     -- She slapped her cheeks and stood up straight. Nat had asked her to try this. Asked, not told. She wasn't going to back out now. Sex was fun. She'd had it before. It was not something to be afraid of.
 
   ||
-    --> The front door swung open again, blasting her with the sights of so many half-dressed bodies, perfume and sweat and alcohol. This time, it was a woman holding it open for her. Kat pressed inside.
+    --> The front door swung open again, blasting her with the scents of so many half-dressed bodies, perfume and sweat and alcohol. This time, it was a woman holding it open for her. Kat pressed inside.
 """
   next: Page.randomMatch
   @next: []
@@ -453,7 +452,7 @@ Page.GuildKat.next.push Page.GuildKatEasy = class GuildKatEasy extends Page
 
   ||
     #{@worker.image 'excited', 'left'}
-    --> #{q}Both!</q> Kat attempted to reassert some control over the encounter by loudly proclaiming her preference. #{q}Either, but not both-right-now.</q>
+    --> #{q}Both!</q> Kat attempted to reassert some control over the encounter by loudly proclaiming her preference. #{q}Either, I meant. Not both-right-now.</q>
 
   ||
     -- The woman laughed at her enthusiasm. <q>That's a good attitude. Keep that smile on and they'll love you. Now, it's not your job to worry about the money. You just go over to that man there. He's a regular. Tell him you're new here. He'll love that. Room 3 in back is yours. Keep in mind that the longer he stays with you, the more you make.</q>
@@ -478,10 +477,10 @@ Page.GuildKatEasy::next = Page.GuildKatEasy2 = class GuildKatEasy2 extends Page
   conditions:
     worker: {}
   text: ->"""|| bg="tavern"
-    --| <q>Let me help you with that.</q> Kat sat up, leaving her ankles on his shoulders, and laughed at the look her flexibility gathered. She began working on his belt, fumbling a little from the awkward, though arousing, position.
+    --| <q>Let me help you with that.</q> Kat sat up, leaving her ankles on his shoulders, and laughed at the look her flexibility gathered. She began working on his belt, fumbling a little from the awkward, though for him arousing, position.
 
   ||
-    --> Finally his cock sprang free and, with a growl, he wrapped her up in a bear hug. The motion impaled her all the way, his rod slipping into her wet slit effortlessly. She cried out breathlessly at the sudden sensation, filled and crushed and folded in half. She wrapped her arms around his neck, and he responded by burying his head in her neck and biting down.
+    --> Finally his cock sprang free and with a growl he wrapped her up in a bear hug. The motion impaled her all the way, his rod slipping into her wet slit effortlessly. She cried out breathlessly at the sudden sensation, filled and crushed and folded in half. She wrapped her arms around his neck, and he responded by burying his head in her neck and biting down.
 
   ||
     --> She moaned and pulled him tighter against her as he began to rock his hips, grinding her pelvis against him, his cock deep inside her. Already dripping from his tongue a moment ago, the motion made a wet mess of the area where they were connected. From the way he growled into her neck and the tensing in his groins, she could tell he was getting close.
