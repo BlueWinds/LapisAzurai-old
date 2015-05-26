@@ -48,13 +48,16 @@ window.Person = class Person extends GameObject
           type: ['string', 'boolean']
         optional: true
       description:
-        # description can be a string so that random characters can have one chosen for them.
+        # description can be a string so that random characters can have the chosen one "stuck" to them.
         type: ['string', 'function']
       happiness: statSchema
       business: statSchema
       diplomacy: statSchema
       sailing: statSchema
       combat: statSchema
+      contract: # How many days the character is planning on staying with the crew.
+        type: 'integer'
+        optional: true
 
   # Each Person subclass should have @images and optionally @colors.
 

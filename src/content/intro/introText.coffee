@@ -38,7 +38,7 @@ Page.Intro = class Intro extends Page
       --> <center>Not the tame fire of a lantern, or even the fierce danger of a forest fire. No, her dream was of Fire, the blaze with which the gods made the stars or with which they burned the skies and scorched the world clean at the dawn of an age.</center>
 
     || slow="true"
-      --> <center>She also dreamt of Ocean, a vast and barren wasteland separating pinpricks of land. In her dream she knew the ocean was waiting for her, waiting for her to see something no one else has ever seen before, and that no one would see again before storms wiped the land clean.</center>
+      --> <center>She also dreamt of Ocean, a vast and barren wasteland separating pinpricks of land. In her dream, she knew the ocean was waiting for her, waiting for her to see something no one else has ever seen before, and that no one would see again before storms wiped the land clean.</center>
 
     || slow="true"
       --> <center>And she dreamt of Love. Neither fire nor water, she finally had a body made of flesh, and in her heart grew a secret warmth that even the end of the world could not smother. Her secret love could neither be burned nor drowned, and it would flower into a beautiful life if only it would grow large enough, surrounded by chaos and flood and storm. She curled around it protectively.</center>
@@ -106,14 +106,14 @@ Page.Intro2 = class Intro2 extends Page
 
     ||
       #{@Nat.image 'normal', 'left'}
-      --> #{q}It's nothing. How much time do we have?</q> She splashed water on her face, dried it back off with a towel, then started looking for her boots.
+      --> #{q}It's nothing. How much time do we have?</q> She splashed water on her face, dried it with a towel, then started looking for her boots.
 
     ||
-      -- #{q @James}Should have left ten minutes ago!</q> He hadn't woken her up though – Natalie had learned long ago that James would worry himself sick at the slightest excuse, but it wasn't until he was practically vibrating with impatience that she actually needed to hurry.
+      -- #{q @James}Should have left ten minutes ago!</q> He hadn't woken her up, though. Natalie had learned long ago that James would worry himself sick at the slightest excuse, but it wasn't until he was practically vibrating with impatience that she actually needed to hurry.
 
     || slow bg="Ship.deckDay"
       #{@Nat.image 'serious', 'left'}
-      -- #{q}I don't believe you,</q> she opened the door and stepping out to join him on deck. #{q}You were rather drunk last night. How are your eyes not red?</q>
+      -- #{q}I don't believe you,</q> she opened the door and stepped out to join him on deck. #{q}You were rather drunk last night. How are your eyes not red?</q>
 
     || bg="Ship.deckDay"
       #{@Nat.image 'excited', 'left'}
@@ -210,7 +210,7 @@ Job.IntroVisitGuildmaster::next = Page.IntroVisitGuildmaster = class IntroVisitG
 
   ||
     #{@Guildmaster.image 'thinking', 'right'}
-    -- #{q}Please take as good care of her as we have.</q> He gestured to a pair of chairs in front of his desk. Natalie relaxed into hers, while James perched on the edge. It was his first time meeting Janos, and she couldn't help but chuckle at his nervousness. She'd been awed too, her first time meeting the second most powerful man in the city – but eight year old Natalie had gotten over that nervousness by promptly sitting in his lap, rather than the offered chair. She smiled at the memory. He'd approved, as Wend had said he would, rather than scolding her.
+    -- #{q}Please take as good care of her as we have.</q> He gestured to a pair of chairs in front of his desk. Natalie relaxed into hers, while James perched on the edge. It was his first time meeting Janos, and she couldn't help but chuckle at his nervousness. She'd been awed too, her first time meeting the second most powerful man in the city - but eight year old Natalie had gotten over that nervousness by promptly sitting in his lap, rather than the offered chair. She smiled at the memory. He'd approved, as Wend had said he would, rather than scolding her.
 
   ||
     #{@Guildmaster.image 'normal', 'right'}
@@ -218,7 +218,7 @@ Job.IntroVisitGuildmaster::next = Page.IntroVisitGuildmaster = class IntroVisitG
 
   ||
     #{@Nat.image 'normal', 'left'}
-    -- #{q}Soon. Two, three days. We've finished going over every inch of planking, and the initial trials around the island went well – if you see him, please thank Captain Johnson for assisting us with that. I discussed prices for our first cargo with...</q> Natalie listed off the preparations she'd made for departure, while Janos listened attentively, interjecting occasionally with tidbits of advice. He was one of the finest business minds in the city, and it comforted her to know that he would catch anything she'd forgotten. Which was, she suspected, the actual point of this meeting – protecting his investment. Managing a merchant ship was not the Guild's usual line of business.
+    -- #{q}Soon. Two, three days. We've finished going over every inch of planking, and the initial trials around the island went well. If you see him, please thank Captain Johnson for assisting us with that. I discussed prices for our first cargo with...</q> Natalie listed off the preparations she'd made for departure, while Janos listened attentively, interjecting occasionally with tidbits of advice. His was one of the finest business minds in the city, and it comforted her to know that he would catch anything she'd forgotten. Which was, she suspected, the actual point of this meeting – protecting his investment. Managing a merchant ship was not the Guild's usual line of business.
 
   ||
     #{@Guildmaster.image 'thinking', 'right'}
@@ -230,7 +230,7 @@ Job.IntroVisitGuildmaster::next = Page.IntroVisitGuildmaster = class IntroVisitG
 
   ||
     #{@Guildmaster.image 'normal', 'right'}
-    -- #{q}Please let me know when you return.</q> He didn't react to her gesture, other than to adjust a stack of papers back into place, but she suspected he was pleased. Hard to tell, with the Guildmaster. She also knew a dismissal when she heard one.
+    -- #{q}Please let me know when you return.</q> He didn't react to her gesture, other than adjust a stack of papers, but she suspected he was pleased. Hard to tell, with the Guildmaster. She also knew a dismissal when she heard one.
 
   || class="given-mission"
     #{@Guildmaster.image 'normal', 'right'}
@@ -252,7 +252,7 @@ Job.IntroSail::next = Page.IntroSail = class IntroSail extends Page
 
   || bg="Ship.cabinDay"
     #{@James.image 'sad', 'left'}
-    --> He started guiltily, and stepped into her bedroom, closing the door behind him with a foot. He remained standing – other than the chair she occupied, the only place to sit would be on her bed, and he wasn't the sort to be comfortable with that. The space was cramped, but a private room was still more than most people aboard a ship this size would get, even the quartermaster. He'd have to share with the first-mate, once they had one.
+    --> He started guiltily, and stepped into her cabin, closing the door behind him with a foot. He remained standing. Other than the chair she occupied, the only place to sit would be on her bed, and he wasn't the sort to be comfortable with that. The space was cramped, but a private room was still more than most people aboard a ship this size would get, even the quartermaster. He'd have to share with the first-mate, once they had one.
 
   ||
     #{@James.image 'sad', 'left'}
@@ -260,7 +260,7 @@ Job.IntroSail::next = Page.IntroSail = class IntroSail extends Page
 
   ||
     #{@Nat.image 'sad', 'right'}
-    --> She waited for him to go on, but he didn't, just fidgeted and leaned against the door, resisting the swell and roll of the deck beneath them. Timber creaked, adjusting to new stresses. #{q}What can't you do?</q>
+    --> She waited for him to go on. He didn't, just fidgeted and leaned against the door, resisting the swell and roll of the deck beneath them. Timber creaked, adjusting to new stresses. #{q}What can't you do?</q>
 
   ||
     #{@Nat.image 'upset', 'right'}
@@ -268,7 +268,7 @@ Job.IntroSail::next = Page.IntroSail = class IntroSail extends Page
 
   ||
     #{@James.image 'sad', 'left'}
-    -- #{q}It's just... I can't shake this feeling of doom. Do you know how many ships survive a storm? I did some figuring – it's less than a third, if you get caught out to sea.</q>
+    -- #{q}It's just... I can't shake this feeling of doom. Do you know how many ships survive a storm? I did some figuring. It's less than a third, if you get caught out at sea.</q>
 
   ||
     #{@Nat.image 'normal', 'right'}
@@ -288,7 +288,7 @@ Job.IntroSail::next = Page.IntroSail = class IntroSail extends Page
 
   ||
     #{@James.image 'blush', 'left'}
-    --> Red crept along his cheeks as he considered the question. Young, attractive, raised by the Guild... really, there was only one answer to that question. She'd be selling her body, same as plenty of other Vailian girls her age pretty enough to make it a trade. #{q}I, ah, sorry,</q> he apologized lamely.</q>
+    --> Red crept along his cheeks as he considered the question. Young, attractive, raised by the Guild... Really, there was only one answer to that question. She'd be selling her body, same as plenty of other Vailian girls her age pretty enough to make it a trade. #{q}I, ah, sorry,</q> he apologized lamely.</q>
 
   ||
     #{@Nat.image 'normal', 'right'}

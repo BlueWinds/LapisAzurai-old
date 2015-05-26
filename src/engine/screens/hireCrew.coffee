@@ -1,4 +1,5 @@
 daysWageToHire = 14
+minContractMonths = 3
 
 hireCost = (people, context)->
   n = g.officers.Nat
@@ -72,7 +73,7 @@ window.RandomPerson = class RandomPerson extends Person
     ->"""0: #{@name}. If you're seeing this as a player, it is a bug."""
   ]
   # Points to be assigned among various stats and positive traits
-  @basePoints: 5
+  @basePoints: 10
   @extraPoints: 10
 
   description: ->
@@ -93,14 +94,17 @@ Person.random = (baseClasses)->
   person.color = for layer in base.colors
     Math.keyChoice(layer)
 
+  person.contract = minContractMonths
+
   points = base.basePoints + base.extraPoints * Math.random() * Math.random()
   while points > 1
-    stat = Math.choice ['business', 'diplomacy', 'sailing', 'combat']
+    stat = Math.choice ['business', 'diplomacy', 'sailing', 'combat', 'contract']
     amount = Math.ceil(points * 0.5)
     person[stat] += amount
     points -= amount
 
   person.add 'happiness', Math.floor(Math.random() * 60 - 30)
+  person.contract *= 30
   return person
 
 Job.HireCrew = class HireCrew extends Job
@@ -146,7 +150,7 @@ Job.HireCrew::next = Page.HireCrew = class HireCrew extends Page
   text: ->
     hires = (person.renderBlock(key) for key, person of @hires)
     officers = (person.renderBlock(key, 'hired') for key, person of g.officers)
-    crew = for person in @job.context.asArray()
+    crew = for person in @job.context.asArray() when not (person instanceof Officer)
       key = g.crew.indexOf person
       person.renderBlock(key, 'hired')
 
