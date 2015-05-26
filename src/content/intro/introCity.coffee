@@ -97,7 +97,11 @@ Page.IntroHire = class IntroHire extends Page.HireCrew
       ).help(
         target: '.person-info'
         placement: 'bottom'
-        title: "Your crew's abilities are useful in various events, especially sailing (if you get caught in a storm) and combat (if you end up in a fight.) Any event where a skill is used will mention it in the description."
+        title: "Your crew's abilities are useful in various events, especially sailing (if you get caught in a storm) and combat (if you end up in a fight). Any event where a skill is used will mention it in the description."
+      ).help(
+        target: '.person-info'
+        placement: 'bottom'
+        title: "Different sailors are looking for different length contracts. When a person's contract expires, they'll leave your crew next time you visit Vailia - and give you a permanent bonus. The higher their stats, the better the bonus."
       ).help(
         target: '.hires'
         placement: 'bottom'
@@ -136,7 +140,7 @@ Mission.CrewCargo = class CrewCargo extends Mission
 
 
 Job.IntroMarket = class IntroMarket extends Job.Market
-  description: ->"""Natalie wanders the marketplace, searching for bargains and opportunities. Maiden Tea is a good deal here, but there's not much available. The price will increase if she buys too much. Wood is at a premium on a small island like Vailia. The city imports a great deal of it to construct ships."""
+  description: ->"""Natalie wanders the marketplace, searching for bargains and opportunities. Maiden Tea is a good deal here, but there's not much available. The price will increase if she buys too much. Wood is at a premium on a small island like Vailia, even though the city imports a great deal of it to construct ships."""
   buy: new Collection
     Fish: [50, 0]
     Barley: [50, 0]

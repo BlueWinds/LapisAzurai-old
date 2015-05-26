@@ -176,51 +176,11 @@ Page.SailDone = class SailDone extends Page
     g.location.arrive or= []
     g.location.arrive.unshift g.day
     if g.location.arrive.length > 10 then g.location.arrive.pop()
-    unless g.location.majorPort
-      return
-    leaving = new Collection
-    g.crew = g.crew.filter (sailor)->
-      if sailor.happiness + Math.random() * maxHappinessToLeave / zeroHappinessChanceToLeave < maxHappinessToLeave
-        leaving.push sailor
-        return false
-      return true
 
-    unless leaving.length
-      return
-    g.queue.push next = if leaving.length is 1
-      new Page.OneCrewLeaving
-    else
-      new Page.ManyCrewLeaving
-    next.context = leaving
+    Page.checkCrewLeaving()
 
   next: ->
     first = @context.destination.firstVisit
     if first and not g.events[first.constructor.name]
       return first
     return
-
-Page.OneCrewLeaving = class OneCrewLeaving extends Page
-  # context[0] will be filled in when this event is triggered
-  text: ->"""|| bg="marketDay|marketStorm"
-    #{@[0].image 'sad', 'right'}
-    --
-      #{q}I'm sorry, but I think it's time for me to look for another berth,</q> #{@[0]} maintained a bit of politeness, but not too much.
-  ||
-    #{g.officers.Nat.image 'serious', 'left'}
-    -->
-      #{q}Good luck.</q> She nodded sadly. It was clear that #{@[0]} had been planning to leave for some time, and this was as good a time as any. The Lapis had been having a rough time recently - it was hard to hold it against #{him @[0]}.
-  """
-
-Page.ManyCrewLeaving = class ManyCrewLeaving extends Page
-  # context[0 -> n] will be filled in when this event is triggered
-  text: ->
-    names = @asArray()
-    names.shift()
-    """|| bg="marketDay|marketStorm"
-      #{@[0].image 'sad', 'right'}
-      -- #{q}I'm sorry, Natalie, but we've talked it over and we think it's time to go our separate ways.</q> #{@[0]} spoke quietly, glancing over #{his} shoulder at the other#{if @length > 2 then 's who were' else ' who was'} departing. #{names.wordJoin()} nodded in agreement. They were also leaving.
-
-    ||
-      #{g.officers.Nat.image 'serious', 'left'}
-      --> #{q}I'm sorry to see you all go, but if that's what you have to do, then good luck.</q> She nodded sadly. It had been clear that they were already decided, and trying to hold onto them was a losing proposition. The Lapis had been having a rough time recently - it was hard to hold it against them.
-    """

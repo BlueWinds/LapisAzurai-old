@@ -13,9 +13,6 @@ window.Officer = class Officer extends Person
       gender:
         type: 'string'
         pattern: /^[mf]$/
-      money:
-        type: 'integer'
-        optional: true
       text:
         type: 'string'
         pattern: /^#[0-9A-F]{6}$/

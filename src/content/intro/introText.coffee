@@ -32,16 +32,16 @@ Page.Intro = class Intro extends Page
       --| <center><em>Click anywhere on the page or use the down arrow key to advance</em></center>
 
     || slow="true"
-      --| <center>Natalie dreamed of Fire.</center>
+      --| <center>Natalie dreamt of Fire.</center>
 
     || slow="true"
       --> <center>Not the tame fire of a lantern, or even the fierce danger of a forest fire. No, her dream was of Fire, the blaze with which the gods made the stars or with which they burned the skies and scorched the world clean at the dawn of an age.</center>
 
     || slow="true"
-      --> <center>She also dreamed of Ocean, a vast and barren wasteland separating pinpricks of land. In her dream, she knew the ocean was waiting for her, waiting for her to see something no one else has ever seen before, and that no one would see again before storms wiped the land clean.</center>
+      --> <center>She also dreamt of Ocean, a vast and barren wasteland separating pinpricks of land. In her dream, she knew the ocean was waiting for her, waiting for her to see something no one else has ever seen before, and that no one would see again before storms wiped the land clean.</center>
 
     || slow="true"
-      --> <center>And she dreamed of Love. Neither fire nor water, she finally had a body made of flesh, and in her heart grew a secret warmth that even the end of the world could not smother. Her secret love could neither be burned nor drowned, and it would flower into a beautiful life if only it would grow large enough, surrounded by chaos and flood and storm. She curled around it protectively.</center>
+      --> <center>And she dreamt of Love. Neither fire nor water, she finally had a body made of flesh, and in her heart grew a secret warmth that even the end of the world could not smother. Her secret love could neither be burned nor drowned, and it would flower into a beautiful life if only it would grow large enough, surrounded by chaos and flood and storm. She curled around it protectively.</center>
 
     || verySlow="true" bg="Ship.cabinDay"
       -- Thud.
@@ -104,29 +104,16 @@ Page.Intro2 = class Intro2 extends Page
       #{@Nat.image 'normal', 'left'}
       --> #{q @James}I heard you thumping around.</q>
 
-<<<<<<< HEAD
     ||
       #{@Nat.image 'normal', 'left'}
-      --> #{q}It's nothing. How much time do we have?</q> She splashed water on her face, dried it back off with a towel, then started looking for her boots.
+      --> #{q}It's nothing. How much time do we have?</q> She splashed water on her face, dried it with a towel, then started looking for her boots.
 
     ||
-      -- #{q @James}Should have left ten minutes ago!</q> He hadn't woken her up though – Natalie had learned long ago that James would worry himself sick at the slightest excuse, but it wasn't until he was practically vibrating with impatience that she actually needed to hurry.
+      -- #{q @James}Should have left ten minutes ago!</q> He hadn't woken her up, though. Natalie had learned long ago that James would worry himself sick at the slightest excuse, but it wasn't until he was practically vibrating with impatience that she actually needed to hurry.
 
     || slow bg="Ship.deckDay"
       #{@Nat.image 'serious', 'left'}
-      -- #{q}I don't believe you,</q> she opened the door and stepping out to join him on deck. #{q}You were rather drunk last night. How are your eyes not red?</q>
-=======
-  ||
-    #{@Nat.image 'normal', 'left'}
-    --> #{q}It's nothing. How much time do we have?</q> She splashed water on her face, dried it with a towel, then started looking for her boots.
-
-  ||
-    -- #{q @James}Should have left ten minutes ago!</q> He hadn't woken her up, though. Natalie had learned long ago that James would worry himself sick at the slightest excuse, but it wasn't until he was practically vibrating with impatience that she actually needed to hurry.
-
-  || slow bg="Ship.deckDay"
-    #{@Nat.image 'serious', 'left'}
-    -- #{q}I don't believe you,</q> she opened the door and stepped out to join him on deck. #{q}You were rather drunk last night. How are your eyes not red?</q>
->>>>>>> spelling-grammar
+      -- #{q}I don't believe you,</q> she opened the door and stepped out to join him on deck. #{q}You were rather drunk last night. How are your eyes not red?</q>
 
     || bg="Ship.deckDay"
       #{@Nat.image 'excited', 'left'}
@@ -194,7 +181,7 @@ Job.IntroVisitGuildmaster::next = Page.IntroVisitGuildmaster = class IntroVisitG
     -- The Guild.
 
   ||
-    --> James hesitated at the doors, then hurried to join Natalie when she shot him an impatient look. The lobby was busy this morning, filled with preparations for the annual Festival of Lights, the longest day of the year made even longer by a celebration that ran until dawn.
+    --> James hesitated at the doors, then hurried to join Natalie when she shot him an impatient look. The lobby was rather busy this morning, filled with preparations for the annual Festival of Lights, the longest day of the year made even longer by a celebration that ran until dawn.
 
   ||
     -- <q>The Guildmaster is waiting for you in his office,</q> the young man at the front desk prompted, sounding a little envious. Natalie was barely a year older than him. That she'd have the attention of the Guildmaster was unusual, to say the least. He'd never even spoken with many of the "Guild Children."
@@ -223,7 +210,7 @@ Job.IntroVisitGuildmaster::next = Page.IntroVisitGuildmaster = class IntroVisitG
 
   ||
     #{@Guildmaster.image 'thinking', 'right'}
-    -- #{q}Please take as good care of her as we have.</q> He gestured to a pair of chairs in front of his desk. Natalie relaxed into hers, while James perched on the edge. It was his first time meeting Janos, and she couldn't help but chuckle at his nervousness. She'd been awed too, her first time meeting the second most powerful man in the city; but eight year old Natalie had gotten over that nervousness by promptly sitting in his lap, rather than the offered chair. She smiled at the memory. He'd approved, as Wend had said he would, rather than scolding her.
+    -- #{q}Please take as good care of her as we have.</q> He gestured to a pair of chairs in front of his desk. Natalie relaxed into hers, while James perched on the edge. It was his first time meeting Janos, and she couldn't help but chuckle at his nervousness. She'd been awed too, her first time meeting the second most powerful man in the city - but eight year old Natalie had gotten over that nervousness by promptly sitting in his lap, rather than the offered chair. She smiled at the memory. He'd approved, as Wend had said he would, rather than scolding her.
 
   ||
     #{@Guildmaster.image 'normal', 'right'}
@@ -273,7 +260,7 @@ Job.IntroSail::next = Page.IntroSail = class IntroSail extends Page
 
   ||
     #{@Nat.image 'sad', 'right'}
-    --> She waited for him to go on, but he didn't; just fidgeted and leaned against the door, resisting the swell and roll of the deck beneath them. Timber creaked, adjusting to new stresses. #{q}What can't you do?</q>
+    --> She waited for him to go on. He didn't, just fidgeted and leaned against the door, resisting the swell and roll of the deck beneath them. Timber creaked, adjusting to new stresses. #{q}What can't you do?</q>
 
   ||
     #{@Nat.image 'upset', 'right'}

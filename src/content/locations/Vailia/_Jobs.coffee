@@ -7,7 +7,7 @@ Place.Vailia::jobs.library = Job.Library = class Library extends Job
   officers:
     worker: {}
   effects:
-    money: [-5, 'Visited Library']
+    money: -5
 
 Job.Library::next = Page.Library = class Library extends Page
   conditions:
@@ -102,7 +102,7 @@ Place.Vailia::jobs.defense = Job.Defense = class Defense extends Job
   officers:
     worker: {}
   effects:
-    money: [-3, 'Self Defense Lesson']
+    money: -3
   apply: ->
     super()
     @context.worker.add 'combat', 3
@@ -226,5 +226,5 @@ Job.Shipyard::next = Page.Shipyard = class Shipyard extends Page
   """
   apply: ->
     super()
-    g.applyEffects {money: [@context.count * pay, 'Worked at Shipyard']}
+    g.applyEffects {money: @context.count * pay}
     @context.worker.add 'sailing', 1

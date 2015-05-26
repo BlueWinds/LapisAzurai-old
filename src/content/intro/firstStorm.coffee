@@ -122,7 +122,7 @@ Page.FirstStorm2::next = Page.FirstStorm3 = class FirstStorm3 extends Page
 
   ||
     #{@James.image 'sad', 'right'}
-    --> James clung to the railing, shivering, and trying not to pass out from the twin pangs of exhaustion and chill. But he was alive. They were all alive, by some miracle. The sea still rolled, waves still occasionally rose high enough to spray the deck, but it was clear they'd passed through the worst of the storm. Light grew on the horizon; dawn, slowly pressing its way through the clouds overhead.
+    --> James clung to the railing, shivering, and trying not to pass out from the twin pangs of exhaustion and chill. But he was alive. They were all alive, by some miracle. The sea still rolled, waves still occasionally rose high enough to spray the deck, but it was clear they'd passed through the worst of the storm. Light grew on the horizon - dawn, slowly pressing its way through the clouds overhead.
 
   ||
     -- He stumbled to his feet, slipped on a loose rope, steadied himself with an arm on the railing. Deep weariness penetrated all the way to his bones, sapping every ounce of strength. Just a little more. He dragged himself across the deck, slapping #{@sailor} on the back where #{he} doggedly passed on pails of water handed up from below decks.
@@ -180,7 +180,7 @@ Job.IntroSickNat::next = Page.IntroSickNat = class IntroSickNat extends Page
     --> #{q}Right. She was burning hot at first, like a harsh fever, but she wasn't sweating at all, and looked perfectly comfortable.</q> James gave everyone apologetic looks, but didn't stop bulling towards the ship, priest in tow.
 
   ||
-    --> No one had expected a ship to come into dock the day after a Grandmother Storm, and even with two masts snapped, the Azurai was in remarkably good condition. No hands lost. That was news. News attracted crowds. Natalie would know how to deal with this, but that wasn't much help when Natalie was what needed dealing with.
+    --> No one had expected a ship to come into dock the day after a Grandmother Storm, and even with two masts snapped, the Azurai was in remarkably good condition. No hands lost. That was news. News attracted crowds. Natalie would know how to deal with this, but that wasn't much help when Natalie was the thing that needed dealing with.
 
   ||
     #{@James.image 'serious', 'left'}
@@ -191,7 +191,7 @@ Job.IntroSickNat::next = Page.IntroSickNat = class IntroSickNat extends Page
 
 
   ||
-    --> Not that there was really any danger in that; the Ocean Father's temple was the largest in Vailia, and they'd have quickly chased away anyone standing in their sanctuary wearing their robes who didn't belong.
+    --> Not that there was really any danger in that - the Ocean Father's temple was the largest in Vailia, and they'd have quickly chased away anyone standing in their sanctuary wearing their robes who didn't belong.
 
   ||
     -- After only a minute of listening to Natalie breathe, the priest shook his head as though to clear it and stood again. <q>I'm afraid there is nothing I can do. Rest, rest and time is the only solution.</q>
@@ -208,7 +208,7 @@ Job.IntroSickNat::next = Page.IntroSickNat = class IntroSickNat extends Page
     -- James just stared, waiting for him to go on.
 
   ||
-    --> <q>Magical drain. She must be quite powerful, to bring your ship through a storm like that.</q> Seeing the confusion reflected in James' face, he finally deigned to explain. <q>Your captain here is a sorceress. And, as I said, quite a powerful one at that. I wouldn't dare touch storm-energy. It's amazing she survived, but she'll make a full recovery, given enough time.</q> He patted James' arm. <q>No charge, since I didn't do anything. Please ask her to stop by our temple once she awakens, if she is so inclined.</q>
+    --> <q>Magical drain. She must be quite powerful, to bring your ship through a storm like that.</q> Seeing the confusion reflected in James' face, he finally deigned to explain. <q>Your captain here is a sorceress. And as I said, quite a powerful one at that. I wouldn't dare touch storm-energy. It's amazing she survived, but she'll make a full recovery, given enough time.</q> He patted James' arm. <q>No charge, since I didn't do anything. Please ask her to stop by our temple once she awakens, if she is so inclined.</q>
 """
 
 Page.IntroSickNat::next = Page.IntroSickNat2 = class IntroSickNat2 extends Page
@@ -302,10 +302,10 @@ Job.IntroNatAwake::next = Page.IntroNatAwake = class IntroNatAwake extends Page
     -- Natalie jerked awake, pulse pounding. The ship... the ship was safe, rocking gently beneath her. Instinctively she reached out, feeling fractures and weak points... and winced back, mind burning. Like touching a half-healed wound, or pulling with a strained muscle, the minor effort she'd put forth was enough to warn her that further pressing her magic would only lead to passing out again.
 
   ||
-    --> She felt weak, swinging her legs down off the edge of the bed, but steady enough. Someone had dressed her in a nightgown, and a cup of water waited on the desk for her attention. Also a roll, freshly baked even, very considerate of them. She tore into it with an appetite.
+    --> She felt weak, swinging her legs down off the edge of the bed, but steady enough. Someone had dressed her in a nightgown, and a cup of water waited on the desk for her attention. Also a roll, freshly baked even. Very considerate of them. She tore into it with an appetite.
 
   ||
-    -- They were, she surmised, back in Vailia. Mount Julia didn't have fresh baked garlic-cheese-rolls. They. Better check who <q>they</q> were. Her last memory was of pounding power surging through her body and a wave towering over the ship, threatening to reduce the Lapis to splinters if she couldn't grip the entire ship tightly enough.
+    -- They were, she surmised, back in Vailia. Mount Julia didn't have fresh baked garlic-cheese-rolls. They. Better check who <q>they</q> were. Her last memory was of pounding power surging through her body and a wave towering over the ship, threatening to reduce the Lapis to splinters if she couldn't grip the entire vessel tightly enough.
 
   || bg="Ship.deckDay"
     #{g.crew[0].image 'happy', 'right'}
@@ -313,7 +313,7 @@ Job.IntroNatAwake::next = Page.IntroNatAwake = class IntroNatAwake extends Page
 
   ||
     #{@Natalie.image 'normal', 'left'}
-    -- #{q}How long was I asleep?</q> Natalie rubbed her eyes, looking out on the busy port. Standing in her nightshirt and underwear, she attracted no attention; women wearing less were an everyday sight in this city.
+    -- #{q}How long was I asleep?</q> Natalie rubbed her eyes, looking out on the busy port. Standing in her nightshirt and underwear, she attracted no attention - women wearing less were an everyday sight in this city.
 
   ||
     #{g.crew[0].image 'normal', 'right'}

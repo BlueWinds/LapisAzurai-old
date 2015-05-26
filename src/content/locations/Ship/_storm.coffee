@@ -52,7 +52,7 @@ ShipJob.Storm::next = Page.Storm = class Storm extends Page
     ]
 
     page = $.render """|| slow="true" class="screen sail" bg="Ship.deckStorm"
-      --. Dark clouds on the horizon and growing waves; a storm was rolling in. Natalie felt it in her bones. This was going to be <b>#{intensity @damage}</b>. There were still a few hours before it arrived though, time to make preparations.
+      --. Dark clouds on the horizon and growing waves - a storm was rolling in. Natalie felt it in her bones. This was going to be <b>#{intensity @damage}</b>. There were still a few hours before it arrived though, time to make preparations.
         <em>Your crew's <span class="sailing">sailing</span> reduces the damage from a storm</em>
         #{options buttons, titles}
     """
@@ -96,7 +96,7 @@ Page.StormBatten = class StormBatten extends Page
   text: ->"""|| bg="Ship.storm"
 
   ||
-    -- With enough warning to tie down everything that could be tied down and bring in the sails, the Lapis Azurai was as ready as any ship could be to survive a storm on the open ocean. Waves tossed it to and fro and, even with the crew doing all they could to weather the tempest and waves, some damage was inevitable.
+    -- With enough warning to tie down everything that could be tied down and bring in the sails, the Lapis Azurai was as ready as any ship could be to survive a storm on the open ocean. Waves tossed it to and fro, and even with the crew doing all they could to weather the tempest and waves, some damage was inevitable.
 
   ||
     --> #{damageDescription (@damage * battenDownMultiplier)}

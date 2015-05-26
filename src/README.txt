@@ -1,5 +1,5 @@
 Lapis Azurai
-===========
+============
 
 Run the game by opening index.html in your web browser. Firefox or Chrome are recommended. It will not function in Internet Explorer.
 

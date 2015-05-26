@@ -73,6 +73,7 @@ window.Game = class Game extends GameObject
   day: 0
   weather: 'calm'
   cargo: new Collection
+  money: 1500
 
   getItem: (path)->
     if typeof path is 'string'
@@ -93,7 +94,7 @@ window.Game = class Game extends GameObject
   setGameInfo: ->
     element = $ '.nav'
     $('.day', element).html @day
-    $('.money', element).html @officers.Nat.money
+    $('.money', element).html @money
     wages = Math.sum((person.wages() for name, person of @officers))
     wages += Math.sum(person.wages() for name, person of @crew)
     $('.wages', element).html wages
@@ -166,9 +167,8 @@ window.Game = class Game extends GameObject
         space -= Math.min(space, value)
 
     if effects.money
-      amount = if typeof effects.money[0] is 'string' then context[effects.money[0]] else effects.money[0]
-      g.officers.Nat.money += amount
-      g.money.push {amount, reason: effects.money[1], day: g.day}
+      amount = if typeof effects.money is 'string' then context[effects.money] else effects.money
+      g.money += amount
 
 dayList = ['1st', '2nd', '3rd', '4th', '5th', '6th', '7th', '8th', '9th', '10th', '11th', '12th', '13th', '14th', '15th', '16th', '17th', '18th', '19th', '20th', '21st', '22nd', '23rd', '24th', '25th', '26th', '27th', '23rd', '24th', '25th', '26th', '27th', '28th', '29th', '30th']
 monthList = ['Ascending', 'Resplendant', 'Descending']

@@ -25,7 +25,7 @@ Item['Vailian Steel'] = new Item
 
 Item['Trade Tools'] = new Item
   name: 'Trade Tools'
-  description: "The forges of Vailia produce, according to the standards of other nations, miracles. Vailian blacksmiths turn base metal into sewing needles, knives, saws, crowbars, locks, anvils, hammers and a thousand other items."
+  description: "The forges of Vailia produce, according to the standards of other nations, miracles. Sewing needles, knives, saws, crowbars, locks, anvils, hammers and a thousand other items are all in demand when made from Vailian steel."
   price: 74
   unit: 'crate'
 

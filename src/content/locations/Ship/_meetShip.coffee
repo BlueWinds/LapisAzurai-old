@@ -62,7 +62,7 @@ Page.Pirates.next['Fight'] = Page.PiratesFight = class PiratesFight extends Page
     -- #{q}Yah!</q> Natalie raised one arm to the sky, her cheer echoed by that of the crew. Though outnumbered, they would put an end to this sea-born menace. The watery depths were dangerous enough on their own, without human marauders adding to the menace.
 
   ||
-    -- She spun the wheel, turning the Azurai into the wind at the last moment, so the two ships shuddered together with a minimum of damage, hulls grinding together with the sound of splintering wood. From the deck of the pirate ship – for that's surely what it was, up close – attackers leaped over the gap between the decks, or swung across on ropes.
+    -- She spun the wheel, turning the Azurai into the wind at the last moment, so the two ships shuddered together with a minimum of damage, hulls grinding together with the sound of splintering wood. From the deck of the pirate ship – for that's surely what it was, up close – attackers leapt over the gap between the decks, or swung across on ropes.
 
   ||
     --> James drew his sword, a ferocious snarl upon his lips directed at anyone who would dare lay hand upon his captain. #{Math.choice g.crew} let out a whooping war cry, and battle was joined on the deck of the Lapis Azurai."""
@@ -230,7 +230,7 @@ Page.PiratesNegotiate.next.good = Page.PiratesNegotiateSuccess = class PiratesNe
     super()
     g.applyEffects {cargo: @context.goods}
   effects:
-    money: ['money', '"Sold" goods to pirates']
+    money: 'money'
 
 Page.PiratesNegotiate.next.bad = Page.PiratesNegotiateFail = class PiratesNegotiateFail extends Page
   text: ->"""|| bg="Ship.day"
@@ -249,7 +249,7 @@ Page.PiratesNegotiate.next.bad = Page.PiratesNegotiateFail = class PiratesNegoti
 Page.Pirates.next['Flee'] = Page.PiratesFlee = class PiratesFlee extends Page
   text: ->"""|| bg="Ship.deckDay"
     #{g.officers.Nat.image 'upset', 'left'}
-    -- #{q}Ok, I've changed my mind; not good. Full sail!</q> Natalie called out commands, setting the crew back in motion. They kept their weapons close at hand as they worked, canvas billowing up to catch the wind"""
+    -- #{q}Ok, I've changed my mind. Not good. Full sail!</q> Natalie called out commands, setting the crew back in motion. They kept their weapons close at hand as they worked, canvas billowing up to catch the wind"""
   next: Page.statCheck
   stat: 'sailing'
   difficulty: 65
@@ -257,7 +257,7 @@ Page.Pirates.next['Flee'] = Page.PiratesFlee = class PiratesFlee extends Page
 
 Page.PiratesFlee.next.good = Page.PiratesFleeSuccess = class PiratesFleeSuccess extends Page
   text: ->"""|| bg="Ship.day"
-    -- #{q g.officers.Nat}Ok, I've changed my mind; not good. Full sail!</q> Natalie called out commands, setting the crew back in motion. They kept their weapons close at hand as they worked, canvas billowing up to catch the wind.
+    -- #{q g.officers.Nat}Ok, I've changed my mind. Not good. Full sail!</q> Natalie called out commands, setting the crew back in motion. They kept their weapons close at hand as they worked, canvas billowing up to catch the wind.
 
     Groaning against its weight, the Azurai bobbed precipitously in the wind, full sails heeling it to an uncomfortable angle before the rudder caught hold and swung the prow around. Then, like a bow sprung from an arrow, the ship surged forward. Perpendicular to the wind they cut away.
 
@@ -370,7 +370,7 @@ Page.AbandonedShipSearch.next.push Page.AbandonedShipMoney = class AbandonedShip
   ||
     --> <em>+93β</em>"""
   effects:
-    money: [93, 'Found an abandoned ship']
+    money: 93
   next: Page.AbandonedShipDone
 
 Page.OtherShip.next.push Page.LocalMerchants = class LocalMerchants extends Page
