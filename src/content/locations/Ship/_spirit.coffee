@@ -45,10 +45,8 @@ ShipJob.Spirit.next.push Page.SpiritFog = class SpiritFog extends Page
 
   ||
 <<<<<<< HEAD
-    --> #{q @Nat}You stopped my ship and bewitched my crew. Fiesty doesn't even begin to cover it.</q> She poked #{Math.choice g.crew} who was standing motionless, drooling slightly. #{q}Please explain.</q>
-=======
     --> #{q}You stopped my ship and bewitched my crew. Feisty doesn't even begin to cover it.</q> She poked #{Math.choice g.crew} who was standing motionless, drooling slightly. #{q @Natalie}Please explain.</q>
->>>>>>> spelling-grammar
+
 
   ||
     --><q>I explain NOTHING.</q> The hissing voice rose in volume with each word, until the final "nothing" made Natalie clutch at her ears.
