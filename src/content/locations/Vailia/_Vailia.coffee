@@ -27,7 +27,7 @@ Job.VailiaMarket = class VailiaMarket extends Job.Market
 
 Place.Vailia = Game::map.Vailia = class Vailia extends Place
   name: 'Vailia'
-  description: "Vailia is a bustling port city, famous for its brothels. Also its political neutrality, freedom from the disasters that plague lesser cities, and its merchant-navy. But mostly for its sex workers."
+  description: "Vailia is a bustling port city, famous for its brothels, its political neutrality, freedom from the disasters which plague lesser cities, and its merchant-navy; but mostly for its sex workers."
   images:
     day: 'game/content/locations/Vailia/Port Day.jpg'
     night: 'game/content/locations/Vailia/Port Night.jpg'
@@ -62,7 +62,7 @@ Job.Beach.next.push Page.BeachWood = class BeachWood extends Page
     '|weather': {eq: 'calm'}
     '|season': {eq: 'Wood'}
   text: ->"""|| bg="day"
-    -- With Descending Water finally behind them, many Vailians greeted the returning warmth with a visit to the beach, and #{@worker} was no exception. Gentle waves lapped against smooth sand, wetting the feet of hundreds of visitors. Not for long though – the air was pleasantly warm, but not enough to dispel the water's chill. Playing in the sand was the order of the day.
+    -- With Descending Water finally behind them, many Vailians greeted the returning warmth with a visit to the beach, and #{@worker} was no exception. Gentle waves lapped against smooth sand, wetting the feet of hundreds of visitors. Not for long, though, the air was pleasantly warm, but not enough to dispel the water's chill. Playing in the sand was the order of the day.
 
   ||
     -- #{@worker} entered a sand castle contest, constructing #{Math.choice [
@@ -78,7 +78,7 @@ Job.Beach.next.push Page.BeachFire = class BeachFire extends Page
     '|weather': {eq: 'calm'}
     '|season': {eq: 'Fire'}
   text: ->"""|| bg="day"
-    -- The hot days of #{g.month} Fire demanded nothing other than a visit to the beach, and #{@worker} was perfectly obliging towards such a demand. #{He} was also obliging towards another demand – that #{he} join in a game of volleyball, to make the teams even. Win, lose or draw - #{he} honestly lost track when the game devolved into a giggling wrestling match, with the entirely of the other team running under the net to tackle them into the sand."""
+    -- The hot days of #{g.month} Fire demanded a visit to the beach, and #{@worker} was perfectly obliging towards such a demand. #{He} was also obliging towards another demand – that #{he} join in a game of volleyball, to make the teams even. Win, lose or draw, #{he} honestly lost track when the game devolved into a giggly wrestling match, with the entire other team running under the net to tackle them into the sand."""
 
 Job.Beach.next.push Page.BeachEarth = class BeachEarth extends Page
   conditions:
@@ -103,13 +103,13 @@ Job.Beach.next.push Page.VailiaRumorsSteel = class VailiaRumorsSteel extends Pag
   conditions:
     worker: {}
   text: ->"""|| bg="day"
-    -- <q>You're full of shit, Thomas,</q> two arguing young toughs bumped into #{@worker}, causing #{him} to in turn jostle another shopper in the market.
+    -- <q>You're full of shit, Thomas.</q> Two arguing young toughs bumped into #{@worker}, causing #{him}, in turn, to jostle another shopper in the market.
 
   ||
-    --> <q>I heard it straight from my master – they're shipping out the last load this morning, and it's all but emptied the storehouse. I carried half those crates myself, I'll have you know,</q> he gave an exaggerated groan and slapped his back.
+    --> <q>I heard it straight from my master – they're shipping out the last load this morning, and it's all but emptied the storehouse. I carried half those crates myself, I'll have you know.</q> He gave an exaggerated groan and slapped his back.
 
   ||
-    --> <q>And I say that just because you shipped out all that steel doesn't mean you should be buying up iron stock. Your arms are stronger than your brain, stick with them.</q> He punched his friend in the arm, and any further conversation was lost in the crowd as they continued away from #{@worker}."""
+    --> <q>And I say that just because you shipped out all that steel doesn't mean you should be buying up iron stock. Your arms are stronger than your brain. Stick with them.</q> He punched his friend in the arm, and any further conversation was lost in the crowd as they continued away from #{@worker}."""
 
 Job.Beach.next.push Page.VailiaRumorsEndOfYear = class VailiaRumorsEndOfYear extends Page
   conditions:
@@ -117,10 +117,10 @@ Job.Beach.next.push Page.VailiaRumorsEndOfYear = class VailiaRumorsEndOfYear ext
     '|month': {eq: 'Descending'}
     '|season': {eq: 'Water'}
   text: ->"""|| bg="day"
-    -- The Guild would be putting on its turning-of-the-year ball soon – though #{@worker} already knew, it was hard to find news of anything else, so well did it occupy the minds of everyone #{he} talked with. Well, to be fair, it probably deserved it – a merchant might sell as much on that night as the rest of Water put together, and anyone willing to ply their trade in the week before rather than spend it with friends and family could change nearly whatever they pleased.
+    -- The Guild would be putting on its turning-of-the-year ball soon; though #{@worker} already knew. It was hard to find news of anything else, so well did it occupy the minds of everyone #{he} talked with. To be fair, it probably deserved it. A merchant might sell as much on that night as the rest of Water put together, and anyone willing to ply their trade in the week before, rather than spend it with friends and family, could almost charge whatever they pleased.
 
   ||
-    --> Which, often as not, wasn't all that much more than normal – even Vailian enterprise couldn't overcome the spirit of hope and excitement that accompanied a new year."""
+    --> Which, often as not, wasn't all that much more than normal. Even Vailian enterprise couldn't overcome the spirit of hope and excitement that accompanied a new year."""
 
 Job.Beach.next.push Page.VailiaRumorsWitch = class VailiaRumorsWitch extends Page
   conditions:
@@ -145,7 +145,7 @@ Job.Beach.next.push Page.VailiaRumorsPeaceTreaty = class VailiaRumorsPeaceTreaty
   conditions:
     worker: {}
   text: ->"""|| bg="day"
-    -- <q>There's a whole delegation coming through, just tomorrow. You wouldn't believe the number of flowers we have to provide,</q> a harried looking middle-aged woman nearly bowled #{@worker} over with a huge bouquet, talking to her daughter who trailed several paces behind, apologizing and bowing cutely to everyone her mother trampled out of the way.
+    -- <q>There's a whole delegation coming through tomorrow. You wouldn't believe the number of flowers we have to provide.</q> A harried looking middle-aged woman nearly bowled #{@worker} over with a huge bouquet, talking to her daughter who trailed several paces behind, apologizing and bowing cutely to everyone her mother trampled out of the way.
 
   ||
-    --> <q>Stop lolly-gagging and get the door. I swear, why can't they just sign their peace treaties at home, instead of bothering us all the time? I mean, there's hardly a rose to be found in the city, our garden's been picked clean...</q> A slamming door cut off #{@worker}'s impromptu and unintentional eavesdropping session."""
+    --> <q>Stop lolly-gagging and get the door. I swear. Why can't they just sign their peace treaties at home, instead of bothering us all the time? I mean, there's hardly a rose to be found in the city, our garden's been picked clean...</q> A slamming door cut off #{@worker}'s impromptu and unintentional eavesdropping session."""
