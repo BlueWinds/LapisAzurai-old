@@ -1,6 +1,6 @@
 Item.Coffee = new Luxury
   name: 'Coffee'
-  description: 'Coffee Beans are shipped dried but unroasted in burlap sacks, to be prepared according to local taste at their destination.'
+  description: 'Coffee Beans are shipped dried but unroasted in burlap sacks, to be prepared according to local taste at the destination.'
   price: 15
   unit: 'sack'
 
@@ -12,13 +12,13 @@ Item.Beer = new Luxury
 
 Item.Wine = new Luxury
   name: 'Wine'
-  description: "Wine is a higher class of beverage than cheap beer - the customers complain a lot more if there's a bug in a bottle."
+  description: "Wine is a higher class of beverage than cheap beer. The customers complain a lot more if there's a bug in a bottle."
   price: 33
   unit: 'barrel'
 
 Item.Salt = new Luxury
   name: 'Salt'
-  description: "Salt is both seasoning and necessity, varying in price dramatically be region - cheap at the ocean and priceless at the interior of a continent."
+  description: "Salt is both seasoning and necessity, varying in price dramatically be region. It's cheap at the ocean and priceless at the interior of a continent."
   price: 27
   unit: 'barrel'
 
