@@ -7,7 +7,7 @@ Item['Wool Cloth'] = new Item
 
 Item.Fur = new Item
   name: 'Fur'
-  description: "Furs are an expensive luxury for cold-weather clothing or comfortable rugs - either way, they're worth a considerable amount to those who can afford to skin cuddly woodland critters for their skin."
+  description: "Furs are an expensive luxury for cold-weather clothing or comfortable rugs. Either way, they're worth a considerable amount to those who can afford to skin cuddly woodland critters for their skin."
   price: 59
   unit: 'crate'
 
@@ -19,13 +19,13 @@ Item.Iron = new Item
 
 Item['Vailian Steel'] = new Item
   name: 'Vailian Steel'
-  description: "The forges of Vailia produce - according to the standards of other nations - miracles. The process is a closely guarded secret, and the result immensely valuable."
+  description: "The forges of Vailia produce, according to the standards of other nations, miracles. The process is a closely guarded secret, and the result immensely valuable."
   price: 60
   unit: 'crate'
 
 Item['Trade Tools'] = new Item
   name: 'Trade Tools'
-  description: "The forges of Vailia produce - according to the standards of other nations - miracles, and its blacksmiths turn it into sewing needles, knives, saws, crowbars, locks, anvils, hammers and a thousand other items."
+  description: "The forges of Vailia produce, according to the standards of other nations, miracles. Sewing needles, knives, saws, crowbars, locks, anvils, hammers and a thousand other items are all in demand when made from Vailian steel."
   price: 74
   unit: 'crate'
 
@@ -58,4 +58,3 @@ Item["Weapons"] = new Item
   description: "Bows, spears and even the occasional sword, sometimes you just need to kill some folks."
   price: 120
   unit: 'crate'
-  
