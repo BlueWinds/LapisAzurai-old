@@ -7,6 +7,7 @@ layers = (p)->[
 ]
 
 layersNude = (p)->[
+  "Empty.png"
   "#{p}SkinNude.png"
   "#{p}Eyes.png"
   "#{p}Hair.png"
@@ -24,6 +25,7 @@ Game::officers.James = Officer.James = class James extends Officer
   endurance: 10
   energy: 10
   text: '#DA9FAF'
+  color: ['none', 'tanned', 'green', 'ash', 'none']
 
   traits: new Collection
     loyal: new Trait.Loyal
@@ -49,3 +51,36 @@ Game::officers.James = Officer.James = class James extends Officer
     'angry-nude': layersNude 'Angry'
     'serious-nude': layersNude 'Serious'
     'sad-nude': layersNude 'Sad'
+
+  @colors: [
+    { none: false } # Cloth
+    { # Skin
+      light: false
+      ivory: [32, 67, 41]
+      tanned: [34, 52, -16]
+      golden: [40, 53, -30]
+      cinnamon: [30, 50, -63]
+      mocha: [27, 43, -61]
+      ebony: [23, 44, -77]
+    }
+    { # Eyes
+      green: false
+      blue: [198, 71, 0]
+      hazel: [21, 29, 8]
+      steel: [0, 0, -2]
+      red: [0, 50, 0]
+    }
+    { # Hair
+      fiery: false
+      raven: [0, 0, -60]
+      ash: [34, 23, -42]
+      chestnut: [32, 40, -23]
+      copper: [19, 53, -29]
+      strawberry: [22, 52, 21]
+      blonde: [43, 48, 16]
+      green: [114, 37, -32]
+      blue: [202, 65, 1]
+      purple: [280, 44, -8]
+    }
+    { none: false } # Top
+  ]

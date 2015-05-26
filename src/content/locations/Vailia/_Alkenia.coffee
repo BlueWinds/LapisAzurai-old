@@ -170,7 +170,6 @@ ShipJob.JamesNoWeapons = class JamesNoWeapons extends ShipJob
     '|cargo|Weapons': {gte: 6}
   text: ->"""James isn't entirely happy with selling weapons to Alkenia. Time to speak with him and address his concerns."""
 
-
 Job.AlkeniaForestry::next = Page.AlkeniaForestry = class AlkeniaForestry extends Page
   conditions:
     Nat: {}
@@ -210,7 +209,7 @@ ShipJob.JamesNoWeapons::next = Page.JamesNoWeapons = class JamesNoWeapons extend
   ||
     #{@James.image 'serious', 'left'}
     --> #{q}I know, I know what we're doing isn't wrong. It just feels like a foot in the door - once you do this, you're the sort of person who does it, you know? Do me a favor. Let's take these back to Vailia and sell them there.</q>
-      #{options ['Carry on', 'Abandon mission'], ["Try to convince him that it's not a big deal", "Listen to your friend"]}"""
+      #{options ['Carry on', 'Abandon mission'], ["<em><span class='happiness'>+2 happiness</span> for James</em>", "<em><span class='happiness'>+6 happiness</span> for James</em>"]}"""
   effects:
     remove:
       '|map|Ship|jobs|jamesNoWeapons': ShipJob.JamesNoWeapons
@@ -252,6 +251,7 @@ Page.JamesNoWeapons.next['Abandon mission'] = Page.JamesNoWeaponsAgree = class J
   effects:
     remove:
       '|missions|AlkeniaWeapons': Mission.AlkeniaWeapons
+      '|location|jobs|forestry2': Job.AlkeniaForestry2
 
 Job.AlkeniaForestry2::next = Page.AlkeniaForestry2 = class AlkeniaForestry2 extends Page
   text: ->"""|| bg="day|storm"
@@ -352,11 +352,11 @@ Page.AlkeniaRaid.next['bad'] = Page.AlkeniaRaidBad = class AlkeniaRaidBad extend
     --> Without warning they swept forward again, seeming to move with a single mind, and James barely drew his sword in time to parry the wicked dagger aimed at his chest. Beside him, #{@victim} screamed and fell, tangled with a vine-woman, but he had his own problems to attend to. His attacker ducked under his counterattack and came at him again.
 
   ||
-    -- It was over in an instant, too quickly to think. #{@victim} lay in a bloody heap, while the Nonkenian attackers fled sliently. Two of them supported a wounded woman between them, her lip curled back in a silent snarl as she tried to hold the wound closed where James had slashed her. The Vailians were too busy crowding around #{@victim} to pursue, even had they had felt a taste for further violence.
+    -- It was over in an instant, too quickly to think. #{@victim} lay in a bloody heap, while the Nonkenian attackers fled silently. Two of them supported a wounded woman between them, her lip curled back in a silent snarl as she tried to hold the wound closed where James had slashed her. The Vailians were too busy crowding around #{@victim} to pursue, even had they had felt a taste for further violence.
 
   ||
-    --> <em>#{@victim} is severly injured. <span class='happiness'>-35 happiness</span>.</em>
+    --> <em>#{@victim} is severely injured. <span class='happiness'>-45 happiness</span>.</em>
   """
   apply: ->
     super()
-    @context.victim.add('happiness', -25)
+    @context.victim.add('happiness', -45)

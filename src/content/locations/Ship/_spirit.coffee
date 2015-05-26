@@ -44,13 +44,13 @@ ShipJob.Spirit.next.push Page.SpiritFog = class SpiritFog extends Page
     --| <q>You are a fiesty one.</q> Natalie jumped at the voice hissing from both a thousand miles away and right next to her ear.
 
   ||
-    --> #{q}You stopped my ship and bewitched my crew. Fiesty doesn't even begin to cover it.</q> She poked #{Math.choice g.crew} who was standing motionless, drooling slightly. #{q @Natalie}Please explain.</q>
+    --> #{q @Nat}You stopped my ship and bewitched my crew. Fiesty doesn't even begin to cover it.</q> She poked #{Math.choice g.crew} who was standing motionless, drooling slightly. #{q}Please explain.</q>
 
   ||
     --><q>I explain NOTHING.</q> The hissing voice rose in volume with each word, until the final "nothing" made Natalie clutch at her ears.
 
   ||
-    --> Immediately the sense of presence disappeared, the fog began to disolve, the people around her stired. She sunk to her knees, still clutching her head.
+    --> Immediately the sense of presence disappeared, the fog began to disolve, the people around her stirred. She sunk to her knees, still clutching her head.
 
   ||
     --> James staggered woozilly to her side. #{q @James}What happened? I heard some wind, and...</q> he raised a hand to touch her shoulder, lowered it again.

@@ -1,7 +1,7 @@
-eventFrequency = 6
+eventFrequency = 5
 howOftenLuxuryUsed = 0.125
 foodPerPersonDaily = 0.25
-noFoodUnhappiness = 1 # Per missing unit of food
+noFoodUnhappiness = 2 # Per missing unit of food
 noLuxuryUnhappiness = 1
 
 minStormWood = 5
@@ -14,7 +14,7 @@ maxStormSupplies = 10
 natEnergyPerWood = 1
 natEnergyPerSupplies = 2
 
-zeroHappinessChanceToLeave = 0.5
+zeroHappinessChanceToLeave = 0.75
 maxHappinessToLeave = 20
 
 Page.SetSail = class SetSail extends Page
@@ -33,13 +33,12 @@ Page.SetSail = class SetSail extends Page
       distance = Math.ceil(distance / g.map.Ship.sailSpeed())
       visited[key] = true
       locations.push g.map[key].renderBlock(key, distance)
-      
+
     traceNetwork = (loc)->
       for key, distance of loc.destinations
         if visited[key]
           continue
         visited[key] = true
-        console.log key
         locations.push g.map[key].renderBlock(key, false)
         traceNetwork(g.map[key])
 
@@ -80,7 +79,12 @@ Page.SetSail = class SetSail extends Page
 
 sailCost = ->
   used = {happiness: 0}
-  people = g.officers.objectLength + g.crew.length
+  people = 0
+  for name, person of g.officers
+    people += person.get 'eats'
+  for name, person of g.crew
+    people += person.get 'eats'
+
   people = Math.randomRound(people * foodPerPersonDaily)
 
   food = {}
@@ -190,8 +194,9 @@ Page.SailDone = class SailDone extends Page
     next.context = leaving
 
   next: ->
-    if @context.destination.firstVisit and @context.destination.arrive.length is 1
-      return @context.destination.firstVisit
+    first = @context.destination.firstVisit
+    if first and not g.events[first.constructor.name]
+      return first
     return
 
 Page.OneCrewLeaving = class OneCrewLeaving extends Page

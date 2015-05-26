@@ -432,8 +432,8 @@ Job.GuildWork.next.push Page.GuildKat = class GuildKat extends Page
     -- Kat paused in front of the door. Though Natalie had introduced her to Ben Oakly and walked with her through the establishment, she was still somewhat nervous#{if g.events.GuildKat then " her first time here alone" else ""}. She stepped out of the way of a drunken man wobbling out the front door – not the most encouraging sign, beer on his foul breath filling her nose.
 
   ||
-    #{Kat.image 'serious', 'left'}
-    --> She slapped her cheeks and stood up straight. Nat had asked her to try this. Asked, not told. She wasn't going to back out now. Sex was fun. She'd had it before. Not something to be afraid of.
+    #{@worker.image 'serious', 'left'}
+    -- She slapped her cheeks and stood up straight. Nat had asked her to try this. Asked, not told. She wasn't going to back out now. Sex was fun. She'd had it before. Not something to be afraid of.
 
   ||
     --> The front door swung open again, blasting her with the sighs of so many half-dressed bodies, perfume and sweat and alcohol. This time it was a woman holding it open for her. Kat pressed inside.
@@ -452,10 +452,11 @@ Page.GuildKat.next.push Page.GuildKatEasy = class GuildKatEasy extends Page
     --> #{q}Both!</q> Kat attempted to reassert some control over the encounter by loudly proclaiming her preference. #{q}Either, I mean. Not both-right-now.</q>
 
   ||
-    -- The woman laughed at her enthusiasm. #{q}That's a good attitude. Keep that smile on, they'll love you. Now, it's not your job to worry about the money, we'll take care of that. You just go over to that man there – he's a regular – and starting chatting him up. Tell him you're new here, he'll love that. Room 3 in back is yours, when he's ready. Keep in mind that the longer he stays with you, the more you make.</q>
+    -- The woman laughed at her enthusiasm. <q>That's a good attitude. Keep that smile on, they'll love you. Now, it's not your job to worry about the money. You just go over to that man there – he's a regular. Tell him you're new here, he'll love that. Room 3 in back is yours. Keep in mind that the longer he stays with you, the more you make.</q>
 
   ||
     --> He looked nice enough, and entirely too respectable to ever want anything to do with her. On the street, that was – in here, she reminded herself with a grin, he was paying for the privilege of spending time with her.
+
   ||
     --> #{q}Hi!</q>
 
@@ -473,7 +474,7 @@ Page.GuildKat.next.push Page.GuildKatEasy = class GuildKatEasy extends Page
 Page.GuildKatEasy::next = Page.GuildKatEasy2 = class GuildKatEasy2 extends Page
   conditions:
     worker: {}
-  text: ->"""|| bg="none"
+  text: ->"""|| bg="tavern"
     --| <q>Let me help you with that.</q> Kat sat up, leaving her ankles on his shoulders, and laughed at the look her flexibility gathered. She began working on his belt, fumbling a little from the awkward (though from the way he was twitching, entirely arrousing) position.
 
   ||
@@ -489,12 +490,14 @@ Page.GuildKatEasy::next = Page.GuildKatEasy2 = class GuildKatEasy2 extends Page
     --> Finally spent, he relaxed his grip, both teeth and arms. She slid her legs down off his shoulders as her collapsed on top of her, and wrapped arms around his head, holding it nestled against her chest. They crawled further onto the bed, pulled the blanket up, and slept.
 
   || bg="none" verySlow="verySlow"
-    -- ...
 
   || bg="tavern"
     -- <q>That's outrageous!</q>
-    Kat watched from behind a curtain as the man she'd just slept with - both literally and in the sexual sense - argued over the fee with Ben Ookly. Ben just pointed to the sign again - an hourly rate.
-    <q>Just because I fell asleep doesn't mean I'm paying five times the usual! She was great, I'll grant you that,</q> he wandered off with a dreamy look before snapping back to focus, <q>and I'll glady add an extra half, but...</q>
+
+  ||
+    --> Kat watched from behind a curtain as the man she'd just slept with - both literally and in the sexual sense - argued over the fee with Ben Ookly. Ben just pointed to the sign again - an hourly rate.
+  ||
+    -- <q>Just because I fell asleep doesn't mean I'm paying five times the usual! She was great, I'll grant you that,</q> he wandered off with a dreamy look before snapping back to focus, <q>and I'll glady add an extra half, but...</q>
   ||
     #{@worker.image 'normal-nude', 'far-left'}
     --> Time to let Ben do his job. Kat ducked back back into the room to start searching for her clothes. It still smelled like sex. Good times.

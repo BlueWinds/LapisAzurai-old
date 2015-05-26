@@ -1,6 +1,6 @@
 layers = (p)->[
-  "Base.png"
   "#{p}Skin.png"
+  "Base.png"
   "#{p}Eyes.png"
   "#{p}Hair.png"
   "#{p}Top.png"
@@ -15,7 +15,13 @@ Person.Guildmaster = Game::people.Guildmaster = class Guildmaster extends Person
     scale: 1.36
 
     normal: layers 'Normal'
-    happy: layers 'Happy'
-    sad: layers 'Sad'
+    smiling: layers 'Smiling'
+    skeptical: layers 'Skeptical'
     serious: layers 'Serious'
-    angry: layers 'Angry'
+    thinking: [
+      "ThinkingSkin.png"
+      "ThinkingBase.png"
+      "ThinkingEyes.png"
+      "ThinkingHair.png"
+      "ThinkingTop.png"
+    ]
