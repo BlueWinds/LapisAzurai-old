@@ -230,7 +230,7 @@ Page.PiratesNegotiate.next.good = Page.PiratesNegotiateSuccess = class PiratesNe
     super()
     g.applyEffects {cargo: @context.goods}
   effects:
-    money: ['money', '"Sold" goods to pirates']
+    money: 'money'
 
 Page.PiratesNegotiate.next.bad = Page.PiratesNegotiateFail = class PiratesNegotiateFail extends Page
   text: ->"""|| bg="Ship.day"
@@ -370,7 +370,7 @@ Page.AbandonedShipSearch.next.push Page.AbandonedShipMoney = class AbandonedShip
   ||
     --> <em>+93β</em>"""
   effects:
-    money: [93, 'Found an abandoned ship']
+    money: 93
   next: Page.AbandonedShipDone
 
 Page.OtherShip.next.push Page.LocalMerchants = class LocalMerchants extends Page

@@ -562,8 +562,7 @@ input.inline:disabled {
 .full .stats td:last-child {
   text-align: right;
 }
-.wages td:last-child::after,
-.savings td:last-child::after {
+.wages td:last-child::after {
   content: "β";
   font-size: 0.8em;
 }

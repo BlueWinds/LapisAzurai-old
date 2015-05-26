@@ -96,8 +96,8 @@ window.Person = class Person extends GameObject
         <span class="energy">#{@energy}</span>/<span class="endurance">#{@endurance}</span>
       </td></tr>"""
     fullStats.push """<tr class="wages" title="Wage<br>How much Natalie pays this person daily"><td>Wage</td><td>#{@wages()}</td></tr>"""
-    if @money?
-      fullStats.push """<tr class="savings" title="Savings<br>How much money this person has saved"><td>Money</td><td>#{@money}</td></tr>"""
+    if @contract?
+      fullStats.push """<tr class="contract" title="Contract remaining<br>How many more days this person plans to remain with the crew"><td>Contract</td><td>#{@contract}</td></tr>"""
 
     traits = for name, trait of @traits
       trait.renderBlock(@)
@@ -217,3 +217,20 @@ Page.statCheckDescription = (stat, difficulty, items, context)->
   <ul class='stat-check'>
     <li>" + results.join('</li><li>') + '</li>
   </ul>'
+
+Game.passDay.push ->
+  change = if g.money <= 0 then -0.25 else 0
+  wages = 0
+  for name, person of g.officers
+    wages += person.wages()
+
+  for name, person of g.crew
+    wages += person.wages()
+  if wages
+    g.applyEffects {money: -wages}
+
+  change += if g.money < 0 then -0.25 else 0.25
+  for name, person of g.crew
+    person.add 'happiness', change
+    if person.contract > 0
+      person.contract -= 1

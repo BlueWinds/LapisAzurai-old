@@ -314,7 +314,7 @@ Page.GuildNatBangSure::next = Page.GuildNatBangSure2 = class GuildNatBangSure2 e
     --> <em><span class="money">+#{Place.Vailia.adultPay}β</span></em>
   """
   effects:
-    money: [Place.Vailia.adultPay, 'Worked in Vailian brothel']
+    money: Place.Vailia.adultPay
   apply: ->
     super()
     @context.worker.add 'happiness', -0.5
@@ -417,9 +417,12 @@ Page.GuildNatDomSure::next = Page.GuildNatDomSure2 = class GuildNatDomSure2 exte
   ||
     #{@worker.image 'blush', 'left'}
     --> She pushed him away gently. #{q}They're satisfied. Send my share to the Guild, I'll get it there.</q> Natalie shook her head. #{q}Whatever you're thinking, don't try it. Treating me fairly is the cheaper option by far.</q>
+
+  ||
+    --> <em><span class="money">+#{Place.Vailia.adultPay}β</span></em>
   """
   effects:
-    money: [Place.Vailia.adultPay, 'Worked in Vailian brothel']
+    money: Place.Vailia.adultPay
   apply: ->
     super()
     @context.worker.add 'happiness', 1
@@ -496,9 +499,16 @@ Page.GuildKatEasy::next = Page.GuildKatEasy2 = class GuildKatEasy2 extends Page
 
   ||
     --> Kat watched from behind a curtain as the man she'd just slept with - both literally and in the sexual sense - argued over the fee with Ben Ookly. Ben just pointed to the sign again - an hourly rate.
+
   ||
     -- <q>Just because I fell asleep doesn't mean I'm paying five times the usual! She was great, I'll grant you that,</q> he wandered off with a dreamy look before snapping back to focus, <q>and I'll glady add an extra half, but...</q>
+
   ||
     #{@worker.image 'normal-nude', 'far-left'}
     --> Time to let Ben do his job. Kat ducked back back into the room to start searching for her clothes. It still smelled like sex. Good times.
+
+  ||
+    --> <em><span class="money">+#{Place.Vailia.adultPay}β</span></em>
   """
+  effects:
+    money: Place.Vailia.adultPay

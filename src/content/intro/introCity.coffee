@@ -99,6 +99,10 @@ Page.IntroHire = class IntroHire extends Page.HireCrew
         placement: 'bottom'
         title: "Your crew's abilities are useful in various events, especially sailing (if you get caught in a storm) and combat (if you end up in a fight). Any event where a skill is used will mention it in the description."
       ).help(
+        target: '.person-info'
+        placement: 'bottom'
+        title: "Different sailors are looking for different length contracts. When a person's contract expires, they'll leave your crew next time you visit Vailia - and give you a permanent bonus. The higher their stats, the better the bonus."
+      ).help(
         target: '.hires'
         placement: 'bottom'
         title: "Each day new people will arrive and others leave. Come back again later if you need to hire more sailors or don't like the look of some of them."

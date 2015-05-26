@@ -1,5 +1,5 @@
 daysWageToHire = 14
-minContractMonths = 3
+minContractMonths = 2
 
 hireCost = (people, context)->
   n = g.officers.Nat
@@ -33,7 +33,7 @@ Page.HireCrewOne = class HireCrewOne extends Page
   apply: ->
     super()
     cost = -hireCost(@context.asArray(), @context)
-    g.applyEffects {money: [cost, "Hired #{@context[0]}"]}
+    g.applyEffects {money: cost}
     g.crew.push @context[0]
 
 Page.HireCrewMulti = class HireCrewMulti extends Page
@@ -55,7 +55,7 @@ Page.HireCrewMulti = class HireCrewMulti extends Page
   apply: ->
     super()
     cost = -hireCost(@context.asArray(), @context)
-    g.applyEffects {money: [cost, "Hired #{@context.length.toWord()} sailors"]}
+    g.applyEffects {money: cost}
     for crew in @context.asArray()
       g.crew.push crew
 
@@ -94,7 +94,7 @@ Person.random = (baseClasses)->
   person.color = for layer in base.colors
     Math.keyChoice(layer)
 
-  person.contract = minContractMonths
+  person.contract = minContractMonths * 2
 
   points = base.basePoints + base.extraPoints * Math.random() * Math.random()
   while points > 1
@@ -104,7 +104,7 @@ Person.random = (baseClasses)->
     points -= amount
 
   person.add 'happiness', Math.floor(Math.random() * 60 - 30)
-  person.contract *= 30
+  person.contract *= 15
   return person
 
 Job.HireCrew = class HireCrew extends Job

@@ -22,7 +22,6 @@ module.exports = [
   'engine/screens/sail.coffee'
   'engine/screens/hireCrew.coffee'
   'engine/screens/market.coffee'
-  'engine/screens/financial.coffee'
 
 # Finally the content
   'content/traits/basicStats.coffee'

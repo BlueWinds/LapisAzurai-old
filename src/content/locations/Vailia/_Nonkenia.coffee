@@ -136,9 +136,8 @@ Trait.Diplomats = class Diplomats extends Trait
   eats: 4
 
 natStatus = ->
-  m = g.officers.Nat.money
-  return if m < 0 then 'Poorly'
-  else if m < 2000 then 'Doing ok'
+  return if g.money < 0 then 'Poorly'
+  else if g.money < 2000 then 'Doing ok'
   else 'Excellent'
 
 Job.NonkeniaDiplomats::next = Page.NonkeniaDiplomats = class NonkeniaDiplomats extends Page
@@ -187,7 +186,7 @@ Job.NonkeniaDiplomats::next = Page.NonkeniaDiplomats = class NonkeniaDiplomats e
   ||
     --> <em>New quest: Nonkenian Negotiations. Until completed, Natalie has a new trait: <strong>Annoying Diplomats</strong></em>"""
   effects:
-    money: [-1, 'Bribe to see Guildmaster on the quiet']
+    money: -1
     remove:
       '|location|jobs|nonkeniaDiplomats': Job.NonkeniaDiplomats
     add:
@@ -229,7 +228,7 @@ Job.NonkeniaDiplomats2::next = Page.NonkeniaDiplomats2 = class NonkeniaDiplomats
     --> <em><span class="happiness">+8 happiness</span> for Natalie. +300β</em>
 """
   effects:
-    money: [300, 'Delivered diplomats']
+    money: 300
     remove:
       '|location|jobs|nonkeniaDiplomats': Job.NonkeniaDiplomats2
       '|missions|NonkeniaDiplomats': Mission.NonkeniaDiplomats

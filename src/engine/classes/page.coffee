@@ -106,14 +106,8 @@ window.Page = class Page extends GameObject
             properties:
               '*':
                 type: ['integer', 'string'] # Either an amount to add, or a property to pull out of the current context and add.
-          money: # Give or take money from the player - [amount, reason]
-            type: 'array'
-            items: [
-                type: ['integer', 'string'] # Either an amount, or a property to pull out of the current context
-              ,
-                type: 'string'
-            ]
-            exactLength: 2
+          money: # Give or take money from the player. Either an integer amount, or a value to pull from the context.
+            type: ['integer', 'string']
             optional: true
 
       apply: # Called once when the page is first displayed. It can modify the game state to represent the results of the event. Be absolutely sure to call super() inside this function - it will fill in the context, display the page and apply the effects.

@@ -13,7 +13,8 @@ Page.Load = class Load extends Page
       blob = new Blob [localStorage[key]], {type: 'text/plain'}
       blob = URL.createObjectURL blob
 
-      name = "Day #{game.day} - #{game.location} - #{game.officers.Nat.money}β"
+      # game.money might not be defined in older saves. Be boring and just misreport it as 0.
+      name = "Day #{game.day} - #{game.location} - #{game.money or 0}β"
       row = [
         name
         "#{months[date.getMonth()]} #{date.getDate()}, #{date.getHours()}:#{date.getMinutes()}"

@@ -86,7 +86,7 @@ Job.Market::next = Page.Market = class Market extends Page
           <div class="block-summary">
             #{@workers.toWord().capitalize()} worker#{if @workers is 1 then '' else 's'} can carry <span class="carry">#{maxLoad(@workers)}</span> more loads today.
             <br>
-            This will cost <span class="spend">0β</span> and earn <span class="earn">0β</span>, leaving you with <span class="result">#{g.officers.Nat.money}β</span>
+            This will cost <span class="spend">0β</span> and earn <span class="earn">0β</span>, leaving you with <span class="result">#{g.money}β</span>
           </div>
           <div class="block-summary">
             <div class="progress-label" title="#{Math.sumObject g.cargo} / #{Game.cargo}">The Lapis Azurai</div>
@@ -208,7 +208,7 @@ applyMarket = (element)->
   updateSummary = ->
     spend = Math.sum($('.buy .total', element).map -> parseInt($(@).html(), 10) or 0)
     earn = Math.sum($('.sell .total', element).map -> parseInt($(@).html(), 10) or 0)
-    total = g.officers.Nat.money - spend + earn
+    total = g.money - spend + earn
     $('.spend', element).html spend + 'β'
     $('.earn', element).html earn + 'β'
     $('.result', element).html(total + 'β').toggleClass('negative', total < 0)
@@ -216,18 +216,18 @@ applyMarket = (element)->
     $('.progress-label', element).tooltip('destroy').attr('title', "#{cargo} / #{Game.cargo}").addTooltips()
     $('.progress-bar', element).css 'width', (cargo * 100 / Game.cargo) + '%'
 
-    if total < 0 and total < g.officers.Nat.money
+    if total < 0 and total < g.money
       $('button', element).attr('disabled', true)
     else
       $('button', element).removeAttr('disabled')
     element.addTooltips()
-    return total >= 0 or total >= g.officers.Nat.money
+    return total >= 0 or total >= g.money
 
   $('button', element).click (e)->
     e.preventDefault()
     spend = Math.sum($('.buy .total', element).map -> parseInt($(@).html(), 10) or 0)
     earn = Math.sum($('.sell .total', element).map -> parseInt($(@).html(), 10) or 0)
-    g.applyEffects {money: [(earn - spend), "Sold #{earn}β and bought #{spend}β in #{g.location}'s market"]}, context
+    g.applyEffects {money: (earn - spend)}, context
     $('.buy tr', element).each ->
       count = parseInt $('.count', @).html(), 10 or 0
       unless count then return
