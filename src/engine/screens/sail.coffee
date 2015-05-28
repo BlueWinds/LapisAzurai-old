@@ -145,7 +145,7 @@ Page.SailDay = class SailDay extends Page
     cost = @context.cost = sailCost()
     super()
     for name, officer of g.officers
-      officer.add('energy', 1)
+      officer.add 'energy', 1
 
     g.applyEffects {cargo: cost}
 

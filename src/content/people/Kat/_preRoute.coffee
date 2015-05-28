@@ -578,7 +578,7 @@ Page.KatStorm2.next['Set up in city'] = Page.KatStormGift.next['Set up in city']
 """
   apply: ->
     super()
-    @context.Kat.add('happiness', 2)
+    @context.Kat.add 'happiness', 2
   effects:
     add:
       '|location|jobs|katVisit': Job.KatVisit

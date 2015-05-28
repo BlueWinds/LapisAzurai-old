@@ -55,7 +55,7 @@ Ship::jobs.talk = ShipJob.Talk = class Talk extends ShipJob
   Crew: <span class="happiness">+2 happiness</span>"""
   apply: ->
     super()
-    for i, sailor of g.crew then sailor.add('happiness', 2)
+    for i, sailor of g.crew then sailor.add 'happiness', 2
   next: Page.randomMatch
   @next: []
 
@@ -142,8 +142,8 @@ ShipJob.TrainCombat::next = Page.TrainCombat = class TrainCombat extends Page
   """
   apply: ->
     super()
-    for i, sailor of g.crew then sailor.add('combat', 1)
-    @context.James.add('energy', -2)
+    for i, sailor of g.crew then sailor.add 'combat', 1
+    @context.James.add 'energy', -2
 
 Ship::jobs.trainBusiness = ShipJob.TrainBusiness = class TrainBusiness extends ShipJob
   label: "Lessons"
@@ -162,9 +162,9 @@ ShipJob.TrainBusiness::next = Page.TrainBusiness = class TrainBusiness extends P
   """
   apply: ->
     super()
-    for i, sailor of g.crew then sailor.add('business', 1)
-    @context.Nat.add('energy', -1)
-    @context.Nat.add('happiness', 1)
+    for i, sailor of g.crew then sailor.add 'business', 1
+    @context.Nat.add 'energy', -1
+    @context.Nat.add 'happiness', 1
 
 Ship::jobs.trainSailing = ShipJob.TrainSailing = class TrainSailing extends ShipJob
   label: "Maintenence"
@@ -186,8 +186,8 @@ ShipJob.TrainSailing::next = Page.TrainSailing = class TrainSailing extends Page
   apply: ->
     super()
     for i, sailor of g.crew
-      sailor.add('sailing', 1)
-      sailor.add('happiness', -1)
-    @context.Nat.add('energy', -2)
+      sailor.add 'sailing', 1
+      sailor.add 'happiness', -1
+    @context.Nat.add 'energy', -2
     if g.map.Ship.damage
-      g.map.Ship.applyDamage(-1)
+      g.map.Ship.applyDamage -1

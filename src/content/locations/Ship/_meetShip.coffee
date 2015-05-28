@@ -386,8 +386,8 @@ Page.OtherShip.next.push Page.LocalMerchants = class LocalMerchants extends Page
   apply: ->
     super()
     for i, sailor of g.crew
-      sailor.add('happiness', 1)
-      sailor.add('business', 1)
+      sailor.add 'happiness', 1
+      sailor.add 'business', 1
 
 Page.OtherShip.next.push Page.VailianMerchants = class VailianMerchants extends PlayerOptionPage
   conditions:
@@ -402,6 +402,6 @@ Page.OtherShip.next.push Page.VailianMerchants = class VailianMerchants extends 
   apply: ->
     super()
     for i, sailor of g.crew
-      sailor.add('happiness', 2)
+      sailor.add 'happiness', 2
     for i, officer of g.officers
-      officer.add('sailing', 1)
+      officer.add 'sailing', 1

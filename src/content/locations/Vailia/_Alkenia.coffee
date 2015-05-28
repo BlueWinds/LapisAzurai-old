@@ -333,7 +333,7 @@ Page.AlkeniaRaid.next['good'] = Page.AlkeniaRaidGood = class AlkeniaRaidGood ext
   """
   apply: ->
     super()
-    @context.James.add('happiness', 4)
+    @context.James.add 'happiness', 4
   effects:
     remove:
       '|location|jobs|raid': Job.AlkeniaRaid
@@ -359,4 +359,4 @@ Page.AlkeniaRaid.next['bad'] = Page.AlkeniaRaidBad = class AlkeniaRaidBad extend
   """
   apply: ->
     super()
-    @context.victim.add('happiness', -45)
+    @context.victim.add 'happiness', -45

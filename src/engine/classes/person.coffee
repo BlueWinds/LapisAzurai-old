@@ -119,6 +119,10 @@ window.Person = class Person extends GameObject
     lastP = @
     return @name
 
+  possessive: ->
+    lastP = @
+    return @name + if @name[@name.length - 1] is 's' then "'" else "'s"
+
   wages: ->
     wage = 0.5
     for stat in ['business', 'diplomacy', 'sailing', 'combat']

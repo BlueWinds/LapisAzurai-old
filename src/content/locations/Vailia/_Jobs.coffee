@@ -100,15 +100,33 @@ Place.Vailia::jobs.defense = Job.Defense = class Defense extends Job
   energy: -2
   conditions:
     '|officers|Nat|money': {gte: 3}
+    notAllDone:
+      match: ->
+        for event in Job.Defense.next
+          if g.events[event.constructor.name].length < 5 then return true
+        return false
+      optional: true
   officers:
     worker: {}
   effects:
     money: -3
-  apply: ->
-    super()
-    @context.worker.add 'combat', 3
-  next: Page.randomMatch
+  next: Page.firstMatch
   @next = []
+
+Job.Defense.next.push Page.DefenseNothing = class DefenseNothing extends Page
+  conditions:
+    worker: {}
+    tooManyTimes:
+      match: -> g.events['Defense' + @worker]?.length > 5
+      optional: true
+  text: ->"""|| bg="marketDay|marketStorm"
+    -- <q>I'm afraid there's nothing else I can teach you, #{@worker}.</q> Torril greeted #{him} with a smile. <q>Though I'd be happy to spar for a while, if you'd like.</q>
+
+  ||
+    --> They spent an afternoon together, chatting and occasionally having a little match. While the mercenary was a fierce combatant in his own right, he wasn't very good at teaching more than the basics of his style. <q>Experience,</q> he'd say, <q>is the only teacher worth having.</q>
+"""
+  effects:
+    money: 3
 
 Job.Defense.next.push Page.DefenseNatalie = class DefenseNatalie extends Page
   conditions:
@@ -134,6 +152,9 @@ Job.Defense.next.push Page.DefenseNatalie = class DefenseNatalie extends Page
   || bg="marketNight|marketStorm"
     --> She spent the day training with Torril, a retired mercenary captain. Too slight to be any good with a hand-to-hand weapon, he instead decided to train her in the fine art of running away, and catching those pursuing off guard with a variety of objects, ranging in lethality from rocks to the ankle to daggers in the throat. Torril was a good instructor, but not shy about reminding her that she was practicing on dummies now so she could do the same things to living people later.
   """
+  apply: ->
+    super()
+    @context.worker.add 'combat', 1
 
 Job.Defense.next.push Page.DefenseJames = class DefenseJames extends Page
   conditions:
@@ -160,6 +181,9 @@ Job.Defense.next.push Page.DefenseJames = class DefenseJames extends Page
   ||
     --> <q>Good reason. Here, let's see what you know.</q> Torril tossed him a wooden practice blade.
   """
+  apply: ->
+    super()
+    @context.worker.add 'combat', 3
 
 # Job.Defense.next.push Page.DefenseAsara = class DefenseAsara extends Page
 #   conditions:
@@ -203,6 +227,9 @@ Job.Defense.next.push Page.DefenseKat = class DefenseKat extends Page
   ||
     --> Torril rubbed his forehead. Today was going to be a long day.
   """
+  apply: ->
+    super()
+    @context.worker.add 'combat', 2
 
 pay = 4
 
@@ -223,9 +250,10 @@ Job.Shipyard::next = Page.Shipyard = class Shipyard extends Page
   text: ->"""|| bg="day"
     -- Vailia's shipyards ran constantly, taking raw iron and lumber, combining them with back-breaking labor, and turning out the finest ships in the world. Much of the process was carried out behind walls, hidden from public view - and hidden from temporary labor like #{@worker}#{if @count > 1 then (" and " + his + " sailors. They") else (". " + He)} spent the day debarking trees, sawing planks and sorting nails. Repetitive, brutal work, but one of the few jobs available on a day-by-day basis.
 
-    <em>+#{@count * pay}β, <span class="sailing">+1 Sailing</span> for #{@worker}</em>
+    <em>+#{@count * pay}β, <span class="sailing">+1 Sailing</span> for sailors</em>
   """
   apply: ->
     super()
     g.applyEffects {money: @context.count * pay}
-    @context.worker.add 'sailing', 1
+    for sailor in @context.asArray()
+      sailor.add 'sailing', 1
