@@ -1,27 +1,34 @@
-portionOfSkillPassedOn = 1 / 5
+zeroHappinessChanceToLeave = 0.75
+maxHappinessToLeave = 20
+portionOfSkillPassedOn = 1 / 4
 
 Page.checkCrewLeaving = ->
   unless g.location.majorPort
     return
 
+  leavingCount = 0
+  leavingEvents = []
+
   leavingUnhappy = new Collection
   g.crew = g.crew.filter (sailor)->
     if sailor.happiness + Math.random() * maxHappinessToLeave / zeroHappinessChanceToLeave < maxHappinessToLeave
       leavingUnhappy.push sailor
+      leavingCount++
       return false
     return true
 
   if leavingUnhappy.length
-    g.queue.push(next = if leavingUnhappy.length is 1
-        new Page.OneCrewLeaving
-      else
-        new Page.ManyCrewLeaving
+    leaving.push(next = if leavingUnhappy.length is 1
+      new Page.OneCrewLeaving
+    else
+      new Page.ManyCrewLeaving
     )
     next.context = leavingUnhappy
 
   g.crew = g.crew.filter (sailor)->
-    if g.crew.contract is 0
-      g.queue.push(next = new Page.HappyCrewLeaving)
+    if sailor.contract is 0
+      leavingCount++
+      leavingEvents.push(next = new Page.HappyCrewLeaving)
       next.context = new Collection({
         sailor: sailor
         officer: Math.choice(g.officers)
@@ -29,9 +36,20 @@ Page.checkCrewLeaving = ->
       return false
     return true
 
+  if leavingCount
+    g.queue.push next = new Page.CrewLeaving
+    next.context =  new Collection {leaving: leavingCount}
+    g.queue.push.apply(g,queue, leavingEvents)
+  return
+
+Page.CrewLeaving = class CrewLeaving extends Page
+  text: ->"""|| bg="portDay|portStorm"
+    -- As the crew dealt with the usual busines of arrival - anchors, ropes, cargo, kissing the dirt - Natalie reviewed her logs. #{@leaving.toWord()} sailor#{if @leaving > 1 then "s were" else "was"} departing, leaving her with a crew of #{g.crew.length.toWord()}, #{if g.crew.length >= 3 then "still enough hands they could set sail" else "not enough hands to man the ship"}. James jostled her as he pressed past, rolling an empty water barrel out of the hold for refilling.
+"""
+
 Page.OneCrewLeaving = class OneCrewLeaving extends Page
   # context[0] will be filled in when this event is triggered
-  text: ->"""|| bg="marketDay|marketStorm"
+  text: ->"""|| bg="portDay|portStorm"
     #{@[0].image 'sad', 'right'}
     --
       #{q}I'm sorry, but I think it's time for me to look for another berth,</q> #{@[0]} maintained a bit of politeness, but not too much.
@@ -46,7 +64,7 @@ Page.ManyCrewLeaving = class ManyCrewLeaving extends Page
   text: ->
     names = @asArray()
     names.shift()
-    """|| bg="marketDay|marketStorm"
+    """|| bg="portDay|portStorm"
       #{@[0].image 'sad', 'right'}
       -- #{q}I'm sorry, Natalie, but we've talked it over and we think it's time to go our separate ways.</q> #{@[0]} spoke quietly, glancing over #{his} shoulder at the other#{if @length > 2 then 's who were' else ' who was'} departing. #{names.wordJoin()} nodded in agreement. They were also leavingUnhappy.
 
@@ -57,7 +75,7 @@ Page.ManyCrewLeaving = class ManyCrewLeaving extends Page
 
 Page.HappyCrewLeaving = class HappyCrewLeaving extends Page
   # context[sailor], context[officer] will be filled in when this event is triggered
-  text: ->"""|| bg="marketDay|marketStorm
+  text: ->"""|| bg="portDay|portStorm"
     #{@sailor.image 'happy', 'right'}
     -- #{@sailor} carried #{his} meager possessions over one shoulder, slung into a single canvas bag. The life of a sailor didn't allow for much in the way of material goods. #{He} did at least have a healthy purse of coin - between room and board paid for by the ship, scant free time with which to spend money and pay commensurate with an occupation that risked life and limb, crewmembers finishing their tours were well set. Those that survived, of that is.
 
@@ -70,8 +88,8 @@ Page.HappyCrewLeaving = class HappyCrewLeaving extends Page
     --> #{q}It's been quiet an adventure. Stay safe.</q> #{He} clapped #{@officer.possessive()} back, then turned and strode purposefully along #{g.location}'s wharf. #{He}'d be missed. They'd learned much about #{@stat} from at #{his} hands.
 
   ||
-    --><em><span class="#{@stat}">+#{@amount} #{stat}</span> for #{@officer}</em>
-""""
+    --><em><span class="#{@stat}">+#{@amount} #{@stat}</span> for #{@officer}</em>
+"""
   apply: ->
     c = @context
     stats =
@@ -80,7 +98,7 @@ Page.HappyCrewLeaving = class HappyCrewLeaving extends Page
       diplomacy: c.sailor.diplomacy
       business: c.sailor.business
     c.stat = Math.weightedChoice(stats)
-    c.amount = Math.ceil(c.sailor[stat] * portionOfSkillPassedOn)
+    c.amount = Math.ceil(c.sailor[c.stat] * portionOfSkillPassedOn)
 
     super()
 

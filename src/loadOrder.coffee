@@ -18,6 +18,7 @@ module.exports = [
   'engine/screens/load.coffee'
   'engine/screens/nextDay.coffee'
   'engine/screens/port.coffee'
+  'engine/screens/crewLeaving.coffee'
   'engine/screens/sailEvent.coffee'
   'engine/screens/sail.coffee'
   'engine/screens/hireCrew.coffee'

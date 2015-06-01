@@ -14,9 +14,6 @@ maxStormSupplies = 10
 natEnergyPerWood = 1
 natEnergyPerSupplies = 2
 
-zeroHappinessChanceToLeave = 0.75
-maxHappinessToLeave = 20
-
 Page.SetSail = class SetSail extends Page
   conditions:
     port: '|location'

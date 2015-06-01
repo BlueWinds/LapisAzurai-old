@@ -148,9 +148,12 @@ window.Collection = class Collection
 
   Object.defineProperty @::, 'push',
     value: (item)->
-      index = 0
-      while @[index] then index++
-      @[index] = item
+      index = @length
+      for item in arguments
+        @[index] = item
+        index++
+      return @
+
   Object.defineProperty @::, 'pop',
     value: ->
       index = 0

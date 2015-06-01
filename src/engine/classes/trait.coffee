@@ -9,9 +9,11 @@ window.Trait = class Trait extends GameObject
       daily:
         type: 'function'
         description: 'A function taking (person), called once per day that passes.'
+        optional: true
       eats:
         type: 'integer'
         description: 'Adds (or subtracts) from how much the person eats. {eats: 3} means the person eats as much as 4 normal people (3 extra servings) while sailing.'
+        optional: true
 
   for stat of Person.stats
     @schema[stat] =

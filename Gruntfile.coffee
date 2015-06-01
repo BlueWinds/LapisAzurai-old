@@ -1,6 +1,8 @@
 nsfwFiles = require('./src/loadOrder').map (f)->('src/' + f)
 
 module.exports = (grunt) ->
+  require('time-grunt')(grunt);
+
   grunt.loadNpmTasks 'grunt-contrib-coffee'
   grunt.loadNpmTasks 'grunt-coffeelint'
   grunt.loadNpmTasks 'grunt-contrib-watch'

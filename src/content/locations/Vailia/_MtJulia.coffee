@@ -239,3 +239,67 @@ Job.MtJuliaCheckShip::next = Page.MtJuliaCheckShip = class MtJuliaCheckShip exte
   || bg="Ship.deckDay"
     -- #{q}Nothing. We're clean.</q> James accepted the towel from #{Math.choice g.crew}, tussling it through his hair and rubbing the water off his back. No scrapes, no barnacles yet, no leaks.  The Guild hadn't skimped in giving Natalie a good vessel. The Lapis Azurai was a solid ship, straight out of the Vailian shipyards, not some rickety junk from Kantis. If there were ships anywhere in the world to match Vailian ones, even rumor hadn't reached James' ears.
   """
+
+
+Place.MountJulia::jobs.jamesWild = Job.JamesJuliaWilds = class JamesJuliaWilds extends Job
+  label: "Explore Forest"
+  type: "plot"
+  text: ->"""James thinks there's something odd about Mt. Julia - the little girl tending the bar alone, the lack of other ships in port, the fact that no one else lives here..."""
+  energy: -3
+  officers:
+    James: '|officers|James'
+  crew: 1
+  conditions:
+    '|weather': {eq: 'calm'}
+    '|events|KatJames': {}
+
+Job.JamesJuliaWilds::next = Page.JamesJuliaWilds = class JamesJuliaWilds extends Page
+  conditions:
+    James: {}
+    Nat: '|officers|Nat'
+    0: {}
+  text: ->"""|| bg="Ship.deckDay"
+    #{@Nat.image 'serious', 'right'}
+    -- #{q}I don't see what you hope to find. The bartender's a little odd, sure, but outside of Vailia <em>everywhere</em> is a little odd. This place is harmless enough. Let's not go poking it with a stick to see what we can wake up.</q>
+
+  ||
+    #{@James.image 'serious', 'left'}
+    --> #{q}I'm not poking it with a stick, I'm just going to go take a look at that building around back. Knock on the door, say hello.</q>
+
+  ||
+    #{@Nat.image 'serious', 'right'}
+    --> #{q}I suppose so. Don't go exploring just because the door 'happens' to be unlocked, though.</q> She sighed and waved acceptance with one hand.
+
+  || bg="day" slow="slow"
+    --| Around behind the inn and at a distance from the large storage building sat a small hut, nestled back a hundred yards from the other buildings and half obscured by the forest. A little curl of smoke rose from the stone chimeny. James and #{@[0]} took a roundabout approach, avoiding the inn and approaching from another direction.
+
+  ||
+    --> After ten minutes of picking their way around trees and over logs and scrambling down and back up gulleys, they'd both noticed something wrong. Though the hut remained close enough to see, it somehow never seemed to draw any closer. James nodded, and #{@[0]} nodded in agreement. It was strange, but they weren't ready to give up just yet.
+
+  || bg="night" slow="slow"
+    --> Slowly, much more slowly than their legs and minds reported, they began to draw nearer. More worrisome than the mere fact that they'd come at least a mile on their way to a distination only a hundred yards distant, were the changes in the forest around them. It was darker now, the trees closer overhead, the bushes more thorny and with fewer friendly leaves.
+
+  ||
+    --> Something was very wrong here. #{q @[0]}We should go back#{if @[0] instanceof Officer then '' else ", sir"}. I don't like this.</q> #{@[0]} hugged #{him}self, looking around nervously.
+
+  ||
+    --> #{q}Nor I. Just a little further, we are making progress.</q> he gestured to the hut - by now only half as far away. They started walking again.
+
+  || bg="storm" slow="slow"
+    --> The forest grew darker, silent now, no sound of the distant ocean, which couldn't possibly actually be distant. Shadows began to flank them, something fast and preditory running through the forest in the distance, watching them. James stopped and drew his sword. When they stopped moving, the shadows also paused, watching.
+
+  ||
+    --> #{q @James}Ok, you're right, this was a bad idea,</q> James finally admitted. #{@[0]} nodded, but didn't say anything. #{q @James}Let's turn back.</q>
+
+  || bg="day" slow="slow"
+    -- Thirty paces and they were at the back of the inn, the sun shininng brightly overhead again and the shadows gone. The little girl who ran the tavern was out back, splitting wood.
+
+  ||
+    --> <q>What'cha doing out back here?</q> She asked, struggling to swing the weight of the sledge over her shoulder. Thunk, it drove the wedge deeper into the log she was splitting. <q>Wanna give me a hand? I wish my parents helped with chores.</q>
+
+  ||
+    --> #{@[0]} shuddered again.
+"""
+  effects:
+    remove:
+      '|map|MountJulia|jobs|jamesWild': Job.JamesJuliaWilds

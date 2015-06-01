@@ -35,14 +35,12 @@ module.exports = (grunt)->
         null
       sampleImage = new Canvas.Image
       sampleImage.onload = ->
-        async.eachSeries Object.keys(person.images), (image, nextImage)->
+        async.forEachOfLimit person.images, 5, (imageInfo, image, nextImage)->
           if image in ['path', 'scale'] then return nextImage()
 
           logNext = (err)->
             grunt.log.ok image
             nextImage err
-
-          imageInfo = person.images[image]
 
           unless person.colors
             path = person.images.path
@@ -50,9 +48,8 @@ module.exports = (grunt)->
             scale = person.images.scale or 1
             return buildSingleSprite scale, path, imageInfo, target, logNext
 
-          async.each [0...imageInfo.length], (layer, nextLayer)->
-            path = person.images.path + imageInfo[layer]
-            unless path then return nextLayer()
+          async.forEachOfSeries imageInfo, (path, layer, nextLayer)->
+            path = person.images.path + path
             target = "#{spritePath}/#{person.name}/#{image}-#{layer}-"
             scale = person.images.scale or 1
             createColorizedSprites person.colors[layer], scale, path, target, nextLayer
@@ -105,8 +102,8 @@ buildSingleSprite = (scale, path, imageInfo, target, done)->
   canvas = null
   ctx = null
 
-  async.each [0...imageInfo.length], (layer, nextLayer)->
-    unless imageInfo[layer] then return nextLayer()
+  async.each imageInfo, (layer, nextLayer)->
+    unless layer then return nextLayer()
     image = new Canvas.Image
     image.onload = ->
       unless canvas
@@ -121,7 +118,7 @@ buildSingleSprite = (scale, path, imageInfo, target, done)->
       ctx.drawImage(image, left, top, image.width * 0.5 * scale, image.height * 0.5 * scale)
       nextLayer()
 
-    image.src = path + imageInfo[layer]
+    image.src = path + layer
   , ->
     out = fs.createWriteStream(target)
     stream = canvas.pngStream()

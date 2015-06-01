@@ -101,9 +101,9 @@ Place.Vailia::jobs.defense = Job.Defense = class Defense extends Job
   conditions:
     '|officers|Nat|money': {gte: 3}
     notAllDone:
-      match: ->
+      matches: ->
         for event in Job.Defense.next
-          if g.events[event.constructor.name].length < 5 then return true
+          if g.events[event.constructor.name]?.length < 5 then return true
         return false
       optional: true
   officers:
@@ -117,7 +117,7 @@ Job.Defense.next.push Page.DefenseNothing = class DefenseNothing extends Page
   conditions:
     worker: {}
     tooManyTimes:
-      match: -> g.events['Defense' + @worker]?.length > 5
+      matches: -> g.events['Defense' + @worker]?.length > 5
       optional: true
   text: ->"""|| bg="marketDay|marketStorm"
     -- <q>I'm afraid there's nothing else I can teach you, #{@worker}.</q> Torril greeted #{him} with a smile. <q>Though I'd be happy to spar for a while, if you'd like.</q>
@@ -235,7 +235,7 @@ pay = 4
 
 Place.Vailia::jobs.shipyard = Job.Shipyard = class Shipyard extends Job
   label: "Shipyard"
-  text: ->"""Work in the shipyard. It's not particularly profitable, but can help keep the sailors out of trouble and make a little money at the same time. <em><span class="sailing">+1 sailing</span> for officer, +#{pay}β per sailor</em>"""
+  text: ->"""Work in the shipyard. It's not particularly profitable, but can help keep the sailors out of trouble and make a little money at the same time. <em><span class="sailing">+1 sailing</span>, +#{pay}β per sailor</em>"""
   energy: -2
   officers:
     worker: {}
