@@ -85,7 +85,7 @@ module.exports = (grunt) ->
       options:
         pushTo: 'origin'
         commitFiles: ['-a']
-
+        createTag: false
   }
   grunt.initConfig config
 

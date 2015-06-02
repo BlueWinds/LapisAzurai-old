@@ -102,8 +102,9 @@ Place.Vailia::jobs.defense = Job.Defense = class Defense extends Job
     '|officers|Nat|money': {gte: 3}
     notAllDone:
       matches: ->
-        for event in Job.Defense.next
-          if g.events[event.constructor.name]?.length < 5 then return true
+        for event in Job.Defense.next when event isnt Page.DefenseNothing
+          count = g.events[event.name]
+          if !count or count.length < 3 then return true
         return false
       optional: true
   officers:
@@ -117,7 +118,7 @@ Job.Defense.next.push Page.DefenseNothing = class DefenseNothing extends Page
   conditions:
     worker: {}
     tooManyTimes:
-      matches: -> g.events['Defense' + @worker]?.length > 5
+      matches: -> g.events['Defense' + g.last.context.worker]?.length > 3
       optional: true
   text: ->"""|| bg="marketDay|marketStorm"
     -- <q>I'm afraid there's nothing else I can teach you, #{@worker}.</q> Torril greeted #{him} with a smile. <q>Though I'd be happy to spar for a while, if you'd like.</q>
