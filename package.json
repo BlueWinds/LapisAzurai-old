@@ -1,12 +1,13 @@
 {
   "name": "Lapis-Azurai",
   "description": "Adult business management / exploration game",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "author": "BlueWinds",
   "devDependencies": {
     "async": "1.x",
     "canvas": "1.2.x",
     "grunt": "0.4.x",
+    "grunt-bump": "^0.3.1",
     "grunt-cli": "0.1.x",
     "grunt-coffeelint": "0.x",
     "grunt-contrib-clean": "0.x",

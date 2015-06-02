@@ -10,6 +10,7 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-contrib-uglify'
   grunt.loadNpmTasks 'grunt-contrib-clean'
   grunt.loadNpmTasks 'grunt-contrib-compress'
+  grunt.loadNpmTasks 'grunt-bump'
 
   config = {
     coffee:
@@ -80,6 +81,11 @@ module.exports = (grunt) ->
         src: ['**/*']
         cwd: 'public'
         expand: true
+    bump:
+      options:
+        pushTo: 'origin'
+        commitFiles: ['-a']
+
   }
   grunt.initConfig config
 
