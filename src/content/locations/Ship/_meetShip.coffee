@@ -156,7 +156,7 @@ Page.PiratesFightLose::next = Page.PiratesFightLose2 = class PiratesFightLose2 e
   conditions:
     James: '|officers|James'
     Natalie: '|officers|Nat'
-  text: ->"""|| slow bg="Ship.cabinNight"
+  text: ->"""|| bg="Ship.cabinNight" speed="slow"
     #{@James.image 'normal', 'right'}
     -- #{q}You're making a bad habit of this, you know,</q> James smiled as Natalie's eyes fluttered open. He had a bandage wrapped around one shoulder, holding the arm in a sling.
 

@@ -37,7 +37,7 @@ ShipJob.Spirit.next.push Page.SpiritFog = class SpiritFog extends Page
   ||
     -- The mist slowed in its stirring. She pushed harder, headache growing, but like a mill grinding to a halt, some greater force resisted and canceled her magic, stilling the small wind she'd managed to summon.
 
-  || slow="true"
+  || speed="slow"
     --> Silence.
 
   ||

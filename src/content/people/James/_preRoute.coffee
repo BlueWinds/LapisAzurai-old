@@ -135,7 +135,7 @@ Page.JamesMagic.next['Start crying'] = Page.JamesMagicCry = class JamesMagicCry 
   ||
     --> She burst into tears. Sobs wracked her body as she stopped struggling and clung. He let go her hand and wrapped his other arm around her, supporting them both as she sagged against his chest. She wailed and shook in his arms, letting out a tiny portion of two decades of uncertainty and fear.
 
-  || verySlow="true"
+  || speed="verySlow"
     -- It didn't take long for Natalie to cry herself out. She was too self-aware to let loose for long, and she quickly quieted and stilled. She'd hurt him, even if her fist hadn't connected.
 
   ||

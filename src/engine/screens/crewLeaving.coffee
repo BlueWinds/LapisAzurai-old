@@ -39,24 +39,25 @@ Page.checkCrewLeaving = ->
   if leavingCount
     g.queue.push next = new Page.CrewLeaving
     next.context =  new Collection {leaving: leavingCount}
-    g.queue.push.apply(g,queue, leavingEvents)
+    g.queue.push.apply(g.queue, leavingEvents)
   return
 
 Page.CrewLeaving = class CrewLeaving extends Page
-  text: ->"""|| bg="portDay|portStorm"
-    -- As the crew dealt with the usual busines of arrival - anchors, ropes, cargo, kissing the dirt - Natalie reviewed her logs. #{@leaving.toWord()} sailor#{if @leaving > 1 then "s were" else "was"} departing, leaving her with a crew of #{g.crew.length.toWord()}, #{if g.crew.length >= 3 then "still enough hands they could set sail" else "not enough hands to man the ship"}. James jostled her as he pressed past, rolling an empty water barrel out of the hold for refilling.
+  text: ->"""|| bg="day|storm" speed="slow"
+    -- As the crew dealt with the usual busines of arrival - anchors, ropes, cargo, kissing the dirt - Natalie dealt with the port authorities. A docking fee, letters to her contacts, and spreading the word that she might be looking to bring on more crew. With #{@leaving.toWord()} sailor#{if @leaving > 1 then "s" else ""} departing, she was left with #{g.crew.length.toWord()} hands, #{if g.crew.length >= 3 then "still enough crew they could set sail" else "not crew to man the ship"}.
+
+  ||
+    --> James jostled past, rolling an empty water barrel out of the hold for refilling, and finally finishing her business with the dock owner, she turned to those waiting. They couldn't depart without her formal permission.
 """
 
 Page.OneCrewLeaving = class OneCrewLeaving extends Page
   # context[0] will be filled in when this event is triggered
   text: ->"""|| bg="portDay|portStorm"
     #{@[0].image 'sad', 'right'}
-    --
-      #{q}I'm sorry, but I think it's time for me to look for another berth,</q> #{@[0]} maintained a bit of politeness, but not too much.
+    --> #{q}I'm sorry, but I think it's time for me to look for another berth,</q> #{@[0]} maintained a bit of politeness, but not too much.
   ||
     #{g.officers.Nat.image 'serious', 'left'}
-    -->
-      #{q}Good luck.</q> She nodded sadly. It was clear that #{@[0]} had been planning to leave for some time, and this was as good a time as any. The Lapis had been having a rough time recently - it was hard to hold it against #{him @[0]}.
+    --> #{q}Good luck.</q> Natalie nodded sadly. It was clear that #{@[0]} had been planning to leave for some time, and this was as good a time as any. The Lapis had been having a rough time recently - it was hard to hold it against #{him @[0]}.
   """
 
 Page.ManyCrewLeaving = class ManyCrewLeaving extends Page
@@ -75,17 +76,17 @@ Page.ManyCrewLeaving = class ManyCrewLeaving extends Page
 
 Page.HappyCrewLeaving = class HappyCrewLeaving extends Page
   # context[sailor], context[officer] will be filled in when this event is triggered
-  text: ->"""|| bg="portDay|portStorm"
+  text: ->"""|| bg="day|storm"
     #{@sailor.image 'happy', 'right'}
     -- #{@sailor} carried #{his} meager possessions over one shoulder, slung into a single canvas bag. The life of a sailor didn't allow for much in the way of material goods. #{He} did at least have a healthy purse of coin - between room and board paid for by the ship, scant free time with which to spend money and pay commensurate with an occupation that risked life and limb, crewmembers finishing their tours were well set. Those that survived, of that is.
 
   ||
     #{@sailor.image 'normal', 'right'}
-    -- #{q}Take care, #{@officer}.</q> #{He} shook hands with the officer, then broke into a grin.
+    -- #{q}Take care, #{@officer}.</q> #{He @sailor} shook hands with the officer, then broke into a grin.
 
   ||
     #{@sailor.image 'happy', 'right'}
-    --> #{q}It's been quiet an adventure. Stay safe.</q> #{He} clapped #{@officer.possessive()} back, then turned and strode purposefully along #{g.location}'s wharf. #{He}'d be missed. They'd learned much about #{@stat} from at #{his} hands.
+    --> #{q}It's been quiet an adventure. Stay safe.</q> #{He} clapped #{@officer.possessive()} back, then turned and strode purposefully along #{g.location}'s wharf. #{He @sailor}'d be missed. They'd learned much about #{@stat} from at #{his} hands.
 
   ||
     --><em><span class="#{@stat}">+#{@amount} #{@stat}</span> for #{@officer}</em>

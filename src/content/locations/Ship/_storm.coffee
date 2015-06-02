@@ -24,7 +24,7 @@ Place.Ship::jobs.storm = ShipJob.Storm = class Storm extends ShipJob
   type: 'plot'
   conditions:
     chance:
-      matches: -> return Math.random() <= 0.1 and g.events.Storm?[0] < g.day - 28
+      matches: -> return Math.random() <= 0.1 and not (g.events.Storm?[0] >= g.day - 28)
       optional: true
     '|events|FirstStorm': {}
     damage: {fill: stormDamage}
@@ -51,7 +51,7 @@ ShipJob.Storm::next = Page.Storm = class Storm extends Page
       "Preparing for the storm will reduce the damage to #{String.rate battenDownMultiplier}."
     ]
 
-    page = $.render """|| slow="true" class="screen sail" bg="Ship.deckStorm"
+    page = $.render """|| speed="slow" class="screen sail" bg="Ship.deckStorm"
       --. Dark clouds on the horizon and growing waves - a storm was rolling in. Natalie felt it in her bones. This was going to be <b>#{intensity @damage}</b>. There were still a few hours before it arrived though, time to make preparations.
         <em>Your crew's <span class="sailing">sailing</span> reduces the damage from a storm</em>
         #{options buttons, titles}

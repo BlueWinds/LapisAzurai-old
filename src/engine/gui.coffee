@@ -15,8 +15,8 @@ gotoPage = Game.gotoPage = (change = 1)->
 
   speed = 500
   if change > 0
-    if targetDiv.attr('slow')? then speed = 1500
-    else if targetDiv.attr('verySlow')? then speed = 4000
+    if targetDiv.attr('speed') is 'slow' then speed = 1500
+    else if targetDiv.attr('speed') is 'verySlow' then speed = 4000
 
   $('#content page').removeClass('active').stop().css({display: 'none'})
   currentElement.css({display: 'block', opacity: 1})

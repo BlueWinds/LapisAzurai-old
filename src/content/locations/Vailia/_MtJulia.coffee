@@ -270,13 +270,13 @@ Job.JamesJuliaWilds::next = Page.JamesJuliaWilds = class JamesJuliaWilds extends
     #{@Nat.image 'serious', 'right'}
     --> #{q}I suppose so. Don't go exploring just because the door 'happens' to be unlocked, though.</q> She sighed and waved acceptance with one hand.
 
-  || bg="day" slow="slow"
+  || bg="day" speed="slow"
     --| Around behind the inn and at a distance from the large storage building sat a small hut, nestled back a hundred yards from the other buildings and half obscured by the forest. A little curl of smoke rose from the stone chimeny. James and #{@[0]} took a roundabout approach, avoiding the inn and approaching from another direction.
 
   ||
     --> After ten minutes of picking their way around trees and over logs and scrambling down and back up gulleys, they'd both noticed something wrong. Though the hut remained close enough to see, it somehow never seemed to draw any closer. James nodded, and #{@[0]} nodded in agreement. It was strange, but they weren't ready to give up just yet.
 
-  || bg="night" slow="slow"
+  || bg="night" speed="slow"
     --> Slowly, much more slowly than their legs and minds reported, they began to draw nearer. More worrisome than the mere fact that they'd come at least a mile on their way to a distination only a hundred yards distant, were the changes in the forest around them. It was darker now, the trees closer overhead, the bushes more thorny and with fewer friendly leaves.
 
   ||
@@ -285,13 +285,13 @@ Job.JamesJuliaWilds::next = Page.JamesJuliaWilds = class JamesJuliaWilds extends
   ||
     --> #{q}Nor I. Just a little further, we are making progress.</q> he gestured to the hut - by now only half as far away. They started walking again.
 
-  || bg="storm" slow="slow"
+  || bg="storm" speed="slow"
     --> The forest grew darker, silent now, no sound of the distant ocean, which couldn't possibly actually be distant. Shadows began to flank them, something fast and preditory running through the forest in the distance, watching them. James stopped and drew his sword. When they stopped moving, the shadows also paused, watching.
 
   ||
     --> #{q @James}Ok, you're right, this was a bad idea,</q> James finally admitted. #{@[0]} nodded, but didn't say anything. #{q @James}Let's turn back.</q>
 
-  || bg="day" slow="slow"
+  || bg="day" speed="slow"
     -- Thirty paces and they were at the back of the inn, the sun shininng brightly overhead again and the shadows gone. The little girl who ran the tavern was out back, splitting wood.
 
   ||

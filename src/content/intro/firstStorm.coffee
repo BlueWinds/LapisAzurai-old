@@ -96,7 +96,7 @@ Page.FirstStorm::next = Page.FirstStorm2 = class FirstStorm2 extends Page
   ||
     -- James shook his head again, trying to clear it. That they hadn't sunk yet was nearly a miracle. Whatever manic state had come over her, Natalie was still alive, and still holding the wheel, turning as best she could to face each new assault from the storm. In a brief lull in the wind, he heard someone below shouting to get buckets and head below decks. He clasped her shoulder again and headed off to help.
 
-  || bg="none" slow="true" auto="4000"
+  || bg="none" speed="slow" auto="4000"
     <h4>...</h4>"""
 
 Job.IntroSickNat = class IntroSickNat extends Job
@@ -117,7 +117,7 @@ Page.FirstStorm2::next = Page.FirstStorm3 = class FirstStorm3 extends Page
     sailor: {
       fill: ->Math.choice g.crew
     }
-  text: ->"""|| slow="true" bg="Ship.deckNight"
+  text: ->"""|| speed="slow" bg="Ship.deckNight"
     -- Silence.
 
   ||

@@ -31,19 +31,19 @@ Page.Intro = class Intro extends Page
     element = $.render("""||
       --| <center><em>Click anywhere on the page or use the down arrow key to advance</em></center>
 
-    || slow="true"
+    || speed="slow"
       --| <center>Natalie dreamt of Fire.</center>
 
-    || slow="true"
+    || speed="slow"
       --> <center>Not the tame fire of a lantern, or even the fierce danger of a forest fire. No, her dream was of Fire, the blaze with which the gods made the stars or with which they burned the skies and scorched the world clean at the dawn of an age.</center>
 
-    || slow="true"
+    || speed="slow"
       --> <center>She also dreamt of Ocean, a vast and barren wasteland separating pinpricks of land. In her dream, she knew the ocean was waiting for her, waiting for her to see something no one else has ever seen before, and that no one would see again before storms wiped the land clean.</center>
 
-    || slow="true"
+    || speed="slow"
       --> <center>And she dreamt of Love. Neither fire nor water, she finally had a body made of flesh, and in her heart grew a secret warmth that even the end of the world could not smother. Her secret love could neither be burned nor drowned, and it would flower into a beautiful life if only it would grow large enough, surrounded by chaos and flood and storm. She curled around it protectively.</center>
 
-    || verySlow="true" bg="Ship.cabinDay"
+    || bg="Ship.cabinDay" speed="verySlow"
       -- Thud.
 
     ||
@@ -111,11 +111,11 @@ Page.Intro2 = class Intro2 extends Page
     ||
       -- #{q @James}Should have left ten minutes ago!</q> He hadn't woken her up, though. Natalie had learned long ago that James would worry himself sick at the slightest excuse, but it wasn't until he was practically vibrating with impatience that she actually needed to hurry.
 
-    || slow bg="Ship.deckDay"
+    || bg="Ship.deckDay" speed="slow"
       #{@Nat.image 'serious', 'left'}
       -- #{q}I don't believe you,</q> she opened the door and stepped out to join him on deck. #{q}You were rather drunk last night. How are your eyes not red?</q>
 
-    || bg="Ship.deckDay"
+    ||
       #{@Nat.image 'excited', 'left'}
       --> Natalie poked James in the forehead, causing him to wince. #{q}I knew it, you just woke up too.</q>
 

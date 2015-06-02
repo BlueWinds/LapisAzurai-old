@@ -236,7 +236,7 @@ Job.KatTrial::next = Page.KatTrial = class KatTrial extends PlayerOptionPage
     #{@Kat.image 'normal', 'far-left'}
     -- #{q}Hey.</q> Someone poked Natalie's back and spoke to her.
 
-  || slow="true"
+  || speed="slow"
     #{@Kat.image 'normal', 'left'}
     --> She turned around to see, much to her surprise, Kat herself, rubbing her wrists, ankles bound by iron, looking entirely too pleased with herself for someone soon to face sentencing.
 
@@ -421,7 +421,7 @@ Job.KatStorm::next = Page.KatStorm = class KatStorm extends Page
     Natalie: {}
     Kat: '|people|Kat'
   text: ->"""|| bg="marketNight"
-  || bg="marketStorm" verySlow="true"
+  || bg="marketStorm" speed="verySlow"
     -- Though the weather had maintained a pleasant tenor all through the day, as the sun set, clouds began to blow in from the horizon. Not a dangerous storm, just a bit of nasty rain to put a damper on Natalie's plans for the evening in town.
 
     As she hurried back towards the ship, coat pulled close around her, a hint of movement on the mostly deserted street caught her attention. A form, legs pulled up to its chest, half-hidden in the alleyway. There were people living on the street to be sure, but this... Natalie went over for a closer look.
@@ -457,9 +457,9 @@ Job.KatStorm::next = Page.KatStorm = class KatStorm extends Page
     #{@Kat.image 'normal', 'right'}
     --> #{q}That would suck,</q> Kat managed a chuckle, declining to rest her weight on Natalie's shoulder and walking on her own. #{q}I've slept in storms before. Killed Don, but I guess I'm made of pretty stern stuff, eh?</q>
 
-  || bg="Ship.deckStorm" slow="true"
+  || bg="Ship.deckStorm" speed="slow"
 
-  || bg="Ship.cabinStorm" slow="true"
+  || bg="Ship.cabinStorm" speed="slow"
     -- Kat coughed, the motion wracking her whole body. No matter how many blankets Natalie piled over her, her body still shivered while her forehead burned. More than anything else, Nat worried about food. While she'd been scrawny last time they'd met, Kat had seemed little more than a shadow as she'd peeled off soaking clothes and gotten her in Natalie's bed. She'd asked for something to eat, but fallen asleep before it could be brought.
 
   ||
@@ -473,9 +473,9 @@ Page.KatStorm::next = Page.KatStorm2 = class KatStorm2 extends PlayerOptionPage
   conditions:
     Natalie: {}
     Kat: {}
-  text: ->"""|| bg="Ship.cabinDay" verySlow="true"
+  text: ->"""|| bg="Ship.cabinDay" speed="verySlow"
 
-  || slow="true"
+  || speed="slow"
     -- #{q @Kat}You're a very nice lady, you know that?</q> Natalie woke to a hand patting her shoulder. She'd fallen asleep while tending to Kat, and now it seemed her charge had awakened first.
 
   ||

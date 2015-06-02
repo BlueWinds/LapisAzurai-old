@@ -286,7 +286,7 @@ Page.GuildNatBang.next['Sure'] = Page.GuildNatBangSure = class GuildNatBangSure 
 Page.GuildNatBangSure::next = Page.GuildNatBangSure2 = class GuildNatBangSure2 extends Page
   conditions:
     worker: {}
-  text: ->"""|| verySlow="true"
+  text: ->"""|| speed="verySlow"
     --| Natalie moaned and arched her back, finger nails digging into the arms holding her in place. They didn't stop bouncing her up and down, impaled on two cocks and held up between them, each thrust making her breasts bounce as she clung to the man in front of her. She didn't know his name. She didn't know any of their names, so she just addressed him by looking up into his eyes as she spoke.
 
   ||
@@ -295,7 +295,7 @@ Page.GuildNatBangSure::next = Page.GuildNatBangSure2 = class GuildNatBangSure2 e
   ||
     --> He wasn't the first – she was already dripping with semen down there – and he also wasn't the last. Natalie hung from the man in front of her while another took his place in her rear. The fresh cock was shorter, but also thicker. She whimpered as he slid in, the sound only serving to further ignite the passions that surrounded her, and soon she was again being pounded in both holes.
 
-  || verySlow="true"
+  || speed="verySlow"
     -- Natalie didn't think of anything much as she collected the coins scattered around the room. Though she'd used all her cunning to become more than just a whore (the usual fate of Guild children), working as one for a bit of extra cash on the side wasn't bad. One didn't grow up serving drinks and cleaning rooms at a brothel without losing the inhibitions around a subject.
 
   || bg="tavern"
@@ -389,7 +389,7 @@ Page.GuildNatDom.next['Sure'] = Page.GuildNatDomSure = class GuildNatDomSure ext
 Page.GuildNatDomSure::next = Page.GuildNatDomSure2 = class GuildNatDomSure2 extends Page
   conditions:
     worker: {}
-  text: ->"""|| verySlow="true"
+  text: ->"""|| speed="verySlow"
     --| #{q}That's a good girl, Derria. Deep breath.</q> Natalie caressed the plump girl's cheek with one hand, her other still gripping Daria's hair tightly. After a moment to let her catch her breath Natalie pressed forward again. Her friend moaned and writhed as Derria's lips and nose pressed into her crotch. #{q}Stay still!</q> Natalie commanded, and she did so.
 
   ||
@@ -401,7 +401,7 @@ Page.GuildNatDomSure::next = Page.GuildNatDomSure2 = class GuildNatDomSure2 exte
   ||
     --> Derria returned to her task enthusiastically, lapping and slurping at her friend's pussy with a variety of rather lewd noises. As much as her friend was enjoying the sensations, Natalie could also tell that she was equally anxious to return the favor and make sure Derria felt good as well. It was rather endearing, and arousing, leaving Natalie horny but unneeded and still dressed. At least she could make sure they both had a good time. She dipped her fingers into Derria's slit, pushing the curly brown head deeper into her friend's crotch.
 
-  || verySlow="true" bg="tavern"
+  || speed="verySlow" bg="tavern"
     -- Natalie wiped her hands on a towel and examined herself in the mirror – still presentable. She hadn't even taken her shirt off. Quietly she opened the door and stepped out, so as not to wake them.
 
   ||
@@ -491,7 +491,7 @@ Page.GuildKatEasy::next = Page.GuildKatEasy2 = class GuildKatEasy2 extends Page
   ||
     --> Finally spent, he relaxed his grip, both teeth and arms. She slid her legs down off his shoulders as he collapsed on top of her and wrapped her arms around his head, holding it nestled against her chest. They crawled further onto the bed, pulled the blanket up, and slept.
 
-  || bg="none" verySlow="verySlow"
+  || bg="none" speed="verySlow"
 
   || bg="tavern"
     -- <q>That's outrageous!</q>

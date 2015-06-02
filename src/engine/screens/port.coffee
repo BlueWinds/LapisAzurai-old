@@ -90,7 +90,7 @@ Page.Port = class Port extends Page
       </div>
     </form>""".replace(/\n/g, '')
 
-    page = $.render """|| verySlow="true" class="screen" bg="day|storm"
+    page = $.render """|| speed="verySlow" class="screen" bg="day|storm"
       #{form}
       --.
         #{@port.description?() or @port.description}
