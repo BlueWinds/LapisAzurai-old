@@ -14,6 +14,8 @@ window.Game = class Game extends GameObject
         match: /calm|storm/
       version:
         type: 'integer'
+      money:
+        type: 'integer'
     strict: true
   @passDay: [
     ->
@@ -26,8 +28,8 @@ window.Game = class Game extends GameObject
         @queue.push new (g.location.constructor.port or Page.Port)
       g.queue.unshift new Page.NextDay
   ]
-  @update: [] #Update items are in the format {pre: ()->, post: ()->}, both properties optional.
-  version: 0
+  @update: [] # Update items are in the format {pre: ()->, post: ()->}, both properties optional.
+  version: 0 # Changed to the real value in update.coffee
 
   constructor: (gameData)->
     if gameData and gameData.version isnt Game.update.length

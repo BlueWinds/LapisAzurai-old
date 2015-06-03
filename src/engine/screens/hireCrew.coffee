@@ -1,5 +1,6 @@
 daysWageToHire = 14
 minContractMonths = 2
+maxCrew = 9
 
 hireCost = (people, context)->
   n = g.officers.Nat
@@ -138,7 +139,8 @@ Job.HireCrew = class HireCrew extends Job
     else
       Math.choice [2, 3, 3, 4, 4, 5, 6, 7]
 
-    while @hires.length < count
+    while @hires.length < count and @hires.length + g.crew.length < maxCrew
+      console.log @hires.length, maxCrew
       @hires.push Person.random @constructor.hireClasses
 
 Job.HireCrew::next = Page.HireCrew = class HireCrew extends Page

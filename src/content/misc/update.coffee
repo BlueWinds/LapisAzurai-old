@@ -1,3 +1,5 @@
+Game::version = 2
+
 Game.update.push {post: ->
   updateColors = (person)->
     unless person.color then return
@@ -13,7 +15,7 @@ Game.update.push {post: ->
 Game.update.push {post: ->
   if @officers.Nat.color.length < 5 then @officers.Nat.color.push 'none'
 
-  @money = @officers.Nat.money
+  @money ?= @officers.Nat.money
 
   for name, person of @crew
     person.contract = 30 + Math.floor(Math.random() * 120)
