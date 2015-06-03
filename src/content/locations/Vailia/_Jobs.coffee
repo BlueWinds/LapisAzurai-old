@@ -3,7 +3,7 @@ Place.Vailia::jobs.library = Job.Library = class Library extends Job
   text: ->"Research sea routes or other useful information at the University. <em>-5β</em>"
   energy: -1
   conditions:
-    '|officers|Nat|money': {gte: 5}
+    '|money': {gte: 5}
   officers:
     worker: {}
   effects:
@@ -99,7 +99,7 @@ Place.Vailia::jobs.defense = Job.Defense = class Defense extends Job
   text: ->"Take a lesson from a retired mercenary in the fine art of not-getting-killed. <em>-3β</em>"
   energy: -2
   conditions:
-    '|officers|Nat|money': {gte: 3}
+    '|money': {gte: 3}
     notAllDone:
       matches: ->
         for event in Job.Defense.next when event isnt Page.DefenseNothing

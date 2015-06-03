@@ -8,7 +8,7 @@ Place.Alkenia::jobs.meetKat = Job.MeetKat = class MeetKat extends Job
   conditions:
     '|weather': {eq: 'calm'}
     '|events|AlkeniaMarket|length': {gte: 1}
-    '|officers|Nat|money': {gte: 35}
+    '|money': {gte: 35}
     '|events|MeetKat': # If is has happened before, must be at least a week ago.
       matches: (days)-> if days then days[0] + 7 < g.day else true
       optional: true

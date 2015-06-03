@@ -289,9 +289,9 @@ Mission.VailiaFirstMoney = class VailiaFirstMoney extends Mission
   tasks: [
       description: "One bad disaster could be enough to bankrupt Natalie, an uncomfortable position to be in."
     ,
-      description: "Increase your savings to 1000β."
+      description: "Increase your savings to 2000β."
       conditions:
-        '|officers|Nat|money': {gte: 1000}
+        '|money': {gte: 2000}
   ]
   removeWhenDone: true
 
@@ -315,7 +315,7 @@ Job.IntroNatAwake::next = Page.IntroNatAwake = class IntroNatAwake extends Page
     #{@Natalie.image 'normal', 'left'}
     -- #{q}How long was I asleep?</q> Natalie rubbed her eyes, looking out on the busy port. Standing in her nightshirt and underwear, she attracted no attention. Women wearing less were an everyday sight in this city.
 
-  ||
+  ||`
     #{g.crew[0].image 'normal', 'right'}
     --> #{q}Two days. You passed out at the wheel, but we made it through the storm, somehow, and limped home on one sail. The quartermaster is out in the city right now. Anything you need, captain?</q>
 
