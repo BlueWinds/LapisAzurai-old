@@ -2,7 +2,7 @@ stormDamageMin = 5
 stormDamageMax = 30
 
 sailPerDamageSaved = 40
-battenDownMultiplier = 2 / 3
+battenDownMultiplier = 1 / 2
 
 stormDamage = ->
   damage = Math.random() * (stormDamageMax - stormDamageMin) + stormDamageMin
@@ -100,10 +100,13 @@ Page.StormBatten = class StormBatten extends Page
 
   ||
     --> #{damageDescription (@damage * battenDownMultiplier)}
+
+  ||
+    --> <em><span>-4 energy</span> for officers, <span class="sailing">+2 sailing</span> for everyone aboard</em>
   """
   apply: ->
     super()
-    g.map.Ship.applyDamage Math.round(@context.damage * battenDownMultiplier)
+    doStormEffects(@context.damage)
 
 Page.StormRun = class StormRun extends Page
   conditions:
@@ -114,7 +117,19 @@ Page.StormRun = class StormRun extends Page
 
   ||
     --> #{damageDescription @damage}
+
+  ||
+    --> <em><span>-4 energy</span> for officers, <span class="sailing">+2 sailing</span> for everyone aboard</em>
   """
   apply: ->
     super()
-    g.map.Ship.applyDamage Math.round @context.damage
+    doStormEffects()
+
+function doStormEffects(damage) {
+  g.map.Ship.applyDamage Math.round damage
+  for name, officer of g.officers
+    officer.add 'sailing', 2
+    officer.add 'energy', -4
+  for name, sailor of g.crew
+    sailor.add 'sailing', 2
+}

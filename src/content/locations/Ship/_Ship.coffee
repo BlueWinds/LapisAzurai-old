@@ -35,7 +35,7 @@ Place.Ship = Game::map.Ship = class Ship extends Place
   damageDescription: -> "The Lapis is <b title='#{@damage} / #{maxDamage} damage'>#{@shortDamage()}</b>, " + switch
     when @damage > heavyDamage then "and will sail at #{String.rate g.map.Ship.sailSpeed()} the normal rate."
     when @damage > lightDamage then "and will sail at #{String.rate g.map.Ship.sailSpeed()} the normal rate."
-    else "but will still sail af full speed."
+    else "but will still sail at full speed."
 
   applyDamage: (damage)->
     damage += @damage
