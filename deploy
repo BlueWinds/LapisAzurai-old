@@ -1,9 +1,11 @@
 #!/bin/bash
 if [ -z $1 ]
 then
-  $1='minor'
+  LEVEL="minor"
+else
+  LEVEL=$1
 fi
-grunt bump:$1 full-compile compress || exit
+grunt bump:$LEVEL full-compile compress || exit
 scp LapisAzurai.zip 192.254.186.53:LapisAzurai.zip
 echo "Unpacking..."
 ssh 192.254.186.53 "cd LapisAzurai && rm -rf * && mv ../LapisAzurai.zip . && unzip -q LapisAzurai.zip"
