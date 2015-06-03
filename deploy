@@ -6,7 +6,7 @@ else
   LEVEL=$1
 fi
 grunt bump:$LEVEL full-compile compress || exit
-scp LapisAzurai.zip 192.254.186.53:LapisAzurai.zip
+scp LapisAzurai.zip 192.254.186.53:LapisAzurai.zip || exit
 echo "Unpacking..."
-ssh 192.254.186.53 "cd LapisAzurai && rm -rf * && mv ../LapisAzurai.zip . && unzip -q LapisAzurai.zip"
+ssh 192.254.186.53 "cd LapisAzurai && rm -rf * && mv ../LapisAzurai.zip . && unzip -q LapisAzurai.zip" || exit
 echo "Deployed."
