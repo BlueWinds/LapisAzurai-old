@@ -125,11 +125,10 @@ Page.StormRun = class StormRun extends Page
     super()
     doStormEffects()
 
-function doStormEffects(damage) {
+doStormEffects = (damage)->
   g.map.Ship.applyDamage Math.round damage
   for name, officer of g.officers
     officer.add 'sailing', 2
     officer.add 'energy', -4
   for name, sailor of g.crew
     sailor.add 'sailing', 2
-}

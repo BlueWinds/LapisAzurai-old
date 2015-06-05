@@ -1,8 +1,6 @@
 eventFrequency = 5
-howOftenLuxuryUsed = 0.125
 foodPerPersonDaily = 0.25
 noFoodUnhappiness = 2 # Per missing unit of food
-noLuxuryUnhappiness = 1
 
 minStormWood = 5
 maxStormWood = 20
@@ -86,20 +84,9 @@ sailCost = ->
 
   food = {}
   totalFood = 0
-  luxury = {}
-  for item, amount of g.cargo
-    if Item[item] instanceof Food
-      food[item] = amount
-      totalFood += amount
-    else if Item[item] instanceof Luxury
-      luxury[item] = amount
-
-  if Math.randomRound(howOftenLuxuryUsed)
-    if $.isEmptyObject(luxury)
-      used.noLuxury = 1
-    else
-      lux = Math.weightedChoice(luxury)
-      used[lux] = -1
+  for item, amount of g.cargo when (Item[item] instanceof Food)
+    food[item] = amount
+    totalFood += amount
 
   # If people go hungry, they get unhappy.
   if people > totalFood
@@ -112,7 +99,7 @@ sailCost = ->
     used[f] or = 0
     used[f] -= 1
 
-  used.happiness = (used.noLuxury or 0) * noLuxuryUnhappiness + (used.noFood or 0) * noFoodUnhappiness
+  used.happiness = (used.noFood or 0) * noFoodUnhappiness
   unless used.happiness then delete used.happiness
 
   return used
@@ -125,8 +112,6 @@ Page.SailDay = class SailDay extends Page
     other = []
     if @cost.noFood
       other.push "Because there wasn't enough food people went hungry (<span class='happiness'>-#{@cost.noFood} happiness</span>)."
-    if @cost.noLuxury
-      other.push "Without any luxuries to keep them happy the sailors were restless (<span class='happiness'>-1 happiness</span>)."
 
     ship = g.map.Ship
 

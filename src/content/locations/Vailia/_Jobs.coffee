@@ -104,7 +104,7 @@ Place.Vailia::jobs.defense = Job.Defense = class Defense extends Job
       matches: ->
         for event in Job.Defense.next when event isnt Page.DefenseNothing
           count = g.events[event.name]
-          if !count or count.length < 3 then return true
+          unless count?.length > 3 then return true
         return false
       optional: true
   officers:

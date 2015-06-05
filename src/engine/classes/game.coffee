@@ -43,26 +43,9 @@ window.Game = class Game extends GameObject
         item[key] = @getItem value
     unless gameData
       return
-    # Now we recursively copy the data into our new clean game.
-    recursiveCopy = (obj, data)=>
-      for key, value of data when key isnt '_'
-        if typeof value is 'object'
-          if value._ and not obj[key]
-            _class = value._.split '|'
-            try
-              obj[key] =  new window[_class[0]][_class[1]] {}, [], ''
-            catch e
-              console.error "Unable to find window.#{_class[0]}.#{_class[1]}"
-          if obj[key] instanceof GameObject or obj[key] instanceof Collection
-            recursiveCopy obj[key], value
-          else
-            obj[key] = value
-        else if typeof value is 'string' and value[0] is '|'
-          obj[key] = @getItem value
-        else
-          obj[key] = value
 
-    recursiveCopy @, gameData
+    # Now we recursively copy the data into our new clean game.
+    recursiveCopy.call @, @, gameData
 
     unless @version is Game.update.length
       for i in [@version ... Game.update.length]
@@ -125,28 +108,7 @@ window.Game = class Game extends GameObject
     get: -> "#{dayList[@dayOfMonth]} of #{@month} #{@season}, #{@year}"
 
   applyEffects: (effects, context)->
-    if effects.add
-      for key, value of effects.add
-        parts = key.split '|'
-        property = parts.pop()
-        result = if typeof value is 'function' then new value else value
-
-        if result.addAs then result.addAs property
-        else @getItem(parts.join '|')[property] = result
-
-    if effects.remove
-      for key, value of effects.remove
-        parts = key.split '|'
-        property = parts.pop()
-
-        result = @getItem(parts.join '|')[property]
-        if result?.removeAs
-          result.removeAs property
-        else
-          delete @getItem(parts.join '|')[property]
-          # If it's inherited, we set it to "false" to mark it as actually gone.
-          if @getItem(parts.join '|')[property]
-            @getItem(parts.join '|')[property] = false
+    applyAddRemove.call(@, effects)
 
     if effects.cargo
       adding = {}
@@ -175,3 +137,43 @@ window.Game = class Game extends GameObject
 dayList = ['1st', '2nd', '3rd', '4th', '5th', '6th', '7th', '8th', '9th', '10th', '11th', '12th', '13th', '14th', '15th', '16th', '17th', '18th', '19th', '20th', '21st', '22nd', '23rd', '24th', '25th', '26th', '27th', '23rd', '24th', '25th', '26th', '27th', '28th', '29th', '30th']
 monthList = ['Ascending', 'Resplendant', 'Descending']
 seasonList = ['Wood', 'Fire', 'Earth', 'Water']
+
+recursiveCopy = (obj, data)->
+  for key, value of data when key isnt '_'
+    if typeof value is 'object'
+      if value._ and not obj[key]
+        _class = value._.split '|'
+        try
+          obj[key] =  new window[_class[0]][_class[1]] {}, [], ''
+        catch e
+          console.error "Unable to find window.#{_class[0]}.#{_class[1]}"
+      if obj[key] instanceof GameObject or obj[key] instanceof Collection
+        recursiveCopy.call @, obj[key], value
+      else
+        obj[key] = value
+    else if typeof value is 'string' and value[0] is '|'
+      obj[key] = @getItem value
+    else
+      obj[key] = value
+
+applyAddRemove = (effects)->
+  for key, value of effects.add or {}
+    parts = key.split '|'
+    property = parts.pop()
+    result = if typeof value is 'function' then new value else value
+
+    if result.addAs then result.addAs property
+    else @getItem(parts.join '|')[property] = result
+
+  for key, value of effects.remove or {}
+    parts = key.split '|'
+    property = parts.pop()
+
+    result = @getItem(parts.join '|')[property]
+    if result?.removeAs
+      result.removeAs property
+    else
+      delete @getItem(parts.join '|')[property]
+      # If it's inherited, we set it to "false" to mark it as actually gone.
+      if @getItem(parts.join '|')[property]
+        @getItem(parts.join '|')[property] = false

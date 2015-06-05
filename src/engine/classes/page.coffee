@@ -139,34 +139,13 @@ window.Page = class Page extends GameObject
   couldMatch: ->
     for key, val of @conditions
       if key[0] is '|'
-        target = g.getItem(key)
-        if not val and target then return false
-        unless target or val.optional then return false
-        unless Collection.partMatches(target, val) then return false
-        continue
+        if checkGetItem(key, val) then continue else return false
 
       if val.optional or val.fill or val.matches then continue
-      target = false
-      if val.path
-        target = get.getItem val.path
-      if val.is
-        if target and not (target instanceof val.is) then return false
-        target or= g.officers.find((o)-> o instanceof val.is)
-        target or= g.officers.find((c)-> c instanceof val.is)
-        unless target then return false
-      if val.isnt
-        if target and target instanceof val.isnt then return false
 
-      if target >= val.lt or target > val.lte
-        return false
-      if target <= val.gt or target < val.gte
-        return false
-      if val.eq?
-        if val.eq instanceof Array
-          unless val.eq.some((c)-> target is c)
-            return false
-        else if target isnt val.eq
-          return false
+      target = getTarget(val)
+      unless target then return false
+      unless Collection.NumericComparison(target, val) then return false
 
     return true
 
@@ -278,3 +257,23 @@ window.PlayerOptionPage = class PlayerOptionPage extends Page
 
     return element
   next: false
+
+
+checkGetItem = (key, val)->
+  target = g.getItem(key)
+  if not val and target then return false
+  unless target or val.optional then return false
+  unless Collection.partMatches(target, val) then return false
+  return true
+
+getTarget = (val)->
+  if val.path
+    target = get.getItem val.path
+  if val.is
+    target or= g.officers.find((o)-> o instanceof val.is)
+    target or= g.crew.find((c)-> c instanceof val.is)
+
+  if val.is and not Collection.oneOf(target, val.is) then return false
+  if val.isnt and Collection.oneOf(target, val.isnt) then return false
+
+  return target

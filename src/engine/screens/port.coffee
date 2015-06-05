@@ -1,4 +1,5 @@
-updateJob = (job, jobDiv)->
+updateJob = (jjobDiv)->
+  job = g.location.jobs[prevJobDiv.attr('data-key')]
   workers = {}
 
   index = jobDiv.parent().children().index jobDiv
@@ -27,6 +28,16 @@ Job.jobSort = (j1, j2)->
   t2 = $(j2).data('job').type
   return ordering[t1] - ordering[t2]
 
+noSail = ->
+  if (for key, mission of g.missions then mission.blockSailing).some(Boolean)
+    "You can't sail until you finish one of your missions"
+  else if g.weather is 'storm'
+    "You can't set sail during a storm"
+  else if g.crew.length < 3
+    "You can't set sail with fewer than three sailors"
+  else
+    ""
+
 Page.Port = class Port extends Page
   conditions:
     port: '|location'
@@ -43,40 +54,13 @@ Page.Port = class Port extends Page
     super()
 
   text: ->
-    jobs = $('')
-    jobLabels = $('')
-
-    maybeAddJob = (job)->
-      job.contextFill()
-      unless job.contextMatch()
-        return
-      jobs = jobs.add job.renderBlock(key)
-      jobs.last().data 'job', job
-      jobLabels = jobLabels.add """<li class="#{job.type or 'normal'} list-group-item #{if job.isNew() then 'new' else ''}">#{job.label}</li>"""
-      jobLabels.last().data 'job', job
-
-    for key, job of @port.jobs when job instanceof Job or job.prototype instanceof Job
-      if typeof job is 'function'
-        job = @port.jobs[key] = new job
-      maybeAddJob(job)
-
-    for job, key in Job.universal
-      job = new job
-      maybeAddJob(job)
+    [jobs, jobLabels] = getJobDivs(@port.jobs)
 
     jobs = Array::sort.call(jobs, Job.jobSort)
     jobLabels = Array::sort.call(jobLabels, Job.jobSort)
 
     officers = (person.renderBlock(key) for key, person of g.officers)
     crew = (person.renderBlock(key) for key, person of g.crew)
-    noSail = if (for key, mission of g.missions then mission.blockSailing).some Boolean
-      "You can't sail until you finish one of your missions"
-    else if g.weather is 'storm'
-      "You can't set sail during a storm"
-    else if g.crew.length < 3
-      "You can't set sail with fewer than three sailors"
-    else
-      ""
 
     form = """<form class="clearfix">
       <div class="col-md-2">
@@ -94,7 +78,7 @@ Page.Port = class Port extends Page
       #{form}
       --.
         #{@port.description?() or @port.description}
-        #{options ['Work in ' + @port, 'Set Sail'], ["All officers must have an assignment", noSail]}
+        #{options ['Work in ' + @port, 'Set Sail'], ["All officers must have an assignment", noSail()]}
     """
     $('.jobs', page).append(jobs)
     $('.job-tabs', page).append(jobLabels)
@@ -104,15 +88,30 @@ Page.Port = class Port extends Page
 
   next: false
 
+getJobDivs = (jobs)->
+  jobDivs = $('')
+  jobLabels = $('')
+
+  maybeAddJob = (key, job)->
+    job.contextFill()
+    unless job.contextMatch() then return
+
+    jobDivs = jobDivs.add job.renderBlock(key)
+    jobDivs.last().data 'job', job
+    jobLabels = jobLabels.add """<li class="#{job.type or 'normal'} list-group-item #{if job.isNew() then 'new' else ''}">#{job.label}</li>"""
+    jobLabels.last().data 'job', job
+
+  for key, job of jobs when job instanceof Job or job.prototype instanceof Job
+    if typeof job is 'function'
+      job = jobs[key] = new job
+    maybeAddJob(key, job)
+
+  for job, key in Job.universal
+    maybeAddJob(key, new job)
+
+  return [jobDivs, jobLabels]
 
 applyPort = (element)->
-  port = @port
-
-  setTall = ->
-    if $('.job.active', element).height() < $('.job-tabs', element).height()
-      element.addClass('tall-tabs')
-    else
-      element.removeClass('tall-tabs')
 
   $('.job', element).first().addClass 'active'
   $('.job-tabs li', element).first().addClass('active')
@@ -129,61 +128,14 @@ applyPort = (element)->
 
   $('.job', element).click (e)->
     # If we click inside a person-div, then activate / deactivate them, but don't move everyone else.
-    if $(e.target).closest('.person-info').length
-      return
+    if $(e.target).closest('.person-info').length then return
 
     jobDiv = $(@)
     job = jobDiv.data 'job'
-    $('.person-info.officer.active', element).each ->
-      personDiv = $(@)
-
-      # If this person is already working this job, skip them.
-      if personDiv.closest(jobDiv).length
-        return
-
-      person = g.officers[personDiv.attr('data-key')]
-      if job.energy < 0 and person.energy < -job.energy
-        return
-
-      if personDiv.hasClass('injured') and not job.acceptInjured
-        return
-
-      prevJobDiv = personDiv.closest '.job'
-      # Find an unoccupied slot that the person matches, and put them there.
-      for key, conditions of job.officers
-        slotDiv = $('li[data-slot="' + key + '"]', jobDiv)
-        if $('.person-info', slotDiv).length
-          continue
-        unless person.matches(conditions)
-          continue
-
-        slotDiv.prepend(personDiv)
-        personDiv.removeClass('active')
-        break
-      if prevJobDiv.length
-        prevJob = port.jobs[prevJobDiv.attr('data-key')]
-        updateJob(prevJob, prevJobDiv)
-
     $('.person-info.active', element).each ->
       personDiv = $(@)
-
-      # If this person is already working this job, skip them.
-      if (not job.crew?) or personDiv.closest(jobDiv).length
-        return
-
-      if personDiv.hasClass('injured') and not job.acceptInjured
-        return
-
-      key = personDiv.attr('data-key')
-      person = g.officers[key] or g.crew[key]
-      prevJobDiv = personDiv.closest '.job'
-
-      $('.job-crew', jobDiv).append(personDiv)
-      personDiv.removeClass('active')
-
-      if prevJobDiv.length
-        prevJob = port.jobs[prevJobDiv.attr('data-key')]
-        updateJob(prevJob, prevJobDiv)
+      if personDiv.closest(jobDiv).length then return
+      assignPersonToJob(personDiv, job, jobDiv)
 
     $('.job', element).dblclick (e)->
       if $(e.target).closest('.person-info').length
@@ -195,7 +147,7 @@ applyPort = (element)->
     if $('.crew .person-info.officer', element).length is 0
       work.removeClass('dis').tooltip 'disable'
     # Now that all the crew-elements are in the right spot, update the job's context with its new workers, any maybe mark it as ready to go.
-    updateJob(job, jobDiv)
+    updateJob(jobDiv)
 
   # Move all active crew back into holding, then update the jobs they may have been removed from
   $('.crew', element).click (e)->
@@ -207,27 +159,11 @@ applyPort = (element)->
       .removeClass('active')
     $('.job', element).each ->
       jobDiv = $(@)
-      updateJob(jobDiv.data('job'), jobDiv)
+      updateJob(jobDiv)
 
   # The page has been rendered. Once the player clicks "done", start the day.
   work = $('button', element).eq(0).addClass('dis')
-  work.click (e)->
-    if $(@).hasClass 'dis' then return
-    e.preventDefault()
-    $('.jobs > div', element).each ->
-      jobDiv = $(@)
-      # Bypass jobs with no one assigned to them
-      unless jobDiv.find('.person-info').length
-        return
-      job = jobDiv.data('job')
-      # A job is valid if all of its non-optional slots are filled.
-      job.updateFromDiv(jobDiv)
-      if job.contextReady()
-        # The job is good, shift it into the "upcoming pages" array. This reverses the ordering, so "normal" jobs come first, then special ones, then plot.
-        g.queue.unshift(job)
-    # All jobs have now been processed. Trigger the first one.
-    setTimeout(Game.gotoPage, 0)
-    return false
+  work.click doWorkClick
 
   sail = $('button', element).eq(1)
   if sail.attr('title')
@@ -242,3 +178,50 @@ applyPort = (element)->
     return false
 
   return element
+
+setTall = ->
+  if $('.job.active', element).height() < $('.job-tabs', element).height()
+    element.addClass('tall-tabs')
+  else
+    element.removeClass('tall-tabs')
+
+assignPersonToJob = (personDiv, job, jobDiv)->
+  key = personDiv.attr('data-key')
+  person = g.officers[key] or g.crew[key]
+  if job.energy < 0 and person.energy < -job.energy
+    return
+
+  if personDiv.hasClass('injured') and not job.acceptInjured
+    return
+
+  # Find an unoccupied slot that the person matches, and put them there.
+  slot = person instanceof Officer and job.officers.find (conditions, key)->
+    slotDiv = $('li[data-slot="' + key + '"]', jobDiv)
+    return $('.person-info', slotDiv).length is 0 and person.matches(conditions)
+
+  slot or= (job.crew? and $('.job-crew', jobDiv))
+
+  if slot
+    slot.append(personDiv)
+    personDiv.removeClass('active')
+
+    prevJobDiv = personDiv.closest '.job'
+    updateJob(prevJobDiv)
+
+doWorkClick = (jobDiv, e)->
+  if $(@).hasClass 'dis' then return
+  e.preventDefault()
+  $('.jobs > div', element).each ->
+    jobDiv = $(@)
+    # Bypass jobs with no one assigned to them
+    unless jobDiv.find('.person-info').length
+      return
+    job = jobDiv.data('job')
+    # A job is valid if all of its non-optional slots are filled.
+    job.updateFromDiv(jobDiv)
+    if job.contextReady()
+      # The job is good, shift it into the "upcoming pages" array. This reverses the ordering, so "normal" jobs come first, then special ones, then plot.
+      g.queue.unshift(job)
+  # All jobs have now been processed. Trigger the first one.
+  setTimeout(Game.gotoPage, 0)
+  return false

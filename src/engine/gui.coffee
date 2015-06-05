@@ -30,7 +30,6 @@ gotoPage = Game.gotoPage = (change = 1)->
 
 isPage = (funct)-> funct?.prototype instanceof Page
 
-
 # Returns the next div after the currently active one, or generates events / passes time until there is one.
 getNextDiv = ->
   $('#content .tooltip').remove()
@@ -110,8 +109,7 @@ errorPage = (page, error)->
   return element
 
 $ ->
-  unless featureDetect()
-    return
+  unless featureDetect() then return
 
   c = $ '#content'
 
@@ -126,14 +124,6 @@ $ ->
     $('body').css 'height', window.innerHeight
   setTimeout -> $(window).resize()
 
-  considerGoto = (upDown)->
-    a = $('page.active')
-    if upDown > 0 and a.next().length is 0 and a.data('page')?.next is false
-      return
-    if upDown < 0 and a.prev().length is 0
-      return
-    gotoPage(upDown)
-
   c.on 'click', 'page', (e)->
     page = $(e.currentTarget)
 
@@ -143,14 +133,7 @@ $ ->
     else
       considerGoto(1)
 
-  $(window).keydown (e)->
-    # Right, down
-    if e.keyCode in [39, 40]
-      considerGoto(1)
-    # Left, up
-    else if e.keyCode in [37, 38]
-      considerGoto(-1)
-
+  $(window).keydown(keyPress)
 
   c.on 'enter-page', 'page[auto]', ->
     setTimeout =>
@@ -170,15 +153,7 @@ $ ->
     button.html $(@).next().html()
     button.toggleClass('active')
 
-  if window.location.hash.match /validate/
-    for name, _class of window when _class?.schema and name isnt 'Game'
-      for name, item of _class when item.schema
-        item = (new item)
-        item.valid()
-    (new window.Game).valid()
-
-    Game.passDay.push ->
-      g.valid()
+  validateAllObjects()
 
   $('#new-game').click ->
     c.empty()
@@ -216,6 +191,13 @@ $ ->
   for key, mission of g.missions
     mission.addAs key
 
+considerGoto = (upDown)->
+  a = $('page.active')
+  if upDown > 0 and a.next().length is 0 and a.data('page')?.next is false
+    return
+  if upDown < 0 and a.prev().length is 0
+    return
+  gotoPage(upDown)
 
 $.fn?.help = (opts)->
   if typeof opts.target is 'string'
@@ -239,3 +221,23 @@ $.fn?.help = (opts)->
     @one 'enter-page', =>
       unless $('.tooltip.help', @).length then @dequeue 'help'
   return @
+
+validateAllObjects = ->
+  unless window.location.hash.match /validate/ then return
+
+  for name, _class of window when _class?.schema and name isnt 'Game'
+    for name, item of _class when item.schema
+      item = (new item)
+      item.valid()
+  (new window.Game).valid()
+
+  Game.passDay.push ->
+    g.valid()
+
+keyPress = (e)->
+  # Right, down
+  if e.keyCode in [39, 40]
+    considerGoto(1)
+  # Left, up
+  else if e.keyCode in [37, 38]
+    considerGoto(-1)

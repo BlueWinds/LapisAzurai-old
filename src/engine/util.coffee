@@ -1,36 +1,29 @@
 
-String.rate = (string)-> switch string
-  when 1 / 10 then 'a tenth'
-  when 1 / 5 then 'a fifth'
+String.rate = (number)-> switch number
   when 1 / 4 then 'a quarter'
   when 1 / 3 then 'a third'
   when 1 / 2 then 'half'
-  when 2 / 3 then 'two thirds'
-  when 3 / 4 then 'three quarters'
-  when 8 / 10 then '80%'
-  when 9 / 10 then '90%'
   when 1 then 'normal'
   when 2 then 'twice'
   when 3 then 'three times'
   when 4 then 'four times'
-  when 5 then 'five times'
-  when 10 then 'ten times'
   else string.toString()
 
-Object.defineProperty Number.prototype, 'toWord', { value: -> switch Number(@)
-  when 0 then 'zero'
-  when 1 then 'one'
-  when 2 then 'two'
-  when 3 then 'three'
-  when 4 then 'four'
-  when 5 then 'five'
-  when 6 then 'six'
-  when 7 then 'seven'
-  when 8 then 'eight'
-  when 9 then 'nine'
-  when 10 then 'ten'
-  when 11 then 'eleven'
-  else Number(@).toString()
+Object.defineProperty Number.prototype, 'toWord', { value: ->
+  return {
+    0: 'zero'
+    1: 'one'
+    2: 'two'
+    3: 'three'
+    4: 'four'
+    5: 'five'
+    6: 'six'
+    7: 'seven'
+    8: 'eight'
+    9: 'nine'
+    10: 'ten'
+    11: 'eleven'
+  }[@] or Number(@).toString()
 }
 
 Object.defineProperty String.prototype, 'capitalize', { value: ->
@@ -148,33 +141,36 @@ $.render = (element)->
   page = false
   text = false
   for line in element.split("\n")
-    line = line.trim()
-    if line.match /^\|\|/
-      page = $('<page></page>')
-      pages.append page
-      text = false
-
-      addAttrs(page, line)
-      addBackground(page)
-      continue
-
-    if line.match(/^-->/)
-      text = pages.find('text').last().clone()
-      page.append(text)
-      line = line.replace(/-->/, '')
-    else if line.match(/^--/)
-      text = $('<text></text>')
-      page.append(text)
-      if line.match(/^--\./) then text.addClass 'short'
-      if line.match(/^--\|/) then text.addClass 'full'
-      line = line.replace(/--[\.\|]?/, '')
-
-    if line.match(/^</) and not text
-      (text or page).append(line)
-    else if line
-      text.append('<p>' + line + '</p>')
+    handleLine(pages, line)
 
   return pages.children()
+
+handleLine = (pages, line)->
+  line = line.trim()
+  if line.match /^\|\|/
+    page = $('<page></page>')
+    pages.append page
+    text = false
+
+    addAttrs(page, line)
+    addBackground(page)
+    return
+
+  if line.match(/^-->/)
+    text = pages.find('text').last().clone()
+    page.append(text)
+    line = line.replace(/-->/, '')
+  else if line.match(/^--/)
+    text = $('<text></text>')
+    page.append(text)
+    if line.match(/^--\./) then text.addClass 'short'
+    if line.match(/^--\|/) then text.addClass 'full'
+    line = line.replace(/--[\.\|]?/, '')
+
+  if line.match(/^</) and not text
+    (text or page).append(line)
+  else if line
+    text.append('<p>' + line + '</p>')
 
 addAttrs = (element, text)->
   for attr in text.match(/\w+=".+?"/g) or []
@@ -230,15 +226,15 @@ optionList = (options, selected)->
 ###
 $.fn?.dragScroll = ->
   dragging = false
-  $scrollArea = $(this)
+  $scrollArea = $(@)
 
   $scrollArea.on 'mousedown touchstart', (e)->
     e.preventDefault()
     dragging =
       x: e.pageX
       y: e.pageY
-      top: $(this).scrollTop()
-      left: $(this).scrollLeft()
+      top: $(@).scrollTop()
+      left: $(@).scrollLeft()
 
   $("body").on 'mouseup mouseleave touchend touchcancel', -> dragging = false
 

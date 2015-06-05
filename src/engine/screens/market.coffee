@@ -112,139 +112,149 @@ applyMarket = (element)->
   sell = @market.sell
   context = @
 
-  carry = maxLoad(@workers)
-  cargo = Math.sumObject g.cargo
+  data =
+    carry: maxLoad(@workers)
+    cargo: Math.sumObject g.cargo
+    buying: {}
+    selling: {}
 
   business = @worker.get 'business', @
 
-  buying = {}
   $('.buy tr', element).each ->
     item = $(@).attr('item')
-    buying[item] =
+    data.buying[item] =
       bought: 0
       increment: incrementMultiplier buy[item][0], business
       cost: buy[item][1]
 
-  updateRow = (row, newRow)->
-    row.children('.price').replaceWith newRow.children('.price')
-    row.children('.count').replaceWith newRow.children('.count')
-    row.children('.total').replaceWith newRow.children('.total')
+  $('.buy .plus', element).on 'click do', data, buyMore
+  $('.buy .minus', element).on 'click do', data, buyLess
+  $('.sell .plus', element).on 'click do', data, sellMore
+  $('.sell .minus', element).on 'click do', sellLess
+  $('.buy, .sell', element).on 'mousedown touchstart', '.plus, .minus', buySellClick
 
-  $('.buy .plus', element).on 'click do', (e)->
-    if carry is 0 or cargo is Game.cargo then return
-
-    item = $(@).parent().attr('item')
-    buyData = buying[item]
-
-    carry--
-    cargo++
-    buyData.bought++
-    newRow = $(Item[item].buyRow buyData.cost, buyData.increment, buyData.bought)
-    updateRow($(@).closest('tr'), newRow)
-    unless updateSummary()
-      $('.buy tr[item="' + item + '"] .minus', element).click()
-
-  $('.buy .minus', element).on 'click do', (e)->
-    item = $(@).parent().attr('item')
-    buyData = buying[item]
-    unless buyData.bought then return
-
-    carry++
-    cargo--
-    buyData.bought--
-    newRow = $(Item[item].buyRow buyData.cost, buyData.increment, buyData.bought)
-    updateRow($(@).closest('tr'), newRow)
-    updateSummary()
-
-  $('.buy, .sell', element).on 'mousedown touchstart', '.plus, .minus', (e)->
-    item = $(@).parent().attr('item')
-    plus = if $(@).hasClass('plus') then 'plus' else 'minus'
-    buy = if $(@).closest('.buy').length then 'buy' else 'sell'
-    id = setInterval ->
-      if item
-        $('.' + buy + ' tr[item="' + item + '"] .' + plus, element).trigger('do')
-    , 150
-    $('body').one 'mouseup touchend touchcancel', ->
-      item = false
-      clearInterval(id)
-
-  selling = {}
   $('.sell tr', element).each ->
     unless $('.plus', @).html() then return
 
     item = $(@).attr('item')
-    selling[item] =
+    data.selling[item] =
       sold: 0
       available: g.cargo[item] or 0
       increment: incrementMultiplier sell[item][0], business
       cost: sell[item][1]
 
-  $('.sell', element).on 'click do', '.plus', (e)->
-    item = $(@).parent().attr('item')
-
-    sellData = selling[item]
-    if carry is 0 or sellData.sold is sellData.available then return
-
-    carry--
-    cargo--
-    sellData.sold++
-    row = $(@).closest 'tr'
-    row.replaceWith $(Item[item].sellRow sellData.cost, sellData.increment, sellData.sold, sellData.available)
-    updateSummary()
-
-  $('.sell', element).on 'click do', '.minus', (e)->
-    item = $(@).parent().attr('item')
-    sellData = selling[item]
-    if sellData.sold is 0 or cargo is Game.cargo then return
-
-    carry++
-    cargo++
-    sellData.sold--
-    row = $(@).closest 'tr'
-    row.replaceWith $(Item[item].sellRow sellData.cost, sellData.increment, sellData.sold, sellData.available)
-    unless updateSummary()
-      $('.sell tr[item="' + item + '"] .plus', element).click()
-
-  updateSummary = ->
-    spend = Math.sum($('.buy .total', element).map -> parseInt($(@).html(), 10) or 0)
-    earn = Math.sum($('.sell .total', element).map -> parseInt($(@).html(), 10) or 0)
-    total = g.money - spend + earn
-    $('.spend', element).html spend + 'β'
-    $('.earn', element).html earn + 'β'
-    $('.result', element).html(total + 'β').toggleClass('negative', total < 0)
-    $('.carry', element).html(carry).toggleClass('out', carry is 0)
-    $('.progress-label', element).tooltip('destroy').attr('title', "#{cargo} / #{Game.cargo}").addTooltips()
-    $('.progress-bar', element).css 'width', (cargo * 100 / Game.cargo) + '%'
-
-    if total < 0 and total < g.money
-      $('button', element).attr('disabled', true)
-    else
-      $('button', element).removeAttr('disabled')
-    element.addTooltips()
-    return total >= 0 or total >= g.money
-
-  $('button', element).click (e)->
-    e.preventDefault()
-    spend = Math.sum($('.buy .total', element).map -> parseInt($(@).html(), 10) or 0)
-    earn = Math.sum($('.sell .total', element).map -> parseInt($(@).html(), 10) or 0)
-    g.applyEffects {money: (earn - spend)}, context
-    $('.buy tr', element).each ->
-      count = parseInt $('.count', @).html(), 10 or 0
-      unless count then return
-
-      item = $(@).attr 'item'
-      g.cargo[item] or= 0
-      g.cargo[item] += count
-    $('.sell tr', element).each ->
-      count = parseInt $('.count', @).html(), 10 or 0
-      unless $('.plus', @).html() and count then return
-
-      item = $(@).attr 'item'
-      g.cargo[item] -= count
-      unless g.cargo[item]
-        delete g.cargo[item]
-
-    Game.gotoPage()
-    return false
-
+  $('button', element).click marketDone
   return element
+
+buyMore = (e)->
+  if carry is 0 or cargo is Game.cargo then return
+
+  item = $(@).parent().attr('item')
+  buyData = e.data.buying[item]
+
+  e.data.carry--
+  e.data.cargo++
+  buyData.bought++
+  newRow = $(Item[item].buyRow buyData.cost, buyData.increment, buyData.bought)
+  updateRow($(@).closest('tr'), newRow)
+  unless updateSummary()
+    $('.buy tr[item="' + item + '"] .minus', element).click()
+
+buyLess = (e)->
+  item = $(@).parent().attr('item')
+  buyData = e.data.buying[item]
+  unless buyData.bought then return
+
+  e.data.carry++
+  e.data.cargo--
+  buyData.bought--
+  newRow = $(Item[item].buyRow buyData.cost, buyData.increment, buyData.bought)
+  updateRow($(@).closest('tr'), newRow)
+  updateSummary()
+
+sellMore = (e)->
+  item = $(@).parent().attr('item')
+
+  sellData = e.data.selling[item]
+  if data.carry is 0 or sellData.sold is sellData.available then return
+
+  e.data.carry--
+  e.data.cargo--
+  sellData.sold++
+  row = $(@).closest 'tr'
+  row.replaceWith $(Item[item].sellRow sellData.cost, sellData.increment, sellData.sold, sellData.available)
+  updateSummary()
+
+sellLess = (e)->
+  item = $(@).parent().attr('item')
+  sellData = data.selling[item]
+  if sellData.sold is 0 or cargo is Game.cargo then return
+
+  data.carry++
+  data.cargo++
+  sellData.sold--
+  row = $(@).closest 'tr'
+  row.replaceWith $(Item[item].sellRow sellData.cost, sellData.increment, sellData.sold, sellData.available)
+  unless updateSummary()
+    $('.sell tr[item="' + item + '"] .plus', element).click()
+
+buySellClick = (e)->
+  item = $(@).parent().attr('item')
+  plus = if $(@).hasClass('plus') then 'plus' else 'minus'
+  buy = if $(@).closest('.buy').length then 'buy' else 'sell'
+  id = setInterval ->
+    if item
+      $('.' + buy + ' tr[item="' + item + '"] .' + plus, element).trigger('do')
+  , 150
+  $('body').one 'mouseup touchend touchcancel', ->
+    item = false
+    clearInterval(id)
+
+updateRow = (row, newRow)->
+  row.children('.price').replaceWith newRow.children('.price')
+  row.children('.count').replaceWith newRow.children('.count')
+  row.children('.total').replaceWith newRow.children('.total')
+
+updateSummary = ->
+  element = $('.port').last()
+  spend = Math.sum($('.buy .total', element).map -> parseInt($(@).html(), 10) or 0)
+  earn = Math.sum($('.sell .total', element).map -> parseInt($(@).html(), 10) or 0)
+  total = g.money - spend + earn
+  $('.spend', element).html spend + 'β'
+  $('.earn', element).html earn + 'β'
+  $('.result', element).html(total + 'β').toggleClass('negative', total < 0)
+  $('.carry', element).html(data.carry).toggleClass('out', carry is 0)
+  $('.progress-label', element).tooltip('destroy').attr('title', "#{data.cargo} / #{Game.cargo}").addTooltips()
+  $('.progress-bar', element).css 'width', (data.cargo * 100 / Game.cargo) + '%'
+
+  if total < 0 and total < g.money
+    $('button', element).attr('disabled', true)
+  else
+    $('button', element).removeAttr('disabled')
+  element.addTooltips()
+  return total >= 0 or total >= g.money
+
+marketDone = (e)->
+  e.preventDefault()
+  element = $('.port').last()
+  spend = Math.sum($('.buy .total', element).map -> parseInt($(@).html(), 10) or 0)
+  earn = Math.sum($('.sell .total', element).map -> parseInt($(@).html(), 10) or 0)
+  g.applyEffects {money: (earn - spend)}, context
+  $('.buy tr', element).each ->
+    count = parseInt $('.count', @).html(), 10 or 0
+    unless count then return
+
+    item = $(@).attr 'item'
+    g.cargo[item] or= 0
+    g.cargo[item] += count
+  $('.sell tr', element).each ->
+    count = parseInt $('.count', @).html(), 10 or 0
+    unless $('.plus', @).html() and count then return
+
+    item = $(@).attr 'item'
+    g.cargo[item] -= count
+    unless g.cargo[item]
+      delete g.cargo[item]
+
+  Game.gotoPage()
+  return false

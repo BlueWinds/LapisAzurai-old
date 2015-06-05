@@ -19,14 +19,19 @@ module.exports = (grunt) ->
     coffeelint:
       app: ['src/**/*.coffee']
       options:
-        arrowspacing: {level: 'error'}
         colon_asignment_spacing: {level: 'error', left: 0, right: 1}
+        cyclomatic_complexity: {level: 'error'}
+        eol_last: {level: 'error'}
         line_endings: {level: 'error', value: 'unix'}
         max_line_length: {level: 'ignore'}
-        no_standalone_at: {level: 'error'}
-        space_operators: {level: 'error'}
-        no_backticks: {level: 'ignore'}
+        no_empty_functions: {level: 'error'}
+        no_empty_param_list: {level: 'error'}
         no_interpolation_in_single_quotes: {level: 'error'}
+        no_standalone_at: {level: 'error'}
+        no_this: {level: 'error'}
+        prefer_english_operator: {level: 'error'}
+        space_operators: {level: 'error'}
+        spacing_after_comma: {level: 'error'}
     copy:
       libs:
         files: [{

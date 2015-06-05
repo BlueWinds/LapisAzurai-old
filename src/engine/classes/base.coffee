@@ -105,16 +105,13 @@ window.Collection = class Collection
       for key, value of conditions
         target = if key[0] is '|' then g.getItem(key) else @[key]
 
-        if not value
-          if target then return false
-        else if typeof value is 'string'
-          unless target is g.getItem value then return false
-        else
-          unless target or value.optional then return false
-          if target?.matches
-            unless target.matches(value) then return false
-          else
-            unless partMatches(target, value) then return false
+        if not value then return not target
+        if typeof value is 'string' then return target is g.getItem value
+
+        unless target or value.optional then return false
+
+        if target?.matches then return target.matches(value)
+        unless partMatches(target, value) then return false
 
       return @
 
@@ -236,28 +233,11 @@ Collection.partMatches = partMatches = (value, condition)->
   unless value? or condition.optional
     return false
 
-  if value >= condition.lt or value > condition.lte
-    return false
-  if value <= condition.gt or value < condition.gte
-    return false
-  if condition.eq?
-    if condition.eq instanceof Array
-      unless condition.eq.some((c)-> value is c)
-        return false
-    else if value isnt condition.eq
-      return false
-  if condition.is
-    if condition.is instanceof Array
-      unless condition.is.some((c)-> value instanceof c)
-        return false
-    else unless value is condition.is or value instanceof condition.is
-      return false
-  if condition.isnt
-    if condition.isnt instanceof Array
-      if condition.isnt.some((c)-> value instanceof c)
-        return false
-    else if value is condition.isnt or value instanceof condition.isnt
-      return false
+  unless Collection.numericComparison(value, condition) then return false
+
+  if condition.is and not Collection.oneOf(value, condition) then return false
+  if condition.isnt and Collection.oneOf(value, condition) then return false
+
   if condition.matches and not condition.matches(value)
     return false
   return true
@@ -275,3 +255,18 @@ simpleMatch = (parent, child)->
       return false
 
   return true
+
+Collection.numericComparison = (target, val)->
+  if target >= val.lt or target > val.lte then return false
+  if target <= val.gt or target < val.gte then return false
+
+  if val.eq?
+    if val.eq instanceof Array
+      unless val.eq.some((c)-> target is c)
+        return false
+    else if target isnt val.eq
+      return false
+
+Collection.oneOf = (target, items)->
+  if items instanceof Array then return items.some((c)-> value is c or value instanceof c)
+  return target is items or target instanceof items
