@@ -3,11 +3,11 @@ String.rate = (number)-> switch number
   when 1 / 4 then 'a quarter'
   when 1 / 3 then 'a third'
   when 1 / 2 then 'half'
+  when 2 / 3 then 'two thirds'
   when 1 then 'normal'
   when 2 then 'twice'
   when 3 then 'three times'
-  when 4 then 'four times'
-  else string.toString()
+  else number.toString()
 
 Object.defineProperty Number.prototype, 'toWord', { value: ->
   return {
@@ -132,30 +132,27 @@ Formatting guide:
 ###
 
 $.render = (element)->
-  unless element
-    return $('')
-  if typeof element isnt 'string'
-    return element
+  if not element or typeof element isnt 'string'
+    return element or $('')
 
   pages = $('<div></div>')
   page = false
   text = false
   for line in element.split("\n")
-    handleLine(pages, line)
+    line = line.trim()
+    if line.match /^\|\|/
+      page = $('<page></page>')
+      pages.append page
+      text = false
+
+      addAttrs(page, line)
+      addBackground(page)
+    else
+      text = nonPageLine(line, text, page, pages)
 
   return pages.children()
 
-handleLine = (pages, line)->
-  line = line.trim()
-  if line.match /^\|\|/
-    page = $('<page></page>')
-    pages.append page
-    text = false
-
-    addAttrs(page, line)
-    addBackground(page)
-    return
-
+nonPageLine = (line, text, page, pages)->
   if line.match(/^-->/)
     text = pages.find('text').last().clone()
     page.append(text)
@@ -164,13 +161,15 @@ handleLine = (pages, line)->
     text = $('<text></text>')
     page.append(text)
     if line.match(/^--\./) then text.addClass 'short'
-    if line.match(/^--\|/) then text.addClass 'full'
+    else if line.match(/^--\|/) then text.addClass 'full'
     line = line.replace(/--[\.\|]?/, '')
 
   if line.match(/^</) and not text
     (text or page).append(line)
   else if line
     text.append('<p>' + line + '</p>')
+
+  return text
 
 addAttrs = (element, text)->
   for attr in text.match(/\w+=".+?"/g) or []

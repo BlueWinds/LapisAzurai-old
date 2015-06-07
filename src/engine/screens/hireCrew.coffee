@@ -75,12 +75,17 @@ window.RandomPerson = class RandomPerson extends Person
   ]
   # Points to be assigned among various stats and positive traits
   @basePoints: 10
-  @extraPoints: 10
+  @extraPoints: 15
 
   description: ->
     @descriptionKey or= Math.floor(Math.random() * @constructor.descriptions.length)
     return @constructor.descriptions[@descriptionKey].call @
 
+validTrait = (person, trait)->
+  if person.traits[trait] then return false
+  for opposed in oppositedTraits[trait] when person.traits[opposed]
+    return false
+  return true
 
 # Generates a random person.
 Person.random = (baseClasses)->
@@ -92,12 +97,24 @@ Person.random = (baseClasses)->
 
   person = new base
     name: name
+    contract: minContractMonths * 2
+    traits: new Collection
+
   person.color = for layer in base.colors
     Math.keyChoice(layer)
 
-  person.contract = minContractMonths * 2
-
   points = base.basePoints + base.extraPoints * Math.random() * Math.random()
+
+  possibleTraits = for name, trait of Trait when trait.randomPoints? then trait
+  opposed = []
+
+  for i in [0 ... Math.choice [0, 0, 1, 1, 1, 2, 2, 2, 2, 3]]
+    while (trait = Math.choice possibleTraits).name in opposed then {}
+    points -= trait.randomPoints
+    opposed = opposed.concat (trait.opposed or [])
+    opposed.push trait.name
+    person.traits[trait.name] = new trait
+
   while points > 1
     stat = Math.choice ['business', 'diplomacy', 'sailing', 'combat', 'contract']
     amount = Math.ceil(points * 0.5)
@@ -140,7 +157,6 @@ Job.HireCrew = class HireCrew extends Job
       Math.choice [2, 3, 3, 4, 4, 5, 6, 7]
 
     while @hires.length < count and @hires.length + g.crew.length < maxCrew
-      console.log @hires.length, maxCrew
       @hires.push Person.random @constructor.hireClasses
 
 Job.HireCrew::next = Page.HireCrew = class HireCrew extends Page
@@ -190,7 +206,6 @@ Job.HireCrew::next = Page.HireCrew = class HireCrew extends Page
 
   next: false
 
-
 applyHire = (element)->
   element = $.render(element)
   context = @
@@ -226,8 +241,7 @@ applyHire = (element)->
 
     # Old crew to be fired
     $('.hires .hired', element).each ->
-      delete g.crew[$(@).attr('data-key')]
-    g.crew.reArray()
+      g.crew.remove $(@).attr('data-key')
 
     newCrew = new Collection
     if context.Assistant
@@ -238,8 +252,7 @@ applyHire = (element)->
       key = $(@).attr 'data-key'
       person = context.hires[key]
       newCrew.push person
-      delete context.hires[key]
-    context.hires.reArray()
+      context.hires.remove key
 
     if newCrew.length is 1
       g.queue.unshift(new Page.HireCrewOne)

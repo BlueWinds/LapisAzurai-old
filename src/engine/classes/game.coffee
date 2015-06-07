@@ -33,7 +33,7 @@ window.Game = class Game extends GameObject
 
   constructor: (gameData)->
     if gameData and gameData.version isnt Game.update.length
-      for i in [gameData ... Game.update.length]
+      for i in [gameData.version ... Game.update.length]
         Game.update[i].pre?.call(gameData)
 
     objects = []

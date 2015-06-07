@@ -25,16 +25,13 @@ Page.checkCrewLeaving = ->
     )
     next.context = leavingUnhappy
 
-  g.crew = g.crew.filter (sailor)->
-    if sailor.contract is 0
-      leavingCount++
-      leavingEvents.push(next = new Page.HappyCrewLeaving)
-      next.context = new Collection({
-        sailor: sailor
-        officer: Math.choice(g.officers)
-      })
-      return false
-    return true
+  for key, sailor of g.crew.filter when sailor.contract is 0
+    leavingCount++
+    leavingEvents.push(next = new Page.HappyCrewLeaving)
+    next.context = new Collection({
+      sailor: sailor
+      officer: Math.choice(g.officers)
+    })
 
   if leavingCount
     g.queue.push next = new Page.CrewLeaving
@@ -103,4 +100,5 @@ Page.HappyCrewLeaving = class HappyCrewLeaving extends Page
 
     super()
 
-    @context.officer.add c.stat, c.amount
+    g.crew.remove c.sailor
+    c.officer.add c.stat, c.amount

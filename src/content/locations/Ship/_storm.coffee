@@ -4,12 +4,7 @@ stormDamageMax = 30
 sailPerDamageSaved = 40
 battenDownMultiplier = 1 / 2
 
-stormDamage = ->
-  damage = Math.random() * (stormDamageMax - stormDamageMin) + stormDamageMin
-  damage -= Page.sumStat('sailing', g.crew) / sailPerDamageSaved
-  damage -= Page.sumStat('sailing', g.officers) / sailPerDamageSaved
-  damage = Math.round(damage)
-  return damage
+stormDamage = -> Math.random() * (stormDamageMax - stormDamageMin) + stormDamageMin
 
 intensity = (damage)->
   switch
@@ -23,9 +18,7 @@ Place.Ship::jobs.storm = ShipJob.Storm = class Storm extends ShipJob
   label: "Storm"
   type: 'plot'
   conditions:
-    chance:
-      matches: -> return Math.random() <= 0.1 and not (g.events.Storm?[0] >= g.day - 28)
-      optional: true
+    '|': matches: -> return Math.random() <= 0.1 and not (g.events.Storm?[0] + 28 >= g.day)
     '|events|FirstStorm': {}
     damage: {fill: stormDamage}
     sailing: '|last'
@@ -106,7 +99,7 @@ Page.StormBatten = class StormBatten extends Page
   """
   apply: ->
     super()
-    doStormEffects(@context.damage)
+    doStormEffects(@context.damage * battenDownMultiplier)
 
 Page.StormRun = class StormRun extends Page
   conditions:
@@ -126,6 +119,10 @@ Page.StormRun = class StormRun extends Page
     doStormEffects()
 
 doStormEffects = (damage)->
+  damage -= Page.sumStat('sailing', g.crew) / sailPerDamageSaved
+  damage -= Page.sumStat('sailing', g.officers) / sailPerDamageSaved
+  damage = Math.round(damage)
+
   g.map.Ship.applyDamage Math.round damage
   for name, officer of g.officers
     officer.add 'sailing', 2

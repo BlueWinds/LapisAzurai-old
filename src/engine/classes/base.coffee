@@ -180,12 +180,11 @@ window.Collection = class Collection
 
   Object.defineProperty @::, 'remove',
     value: (index)->
+      if typeof index is 'string' then index = parseInt(index, 10)
+
       unless typeof index is 'number'
-        console.log index
         index = @indexOf(index)
-        console.log index
         if index < 0 then throw new Error 'Index not found'
-        return @remove(index)
 
       while @[index + 1]
         @[index] = @[index + 1]
@@ -208,7 +207,7 @@ window.Collection = class Collection
       return index
 
   Object.defineProperty @::, 'objectLength',
-    get: ->Object.keys(@).length
+    get: -> Object.keys(@).length
 
   Object.defineProperty @::, 'filter',
     value: (compare)->
@@ -223,11 +222,14 @@ window.Collection = class Collection
         if value is item then return Number(key)
       return -1
 
-  Object.defineProperty @::, 'find',
+  Object.defineProperty @::, 'findIndex',
     value: (compare)->
       for key, value of @
-        if compare(value) then return value
+        if compare(value, key) then return key
       return
+
+  Object.defineProperty @::, 'find',
+    value: (compare)-> @[@.findIndex compare]
 
 Collection.partMatches = partMatches = (value, condition)->
   unless value? or condition.optional
@@ -266,7 +268,8 @@ Collection.numericComparison = (target, val)->
         return false
     else if target isnt val.eq
       return false
+  return true
 
 Collection.oneOf = (target, items)->
   if items instanceof Array then return items.some((c)-> value is c or value instanceof c)
-  return target is items or target instanceof items
+  return target is items or typeof items is 'function' and target instanceof items

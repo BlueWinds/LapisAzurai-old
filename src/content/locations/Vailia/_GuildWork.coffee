@@ -19,12 +19,10 @@ Place.Vailia::jobs.searchGuildWork = Job.SearchGuildWork = class SearchGuildWork
   text: ->"""Have the assigned officer search for safe, fun and well-paid work through Natalie's connections with The Guild."""
   type: 'special'
   conditions:
-    notAllDone:
-      matches: ->
-        for event in Job.SearchGuildWork.next
-          if not g.events[event.name] and g.officers[event.name.split('Work')[1]] then return true
-        return false
-      optional: true
+    '|': matches: ->
+      for name, o in g.officers
+        if not g.events["SearchGuildWork#{o.name}"] then return true
+      return false
   officers:
     worker:
       matches: (person)-> switch

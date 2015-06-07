@@ -330,10 +330,6 @@ input.inline:disabled {
   background: #08261C;
   color: #fff;
 }
-.job-tabs li.half-ready {
-  background: #301608;
-  color: #fff;
-}
 .job-tabs li.plot {
   color: #2a9fd6;
 }
@@ -603,6 +599,7 @@ input.inline:disabled {
   border: 1px solid #666;
   border-radius: 6px;
   margin: 5px;
+  min-height: 2.8em;
 }
 .trait .name {
   margin: 0 5px 5px 0;

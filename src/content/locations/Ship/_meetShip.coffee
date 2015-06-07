@@ -375,7 +375,7 @@ Page.AbandonedShipSearch.next.push Page.AbandonedShipMoney = class AbandonedShip
 
 Page.OtherShip.next.push Page.LocalMerchants = class LocalMerchants extends Page
   conditions:
-    location: matches: -> g.location.name not in ['Vailia', 'MtJulia']
+    '|location': matches: (location)-> location.name not in ['Vailia', 'MtJulia']
   text: ->"""|| bg="Ship.day"
     -- The ship heading for them looking like it might be local to the area, and appearances did not deceive. Slightly larger than the Lapis, it held on its deck a dozen friendly looking sailors. Though they were all armed – a crew would be foolish not to carry weapons when greeting strangers – Natalie sensed no hostility from them, and the assessment was mutual. No blades were drawn as the ships drew up next to each other.
 

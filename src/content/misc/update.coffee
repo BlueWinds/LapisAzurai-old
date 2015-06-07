@@ -1,4 +1,4 @@
-Game::version = 2
+Game::version = 3
 
 Game.update.push {post: ->
   updateColors = (person)->
@@ -21,4 +21,14 @@ Game.update.push {post: ->
     person.contract = 30 + Math.floor(Math.random() * 120)
   for name, person of @map.Vailia.jobs.hireCrew.hires
     person.contract = 60 + 30 * Math.floor(Math.random() * 10)
+  return
+}
+
+
+Game.update.push {
+  pre: ->
+    if @.last._ is 'Page|DefenseNothing'
+      @.last = {_: 'Page|Port'}
+  post: ->
+    delete @events.DefenseNothing
 }

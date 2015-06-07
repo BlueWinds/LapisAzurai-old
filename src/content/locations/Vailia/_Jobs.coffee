@@ -22,7 +22,8 @@ Page.Library.next.push Page.LibraryTravel = class LibraryTravel extends Page
   conditions:
     '|events|LibraryTravel|length': {lt: 3, optional: true}
     '|events|LibraryTravel':
-      matches: (days)-> return not days or days[0] < g.day - 7
+      matches: (days)->
+        return not days or days[0] < g.day - 7
       optional: true
     worker: {}
   text: ->"""|| bg="marketDay|marketStorm"
@@ -94,40 +95,24 @@ Page.Library.next.push Page.LibraryBadBook = class LibraryBadBook extends Page
     Or something indeed. #{@worker} closed the book.
   """
 
+max = 3
+defenseNames = -> for name, o of g.officers when not (g.events["Defense#{o.name}"]?.length >= max) then name
+
 Place.Vailia::jobs.defense = Job.Defense = class Defense extends Job
   label: "Combat Training"
   text: ->"Take a lesson from a retired mercenary in the fine art of not-getting-killed. <em>-3β</em>"
   energy: -2
   conditions:
+    '|': matches: -> defenseNames().length > 0
     '|money': {gte: 3}
-    notAllDone:
-      matches: ->
-        for event in Job.Defense.next when event isnt Page.DefenseNothing
-          count = g.events[event.name]
-          unless count?.length > 3 then return true
-        return false
-      optional: true
   officers:
-    worker: {}
+    worker:
+      matches: (person)-> not (g.events["Defense#{person.name}"]?.length >= max)
+      label: -> defenseNames().join(', ')
   effects:
     money: -3
   next: Page.firstMatch
   @next = []
-
-Job.Defense.next.push Page.DefenseNothing = class DefenseNothing extends Page
-  conditions:
-    worker: {}
-    tooManyTimes:
-      matches: -> g.events['Defense' + g.last.context.worker]?.length > 3
-      optional: true
-  text: ->"""|| bg="marketDay|marketStorm"
-    -- <q>I'm afraid there's nothing else I can teach you, #{@worker}.</q> Torril greeted #{him} with a smile. <q>Though I'd be happy to spar for a while, if you'd like.</q>
-
-  ||
-    --> They spent an afternoon together, chatting and occasionally having a little match. While the mercenary was a fierce combatant in his own right, he wasn't very good at teaching more than the basics of his style. <q>Experience,</q> he'd say, <q>is the only teacher worth having.</q>
-"""
-  effects:
-    money: 3
 
 Job.Defense.next.push Page.DefenseNatalie = class DefenseNatalie extends Page
   conditions:
@@ -236,7 +221,7 @@ pay = 4
 
 Place.Vailia::jobs.shipyard = Job.Shipyard = class Shipyard extends Job
   label: "Shipyard"
-  text: ->"""Work in the shipyard. It's not particularly profitable, but can help keep the sailors out of trouble and make a little money at the same time. <em><span class="sailing">+1 sailing</span>, +#{pay}β per sailor</em>"""
+  text: ->"""Work in the shipyard. It's not particularly profitable, but can help keep the sailors out of trouble and make a little money at the same time. <em><span class="sailing">+1/2 sailing</span>, +#{pay}β per sailor</em>"""
   energy: -2
   officers:
     worker: {}
@@ -247,14 +232,14 @@ Place.Vailia::jobs.shipyard = Job.Shipyard = class Shipyard extends Job
 Job.Shipyard::next = Page.Shipyard = class Shipyard extends Page
   conditions:
     worker: {}
-    count: '|last|context|length'
+    last: '|last|context'
   text: ->"""|| bg="day"
-    -- Vailia's shipyards ran constantly, taking raw iron and lumber, combining them with back-breaking labor, and turning out the finest ships in the world. Much of the process was carried out behind walls, hidden from public view - and hidden from temporary labor like #{@worker}#{if @count > 1 then (" and " + his + " sailors. They") else (". " + He)} spent the day debarking trees, sawing planks and sorting nails. Repetitive, brutal work, but one of the few jobs available on a day-by-day basis.
+    -- Vailia's shipyards ran constantly, taking raw iron and lumber, combining them with back-breaking labor, and turning out the finest ships in the world. Much of the process was carried out behind walls, hidden from public view - and hidden from temporary labor like #{@worker}#{if @last.length > 1 then (" and " + his + " sailors. They") else (". " + He)} spent the day debarking trees, sawing planks and sorting nails. Repetitive, brutal work, but one of the few jobs available on a day-by-day basis.
 
-    <em>+#{@count * pay}β, <span class="sailing">+1 Sailing</span> for sailors</em>
+    <em><span class="sailing">+1/2 Sailing</span> for sailors, +#{@last.length * pay}β</em>
   """
   apply: ->
     super()
-    g.applyEffects {money: @context.count * pay}
-    for sailor in @context.asArray()
-      sailor.add 'sailing', 1
+    g.applyEffects {money: @context.last.length * pay}
+    for sailor in @context.last.asArray() when not (sailor instanceof Officer)
+      sailor.add 'sailing', 0.5

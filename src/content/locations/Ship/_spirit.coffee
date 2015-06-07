@@ -2,9 +2,7 @@ Place.Ship::jobs.spirit = ShipJob.Spirit = class Spirit extends ShipJob
   label: "Something Strange"
   type: 'plot'
   conditions:
-    chance:
-      matches: -> return Math.random() <= 0.1
-      optional: true
+    '|': matches: -> return Math.random() <= 0.1
     '|events|FirstStorm': {}
   text: ->"""Something in the air feels different this morning..."""
   next: Page.randomMatch

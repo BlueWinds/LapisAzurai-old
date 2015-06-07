@@ -1,10 +1,11 @@
-updateJob = (jjobDiv)->
-  job = g.location.jobs[prevJobDiv.attr('data-key')]
+updateJob = (jobDiv)->
+  unless jobDiv.length then return
+  job = jobDiv.data('job')
   workers = {}
 
   index = jobDiv.parent().children().index jobDiv
   divs = jobDiv.add $('.job-tabs li', jobDiv.closest('page')).eq index
-  divs.removeClass('ready half-ready')
+  divs.removeClass('ready')
   $('.person-info', jobDiv).each ->
     key = $(@).attr('data-key')
     person = g.crew[key]
@@ -12,8 +13,6 @@ updateJob = (jjobDiv)->
   job.updateFromDiv(jobDiv)
   if job.contextReady()
     divs.addClass 'ready'
-  else if Object.keys(workers).length
-    divs.addClass 'half-ready'
 
   newText = job.text.call(job.context).replace(/\n/g, "<br>")
   $('.job-description', jobDiv).html(newText).addTooltips()
@@ -120,8 +119,8 @@ applyPort = (element)->
     $(@).addClass 'active'
     idx = $('.job-tabs li', element).index @
     $('.job', element).eq(idx).addClass 'active'
-    setTall()
-  setTimeout setTall, 0
+    setTall.call(element)
+  setTimeout setTall.bind(element), 0
 
   people = $('.person-info', element)
   people.click -> $(@).toggleClass 'active'
@@ -180,10 +179,10 @@ applyPort = (element)->
   return element
 
 setTall = ->
-  if $('.job.active', element).height() < $('.job-tabs', element).height()
-    element.addClass('tall-tabs')
+  if $('.job.active', @).height() < $('.job-tabs', @).height()
+    @addClass('tall-tabs')
   else
-    element.removeClass('tall-tabs')
+    @removeClass('tall-tabs')
 
 assignPersonToJob = (personDiv, job, jobDiv)->
   key = personDiv.attr('data-key')
@@ -195,22 +194,27 @@ assignPersonToJob = (personDiv, job, jobDiv)->
     return
 
   # Find an unoccupied slot that the person matches, and put them there.
-  slot = person instanceof Officer and job.officers.find (conditions, key)->
+  slot = person instanceof Officer and Collection::findIndex.call job.officers, (conditions, key)->
     slotDiv = $('li[data-slot="' + key + '"]', jobDiv)
     return $('.person-info', slotDiv).length is 0 and person.matches(conditions)
 
-  slot or= (job.crew? and $('.job-crew', jobDiv))
+  slot = if slot
+    $('li[data-slot="' + slot + '"]', jobDiv)
+  else
+    $('.job-crew', jobDiv)
 
-  if slot
-    slot.append(personDiv)
-    personDiv.removeClass('active')
-
+  if slot.length
     prevJobDiv = personDiv.closest '.job'
     updateJob(prevJobDiv)
 
-doWorkClick = (jobDiv, e)->
+    personDiv.removeClass('active')
+    slot.prepend(personDiv)
+
+doWorkClick = (e)->
   if $(@).hasClass 'dis' then return
   e.preventDefault()
+  element = $(e.target).closest 'page'
+
   $('.jobs > div', element).each ->
     jobDiv = $(@)
     # Bypass jobs with no one assigned to them

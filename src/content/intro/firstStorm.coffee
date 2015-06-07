@@ -163,6 +163,8 @@ Job.IntroNatAwake = class IntroNatAwake extends Job
   label: "Awake"
   text: ->"""Too much sleeping. Time to get up and up and at'em."""
   type: 'plot'
+  conditions:
+    '|officers|Nat|energy': {gte: -2}
   officers:
     Natalie: '|officers|Nat'
   acceptInjured: true

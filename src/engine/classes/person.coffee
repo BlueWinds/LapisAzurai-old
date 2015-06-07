@@ -1,4 +1,4 @@
-# Setting up a whole bunch of global functions to make rendering pages more convenient.
+ #Setting up a whole bunch of global functions to make rendering pages more convenient.
 # lastP is always the most recent person one of these functions has been called with - using this as a default argument makes possible things like "#{He @CrewMember} hands #{his} cup to her." - notice how the second use doesn't require an argument.
 lastP = null
 window.q = (person = lastP)->
@@ -127,12 +127,13 @@ window.Person = class Person extends GameObject
     wage = 0.5
     for stat in ['business', 'diplomacy', 'sailing', 'combat']
       wage += @[stat] / 20
-    if @traits
-      for key, trait of @traits when trait.wages
-        wage = if typeof trait.wages is 'function'
-          trait.wages(@, wage)
-        else
-          wage * trait.wages
+
+    for key, trait of @traits when trait.wages?
+      wage = if typeof trait.wages is 'function'
+        trait.wages(@, wage)
+      else
+        wage * trait.wages
+
     return Math.round wage
 
 Game.schema.properties.crew =
