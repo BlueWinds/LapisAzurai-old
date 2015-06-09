@@ -61,7 +61,7 @@ Job.KatTrial = class KatTrial extends Job
 
 katOptions = [
   "I'll be there (<em><span class='happiness'>+3 happiness</span> for Kat</em>)"
-  "Any chance I can get my other money back? (<em><span class='diplomacy'>+1 diplomacy</span> for Natalie</em>)"
+  "Any chance I can get my other money back? (<em><span class='business'>+1 business</span> for Natalie</em>)"
   "No thanks, I have better things to do. (<em><span class='happiness'>-3 happines</span> for Kat, <span class='business'>+2 business</span> for Natalie</em>)"
 ]
 
@@ -183,7 +183,7 @@ Page.MeetKat3.next['Stolen purse?'] = Page.MeetKatMoney = class MeetKatMoney ext
 """
   apply: ->
     super()
-    g.officers.Nat.add 'diplomacy', 1
+    g.officers.Nat.add 'business', 1
 
 Page.MeetKat3.next['Not interested'] = Page.MeetKatNo = class MeetKatNo extends Page
   conditions:

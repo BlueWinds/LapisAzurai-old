@@ -307,7 +307,7 @@ Page.GuildNatBangSure::next = Page.GuildNatBangSure2 = class GuildNatBangSure2 e
   ||
     #{@worker.image 'serious-nude', 'left'}
     --> Natalie tossed it on the bed with the cum-drenched sheets. Let the maid take it home and repair it if she liked. Though it didn't bother her overmuch, to do such things for money, she wanted no reminders. Her panties were mercifully intact, and she wrapped herself in a towel to go downstairs. Ben wanted his share, and she needed to collect her spare clothes.
-# TODO FIX CONTINUITY - See previous comment, line 301. This clashes.
+
   ||
     --> <em><span class="money">+#{Place.Vailia.adultPay}β</span></em>
   """
@@ -424,7 +424,6 @@ Page.GuildNatDomSure::next = Page.GuildNatDomSure2 = class GuildNatDomSure2 exte
   apply: ->
     super()
     @context.worker.add 'happiness', 1
-
 
 Job.GuildWork.next.push Page.GuildKat = class GuildKat extends Page
   conditions:

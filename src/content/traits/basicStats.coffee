@@ -46,19 +46,6 @@ Trait.Spendthrift = class Spendthrift extends Trait
   @randomPoints: -5
   @opposed: ['Acute']
 
-Trait.SilverTongue = class SilverTongue extends Trait
-  label: 'Silver Tongue'
-  description: (person)->"#{person}'s <span class='diplomacy'>diplomancy</span> increases twice as fast."
-  setDiplomacy: 2
-  @randomPoints: 5
-  @opposed: ['Shy']
-
-Trait.Shy = class Shy extends Trait
-  description: (person)->"#{person}'s <span class='diplomacy'>diplomancy</span> increases only half as fast."
-  setDiplomacy: 0.5
-  @randomPoints: -5
-  @opposed: ['SilverTongue']
-
 Trait.SeaLegs = class SeaLegs extends Trait
   label: 'Sea Legs'
   description: (person)->"#{person}'s <span class='sailing'>sailing</span> increases twice as fast."

@@ -221,7 +221,7 @@ pay = 4
 
 Place.Vailia::jobs.shipyard = Job.Shipyard = class Shipyard extends Job
   label: "Shipyard"
-  text: ->"""Work in the shipyard. It's not particularly profitable, but can help keep the sailors out of trouble and make a little money at the same time. <em><span class="sailing">+1/2 sailing</span>, +#{pay}β per sailor</em>"""
+  text: ->"""Work in the shipyard. It's not particularly profitable, but can help keep the sailors out of trouble and make a little money at the same time. <em>+#{pay}β per sailor</em>"""
   energy: -2
   officers:
     worker: {}
@@ -236,10 +236,8 @@ Job.Shipyard::next = Page.Shipyard = class Shipyard extends Page
   text: ->"""|| bg="day"
     -- Vailia's shipyards ran constantly, taking raw iron and lumber, combining them with back-breaking labor, and turning out the finest ships in the world. Much of the process was carried out behind walls, hidden from public view - and hidden from temporary labor like #{@worker}#{if @last.length > 1 then (" and " + his + " sailors. They") else (". " + He)} spent the day debarking trees, sawing planks and sorting nails. Repetitive, brutal work, but one of the few jobs available on a day-by-day basis.
 
-    <em><span class="sailing">+1/2 Sailing</span> for sailors, +#{@last.length * pay}β</em>
+    <em>+#{@last.length * pay}β</em>
   """
   apply: ->
     super()
     g.applyEffects {money: @context.last.length * pay}
-    for sailor in @context.last.asArray() when not (sailor instanceof Officer)
-      sailor.add 'sailing', 0.5

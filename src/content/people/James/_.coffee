@@ -1,4 +1,4 @@
-layers = (p)->[
+layers = (p)-> [
   "Base.png"
   "#{p}Skin.png"
   "#{p}Eyes.png"
@@ -6,7 +6,7 @@ layers = (p)->[
   "#{p}Top.png"
 ]
 
-layersNude = (p)->[
+layersNude = (p)-> [
   "Empty.png"
   "#{p}SkinNude.png"
   "#{p}Eyes.png"
@@ -17,8 +17,7 @@ layersNude = (p)->[
 Game::officers.James = Officer.James = class James extends Officer
   name: 'James'
   gender: 'm'
-  business: 0
-  diplomacy: 5
+  business: 5
   sailing: 5
   combat: 20
   happiness: 50

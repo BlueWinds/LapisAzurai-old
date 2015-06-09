@@ -145,7 +145,7 @@ window.Page = class Page extends GameObject
 
       target = getTarget(val)
       unless target then return false
-      unless Collection.NumericComparison(target, val) then return false
+      unless Collection.numericComparison(target, val) then return false
 
     return true
 

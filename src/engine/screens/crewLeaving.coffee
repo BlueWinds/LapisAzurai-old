@@ -93,7 +93,6 @@ Page.HappyCrewLeaving = class HappyCrewLeaving extends Page
     stats =
       combat: c.sailor.combat
       sailing: c.sailor.sailing
-      diplomacy: c.sailor.diplomacy
       business: c.sailor.business
     c.stat = Math.weightedChoice(stats)
     c.amount = Math.ceil(c.sailor[c.stat] * portionOfSkillPassedOn)

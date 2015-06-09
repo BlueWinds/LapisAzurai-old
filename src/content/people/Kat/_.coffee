@@ -17,7 +17,6 @@ Game::people.Kat = Officer.Kat = class Kat extends Officer
   name: 'Kat'
   gender: 'f'
   business: 5
-  diplomacy: 15
   sailing: 0
   combat: 10
   happiness: 30
@@ -25,6 +24,9 @@ Game::people.Kat = Officer.Kat = class Kat extends Officer
   energy: 7
   text: '#9ADFAF'
   description: ->"Growing up on the streets, Kat has somehow managed to come through it all with a grin and a sparkle in her eye."
+  traits: new Collection
+    spendthrift: new Trait.Spendthrift
+
   @images:
     path: 'src/content/people/Kat/'
 

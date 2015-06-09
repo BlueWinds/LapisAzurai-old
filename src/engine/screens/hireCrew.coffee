@@ -2,22 +2,15 @@ daysWageToHire = 14
 minContractMonths = 2
 maxCrew = 9
 
-hireCost = (people, context)->
-  n = g.officers.Nat
-  a = context.Assistant
+hireCost = (people)->
   cost = 0
   for hire in people
     cost += hire.wages() * daysWageToHire
 
-  reduction = n.get('diplomacy', context) + (a?.get('diplomacy', context) or 0)
-  reduction += n.get('business', context) * 2 + (a?.get('business', context) * 2 or 0)
-  cost *= Math.max 0.1, (1 - reduction / 300)
   return Math.round(cost)
 
 Page.HireCrewOne = class HireCrewOne extends Page
-  conditions:
-    Assistant: {optional: true}
-    # '0' will be set by the hiring event
+  # '0' will be set by the hiring event
   text: ->"""|| bg="tavern"
     #{@[0].image 'normal', 'mid-right reversed'}
     --
@@ -27,7 +20,7 @@ Page.HireCrewOne = class HireCrewOne extends Page
   ||
     #{g.officers.Nat.image 'normal', 'mid-left'}
     --
-      Tradition dictated that a new sailor was entitled to a handsome signup bonus, paid before departure - they were putting their life in the hands of a captain they didn't know, after all, and should be able to leave something behind even if they never returned. After a bit of negotiation, #{@[0]} finally settled for #{hireCost @asArray(), @}β immediately and #{@[0].wages()}β daily thereafter. #{@Assistant or 'Natalie'} handed over a one obol coin and told #{@[0]} where they're docked.
+      Tradition dictated that a new sailor was entitled to a handsome signup bonus, paid before departure - they were putting their life in the hands of a captain they didn't know, after all, and should be able to leave something behind even if they never returned. After a bit of negotiation, #{@[0]} finally settled for #{hireCost @asArray()}β immediately and #{@[0].wages()}β daily thereafter. Natalie handed over a one obol coin and told #{@[0]} where they're docked.
 
       #{q}Welcome aboard.</q>
   """
@@ -38,9 +31,7 @@ Page.HireCrewOne = class HireCrewOne extends Page
     g.crew.push @context[0]
 
 Page.HireCrewMulti = class HireCrewMulti extends Page
-  conditions:
-    Assistant: {optional: true}
-      # '0' and '1' will be set by the hiring event. '2' - '5' may or may not be.
+  # '0' and '1' will be set by the hiring event. '2' - '5' may or may not be.
   text: ->
     wages = Math.sum((crew.wages() for crew in @asArray()))
     names = @asArray().map (p)->p.name
@@ -49,7 +40,7 @@ Page.HireCrewMulti = class HireCrewMulti extends Page
       --
         Of the many people interested, Natalie eventually settled on #{@asArray().length.toWord()}: #{names.wordJoin()}.
 
-        Tradition dictated that a new crewmembe was entitled to a handsome signup bonus, paid before departure - they were putting their life in the hands of a captain they didn't know, after all, and should be able to leave something behind even if they never returned. After arguing with #{Math.choice names} for a while, Natalie finally convinced them to accept #{hireCost @asArray, @}β immediately, and #{wages}β daily thereafter. #{@Assistant or g.officers.Nat} handed an obol coin to each recruit and told them where to find the ship in the morning.
+        Tradition dictated that a new crewmembe was entitled to a handsome signup bonus, paid before departure - they were putting their life in the hands of a captain they didn't know, after all, and should be able to leave something behind even if they never returned. After arguing with #{Math.choice names} for a while, Natalie finally convinced them to accept #{hireCost @asArray, @}β immediately, and #{wages}β daily thereafter. Natalie handed an obol coin to each recruit and told them where to find the ship in the morning.
 
         #{q}Welcome aboard.</q>
     """
@@ -116,7 +107,7 @@ Person.random = (baseClasses)->
     person.traits[trait.name] = new trait
 
   while points > 1
-    stat = Math.choice ['business', 'diplomacy', 'sailing', 'combat', 'contract']
+    stat = Math.choice ['business', 'sailing', 'combat', 'contract']
     amount = Math.ceil(points * 0.5)
     person[stat] += amount
     points -= amount
@@ -130,12 +121,10 @@ Job.HireCrew = class HireCrew extends Job
   @hireClasses: []
 
   label: "Change Crew"
-  text: -> "Hire or fire sailors (bring them along, then remove them from your crew). Send someone <span class='diplomacy'>convincing</span> along to save money."
+  text: -> "Hire or fire sailors (bring them along, then remove them from your crew)."
   description: ->"""Natalie talked to the bartender, passed over a coin for the trouble and set herself up at a table. It wasn't long before she had some interested recruits."""
   officers:
     Natalie: '|officers|Nat'
-    Assistant:
-      optional: true
   energy: -2
   crew: 0
   hires: new Collection
@@ -161,7 +150,6 @@ Job.HireCrew = class HireCrew extends Job
 
 Job.HireCrew::next = Page.HireCrew = class HireCrew extends Page
   conditions:
-    Assistant: {optional: true}
     hires: '|last|hires'
     job: '|last'
 
@@ -244,8 +232,6 @@ applyHire = (element)->
       g.crew.remove $(@).attr('data-key')
 
     newCrew = new Collection
-    if context.Assistant
-      newCrew.Assistant = context.Assistant
 
     $('.crew .person-info', element).not('.hired').each ->
       # New crew to be hired

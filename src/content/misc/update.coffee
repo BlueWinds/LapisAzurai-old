@@ -1,5 +1,3 @@
-Game::version = 3
-
 Game.update.push {post: ->
   updateColors = (person)->
     unless person.color then return
@@ -24,11 +22,32 @@ Game.update.push {post: ->
   return
 }
 
-
 Game.update.push {
   pre: ->
     if @.last._ is 'Page|DefenseNothing'
       @.last = {_: 'Page|Port'}
   post: ->
     delete @events.DefenseNothing
+}
+
+Game.update.push {
+  pre: ->
+    # Create placeholder classes temporarily, just so the game loads successfully
+    Trait.SilverTongue = class SilverTongue extends Trait
+    Trait.Shy = class Shy extends Trait
+
+  post: ->
+    for name, person of @officers
+      delete person.diplomacy
+    for name, person of @crew
+      delete person.diplomacy
+      delete person.traits.SilverTongue
+      delete person.traits.Shy
+    for name, person of @map.Vailia.jobs.hireCrew.hires
+      delete person.diplomacy
+      delete person.traits.SilverTongue
+      delete person.traits.Shy
+
+    delete Trait.Shy
+    delete Trait.SilverTongue
 }

@@ -138,7 +138,7 @@ renderSlot = (key, conditions, energy)->
 
   if energy > 0 then energy = '+' + energy
 
-  stats = for stat in ['business', 'diplomacy', 'sailing', 'combat']
+  stats = for stat in ['business', 'sailing', 'combat']
     "<span class='#{stat}'>#{conditions[stat]?.gte or ''}</span>"
 
   """<li data-slot="#{key}"><div class="worker-requirements">

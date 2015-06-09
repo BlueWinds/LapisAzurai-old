@@ -28,7 +28,6 @@ window.Person = class Person extends GameObject
   @stats:
     happiness: "Happiness<br>How content a person is serving on the Lapis Azurai. If it's below 20, they'll consider leaving the crew."
     business: "Business<br>Knowledge of goods, prices, book keeping and other parts of making a profit."
-    diplomacy: "Diplomacy<br>Charm, wit or intimidation factor, whatever makes someone want to agree to a deal."
     sailing: "Sailing<br>Ships, sails, winds and waves, the knowledge and experience of dealing with the ocean."
     combat: "Combat<br>When the going gets tough, the tough get going."
   @imgLayers: ['base', 'skin', 'eyes', 'hair', 'top']
@@ -52,7 +51,6 @@ window.Person = class Person extends GameObject
         type: ['string', 'function']
       happiness: statSchema
       business: statSchema
-      diplomacy: statSchema
       sailing: statSchema
       combat: statSchema
       contract: # How many days the character is planning on staying with the crew.
@@ -63,7 +61,6 @@ window.Person = class Person extends GameObject
 
   happiness: 0
   business: 0
-  diplomacy: 0
   sailing: 0
   combat: 0
   description: 'If you see this in-game, it is a bug.'
@@ -86,10 +83,10 @@ window.Person = class Person extends GameObject
     return div[0].outerHTML
 
   renderBlock: (key, classes = '')->
-    stats = for stat in ['business', 'diplomacy', 'sailing', 'combat']
+    stats = for stat in ['happiness', 'business', 'sailing', 'combat']
       "<span class='#{stat}'>#{@[stat]}</span>"
 
-    fullStats = for stat in ['happiness', 'business', 'diplomacy', 'sailing', 'combat'] when @[stat]?
+    fullStats = for stat in ['happiness', 'business', 'sailing', 'combat'] when @[stat]?
       """<tr class='#{stat}'><td>#{stat.capitalize()}</td><td>#{@[stat]}</td></tr>"""
     if @energy?
       fullStats.unshift """<tr><td class="energy">Energy</td><td>
@@ -125,7 +122,7 @@ window.Person = class Person extends GameObject
 
   wages: ->
     wage = 0.5
-    for stat in ['business', 'diplomacy', 'sailing', 'combat']
+    for stat in ['business', 'sailing', 'combat']
       wage += @[stat] / 20
 
     for key, trait of @traits when trait.wages?

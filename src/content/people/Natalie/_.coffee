@@ -17,7 +17,6 @@ Game::officers.Nat = Officer.Natalie = class Natalie extends Officer
   name: 'Natalie'
   gender: 'f'
   business: 35
-  diplomacy: 15
   sailing: 10
   combat: 0
   happiness: 70

@@ -13,23 +13,23 @@ Item.Beer = new Luxury
 Item.Wine = new Luxury
   name: 'Wine'
   description: "Wine is a higher class of beverage than cheap beer. The customers complain a lot more if there's a bug in a bottle."
-  price: 33
+  price: 23
   unit: 'barrel'
 
 Item.Salt = new Luxury
   name: 'Salt'
-  description: "Salt is both seasoning and necessity, varying in price dramatically be region. It's cheap at the ocean and priceless at the interior of a continent."
+  description: "Salt is both seasoning and necessity. It's cheap near the ocean and priceless at the interior of a continent."
   price: 27
   unit: 'barrel'
-
-Item.Tea = new Luxury
-  name: 'Tea'
-  description: "Dried leaves of the tea plant, used to brew tasty beverages."
-  price: 45
-  unit: 'basket'
 
 Item.Tobaco = new Luxury
   name: "Tobaco"
   description: "Chewed or smoked, this addictive drug sees widespread use."
   price: 35
   unit: 'crate'
+
+Item.Tea = new Luxury
+  name: 'Tea'
+  description: "Dried leaves of the tea plant, used to brew tasty beverages."
+  price: 45
+  unit: 'basket'

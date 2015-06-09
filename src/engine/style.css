@@ -485,11 +485,10 @@ input.inline:disabled {
 .center {
   text-align: center;
 }
+.happiness { color: #a65600; cursor: default; }
 .business { color: #ffb600; cursor: default; }
-.diplomacy { color: #ff8500; cursor: default; }
-.sailing { color: #ff2c00; cursor: default; }
-.combat { color: #a65600; cursor: default; }
-.happiness { font-weight: 700; cursor: default; }
+.sailing { color: #ff8500; cursor: default; }
+.combat { color: #ff2c00; cursor: default; }
 .person-info .full {
   clip: rect(-40px, 450px, -40px, 0);
   background: #000;
@@ -540,7 +539,7 @@ input.inline:disabled {
   background: none;
   clear: left;
   float: left;
-  margin: 3px 5px 5px 0;
+  margin: 10px 5px 5px 0;
   width: 8em;
 }
 .full .energy {
@@ -935,6 +934,7 @@ options button.btn {
 }
 .sail .job {
   cursor: pointer;
+  min-height: 11em;
 }
 .sail .col-xs-6:last-child:nth-child(odd) {
   clear: both;

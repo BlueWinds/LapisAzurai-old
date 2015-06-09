@@ -38,7 +38,7 @@ Page.OtherShip.next.push Page.Pirates = class Pirates extends PlayerOptionPage
   text: ->
     pirateOptions = [
       Page.statCheckDescription('combat', 50, Page.PiratesFight.next)
-      Page.statCheckDescription('diplomacy', 70, Page.PiratesNegotiate.next)
+      Page.statCheckDescription('business', 70, Page.PiratesNegotiate.next)
       Page.statCheckDescription('sailing', 65, Page.PiratesFlee.next)
     ]
     return """|| bg="Ship.deckDay"
@@ -206,7 +206,7 @@ Page.Pirates.next['Negotiate'] = Page.PiratesNegotiate = class PiratesNegotiate 
   ||
     --> #{q}Because I'm a wizard, and it goes poorly for those who cross me.</q> She raised both arms over her head and between them summoned a ball of fire. She extinguished it quickly, before it guttered out on its own and ruined the illusion. Exhausting, and about all she could manage on-demand. But they didn't need to know that."""
   next: Page.statCheck
-  stat: 'diplomacy'
+  stat: 'business'
   difficulty: 60
   @next = {}
 

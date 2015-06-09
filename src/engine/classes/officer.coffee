@@ -28,11 +28,6 @@ window.Officer = class Officer extends Person
   for stat in @stats
     @schema.properties[stat] = {type: 'number', gte: 0, lte: 100}
 
-  happiness: 0
-  business: 0
-  diplomacy: 0
-  sailing: 0
-  combat: 0
   energy: 0
   endurance: 0
 

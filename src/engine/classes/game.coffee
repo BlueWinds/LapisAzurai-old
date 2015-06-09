@@ -29,12 +29,11 @@ window.Game = class Game extends GameObject
       g.queue.unshift new Page.NextDay
   ]
   @update: [] # Update items are in the format {pre: ()->, post: ()->}, both properties optional.
-  version: 0 # Changed to the real value in update.coffee
 
   constructor: (gameData)->
-    if gameData and gameData.version isnt Game.update.length
-      for i in [gameData.version ... Game.update.length]
-        Game.update[i].pre?.call(gameData)
+    updates = if gameData then [gameData.version or 0 ... Game.update.length] else []
+    for i in updates
+      Game.update[i].pre?.call(gameData)
 
     objects = []
     super null, objects, ''
@@ -47,10 +46,9 @@ window.Game = class Game extends GameObject
     # Now we recursively copy the data into our new clean game.
     recursiveCopy.call @, @, gameData
 
-    unless @version is Game.update.length
-      for i in [@version ... Game.update.length]
-        Game.update[i].post?.call(@)
-      @version = Game.update.length
+    for i in updates
+      Game.update[i].post?.call(@)
+    @version = Game.update.length
 
   export: ->
     super [], [], ''

@@ -21,8 +21,10 @@ Page.PortIntro = class PortIntro extends Page.Port
         title: "You can start the day once each officer has a task."
       )
 
+      done = false
       $('.job', element).click ->
-        if $('.ready', element).length
+        if $('.ready', element).length and not done
+          done = true
           $('page.active').help(
             target: '.ready'
             placement: 'bottom'
@@ -187,7 +189,7 @@ Job.IntroMarket::next = Page.IntroMarket = class IntroMarket extends Page.Market
       ).help(
         target: '[item="Beer"]'
         placement: 'bottom'
-        title: "Your crew's happiness will drop slowly over time unless you carry a supply of <span class='luxury'>luxuries</span> for them."
+        title: "Your crew's happiness may decrease for a variety of reasons. You can distribute <span class='luxury'>luxuries</span> while sailing to help raise it again."
       ).help(
         target: '[item="Fish"]'
         placement: 'bottom'
