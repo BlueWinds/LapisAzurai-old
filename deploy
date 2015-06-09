@@ -7,7 +7,7 @@ then
 else
   LEVEL=$1
 fi
-grunt bump:$LEVEL full-compile compress
+grunt full-compile compress bump:$LEVEL
 scp LapisAzurai.zip 192.254.186.53:LapisAzurai.zip
 echo "Unpacking..."
 ssh 192.254.186.53 "cd LapisAzurai && rm -rf * && mv ../LapisAzurai.zip . && unzip -q LapisAzurai.zip"

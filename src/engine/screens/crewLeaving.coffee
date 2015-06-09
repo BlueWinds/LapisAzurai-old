@@ -25,7 +25,7 @@ Page.checkCrewLeaving = ->
     )
     next.context = leavingUnhappy
 
-  for key, sailor of g.crew.filter when sailor.contract is 0
+  for key, sailor of g.crew when sailor.contract is 0
     leavingCount++
     leavingEvents.push(next = new Page.HappyCrewLeaving)
     next.context = new Collection({
@@ -90,11 +90,10 @@ Page.HappyCrewLeaving = class HappyCrewLeaving extends Page
 """
   apply: ->
     c = @context
-    stats =
-      combat: c.sailor.combat
-      sailing: c.sailor.sailing
-      business: c.sailor.business
-    c.stat = Math.weightedChoice(stats)
+    c.stat = if c.sailor.combat > Math.max(c.sailor.sailing, c.sailor.business) then 'combat'
+    else if c.sailor.busines > c.sailor.sailing then 'busines'
+    else 'sailing'
+
     c.amount = Math.ceil(c.sailor[c.stat] * portionOfSkillPassedOn)
 
     super()
