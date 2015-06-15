@@ -26,7 +26,7 @@ Place.Nonkenia::jobs.market = Job.NonkeniaMarket = class NonkeniaMarket extends 
     "Maiden's Tea": [20, 16]
     "Vailian Steel": [14, 25]
     "Trade Tools": [8, 40]
-#   "Weapons": [?, ?] If description given in the discovery of the route suggests they buy weapons, then should allow weapons to be sold here.
+    Weapons: [15, 15]
 
   description: ->"""There's a nervous air among those dealing with #{@worker}. While not considered wrong, per se, dealing with Vailian merchants seems to be a bit unsavory to the Nonkenians. Money is money, though."""
   next: Page.Market
@@ -36,15 +36,20 @@ Place.Nonkenia::firstVisit = Page.VisitNonkenia = class VisitNonkenia extends Pa
     Nat: '|officers|Nat'
   text: ->"""|| bg="night"
     -- The Lapis arrived late at night, slipping silently into the sheltered bay that Natalie's maps insisted was the center of Nonkenia. It was hard to believe that this empty expanse of sand, much like hundreds of others they'd already sailed past, was something special.
+
   ||
     --> The signs were there, though; obvious enough to careful eyes as the crew lowered the anchors. There was no dock, but the beach was broken with ridges and piles of sand, as though heavy objects had been dragged over it recently. And the forest was thinner, less overgrown. Natalie would bet good money that trails leading inland would be visible in the morning.
+
   ||
     -- Lowering a boat into the water, Natalie felt as if eyes were twinkling at them from the edge of the forest, a feeling confirmed as soon as they set foot on the beach, when an old man emerged from his hiding place to greet them.
+
   ||
     --> <q>Good evening. May I request an hour of your time before you enter the forest? It is dangerous at this time of night.</q> Cracked and wizened with age, Natalie found his voice disturbing, threatening even, but pushed down her reaction and forced a smile.
+
   ||
     #{@Nat.image 'normal', 'left'}
     --> #{q}Of course. I'm Natalie, this is James, and...</q>
+
   ||
     -- <q>Stop! Do not share your names so freely. Some might think you tried to ensnare them into reciprocating. Not me, of course. I am used to the ways of foreigners and know you mean no harm.</q> He gave a dry chuckle, and Natalie bit her tongue to avoid saying anything unfriendly. <q>What brings you to the shores of Nonkenia?</q>
 

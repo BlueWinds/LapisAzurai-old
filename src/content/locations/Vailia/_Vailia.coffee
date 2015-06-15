@@ -14,7 +14,7 @@ Job.VailiaMarket = class VailiaMarket extends Job.Market
     Wine: [5, 0]
     "Vailian Steel": [10, 0]
     "Trade Tools": [4, 0]
-    Weapons: [5, 7]
+    Weapons: [5, 0]
   sell: new Collection
     Barley: [40, 0]
     Wood: [40, 0]

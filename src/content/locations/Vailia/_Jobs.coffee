@@ -119,7 +119,7 @@ Job.Defense.next.push Page.DefenseNatalie = class DefenseNatalie extends Page
     worker: {is: Officer.Natalie}
   text: ->"""|| bg="marketDay|marketStorm"
     #{@worker.image 'normal', 'left'}
-    -- #{q}Hey! I heard you teach people weapons?</q> Natalie squatted down in front of the man drinking from a clay pitcher. He was rough-faced, at least two meters tall, and wore a broadsword strapped to his back. There was no denying that this was Torril, one of the more famous mercenaries in Vailia, now retired.
+    -- #{q}Hey! I heard you teach people weapons?</q> Natalie squatted down in front of the man drinking from a clay pitcher. He was rough-faced, at least six feet tall, and wore a broadsword strapped to his back. There was no denying that this was Torril, one of the more famous mercenaries in Vailia, now retired.
 
   ||
     --> <q>I do. I take it you're interested?</q>
@@ -129,7 +129,7 @@ Job.Defense.next.push Page.DefenseNatalie = class DefenseNatalie extends Page
     -- #{q}I captain a vessel and figured it would behoove me to know a thing or two more about this than I do.</q> She popped back to her feet and went over to the rack of wooden practice weapons, browsing through it before settling on a narrow wooden blade.
 
   ||
-    --> Torril stood up slowly, unfolding his bulky two meters, shaking his head. <q>I have literally never had to tell someone which end of a sword was which before. Here, that's the grip on the other side...</q>
+    --> Torril stood up slowly, unfolding his bulky six feet, shaking his head. <q>I have literally never had to tell someone which end of a sword was which before. Here, that's the grip on the other side...</q>
 
 
   ||
