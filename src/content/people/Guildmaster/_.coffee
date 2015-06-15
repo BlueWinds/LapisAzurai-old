@@ -1,9 +1,9 @@
 layers = (p)->[
-  "#{p}Skin.png"
-  "Base.png"
-  "#{p}Eyes.png"
-  "#{p}Hair.png"
-  "#{p}Top.png"
+  "#{p}Skin"
+  "Base"
+  "#{p}Eyes"
+  "#{p}Hair"
+  "#{p}Top"
 ]
 
 Person.Guildmaster = Game::people.Guildmaster = class Guildmaster extends Person
@@ -19,9 +19,9 @@ Person.Guildmaster = Game::people.Guildmaster = class Guildmaster extends Person
     skeptical: layers 'Skeptical'
     serious: layers 'Serious'
     thinking: [
-      "ThinkingSkin.png"
-      "ThinkingBase.png"
-      "ThinkingEyes.png"
-      "ThinkingHair.png"
-      "ThinkingTop.png"
+      "ThinkingSkin"
+      "ThinkingBase"
+      "ThinkingEyes"
+      "ThinkingHair"
+      "ThinkingTop"
     ]

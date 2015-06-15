@@ -87,7 +87,7 @@ Job.MeetKat.next.push Page.MeetKat3 = class MeetKat3 extends PlayerOptionPage
     --> A feather that fought dirty. She stomped on Natalie's toes (mildly effective through thick ship-boots), then elbowed her in the stomach (quite effective through a thin shirt), and shoved her way free in the sudden confusion.
 
   ||
-    #{@Kat.image 'serious', 'right'}
+    #{@Kat.image 'uncertain', 'right'}
     -- She made a quick run for it... straight into the stomach of a burly guard, who held onto the tiny woman with somewhat more success despite her struggles.
 
   ||
@@ -169,7 +169,7 @@ Page.MeetKat3.next['Stolen purse?'] = Page.MeetKatMoney = class MeetKatMoney ext
 
   ||
     #{@Guard.image 'normal', 'far-right'}
-    #{@Kat.image 'sad', 'right'}
+    #{@Kat.image 'uncertain', 'right'}
     --> #{q}No.</q> Kat finally spoke, tugging at her blouse. It looked both brand new and none too cheap. One of the shoulders was torn where Natalie had grabbed her. She stared at the rip a moment then started to cry silently. She hicced as the guard cuffed her ear.
 
   ||
@@ -245,7 +245,7 @@ Job.KatTrial::next = Page.KatTrial = class KatTrial extends PlayerOptionPage
     --> #{q}What are you doing here? Shouldn't you be watched by a guard, or maybe in a cell?</q>
 
   ||
-    #{@Kat.image 'excited', 'left'}
+    #{@Kat.image 'normal', 'left'}
     -- #{q}I dunno, I guess they got confused or something, forgot about me,</q> Kat responded with a grin, bending down and trying keys one after another on her ankle-manacles. She was pretty, when not crying. Across the crowd, a pair of guards began pushing their way through.
 
   ||
@@ -282,7 +282,7 @@ Page.KatTrial.next['Help her'] = Page.KatTrialHelp = class KatTrialHelp extends 
     --> #{q}Natalie. I'll let you know if we see each other again.</q>
 
   ||
-    #{@Kat.image 'excited', 'left'}
+    #{@Kat.image 'normal', 'left'}
     -- #{q}You should be so lucky.</q> Kat's grin widened for a moment, then she returned to her primary task of escape, dodging through the crowd on her way to the exit. Natalie squealed and jumped at the stinging slap on her ass Kat delivered on her way past.
 
   ||
@@ -323,7 +323,7 @@ Page.KatTrial.next['Do nothing'] = Page.KatTrialNothing = class KatTrialNothing 
     -- #{q}Natalie,</q> she answered reflexively, wondering exactly why she wasn't stopping someone who'd taken money from her, and now expressed no shame at all.
 
   ||
-    #{@Kat.image 'excited', 'left'}
+    #{@Kat.image 'normal', 'left'}
     --> #{q}See you around, Nat.</q> Kat grinned and saluted. She pushed past, on her way to the door. Natalie spun around in time to swat Kat's hand from before it slapped her ass.
 
   ||
@@ -348,7 +348,7 @@ Page.KatTrial.next['Hold her'] = Page.KatTrialHinder = class KatTrialHinder exte
     -- #{q}Neat trick. Bet it doesn't work more than once, though. I'm Natalie, by the way.</q> She held out her hand to shake, but perhaps sensing some ill-will, Kat didn't take her hand.
 
   ||
-    #{@Kat.image 'normal', 'left'}
+    #{@Kat.image 'unimpressed', 'left'}
     --> #{q}Nat, is it? Well, it's been fun, but I'll have to see you later.</q> She ducked and tried to push past toward the exit, but Natalie managed to catch her with an arm around her waist. Kat was quick. She reversed her momentum, slamming into Natalie and knocking her off balance and into their neighbors. While her captor tried to regain her balance, another quick shift of weight knocked them together into a closely-packed group of people.
 
   ||
@@ -363,7 +363,7 @@ Job.KatJames::next = Page.KatJames = class KatJames extends Page
     James: {}
     Kat: '|people|Kat'
   text: ->"""|| bg="night"
-    #{@Kat.image 'excited', 'left'}
+    #{@Kat.image 'normal', 'left'}
     -- #{q}Hiya!</q>
 
   ||
@@ -387,7 +387,7 @@ Job.KatJames::next = Page.KatJames = class KatJames extends Page
     --> #{q}James Thadel, quartermaster.</q> If Natalie had helped her, she couldn't be that bad.
 
   ||
-    #{@Kat.image 'excited', 'left'}
+    #{@Kat.image 'unimpressed', 'left'}
     -- #{q}Ooh, she's a sailor, then?</q>
 
   ||
@@ -446,7 +446,7 @@ Job.KatStorm::next = Page.KatStorm = class KatStorm extends Page
     --> #{q}Nope, no cloak, but come on. Let's get you out of the rain, at least.</q> She reached over and wrapped an arm around Kat's shoulder, pulling her to her feet.
 
   ||
-    #{@Kat.image 'sad', 'right'}
+    #{@Kat.image 'uncertain', 'right'}
     -- #{q}Where are we going?</q>
 
   ||
@@ -497,7 +497,7 @@ Page.KatStorm::next = Page.KatStorm2 = class KatStorm2 extends PlayerOptionPage
     --> #{q}That's cream. You don't want to drink it. Here, have a biscuit instead. Want tea?</q>
 
   ||
-    #{@Kat.image 'normal', 'right'}
+    #{@Kat.image 'uncertain', 'right'}
     -- #{q}I sucked on a Maiden's Tea leaf once. Pretty nasty. Biscuit sounds good though.</q> She waited for Natalie to fetch it for her. Finally biting into the biscuit, she chewed thoughtfully, her face growing into a smile. She slowly levered herself into a sitting position. #{q}It's good. Always knew you were a big-shot. It's a nice cabin.</q>
 
   ||
@@ -505,7 +505,7 @@ Page.KatStorm::next = Page.KatStorm2 = class KatStorm2 extends PlayerOptionPage
     --> #{q}Thanks. It's not anything like that. I just have some talents The Guild finds useful.</q>
 
   ||
-    #{@Kat.image 'normal', 'right'}
+    #{@Kat.image 'uncertain', 'right'}
     --> #{q}A Vailian Guildswoman, eh? A woman of many talents. So, what do you want with the likes of me? Going to turn me in to the guard for the time I took your money?</q>
 
   ||
@@ -524,7 +524,7 @@ Page.KatStorm2.next['Offer gift'] = Page.KatStormGift = class KatStormGift exten
    -- #{q}Look, you seemed to be doing well before you met me and, while I can't approve of pickpocketing as a living, I do feel pretty bad about what happened afterwards. What would you do with 20b?</q>
 
   ||
-    #{@Kat.image 'excited', 'right'}
+    #{@Kat.image 'normal', 'right'}
     -- That definitely caught Kat's attention. She considered a moment, then answered. #{q}Well, I'd start with some new clothes. Then something to eat, of course. I always wanted to try one of those spiced meat pies in the market, but that cook has eyes like a hawk and I never could snatch one. Then a place to stay. A couple tenths a night gets me a nice place by the fire down in the slums...</q>
 
   ||
@@ -558,7 +558,7 @@ Page.KatStorm2.next['Set up in city'] = Page.KatStormGift.next['Set up in city']
     -- #{q}I know some people who might want some help, if you're interested.</q> Natalie wondered briefly who would accept a known pickpocket street-person into their employ, even one as irrepressible as Kat seemed to be, still joking around even with pneumonia.
 
   ||
-    #{@Kat.image 'normal', 'right'}
+    #{@Kat.image 'unimpressed', 'right'}
     --> #{q}I'm not going to be a whore, Guildswoman.</q> Kat shook her head without anger. #{q}I'm not expensive, and I've seen what happens to cheap ones. I'd rather still be in the gutter.</q>
 
   ||
@@ -566,7 +566,7 @@ Page.KatStorm2.next['Set up in city'] = Page.KatStormGift.next['Set up in city']
     --> #{q}I don't mean whoring. There's desk work and the like,</q> though such an objection did rule out 2/3rds of the possibilities Natalie had thought of suggesting. #{q}There are plenty of other jobs. Can you use a mop?</q>
 
   ||
-    #{@Kat.image 'normal', 'right'}
+    #{@Kat.image 'uncertain', 'right'}
     -- #{q}Dunno. Never tried.</q>
 
   ||
@@ -592,7 +592,7 @@ Page.KatStorm2.next['Offer job'] = Page.KatStormGift.next['Offer job'] = Page.Ka
     -- #{q}Maybe we can help each other out. I'm always looking for more crew members, and you might do well.</q>
 
   ||
-    #{@Kat.image 'excited', 'right'}
+    #{@Kat.image 'normal', 'right'}
     --> Kat laughed. #{q}I've never set foot on a ship before in my life.</q>
 
   ||
@@ -608,7 +608,7 @@ Page.KatStorm2.next['Offer job'] = Page.KatStormGift.next['Offer job'] = Page.Ka
     -- #{q}Besides, it's... um... that's good. No time to consider it? You haven't even heard the pay yet.</q>
 
   ||
-    #{@Kat.image 'excited', 'right'}
+    #{@Kat.image 'normal', 'right'}
     --> #{q}I'd get paid?</q> Kat sounded entirely too excited at that prospect, as though getting money for her labor hadn't even crossed her mind. #{q}How much?</q> Another cough wracked her body, and Natalie patted her shoulder.
 
   ||
@@ -634,7 +634,7 @@ Job.KatVisit::next = Page.KatVisit = class KatVisit extends PlayerOptionPage
 
   ||
     #{@Kat.image 'normal', 'right'}
-    --> #{q}Save me, Nat, save me from the eternal repetitive workday, repetitive and boring and how do people stand having jobs?</q> Kat didn't look nearly as skeletal as she had last time they spoke, but there was a glimmer in her eyes suggesting an unhealthy level of stir-craziness. #{q}Repetitive. Boring. Did I mention it's...</q>
+    --> #{q}Save me Nat, save me from the eternal repetitive workday, repetitive and boring and how do people stand having jobs?</q> Kat didn't look nearly as skeletal as she had last time they spoke, but there was a glimmer in her eyes suggesting an unhealthy level of stir-craziness. #{q}Repetitive. Boring. Did I mention it's...</q>
 
   ||
     #{@Natalie.image 'normal', 'left'}
@@ -649,7 +649,7 @@ Job.KatVisit::next = Page.KatVisit = class KatVisit extends PlayerOptionPage
     --> #{q}Hey, it's better than being on the streets, isn't it?</q>
 
   ||
-    #{@Kat.image 'excited', 'reversed'}
+    #{@Kat.image 'normal', 'reversed'}
     -- #{q}I don't know! I thought it was, during Water, but then I noticed a laundry place I hadn't seen before, with a pretty good crawlspace I could hide in, and I got to thinking that maybe it wasn't so bad after all. But I am so glad to see you! You're not boring.</q>
     #{if g.events.KatVisit.length is 1 then options(['Spend time together', 'Hire her'], ["<em><span class='happiness'>+2 happiness</span> for Kat, Natalie</em>", hireText]) else options(['Hire her'], [hireText])}
 """
@@ -664,7 +664,7 @@ Page.KatVisit.next['Spend time together'] = Page.KatVisitTime = class KatVisitTi
     -- #{q}I suppose it's nice to be appreciated. But anyway, I just thought I'd drop by, see how you were doing.</q>
 
   ||
-    #{@Kat.image 'excited', ''}
+    #{@Kat.image 'normal', ''}
     --> #{q}And you've seen how I'm doing. I'm doing great! And going crazy, too, but, you know.</q>
 
   ||
@@ -672,7 +672,7 @@ Page.KatVisit.next['Spend time together'] = Page.KatVisitTime = class KatVisitTi
     --> Natalie laughed at the display, and poked Kat's forehead. #{q}We are going to get you out of here, then, at least for the rest of the day.</q>
 
   ||
-    #{@Kat.image 'excited', 'right'}
+    #{@Kat.image 'normal', 'right'}
     -- Kat poked back with the broom handle, in the shoulder. Natalie made a grab for it, but her hands caught only empty air, and she received a rap on the hip for her trouble. Feinting after the broom again, instead Nat lunged forward, wrapping her arms around Kat's waist and lifting, tossing the giggling girl over one shoulder like a sack of potatoes.
 
   ||
@@ -699,7 +699,7 @@ Page.KatVisit.next['Hire her'] = Page.KatVisitHire = class KatVisitHire extends 
     -- #{q}Well, that's good. I suppose I don't need to remain in suspense, asking if you'd like to join my crew, then?</q>
 
   ||
-    #{@Kat.image 'excited', ''}
+    #{@Kat.image 'normal', ''}
     --> She was nearly bowled over as Kat leapt into her arms, an excited sound and a fierce hug, legs wrapping around her waist. Natalie staggered back, trying to catch her balance, bumping against a wall. Kat kissed her, right on the mouth, then unwrapped her legs and detached herself again. Natalie laughed at the girl's sudden false-decorum as she wiped dust off her shirt and spoke formally. #{q}Why yes, Captain Natalie, I would be pleased to sign on.</q> It didn't last. She broke back into a grin.
 
   ||
@@ -707,7 +707,7 @@ Page.KatVisit.next['Hire her'] = Page.KatVisitHire = class KatVisitHire extends 
     -- #{q}It's hard work, you know. Messing around is fine, but on the ship I brook no laziness.</q>
 
   ||
-    #{@Kat.image 'excited', 'right'}
+    #{@Kat.image 'normal', 'right'}
     --> #{q}Hey, don't worry about it. I kept this shitty job, didn't I? How much worse can it be?</q>
 """
   apply: ->
@@ -745,7 +745,7 @@ ShipJob.KatClothes::next = Page.KatClothes = class KatClothes extends PlayerOpti
     -- Natalie blinked at the empty chest. It was empty. There should have been underwear in there. With slowly increasing worry, she wandered over to the closet - also empty. There should have been clothes in there. Her desk was untouched - map, navigation tools, even a couple of coins she'd left sitting out, all still in place. Whatever mysterious force had taken all her clothing while she slept, clothing had been its only goal.
 
   ||
-    #{@Nat.image 'serious-nude', 'center'}
+    #{@Nat.image 'seriousNude', 'center'}
     -- She snorted. "Mysterious force," right. Kat's antics were occasionally annoying, but never mysterious. The only mysterious part was how she'd managed to empty the entire closet without either waking Natalie or getting stopped by any of the crew.
     #{options ['Angry', 'Laughing'], }
   """
@@ -759,38 +759,38 @@ Page.KatClothes.next.Angry = Page.KatClothesAngry = class KatClothesAngry extend
     crew:
       fill: -> Math.choice g.crew
   text: ->"""|| bg="Ship.cabinDay"
-    #{Nat.image 'angry-nude', 'center'}
+    #{Nat.image 'angryNude', 'center'}
     -- #{q}James! Find Kat, bring her here, now!</q> Natalie opened her door just a sliver and poked her head out, shouting for someone who should have been on duty. No immediate answer, then... a shuffling sound, and #{crew} came into view, clutching a board to mostly cover #{his} private parts.
 
   ||
     --> #{q @crew}Sorry, captain, someone stole most of the crew's clothes during the night. I don't think James will be coming out of his room.</q>
 
   || bg="Ship.deckDay"
-    #{Nat.image 'normal-nude', 'center'}
+    #{Nat.image 'normalNude', 'center'}
     -- #{q}This is getting ridiculous. Who had watch last night? They had to have been helping her.</q> Natalie threw the door open and strode on deck. Despite the absurdity of the situation, Natalie had to admire Kat's bravado. Hiding every scrap of clothing on the ship was no mean feat. #{q @Nat}Lots of people have seen me naked, what's a few more?</q> She grinned at the stunned sailor to reassure #{him @crew} that her brazen nudity didn't reflect poorly on him.
 
   ||
     ...
 
   || bg="Ship.cabinDay'
-    #{Kat.image 'nude-excited', 'right'}
+    #{Kat.image 'normalNude', 'right'}
 
   ||
-    #{Kat.image 'nude normal', 'right'}
+    #{Kat.image 'uncertainNude', 'right'}
 
   ||
-    #{Kat.image 'nude-sad', 'right'}
+    #{Kat.image 'sadNude', 'right'}
 
   ||
-    #{Kat.image 'nude-sad', 'right'}
+    #{Kat.image 'sadNude', 'right'}
     -- #{q}...sorry. Don't be too mad, please Nat?</q>
 
   ||
-    #{Nat.image 'upset-nude', 'left'}
+    #{Nat.image 'upsetNude', 'left'}
     ...
 
   ||
-    #{Kat.image 'nude-sad', 'right'}
+    #{Kat.image 'sadNude', 'right'}
     -- #{q}...sorry.</q>
 
   ||
@@ -805,14 +805,13 @@ Page.KatClothes.next.Laughing = Page.KatClothesLaughing = class KatClothesLaughi
   conditions:
     Kat: '|officers|Kat'
     Nat: {}
-    crew:
-      fill: -> Math.choice g.crew
+    James: '|officers|James'
   text: ->"""|| bg="Ship.cabinDay"
-    #{@Nat.image 'normal-nude', 'center'}
+    #{@Nat.image 'normalNude', 'center'}
     -- Natalie cracked the door to poke her head out, and, to her surprise, saw #{crew} standing on deck, an unhappy hunch to #{his} shoulders. Also, #{he} was completely naked. Natalie threw her door wide open and strode out on deck.
 
   || bg="Ship.deckDay"
-    #{@Nat.image 'normal-nude', 'left'}
+    #{@Nat.image 'normalNude', 'left'}
     --> #{q}Report,</q> she demanded, causing #{crew} to jump and spin, then blush furiously and try to cover #{his} crotch. #{q @Nat}Why are you naked, sailor?</q> Natalie grinned, and as #{crew} stammered for a response, took pity. #{q}Don't worry. I know. You have to admire her bravado, don't you? Taking just the captains clothing was brazen enough, but I never imagined she'd go for <i>everyone.</i></q>
 
   ||
@@ -822,7 +821,7 @@ Page.KatClothes.next.Laughing = Page.KatClothesLaughing = class KatClothesLaughi
     --> #{q @Nat}Oh, has she now? Well, we'll see about that. Cover your ears.</q>
 
   ||
-    #{@Nat.image 'angry-nude', 'center'}
+    #{@Nat.image 'angryNude', 'center'}
     -- #{q}ALL HANDS ON DECK!</q> Natalie's shout was ear-shatteringly loud. Cursing and thudding from below decks as sailors scrambled to obey, arriving hodge-podge and covering themselves in a motly collection of blankets, hands, and various personal belongings.
 
   ||
@@ -832,33 +831,42 @@ Page.KatClothes.next.Laughing = Page.KatClothesLaughing = class KatClothesLaughi
     -- It took a moment, but that finally produced the desired effect, some scraping and moving sounds, followed by a nervous Kat emerging from below-deck, fully clothed. She looked torn between grinning and being terrified, eyes darting back and forth between everyone present, trying to gauge moods.
 
   ||
-    #{@Nat.image 'normal', 'far-right'}
+    #{@Nat.image 'normalNude', 'far-right'}
     #{@Kat.image 'normal', 'right'}
     --> Natalie took her by the shoulders and steered her by them, until she stood facing the entire crew. She kept her hands firmly on Kat's shoulders, brooking no argument or evasion. One clothed person, facing down #{(g.crew.objectLength + g.officers.objectLength - 2).toWord()} naked ones, ranging from upset to amused to, in the case of James, hiding all the way in the back and completely mortified.
 
   ||
-    #{@Nat.image 'normal', 'far-right'}
     #{@Kat.image 'normal', 'right'}
     -- #{q @Nat}Now, as you are all doubtless aware, last night someone stole all your clothing. Go get dressed, and gather back here in a few minutes for Kat's punishment. Kat, you stay right here. Don't move an inch.</q>
 
   ||
+    #{@Nat.image 'normalNude', 'left'}
+    #{@Kat.image 'normal', 'far-right'}
     --> A few minutes later, the crew was gathered back together, noticeably happier and significantly less chilly. Except Natalie. She'd gathered only a long overcoat, leaving it unbelted. Flashes of her breasts were visible as she moved, and plenty of unbroken pink flesh left any doubt she was naked underneath.
 
   ||
+    #{@Nat.image 'excitedNude', 'left'}
     -- #{q}Kat! Punishment time. Undress, now.</q> Natalie grinned at Kat's shocked expression. #{q}What, exactly, did you think would happen? Now, clothes off.</q>
 
-  ||
-    #{@Kat.image 'blush-nude', 'far-right'}
-    --> Slowly, the thief complied. Though James looked away, refusing to make eye contact with either woman, plenty of the crew took their chance to gather an eye full. Finally, Kat stood back up, the scene reversed from earlier - one naked woman alone, with everyone else dressed.
+  || speed="slow"
+    #{@Kat.image 'embarrassed', 'right'}
+    --> Slowly, the thief complied.
 
   ||
+    #{@Kat.image 'embarrassedNude', 'right'}
+    --> Though James looked away, refusing to make eye contact with either woman, plenty of the crew took their chance to gather an eye full. Finally, Kat stood back up, the scene reversed from earlier - one naked woman alone, with everyone else dressed.
+
+  ||
+    #{@Nat.image 'normalNude', 'left'}
     -- #{q}Now, scrub the deck, stem to stern. I'll be taking those.</q> Natalie bent down to scoop Kat's clothing off the deck. #{q}No clothes for you until you've finished. Yes,</q> she quirked an eyebrow at Kat's dismayed look, #{q}that'll take at least two days. Naked. Put on even a scrap and I'll make you do something worse. Now, hands and knees. You've got work to do.</q>
 
   ||
-    -- Natalie turned, her jacket flashing open with the motion. #{q @crew}Are you going to... um... get dressed, captain?</q>
+    #{James.image 'blush', 'left'}
+    -- Natalie turned, her jacket flashing open with the motion. #{q}Are you going to... um... get dressed, captain?</q>
 
   ||
-    --> #{q}Nah, I'm enjoying the breeze. Besides, it's kind of hot out here, don't you think?</q> She gently shoved Kat's rump with one bare foot, eliciting a squeal of indignation and flashing her pussy to the world. #{q}Actually, you can have shoes. Punishment is one thing, splinters are another. No socks though. Your ankles are too sexy to cover up.</q>
+    #{@Nat.image 'normalNude', 'left'}
+    --> #{q}Nah, I'm enjoying the breeze. Besides, it's kind of hot out here, don't you think?</q> She gently shoved Kat's rump with one bare foot, eliciting a squeal of indignation. #{q}Actually, you can have shoes. Punishment is one thing, splinters are another. No socks though. Your ankles are too sexy to cover up.</q>
 
   ||
     --> <span class="happiness">-2 happiness</span> for James, <span class="happiness">+4</span> for Kat

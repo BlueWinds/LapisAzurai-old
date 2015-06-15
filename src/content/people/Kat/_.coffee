@@ -1,16 +1,16 @@
 layers = (p)->[
-  "#{p}Skin.png"
-  "#{p}Eyes.png"
-  "#{p}Hair.png"
-  "#{p}Top.png"
-  "Base.png"
+  "Skin"
+  "Clothes"
+  "Hair"
+  "#{p}Expression"
+  "#{p}Eyes"
 ]
 
 layersNude = (p)->[
-  "#{p}SkinNude.png"
-  "#{p}Eyes.png"
-  "#{p}HairNude.png"
-  "#{p}Top.png"
+  "Skin"
+  "Hair"
+  "#{p}Expression"
+  "#{p}Eyes"
 ]
 
 Game::people.Kat = Officer.Kat = class Kat extends Officer
@@ -29,18 +29,17 @@ Game::people.Kat = Officer.Kat = class Kat extends Officer
 
   @images:
     path: 'src/content/people/Kat/'
+    scale: 0.45
 
-    normal: layers 'Normal'
-    excited: layers 'Excited'
-    blush: layers 'Blush'
-    upset: layers 'Upset'
-    angry: layers 'Angry'
-    serious: layers 'Serious'
+    normal: layers 'Excited'
+    embarrassed: layers 'Embarrassed'
     sad: layers 'Sad'
-    'normal-nude': layersNude 'Normal'
-    'excited-nude': layersNude 'Excited'
-    'blush-nude': layersNude 'Blush'
-    'upset-nude': layersNude 'Upset'
-    'angry-nude': layersNude 'Angry'
-    'serious-nude': layersNude 'Serious'
-    'sad-nude': layersNude 'Sad'
+    uncertain: layers 'Uncertain'
+    unimpressed: layers 'Unimpressed'
+    upset: layers 'Upset'
+    embarrassedNude: layersNude 'Embarrassed'
+    normalNude: layersNude 'Excited'
+    sadNude: layersNude 'Sad'
+    uncertainNude: layersNude 'Uncertain'
+    unimpressedNude: layersNude 'Unimpressed'
+    upsetNude: layersNude 'Upset'

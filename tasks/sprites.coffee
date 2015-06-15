@@ -33,30 +33,37 @@ module.exports = (grunt)->
         fs.mkdirSync("#{spritePath}/#{person.name}")
       catch e
         null
+
+      path = person.images.path
+      scale = person.images.scale or 1
+      delete person.images.path
+      delete person.images.scale
+      createdPaths = {}
+
       sampleImage = new Canvas.Image
       sampleImage.onload = ->
         async.forEachOfLimit person.images, 5, (imageInfo, image, nextImage)->
-          if image in ['path', 'scale'] then return nextImage()
 
           logNext = (err)->
             grunt.log.ok image
             nextImage err
 
           unless person.colors
-            path = person.images.path
             target = "#{spritePath}/#{person.name}/#{image}.png"
-            scale = person.images.scale or 1
+
             return buildSingleSprite scale, path, imageInfo, target, logNext
 
-          async.forEachOfSeries imageInfo, (path, layer, nextLayer)->
-            path = person.images.path + path
-            target = "#{spritePath}/#{person.name}/#{image}-#{layer}-"
+          async.forEachOfSeries imageInfo, (png, layer, nextLayer)->
+            if createdPaths[png] then return nextLayer()
+            createdPaths[png] = true
+
+            target = "#{spritePath}/#{person.name}/#{png}"
             scale = person.images.scale or 1
-            createColorizedSprites person.colors[layer], scale, path, target, nextLayer
+            createColorizedSprites person.colors[layer], scale, path + png + '.png', target, nextLayer
           , logNext
         , nextPerson
 
-      sampleImage.src = person.images.path + person.images.normal[0]
+      sampleImage.src = path + person.images.normal[0] + '.png'
 
     , finished
 
@@ -72,7 +79,7 @@ loadGameObjects = ->
 
   return global.window
 
-createColorizedSprites = (colors, scale, path, target, done)->
+createColorizedSprites = (colors, scale, origin, target, done)->
   image = new Canvas.Image
   image.onload = ->
     async.each Object.keys(colors), (color, next)->
@@ -90,13 +97,13 @@ createColorizedSprites = (colors, scale, path, target, done)->
         colorize(data.data, colors[color])
         ctx.putImageData data, 0, 0
 
-      out = fs.createWriteStream(target + color + '.png')
+      out = fs.createWriteStream(target + '-' + color + '.png')
       stream = canvas.pngStream()
       stream.on('data', (chunk)-> out.write chunk)
       stream.on('end', -> out.end null, null, next)
     , done
 
-  image.src = path
+  image.src = origin
 
 buildSingleSprite = (scale, path, imageInfo, target, done)->
   canvas = null
@@ -118,7 +125,7 @@ buildSingleSprite = (scale, path, imageInfo, target, done)->
       ctx.drawImage(image, left, top, image.width * 0.5 * scale, image.height * 0.5 * scale)
       nextLayer()
 
-    image.src = path + layer
+    image.src = path + layer + '.png'
   , ->
     out = fs.createWriteStream(target)
     stream = canvas.pngStream()

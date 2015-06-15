@@ -73,7 +73,7 @@ text {
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
   cursor: default;
   margin: 0;
-  min-height: 170px;
+  min-height: 178px;
   opacity: 0.85;
   padding: 19px;
   position: fixed;
@@ -98,7 +98,7 @@ page.no-prev::before {
   cursor: default;
 }
 .person {
-  bottom: 170px;
+  bottom: 178px;
   left: 50%;
   max-width: 500px;
   position: fixed;
@@ -328,6 +328,10 @@ input.inline:disabled {
 }
 .job-tabs li.ready {
   background: #08261C;
+  color: #fff;
+}
+.job-tabs li.half-ready {
+  background: #301608;
   color: #fff;
 }
 .job-tabs li.plot {

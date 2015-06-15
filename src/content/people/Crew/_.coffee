@@ -1,9 +1,9 @@
 layer = (g, p)->[
-  "#{g + p}Skin.png"
-  "#{g + p}Hair.png"
-  "#{g + p}Eyes.png"
-  "#{g + p}Expression.png"
-  "#{g}Top.png"
+  "#{g + p}Skin"
+  "#{g + p}Hair"
+  "#{g + p}Eyes"
+  "#{g + p}Expression"
+  "#{g}Top"
 ]
 
 Person.VailianCrewM = class VailianCrewM extends RandomPerson

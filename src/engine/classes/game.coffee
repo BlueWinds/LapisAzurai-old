@@ -60,6 +60,8 @@ window.Game = class Game extends GameObject
 
   getItem: (path)->
     if typeof path is 'string'
+      if path is '|' then return @
+
       path = path.split '|'
       first = path.shift()
       if first then throw new Error(first + '|' + path.join('|') + ' is a bad path')

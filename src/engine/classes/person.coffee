@@ -78,7 +78,7 @@ window.Person = class Person extends GameObject
       return div[0].outerHTML
 
     for layer, path of src
-      div.append "<img src='game/sprites/#{@constructor.name}/#{label}-#{layer}-#{@color[layer]}.png'>"
+      div.append "<img src='game/sprites/#{@constructor.name}/#{path}-#{@color[layer]}.png'>"
 
     return div[0].outerHTML
 

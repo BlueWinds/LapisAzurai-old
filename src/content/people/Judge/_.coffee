@@ -1,9 +1,9 @@
 layers = (p)->[
-  "#{p}Skin.png"
-  "#{p}Eyes.png"
-  "#{p}Top.png"
-  "Cloth.png"
-  "#{p}Hair.png"
+  "#{p}Skin"
+  "#{p}Eyes"
+  "#{p}Top"
+  "Cloth"
+  "#{p}Hair"
 ]
 
 Person.Judge = class Judge extends Person
@@ -15,11 +15,11 @@ Person.Judge = class Judge extends Person
 
     normal: layers 'Normal'
     happy: [
-      'HappySkin.png'
+      'HappySkin'
       null
-      'HappyTop.png'
-      'Cloth.png'
-      'HappyHair.png']
+      'HappyTop'
+      'Cloth'
+      'HappyHair']
     sad: layers 'Sad'
     serious: layers 'Serious'
     angry: layers 'Angry'

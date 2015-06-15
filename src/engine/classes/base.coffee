@@ -237,8 +237,8 @@ Collection.partMatches = partMatches = (value, condition)->
 
   unless Collection.numericComparison(value, condition) then return false
 
-  if condition.is and not Collection.oneOf(value, condition) then return false
-  if condition.isnt and Collection.oneOf(value, condition) then return false
+  if condition.is and not Collection.oneOf(value, condition.is) then return false
+  if condition.isnt and Collection.oneOf(value, condition.isnt) then return false
 
   if condition.matches and not condition.matches(value)
     return false
@@ -271,5 +271,5 @@ Collection.numericComparison = (target, val)->
   return true
 
 Collection.oneOf = (target, items)->
-  if items instanceof Array then return items.some((c)-> value is c or value instanceof c)
-  return target is items or typeof items is 'function' and target instanceof items
+  if items instanceof Array then return items.some((c)-> target is c or target instanceof c)
+  return target is items or (typeof items is 'function') and target instanceof items

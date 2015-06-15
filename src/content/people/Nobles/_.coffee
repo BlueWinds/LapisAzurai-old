@@ -1,8 +1,8 @@
 layer = (g, p)->[
-  "#{g + p}Skin.png"
-  "#{g + p}Hair.png"
-  "#{g + p}Eyes.png"
-  "#{g + p}Top.png"
+  "#{g + p}Skin"
+  "#{g + p}Hair"
+  "#{g + p}Eyes"
+  "#{g + p}Top"
 ]
 
 Person.NobleF = class NobleF extends Person

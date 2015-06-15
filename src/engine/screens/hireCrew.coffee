@@ -238,7 +238,10 @@ applyHire = (element)->
       key = $(@).attr 'data-key'
       person = context.hires[key]
       newCrew.push person
-      context.hires.remove key
+
+    # Don't remove them until the second iteration, so that the keys in the "hires" array don't change in the middle.
+    for name, person of newCrew
+      context.hires.remove person
 
     if newCrew.length is 1
       g.queue.unshift(new Page.HireCrewOne)

@@ -1,16 +1,16 @@
 layers = (p)->[
-  "#{p}Skin.png"
-  "#{p}Eyes.png"
-  "#{p}Hair.png"
-  "#{p}Top.png"
-  "Cloth.png"
+  "#{p}Skin"
+  "#{p}Eyes"
+  "#{p}Hair"
+  "#{p}Top"
+  "Cloth"
 ]
 
 layersNude = (p)->[
-  "#{p}SkinNude.png"
-  "#{p}Eyes.png"
-  "#{p}HairNude.png"
-  "#{p}Top.png"
+  "#{p}SkinNude"
+  "#{p}Eyes"
+  "#{p}HairNude"
+  "#{p}Top"
 ]
 
 Game::officers.Nat = Officer.Natalie = class Natalie extends Officer
@@ -38,13 +38,13 @@ Game::officers.Nat = Officer.Natalie = class Natalie extends Officer
     angry: layers 'Angry'
     serious: layers 'Serious'
     sad: layers 'Sad'
-    'normal-nude': layersNude 'Normal'
-    'excited-nude': layersNude 'Excited'
-    'blush-nude': layersNude 'Blush'
-    'upset-nude': layersNude 'Upset'
-    'angry-nude': layersNude 'Angry'
-    'serious-nude': layersNude 'Serious'
-    'sad-nude': layersNude 'Sad'
+    normalNude: layersNude 'Normal'
+    excitedNude: layersNude 'Excited'
+    blushNude: layersNude 'Blush'
+    upsetNude: layersNude 'Upset'
+    angryNude: layersNude 'Angry'
+    seriousNude: layersNude 'Serious'
+    sadNude: layersNude 'Sad'
   @colors: [
     { # Skin
       light: false

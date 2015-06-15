@@ -1,15 +1,14 @@
 layers = (p)->[
-  "#{p}Skin.png"
-  "#{p}Eyes.png"
-  "#{p}Top.png"
-  "Cloth.png"
-  "#{p}Hair.png"
+  "#{p}Skin"
+  "#{p}Eyes"
+  "Cloth"
+  "#{p}Hair"
 ]
 
-Person.Meghan = class Meghan extends Person
+Game::people.Meghan = Person.Meghan = class Meghan extends Person
   name: 'Meghan'
   gender: 'f'
-  text: '#999999'
+  text: '#FF7555'
   @images:
     path: 'src/content/people/Meghan/'
 

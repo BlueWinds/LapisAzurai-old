@@ -1,17 +1,17 @@
 layers = (p)-> [
-  "Base.png"
-  "#{p}Skin.png"
-  "#{p}Eyes.png"
-  "#{p}Hair.png"
-  "#{p}Top.png"
+  "Base"
+  "#{p}Skin"
+  "#{p}Eyes"
+  "#{p}Hair"
+  "#{p}Top"
 ]
 
 layersNude = (p)-> [
-  "Empty.png"
-  "#{p}SkinNude.png"
-  "#{p}Eyes.png"
-  "#{p}Hair.png"
-  "#{p}Top.png"
+  "Empty"
+  "#{p}SkinNude"
+  "#{p}Eyes"
+  "#{p}Hair"
+  "#{p}Top"
 ]
 
 Game::officers.James = Officer.James = class James extends Officer
@@ -43,13 +43,13 @@ Game::officers.James = Officer.James = class James extends Officer
     angry: layers 'Angry'
     serious: layers 'Serious'
     sad: layers 'Sad'
-    'normal-nude': layersNude 'Normal'
-    'excited-nude': layersNude 'Excited'
-    'blush-nude': layersNude 'Blush'
-    'upset-nude': layersNude 'Upset'
-    'angry-nude': layersNude 'Angry'
-    'serious-nude': layersNude 'Serious'
-    'sad-nude': layersNude 'Sad'
+    normalNude: layersNude 'Normal'
+    excitedNude: layersNude 'Excited'
+    blushNude: layersNude 'Blush'
+    upsetNude: layersNude 'Upset'
+    angryNude: layersNude 'Angry'
+    seriousNude: layersNude 'Serious'
+    sadNude: layersNude 'Sad'
 
   @colors: [
     { none: false } # Cloth

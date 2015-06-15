@@ -179,10 +179,10 @@ Job.IntroSickNat::next = Page.IntroSickNat = class IntroSickNat extends Page
 
   || bg="day"
     #{@James.image 'serious', 'left'}
-    --> #{q}Right. She was burning hot at first, like a harsh fever, but she wasn't sweating at all, and looked perfectly comfortable.</q> James gave everyone apologetic looks, but didn't stop bulling towards the ship, priest in tow.
+    --> #{q}Right. She was burning hot at first, like a harsh fever, but she wasn't sweating at all, and looked perfectly comfortable.</q> James gave everyone apologetic looks as he bulled his way towards the ship, priest in tow, but didn't stop even when he knocked a sailor over and she began hurling curses in his direction.
 
   ||
-    --> No one had expected a ship to come into dock the day after a Grandmother Storm, and even with two masts snapped, the Azurai was in remarkably good condition. No hands lost. That was news. News attracted crowds. Natalie would know how to deal with this, but that wasn't much help when Natalie was the thing that needed dealing with.
+    -- No one had expected a ship to come into dock the day after a Grandmother Storm, and even with two masts snapped, the Azurai was in remarkably good condition. No hands lost. That was news. News attracted crowds. Natalie would know how to deal with this, but that wasn't much help when Natalie was the thing that needed dealing with.
 
   ||
     #{@James.image 'serious', 'left'}

@@ -1,9 +1,9 @@
 layers = (p)->[
-  "#{p}Skin.png"
-  "#{p}Eyes.png"
-  "#{p}Top.png"
-  "#{p}Hair.png"
-  "Cloth.png"
+  "#{p}Skin"
+  "#{p}Eyes"
+  "#{p}Top"
+  "#{p}Hair"
+  "Cloth"
 ]
 
 Person.MerchantM = class MerchantM extends Person

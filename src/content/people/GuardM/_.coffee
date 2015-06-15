@@ -1,9 +1,9 @@
 layers = (p)->[
-  "#{p}Skin.png"
-  "#{p}Eyes.png"
-  "#{p}Hair.png"
-  "#{p}Top.png"
-  "Cloth.png"
+  "#{p}Skin"
+  "#{p}Eyes"
+  "#{p}Hair"
+  "#{p}Top"
+  "Cloth"
 ]
 
 Game::people.AlkeniaGuard = Person.GuardM = class GuardM extends Person

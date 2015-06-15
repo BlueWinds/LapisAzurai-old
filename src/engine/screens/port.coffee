@@ -5,7 +5,7 @@ updateJob = (jobDiv)->
 
   index = jobDiv.parent().children().index jobDiv
   divs = jobDiv.add $('.job-tabs li', jobDiv.closest('page')).eq index
-  divs.removeClass('ready')
+  divs.removeClass('ready half-ready')
   $('.person-info', jobDiv).each ->
     key = $(@).attr('data-key')
     person = g.crew[key]
@@ -13,9 +13,14 @@ updateJob = (jobDiv)->
   job.updateFromDiv(jobDiv)
   if job.contextReady()
     divs.addClass 'ready'
+  else if $('.person-info', jobDiv).length
+    divs.addClass 'half-ready'
 
   newText = job.text.call(job.context).replace(/\n/g, "<br>")
   $('.job-description', jobDiv).html(newText).addTooltips()
+
+  jobDiv.closest('page').removeClass('confirm')
+  jobDiv.closest('page').find('options').tooltip('hide')
 
 ordering =
   plot: 0
@@ -122,6 +127,12 @@ applyPort = (element)->
     setTall.call(element)
   setTimeout setTall.bind(element), 0
 
+  $('options', element).tooltip({
+    title: "Some jobs haven't met their requirements. Click again to continue anyway."
+    placement: 'top'
+    trigger: 'manual'
+  })
+
   people = $('.person-info', element)
   people.click -> $(@).toggleClass 'active'
 
@@ -204,16 +215,21 @@ assignPersonToJob = (personDiv, job, jobDiv)->
     $('.job-crew', jobDiv)
 
   if slot.length
-    prevJobDiv = personDiv.closest '.job'
-    updateJob(prevJobDiv)
-
     personDiv.removeClass('active')
+
+    prevJobDiv = personDiv.closest '.job'
     slot.prepend(personDiv)
+    updateJob(prevJobDiv)
 
 doWorkClick = (e)->
   if $(@).hasClass 'dis' then return
   e.preventDefault()
   element = $(e.target).closest 'page'
+
+  if element.find('.half-ready').length and not element.hasClass('confirm')
+    element.addClass 'confirm'
+    $(@).parent().tooltip('show')
+    return
 
   $('.jobs > div', element).each ->
     jobDiv = $(@)

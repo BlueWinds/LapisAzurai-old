@@ -114,7 +114,7 @@ Place.Vailia::jobs.nonkeniaDiplomats = Job.NonkeniaDiplomats = class NonkeniaDip
     '|events|KatTrial': {}
   label: 'Mission from Guildmaster'
   type: 'special'
-  text: ->"""The Guildmaster has a job for Natalie, if she'd like to take it - a delivery he won't trust to another ship."""
+  text: ->"""The Guildmaster has a job for Natalie, if she'd like to take it - a delivery he won't trust to any other ship."""
   energy: -1
 
 Mission.NonkeniaDiplomats = class NonkeniaDiplomats extends Mission

@@ -54,7 +54,7 @@ Ship::jobs.talk = ShipJob.Talk = class Talk extends ShipJob
   label: "Talk with Crew"
   conditions:
     luxury: fill: ->
-      minItem = undefined
+      minItem = false
       for item, amount of g.cargo when Item[item] instanceof Luxury
         unless minItem and Item[item].price > Item[minItem].price
           minItem = item
@@ -104,10 +104,8 @@ ShipJob.Talk.next.push Page.ShipTalkMusic = class ShipTalkMusic extends Page
   conditions:
     Nat: '|officers|Nat'
     '|season': {eq: ['Water', 'Wood']}
-    sailor: fill: ->
-      return g.crew.asArray().sort((c1, c2)->c1.business - c2.business)[0]
-    sailor2: fill: ->
-      return g.crew.asArray().sort((c1, c2)->c1.business - c2.business)[2]
+    sailor: fill: -> Math.choice g.crew
+    sailor2: fill: -> Math.otherChoice g.crew, @context.sailor
     luxury: {}
   text: ->"""|| bg="Ship.deckNight"
     -- As often as not it had rained in the evenings recently, so those not on watch found themselves crammed into the sleeping quarters. The humidity made the confines not entirely comfortable, but at least they could easily regulate temperature, between body heat and frozen rain outside.
@@ -126,10 +124,8 @@ ShipJob.Talk.next.push Page.ShipTalkSports = class ShipTalkSports extends Page
   conditions:
     '|season': {eq: ['Wood', 'Fire']}
     Nat: '|officers|Nat'
-    sailor: fill: ->
-      return g.crew.asArray().sort((c1, c2)->c1.combat - c2.combat)[0]
-    sailor2: fill: ->
-      return g.crew.asArray().sort((c1, c2)->c1.combat - c2.combat)[1]
+    sailor: fill: -> Math.choice g.crew
+    sailor2: fill: -> Math.otherChoice g.crew, @context.sailor
     luxury: {}
   text: ->"""|| bg="Ship.deckNight"
     -- Some evenings, once most of the day's work was done, rather than lay about and rest or play music, the crew decided to be a little more energetic. Tossing items around wasn't entirely practical on a small ship, but wrestling or running games were entirely too popular. Natalie hadn't intended to participate, but she couldn't resist when #{@sailor} bowled her over on the way to one of the goals.
@@ -160,7 +156,7 @@ ShipJob.TrainCombat::next = Page.TrainCombat = class TrainCombat extends Page
   """
   apply: ->
     super()
-    for i, sailor of g.crew when sailor.combat < @content.James.combat
+    for i, sailor of g.crew when sailor.combat < @context.James.combat
       sailor.add 'combat', 1
     @context.James.add 'energy', -2
 

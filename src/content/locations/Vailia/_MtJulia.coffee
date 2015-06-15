@@ -230,7 +230,7 @@ Job.MtJuliaCheckShip::next = Page.MtJuliaCheckShip = class MtJuliaCheckShip exte
     -- The Azurai shouldn't have taken any damage from such a minor voyage in calm weather, but it didn't hurt to check. James stripped down to his trunks – any issues would begin below the waterline on the outside of the hull long before they became visible to the occupants.
 
   ||
-    #{@James.image 'blush', 'left'}
+    #{@James.image 'blushNude', 'left'}
     --> The back of his neck burned as someone whistled behind him, but he refused to dignify the catcall with a glance. Let Natalie have her fun. Or one of the sailors, if they were so bold. He didn't really want to know who it was. Yes he did, actually, but he still wasn't going to turn his head to look.
 
   || bg="Ship.day"

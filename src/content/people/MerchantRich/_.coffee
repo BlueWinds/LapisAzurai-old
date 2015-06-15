@@ -1,11 +1,11 @@
 layers = (p)->[
-  "BaseHair.png"
-  "#{p}Skin.png"
-  "#{p}Eyes.png"
-  "#{p}Top.png"
-  "Cloth.png"
-  "#{p}Hair.png"
-  "Hat.png"
+  "BaseHair"
+  "#{p}Skin"
+  "#{p}Eyes"
+  "#{p}Top"
+  "Cloth"
+  "#{p}Hair"
+  "Hat"
 ]
 
 Person.MerchantRich = class MerchantRich extends Person

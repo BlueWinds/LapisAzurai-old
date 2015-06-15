@@ -105,7 +105,7 @@ Page.PiratesFight.next.good = Page.PiratesFightWin = class PiratesFightWin exten
 
   ||
     #{g.officers.James.image 'angry', ''}
-    -- #{q g.officers.James}Yah!</q> James crashed into him, sending the pirate sprawling across the deck, and ran a sword through him before he could recover from the second bout of surprise. #{q}Get inside, Nat! Now!</q>
+    -- #{q}Yah!</q> James crashed into him, sending the pirate sprawling across the deck, and ran a sword through him before he could recover from the second bout of surprise. #{q}Get inside, Nat! Now!</q>
 
   ||
     --> She shook her head, taking a deep breath and a moment to evaluate the situation. Behind them, the roaring of flames began to overwhelm the sounds of battle, the pirate ship burning. Nearly half of the combatants were down on either side, but the pirates were rapidly retreating, realizing that if they wanted to sail away from this on their own ship, they needed to fight the fire and not the Azurai's crew.

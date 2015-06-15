@@ -37,7 +37,7 @@ module.exports = [
   'content/people/James/_.coffee'
   'content/people/Kat/_.coffee'
   'content/people/Guildmaster/_.coffee'
-#   'content/people/Meghan/_.coffee'
+  'content/people/Meghan/_.coffee'
 #   'content/people/Nobles/_.coffee'
 #   'content/people/Judge/_.coffee'
 
