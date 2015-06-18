@@ -105,7 +105,7 @@ ShipJob.Talk.next.push Page.ShipTalkMusic = class ShipTalkMusic extends Page
     Nat: '|officers|Nat'
     '|season': {eq: ['Water', 'Wood']}
     sailor: fill: -> Math.choice g.crew
-    sailor2: fill: -> Math.otherChoice g.crew, @context.sailor
+    sailor2: fill: -> Math.otherChoice g.crew, @sailor
     luxury: {}
   text: ->"""|| bg="Ship.deckNight"
     -- As often as not it had rained in the evenings recently, so those not on watch found themselves crammed into the sleeping quarters. The humidity made the confines not entirely comfortable, but at least they could easily regulate temperature, between body heat and frozen rain outside.
@@ -125,7 +125,7 @@ ShipJob.Talk.next.push Page.ShipTalkSports = class ShipTalkSports extends Page
     '|season': {eq: ['Wood', 'Fire']}
     Nat: '|officers|Nat'
     sailor: fill: -> Math.choice g.crew
-    sailor2: fill: -> Math.otherChoice g.crew, @context.sailor
+    sailor2: fill: -> Math.otherChoice g.crew, @sailor
     luxury: {}
   text: ->"""|| bg="Ship.deckNight"
     -- Some evenings, once most of the day's work was done, rather than lay about and rest or play music, the crew decided to be a little more energetic. Tossing items around wasn't entirely practical on a small ship, but wrestling or running games were entirely too popular. Natalie hadn't intended to participate, but she couldn't resist when #{@sailor} bowled her over on the way to one of the goals.

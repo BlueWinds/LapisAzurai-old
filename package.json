@@ -1,7 +1,7 @@
 {
   "name": "Lapis-Azurai",
   "description": "Adult business management / exploration game",
-  "version": "0.3.4",
+  "version": "0.3.5",
   "author": "BlueWinds",
   "devDependencies": {
     "async": "1.x",
