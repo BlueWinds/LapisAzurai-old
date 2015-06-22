@@ -63,15 +63,8 @@ Place.Alkenia::firstVisit = Page.AlkeniaArrive = class AlkeniaArrive extends Pag
     #{g.officers.Nat.image 'normal', 'left'}
     --> #{q}He's not... ah, yes, thank you.</q> She decided it wasn't worth arguing over."""
 
-Place.Alkenia::jobs.rest = Job.AlkeniaRest = class AlkeniaRest extends Job
-  officers:
-    worker: {}
-    worker2: {optional: true}
-    worker3: {optional: true}
-  label: 'Rest'
+Place.Alkenia::jobs.rest = Job.AlkeniaRest = class AlkeniaRest extends Job.Beach
   text: ->"""Sit in one of Alkenia's cafes and rest"""
-  energy: 3
-  next: Page.randomMatch
   @next: []
 
 Job.AlkeniaRest.next.push Page.AlkeniaRestForest = class AlkeniaRestForest extends Page

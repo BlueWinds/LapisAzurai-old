@@ -74,7 +74,7 @@ text {
   cursor: default;
   margin: 0;
   min-height: 178px;
-  opacity: 0.85;
+  opacity: 0.95;
   padding: 19px;
   position: fixed;
   user-select: none;
@@ -100,8 +100,7 @@ page.no-prev::before {
 .person {
   bottom: 178px;
   left: 50%;
-  max-width: 500px;
-  position: fixed;
+  position: absolute;
   width: 33%;
 }
 .person img {
@@ -1001,4 +1000,10 @@ page h4 {
 .tooltip ul {
   padding-left: 13px;
   text-align: left;
+}
+page > .person.Kat {
+  width: 43%;
+}
+page > .person.Kat img {
+  bottom: -115px;
 }

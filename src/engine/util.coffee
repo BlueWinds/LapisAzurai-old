@@ -4,7 +4,7 @@ String.rate = (number)-> switch number
   when 1 / 3 then 'a third'
   when 1 / 2 then 'half'
   when 2 / 3 then 'two thirds'
-  when 1 then 'normal'
+  when 1 then ''
   when 2 then 'twice'
   when 3 then 'three times'
   else number.toString()

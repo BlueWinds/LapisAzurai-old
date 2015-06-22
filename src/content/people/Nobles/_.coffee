@@ -5,9 +5,10 @@ layer = (g, p)->[
   "#{g + p}Top"
 ]
 
-Person.NobleF = class NobleF extends Person
-  name: 'Tandia'
+Game::people.Ameliss = Person.Ameliss = class Ameliss extends Person
+  name: 'Ameliss'
   gender: 'f'
+  color: '#bfba6f'
   @images:
     path: 'src/content/people/Nobles/'
 
@@ -17,7 +18,7 @@ Person.NobleF = class NobleF extends Person
     serious: layer 'F', 'Serious'
     angry: layer 'F', 'Angry'
 
-Person.NobleM = class NobleM extends Person
+###Person.NobleM = class NobleM extends Person
   name: 'Richard'
   gender: 'm'
   @images:
@@ -27,4 +28,4 @@ Person.NobleM = class NobleM extends Person
     happy: layer 'M', 'Happy'
     sad: layer 'M', 'Sad'
     serious: layer 'M', 'Serious'
-    angry: layer 'M', 'Angry'
+    angry: layer 'M', 'Angry'###

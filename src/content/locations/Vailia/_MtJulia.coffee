@@ -130,16 +130,11 @@ Job.MtJuliaMarket.next.unshift Page.MtJuliaMarketIntro = class MtJuliaMarketIntr
   """
   next: Page.MtJuliaMarketIntro2
 
-Place.MountJulia::jobs.rest = Job.MtJuliaRest = class MtJuliaRest extends Job
-  officers:
-    worker: {}
-    worker2: {optional: true}
-    worker3: {optional: true}
-  label: 'Rest'
+Place.MountJulia::jobs.rest = Job.MtJuliaRest = class MtJuliaRest extends Job.Beach
   text: ->"""Visit the inn, Mt. Julia's one and only inhabited building."""
-  energy: 3
+  @next: []
 
-Job.MtJuliaRest::next = Page.MtJuliaRest = class MtJuliaRest extends Page
+Job.MtJuliaRest.next.push Page.MtJuliaRest = class MtJuliaRest extends Page
   conditions:
     worker: {}
   text: ->"""|| bg="tavern"
@@ -150,10 +145,9 @@ Job.MtJuliaRest::next = Page.MtJuliaRest = class MtJuliaRest extends Page
     --> <q>Tasha. Tasha Julia, pleased ta'make yer acquaintance.</q> She stuck one hand out, and #{@worker} shook it. She had a strong grip for her size. Other than those from the Azurai, the inn was completely empty. It was of decent size, capable of seating several dozen patrons, and the second floor promised plenty of private rooms for those looking for time away from their ships.
   """
 
-scavenge = (rate)->
-  return {
-    fill: -> Math.floor(Math.random() * g.last.context.length * rate) + 1
-  }
+scavenge = (rate)-> {
+  fill: -> Math.floor(Math.random() * g.last.context.length * rate) + 1
+}
 
 Place.MountJulia::jobs.scavenge = Job.Scavenge = class Scavenge extends Job
   officers:

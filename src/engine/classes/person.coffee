@@ -67,11 +67,12 @@ window.Person = class Person extends GameObject
 
   image: (label, classes = '')->
     lastP = @
-    src = @constructor.images[label]
+    for label in label.split('|')
+      if src = @constructor.images[label] then break
     unless src
       throw new Error "Can't find image '#{label}' for #{@}"
 
-    div = $ "<div class='#{classes} person'></div>"
+    div = $ "<div class='#{classes} person #{@constructor.name}'></div>"
 
     unless @constructor.colors
       div.append "<img src='game/sprites/#{@constructor.name}/#{label}.png'>"

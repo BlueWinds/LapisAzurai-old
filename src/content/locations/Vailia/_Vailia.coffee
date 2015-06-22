@@ -1,4 +1,5 @@
 Job.VailiaHireCrew = class VailiaHireCrew extends Job.HireCrew
+  ignoreNew: true # Don't show this as new since they've already seen IntroHireCrew
   @hireClasses: [Person.VailianCrewM, Person.VailianCrewF, Person.VailianCrewM2, Person.VailianCrewF2]
 
 Job.VailiaMarket = class VailiaMarket extends Job.Market

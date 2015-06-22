@@ -664,7 +664,7 @@ Page.KatVisit.next['Spend time together'] = Page.KatVisitTime = class KatVisitTi
     -- #{q}I suppose it's nice to be appreciated. But anyway, I just thought I'd drop by, see how you were doing.</q>
 
   ||
-    #{@Kat.image 'normal', ''}
+    #{@Kat.image 'normal', 'reversed'}
     --> #{q}And you've seen how I'm doing. I'm doing great! And going crazy, too, but, you know.</q>
 
   ||
@@ -805,7 +805,6 @@ Page.KatClothes.next.Laughing = Page.KatClothesLaughing = class KatClothesLaughi
   conditions:
     Kat: '|officers|Kat'
     Nat: {}
-    James: '|officers|James'
   text: ->"""|| bg="Ship.cabinDay"
     #{@Nat.image 'normalNude', 'center'}
     -- Natalie cracked the door to poke her head out, and, to her surprise, saw #{crew} standing on deck, an unhappy hunch to #{his} shoulders. Also, #{he} was completely naked. Natalie threw her door wide open and strode out on deck.
@@ -829,8 +828,14 @@ Page.KatClothes.next.Laughing = Page.KatClothesLaughing = class KatClothesLaughi
 
   ||
     -- It took a moment, but that finally produced the desired effect, some scraping and moving sounds, followed by a nervous Kat emerging from below-deck, fully clothed. She looked torn between grinning and being terrified, eyes darting back and forth between everyone present, trying to gauge moods.
+"""
 
-  ||
+Page.KatClothesLaughing::next = Page.KatClothesLaughing2 = class KatClothesLaughing2 extends Page
+  conditions:
+    Kat: {}
+    Nat: {}
+    James: '|officers|James'
+  text: ->"""|| bg="Ship.deckDay"
     #{@Nat.image 'normalNude', 'far-right'}
     #{@Kat.image 'normal', 'right'}
     --> Natalie took her by the shoulders and steered her by them, until she stood facing the entire crew. She kept her hands firmly on Kat's shoulders, brooking no argument or evasion. One clothed person, facing down #{(g.crew.objectLength + g.officers.objectLength - 2).toWord()} naked ones, ranging from upset to amused to, in the case of James, hiding all the way in the back and completely mortified.

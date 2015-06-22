@@ -57,6 +57,7 @@ window.Game = class Game extends GameObject
   weather: 'calm'
   cargo: new Collection
   money: 1500
+  version: 0
 
   getItem: (path)->
     if typeof path is 'string'

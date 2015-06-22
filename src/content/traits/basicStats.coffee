@@ -36,37 +36,37 @@ Trait.Excitable = class Excitable extends Trait
 
 Trait.Acute = class Acute extends Trait
   description: (person)->"#{person}'s <span class='business'>business</span> increases twice as fast."
-  setBusiness: 2
+  businessSet: 2
   @randomPoints: 5
   @opposed: ['Spendthrift']
 
 Trait.Spendthrift = class Spendthrift extends Trait
   description: (person)->"#{person}'s <span class='business'>business</span> increases only half as fast."
-  setBusiness: 0.5
+  businessSet: 0.5
   @randomPoints: -5
   @opposed: ['Acute']
 
 Trait.SeaLegs = class SeaLegs extends Trait
   label: 'Sea Legs'
   description: (person)->"#{person}'s <span class='sailing'>sailing</span> increases twice as fast."
-  setSailing: 2
+  sailingSet: 2
   @randomPoints: 5
   @opposed: ['Queasy']
 
 Trait.Queasy = class Queasy extends Trait
   description: (person)->"#{person}'s <span class='sailing'>sailing</span> increases only half as fast."
-  setSailing: 0.5
+  sailingSet: 0.5
   @randomPoints: -5
   @opposed: ['SeaLegs']
 
 Trait.Strong = class Strong extends Trait
   description: (person)->"#{person}'s <span class='combat'>combat</span> increases twice as fast."
-  setCombat: 2
+  combatSet: 2
   @randomPoints: 5
   @opposed: ['Weak']
 
 Trait.Weak = class Weak extends Trait
   description: (person)->"#{person}'s <span class='combat'>combat</span> increases only half as fast."
-  setSailing: 0.5
+  combatSet: 0.5
   @randomPoints: -5
   @opposed: ['Strong']

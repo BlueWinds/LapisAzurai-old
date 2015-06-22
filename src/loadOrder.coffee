@@ -38,7 +38,8 @@ module.exports = [
   'content/people/Kat/_.coffee'
   'content/people/Guildmaster/_.coffee'
   'content/people/Meghan/_.coffee'
-#   'content/people/Nobles/_.coffee'
+  'content/people/Nobles/_.coffee'
+  'content/people/Cara/_.coffee'
 #   'content/people/Judge/_.coffee'
 
 # Generic People
@@ -46,8 +47,6 @@ module.exports = [
   'content/people/Crew2/_.coffee'
   'content/people/GuardM/_.coffee'
 #   'content/people/MerchantM/_.coffee'
-#   'content/people/MerchantF/_.coffee'
-#   'content/people/MerchantRich/_.coffee'
 
 # Locations
   'content/locations/Ship/_Ship.coffee'
@@ -60,6 +59,7 @@ module.exports = [
   'content/locations/Vailia/_MtJulia.coffee'
   'content/locations/Vailia/_Alkenia.coffee'
   'content/locations/Vailia/_Nonkenia.coffee'
+  'content/locations/Vailia/_IronSands.coffee'
 #   'content/locations/Kantis/_Kantis.coffee'
 
 # Route content

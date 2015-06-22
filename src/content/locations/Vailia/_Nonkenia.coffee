@@ -67,21 +67,15 @@ Place.Nonkenia::firstVisit = Page.VisitNonkenia = class VisitNonkenia extends Pa
     -- <q>There you go, girl. The forest isn't dangerous anymore. For you. As long as you take the left trail, then left fork, then right. Got that? Left, left, right.</q> Another dry chuckle, a sound Natalie was beginning to thoroughly loathe. <q>Anyone else who feels like walking to the city, come and take your turn. You can wipe it off once you're inside the city, but make sure you get anointed again before you try to return to the ship. It'd be a shame if some of you didn't make it back.</q>
 """
 
-Place.Nonkenia::jobs.rest = Job.NonkeniaRest = class NonkeniaRest extends Job
-  officers:
-    worker: {}
-    worker2: {optional: true}
-    worker3: {optional: true}
-  label: 'Rest'
+Place.Nonkenia::jobs.rest = Job.NonkeniaRest = class NonkeniaRest extends Job.Beach
   text: ->"""Stroll through the forest. It's safe here, the locals claim, despite appearances."""
-  energy: 3
-  next: Page.randomMatch
   @next: []
 
 Job.NonkeniaRest.next.push Page.NonkeniaRest = class NonkeniaRest extends Page
   conditions:
     worker: {}
   text: ->"""|| bg="day|storm"
+    #{@worker.image 'normal', 'left'}
     -- #{@worker} meandered through Nonkenia, exploring the area and people-watching. Eventually #{he} found himself in a quieter part of the town, out of sight of the main roads and walking through increasingly narrow passages between poorly maintained buildings.
 
   ||
@@ -97,6 +91,7 @@ Job.NonkeniaRest.next.push Page.NonkeniaRest = class NonkeniaRest extends Page
     --> She shook her slowly head and looked back down at her fire. <q>You're not the one I'm waiting for, but you are welcome to join me if you wish.</q>
 
   ||
+    #{@worker.image 'normal', 'left'}
     -- Strangely compelled by the scene, #{@worker} took a seat. #{q}What is this place? It's much older than the rest of the city.</q>
 
   ||
@@ -110,6 +105,31 @@ Job.NonkeniaRest.next.push Page.NonkeniaRest = class NonkeniaRest extends Page
 
   ||
     -- <q>I'll know.</q> She shrugged. <q>Well, probably not me. But my grandson, or his child, or his great-great grandson. We've watched this place for so long now, what's a few more centuries?</q> She repeated the shrug, fed the fire another log.
+"""
+
+Job.NonkeniaRest.next.push Page.NonkeniaRestHunters = class NonkeniaRestHunters extends Page
+  conditions:
+    worker: {}
+  text: ->"""|| bg="day|storm"
+    #{@worker.image 'normal', 'left'}
+    -- Blinking, #{@worker} stepped back into the bushes from which #{he} had just come. Half a dozen men and women stood in the clearing just ahead, gathering at the front door of a hut and applying paint to eachother's faces. Each of them was armed with a spear, and two little girls walked around passing out javelins.
+
+  ||
+    --> Uncertain that #{he} wanted anything to do with this, #{@worker} was about to turn back for the ship when a hand tugged at #{his} pants. #{he} he looked down to find a trio of young boys looking up expectantly. <q>You have to go into the hut.</q>
+
+  ||
+    #{@worker.image 'serious|uncertain', 'left'}
+    -- #{q}What's in the hut?</q> #{He} glanced - a little nervously, #{he} had to admit - at the stone structure where a war party was gathering.
+
+  ||
+    --> <q>The hunt-fire. Since you're here, you have to bow to it and say the rite, or they won't catch anything.</q>
+
+  ||
+    #{@worker.image 'normal', 'left'}
+    --> #{@worker} nodded, relieved. A hunting party sounded much nicer than a war party. Given the recent troubles between Alkenia and Nonkenia, #{he} wasn't sure he wanted to be wishing them success if they'd been soldiers. #{q}Ok, I'll do it. But why me?</q>
+
+  ||
+    --> <q>You saw them before they came back, so now you have to pray.</q> The boy tugged at #{@worker}'s pants again impatiently while his friends ran ahead.
 """
 
 Place.Vailia::jobs.nonkeniaDiplomats = Job.NonkeniaDiplomats = class NonkeniaDiplomats extends Job
@@ -204,10 +224,62 @@ Job.NonkeniaDiplomats::next = Page.NonkeniaDiplomats = class NonkeniaDiplomats e
       '|officers|Nat|traits|diplomats': Trait.Diplomats
       '|map|Nonkenia|jobs|nonkeniaDiplomats': Job.NonkeniaDiplomats2
 
+Place.Ship::jobs.nonkeniaDiplomat = ShipJob.NonkeniaDiplomatShip = class NonkeniaDiplomatShip extends ShipJob
+  conditions:
+    '|officers|Nat|traits|diplomats': {}
+  type: 'special'
+  label: 'Deal with Diplomat'
+  text: ->"Maybe she isn't so bad after all? It wouldn't hurt to make nice..."
+
+ShipJob.NonkeniaDiplomatShip::next = Page.NonkeniaDiplomatShip = class NonkeniaDiplomatShip extends Page
+  conditions:
+    Nat: '|officers|Nat'
+    crew: fill: -> Math.choice g.crew
+    Ameliss: '|people|Ameliss'
+  text: ->"""|| bg="Ship.cabinDay"
+    #{@Nat.image 'normal', 'left'}
+    -- #{q}Come in, please.</q> Natalie shut the door behind Ameliss and gestured to the single chair, taking a seat on the bed herself.
+
+  ||
+    #{@Ameliss.image 'normal', 'right'}
+    --> Ameliss sat down with a flurish, sweeping her long dress to one side. Ignoring any semblance of common sense, the diplomat looked better dressed for a ballroom than moving around aboard a ship. Long icicle black hair and steel eyes, piercing lips, a smile that seemed to mean the opposite of what one should...
+
+  ||
+    #{@Nat.image 'normal', 'left'}
+    --> #{q}I'm afraid Guildmaster Janos never gave me your bodyguard's name,</q> Natalie reached for something to talk about.
+
+  ||
+    #{@Ameliss.image 'angry', 'right'}
+    -- She gave a stare that made Natalie feel as though she'd burst out cussing at a formal dinner. Why would you want to talk about him when I'm so much more interesting, it seemed to say. #{q}He told me that you have been giving him a hard time? I didn't believe him, of course, that someone so well-regarded by the Guildmaster as yourself would begrudge him a snack...</q>
+
+  ||
+    #{@Nat.image 'normal', 'left'}
+    --> #{q}He is welcome to help himself to the galley, but yes, there was a bit of a scuffle when he took a piece of bread off #{@crew}'s plate.</q> Natalie shrugged and tried not to smile. #{q @Nat}I made the two of them clean the food off the ceiling afterwards - it was only fair, since #{@crew} was the one who threw the soup - but cannot fault #{him} for sticking up for #{him}self.</q>
+
+  ||
+    #{@Ameliss.image 'serious', 'right'}
+    -- Ameliss pursed her lips in annoyance, as though having trouble believing that Natalie would actually admit to such a thing. #{q}That is unfortunate, and I shall have to speak with him about him manners.</q>
+
+  ||
+    #{@Nat.image 'serious', 'left'}
+    --> It sounded like an appology, but couldn't help but feel like the Ameliss was more annoyed at her for refusing to fault #{@crew} than anything. This was going to be a long voyage.
+
+  ||
+    #{@Nat.image 'serious', 'left'}
+    --> <em><span class="happiness">-2 happiness</span> for #{@crew}</em>
+"""
+  apply: ->
+    super()
+    @context.crew.add 'happiness', -2
+  effects:
+    remove:
+      '|map|Ship|jobs|nonkeniaDiplomat': ShipJob.NonkeniaDiplomatShip
+
 Job.NonkeniaDiplomats2::next = Page.NonkeniaDiplomats2 = class NonkeniaDiplomats2 extends Page
   conditions:
     Nat: {}
     James: {}
+    Ameliss: '|people|Ameliss'
   text: ->"""|| bg="day"
     -- Sploosh.
 
@@ -228,6 +300,7 @@ Job.NonkeniaDiplomats2::next = Page.NonkeniaDiplomats2 = class NonkeniaDiplomats
     -- Natalie grinned and turned to Ameliss, the diplomat she was being paid to deliver. #{q}I'll be getting paid now, if you don't mind.</q> She held out her hand, and when Ameliss hesitated, began tapping a foot on the plank she'd rigged in order to make the bodyguard walk it.
 
   ||
+    #{@Ameliss.image 'angry', 'right'}
     --> <q>Treachery! Piracy! Whore!</q> The normally composed diplomat backed towards the rail, hissing insults and clutching the bag of money Janos had given her to pay Natalie with. <q>I'll make you pay for this, see if I don't!</q>
 
   ||

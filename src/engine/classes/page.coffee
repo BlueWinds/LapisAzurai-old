@@ -140,8 +140,7 @@ window.Page = class Page extends GameObject
     for key, val of @conditions
       if key[0] is '|'
         if checkGetItem(key, val) then continue else return false
-
-      if val.optional or val.fill or val.matches then continue
+      if val.optional or val.fill or val.matches or $.isEmptyObject(val) then continue
 
       target = getTarget(val)
       unless target then return false
@@ -175,7 +174,9 @@ window.Page = class Page extends GameObject
     return
 
   isNew: ->
-    unless g.events[@constructor.name] or @ignoreNew
+    if @ignoreNew
+      return false
+    unless g.events[@constructor.name]
       return true
 
     if @next instanceof Page
@@ -188,7 +189,8 @@ window.Page = class Page extends GameObject
     for key, val of @constructor.next
       next = new val
       next.contextFill(@context)
-      if next.couldMatch(true) and next.isNew()
+      console.log next, next.couldMatch()
+      if next.couldMatch() and next.isNew()
         return true
 
     return false

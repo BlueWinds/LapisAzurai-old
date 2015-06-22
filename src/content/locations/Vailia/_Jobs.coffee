@@ -20,7 +20,7 @@ Job.Library::next = Page.Library = class Library extends Page
 
 Page.Library.next.push Page.LibraryTravel = class LibraryTravel extends Page
   conditions:
-    '|events|LibraryTravel|length': {lt: 3, optional: true}
+    '|events|LibraryTravel|length': {lt: 4, optional: true}
     '|events|LibraryTravel':
       matches: (days)->
         return not days or days[0] < g.day - 7
@@ -58,6 +58,8 @@ Page.LibraryTravel.next.push Page.LibraryTravelDirect = class LibraryTravelDirec
     g.map.Alkenia.destinations.Vailia = 17
 
 Page.LibraryTravel.next.push Page.LibraryTravelNonkenia = class LibraryTravelNonkenia extends Page
+  conditions:
+    worker: {}
   text: ->"""|| bg="marketDay|marketStorm"
     -- With some careful searching of various travel journals and map fragments, and the (un)help of a thorny librarian, #{@worker} managed to find and copy down the details of a new route. With a detailed chart and location, the Lapis could now travel to another destination.
 
@@ -67,11 +69,19 @@ Page.LibraryTravel.next.push Page.LibraryTravelNonkenia = class LibraryTravelNon
     super()
     g.map.Alkenia.destinations.Nonkenia = 3
     g.map.MountJulia.destinations.Nonkenia = 10
-#
-# Page.LibraryTravel.next.push Page.LibraryTravelBlackSands = class LibraryTravelBlackSands extends Page
-#   text: ->"""|| bg="marketDay|marketStorm"
-#     -- <strong>Black Sands</strong>, a mining settlement run by Vailia, and a major source of both raw iron and steel goods. They will buy wood, bulk grain and alcohol at excellent prices.
-#   """
+
+Page.LibraryTravel.next.push Page.LibraryTravelIronSands = class LibraryTravelIronSands extends Page
+  conditions:
+    worker: {}
+  text: ->"""|| bg="marketDay|marketStorm"
+    -- With some careful searching of various travel journals and map fragments, and the (un)help of a thorny librarian, #{@worker} managed to find and copy down the details of a new route. With a detailed chart and location, the Lapis could now travel to another destination.
+
+    <strong>Iron Sands</strong> was a mining settlement to the south, run by Vailian interests, and a major source of both raw iron and steel goods. They will buy wood, bulk grain and alcohol at excellent prices.
+  """
+  apply: ->
+    super()
+    g.map.Vailia.destinations.IronSands = 14
+    g.map.MountJulia.destinations.IronSands = 15
 
 Page.Library.next.push Page.LibraryNap = class LibraryNap extends Page
   conditions:

@@ -18,7 +18,7 @@ Page.checkCrewLeaving = ->
     return true
 
   if leavingUnhappy.length
-    leaving.push(next = if leavingUnhappy.length is 1
+    leavingEvents.push(next = if leavingUnhappy.length is 1
       new Page.OneCrewLeaving
     else
       new Page.ManyCrewLeaving
@@ -49,7 +49,7 @@ Page.CrewLeaving = class CrewLeaving extends Page
 
 Page.OneCrewLeaving = class OneCrewLeaving extends Page
   # context[0] will be filled in when this event is triggered
-  text: ->"""|| bg="portDay|portStorm"
+  text: ->"""|| bg="day|storm"
     #{@[0].image 'sad', 'right'}
     --> #{q}I'm sorry, but I think it's time for me to look for another berth,</q> #{@[0]} maintained a bit of politeness, but not too much.
   ||
@@ -62,7 +62,7 @@ Page.ManyCrewLeaving = class ManyCrewLeaving extends Page
   text: ->
     names = @asArray()
     names.shift()
-    """|| bg="portDay|portStorm"
+    """|| bg="day|storm"
       #{@[0].image 'sad', 'right'}
       -- #{q}I'm sorry, Natalie, but we've talked it over and we think it's time to go our separate ways.</q> #{@[0]} spoke quietly, glancing over #{his} shoulder at the other#{if @length > 2 then 's who were' else ' who was'} departing. #{names.wordJoin()} nodded in agreement. They were also leavingUnhappy.
 

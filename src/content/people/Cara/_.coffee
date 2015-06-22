@@ -6,12 +6,12 @@ layers = (p)->[
   "Cloth"
 ]
 
-Person.MerchantF = class MerchantF extends Person
-  name: 'MerchantF'
+Game::people.Cara = Person.Cara = class Cara extends Person
+  name: 'Cara'
   gender: 'f'
-  text: '#999999'
+  text: '#3fba6f'
   @images:
-    path: 'src/content/people/MerchantF/'
+    path: 'src/content/people/Cara/'
 
     normal: layers 'Normal'
     happy: layers 'Happy'
