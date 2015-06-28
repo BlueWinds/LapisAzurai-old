@@ -18,7 +18,7 @@ Place.Ship::jobs.storm = ShipJob.Storm = class Storm extends ShipJob
   label: "Storm"
   type: 'plot'
   conditions:
-    '|': matches: -> return Math.random() <= 0.1 and not (g.events.Storm?[0] + 28 >= g.day)
+    '|': matches: -> return Math.random() <= 10.1 and not (g.events.Storm?[0] + .28 >= g.day)
     '|events|FirstStorm': {}
     damage: {fill: stormDamage}
     sailing: '|last'
@@ -50,20 +50,23 @@ ShipJob.Storm::next = Page.Storm = class Storm extends Page
         #{options buttons, titles}
     """
 
-    $('button', page).eq(0).click ->
+    $('button', page).eq(0).click (e)->
       [g.location, sail.destination] = [sail.destination, g.location]
       sail.days = sail.daysNeeded - sail.days + g.map.Ship.sailSpeed()
-      arrive()
+      return arrive(e)
 
-    $('button', page).eq(1).click ->
+    $('button', page).eq(1).click (e)->
       sail.days += g.map.Ship.sailSpeed()
-      arrive()
+      return arrive(e)
 
-    $('button', page).eq(2).click ->
+    $('button', page).eq(2).click (e)->
       g.queue.unshift new Page.StormBatten
       Game.gotoPage()
+      e.preventDefault()
+      return false
 
-    arrive = =>
+    arrive = (e)=>
+      e.preventDefault()
       if sail.days >= sail.daysNeeded
         @destination = sail.destination
         g.queue.unshift new Page.SailDone
@@ -72,6 +75,7 @@ ShipJob.Storm::next = Page.Storm = class Storm extends Page
       else
         g.queue.unshift new Page.StormRun
       Game.gotoPage()
+      return false
 
     return page
 
@@ -86,46 +90,47 @@ damageDescription = (damage)-> switch
 Page.StormBatten = class StormBatten extends Page
   conditions:
     damage: {}
-  text: ->"""|| bg="Ship.storm"
+  text: ->"""|| bg="Ship.storm" speed="slow" auto="1500"
 
-  ||
+  || speed="slow"
     -- With enough warning to tie down everything that could be tied down and bring in the sails, the Lapis Azurai was as ready as any ship could be to survive a storm on the open ocean. Waves tossed it to and fro, and even with the crew doing all they could to weather the tempest and waves, some damage was inevitable.
 
   ||
     --> #{damageDescription (@damage * battenDownMultiplier)}
 
   ||
-    --> <em><span>-4 energy</span> for officers, <span class="sailing">+2 sailing</span> for everyone aboard</em>
+    --> <em><span>-4 energy</span> for officers, <span class="sailing">+2 sailing</span> for everyone aboard, #{reducedDamage(@damage * battenDownMultiplier)} damage</em>
   """
   apply: ->
     super()
-    doStormEffects(@context.damage * battenDownMultiplier)
+    doStormEffects(reducedDamage(@context.damage * battenDownMultiplier))
 
 Page.StormRun = class StormRun extends Page
   conditions:
     damage: {}
-  text: ->"""|| bg="Ship.storm"
-  ||
+  text: ->"""|| bg="Ship.storm" speed="slow" auto="1500"
+
+  || speed="slow"
     -- Running on the wings of the storm, the Lapis Azurai fairly flew through the water, picking up speed even as the waves grew taller and the winds more intense. It made a full day's progress, ropes humming and sails straining before, finally, the groaning of the masts and hull convinced Natalie that she could push no further.
 
   ||
     --> #{damageDescription @damage}
 
   ||
-    --> <em><span>-4 energy</span> for officers, <span class="sailing">+2 sailing</span> for everyone aboard</em>
+    --> <em><span>-4 energy</span> for officers, <span class="sailing">+2 sailing</span> for crew aboard, #{reducedDamage @damage} damage</em>
   """
   apply: ->
     super()
-    doStormEffects()
+    doStormEffects(reducedDamage(@context.damage))
 
-doStormEffects = (damage)->
+reducedDamage = (damage)->
   damage -= Page.sumStat('sailing', g.crew) / sailPerDamageSaved
   damage -= Page.sumStat('sailing', g.officers) / sailPerDamageSaved
-  damage = Math.round(damage)
+  return Math.round(damage)
 
-  g.map.Ship.applyDamage Math.round damage
+doStormEffects = (damage)->
+  g.map.Ship.applyDamage damage
   for name, officer of g.officers
-    officer.add 'sailing', 2
     officer.add 'energy', -4
   for name, sailor of g.crew
     sailor.add 'sailing', 2

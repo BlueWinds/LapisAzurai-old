@@ -34,7 +34,7 @@ Place.IronSands::jobs.market = Job.IronSandsMarket = class IronSandsMarket exten
   next: Page.Market
 
 Game.passDay.push ->
-  if g.location isnt g.map.IronSands or g.queue.last instanceof Page.SailDay then return
+  if g.location isnt g.map.IronSands or g.queue[g.queue.length - 1] instanceof Page.SailDay then return
   for name, officer of g.officers
     officer.add 'energy', -1
   g.map.Ship.damage += 1

@@ -254,7 +254,8 @@ window.PlayerOptionPage = class PlayerOptionPage extends Page
       e.preventDefault()
       nextPage = next[$(@).html()]
       g.queue.unshift new nextPage
-      Game.gotoPage()
+      console.log('hi')
+#       Game.gotoPage()
       return false
 
     return element

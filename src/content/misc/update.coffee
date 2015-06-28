@@ -51,3 +51,7 @@ Game.update.push {
     delete Trait.Shy
     delete Trait.SilverTongue
 }
+
+Game.update.push { # Repair an issue where ship damage may have been set to NaN
+  post: -> @map.Ship.damage or= 0
+}
