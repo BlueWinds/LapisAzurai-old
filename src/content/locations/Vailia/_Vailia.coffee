@@ -154,7 +154,6 @@ Job.Beach.next.push Page.VailiaRumorsPeaceTreaty = class VailiaRumorsPeaceTreaty
   ||
     --> <q>Stop lolly-gagging and get the door. I swear. Why can't they just sign their peace treaties at home, instead of bothering us all the time? I mean, there's hardly a rose to be found in the city, our garden's been picked clean...</q> A slamming door cut off #{@worker}'s impromptu and unintentional eavesdropping session."""
 
-
 Job.MeghanIntro = Place.Vailia::jobs.meetMeghan = class MeghanIntro extends Job
   label: "Meet with Guildmaster"
   type: 'plot'

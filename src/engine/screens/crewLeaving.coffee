@@ -51,9 +51,9 @@ Page.OneCrewLeaving = class OneCrewLeaving extends Page
   # context[0] will be filled in when this event is triggered
   text: ->"""|| bg="day|storm"
     #{@[0].image 'sad', 'right'}
-    --> #{q}I'm sorry, but I think it's time for me to look for another berth,</q> #{@[0]} maintained a bit of politeness, but not too much.
+    -- #{q}I'm sorry, but I think it's time for me to look for another berth,</q> #{@[0]} maintained a bit of politeness, but not too much.
   ||
-    #{g.officers.Nat.image 'serious', 'left'}
+    #{g.officers.Nat.image 'sad', 'left'}
     --> #{q}Good luck.</q> Natalie nodded sadly. It was clear that #{@[0]} had been planning to leave for some time, and this was as good a time as any. The Lapis had been having a rough time recently - it was hard to hold it against #{him @[0]}.
   """
 
@@ -67,7 +67,7 @@ Page.ManyCrewLeaving = class ManyCrewLeaving extends Page
       -- #{q}I'm sorry, Natalie, but we've talked it over and we think it's time to go our separate ways.</q> #{@[0]} spoke quietly, glancing over #{his} shoulder at the other#{if @length > 2 then 's who were' else ' who was'} departing. #{names.wordJoin()} nodded in agreement. They were also leavingUnhappy.
 
     ||
-      #{g.officers.Nat.image 'serious', 'left'}
+      #{g.officers.Nat.image 'sad', 'left'}
       --> #{q}I'm sorry to see you all go, but if that's what you have to do, then good luck.</q> She nodded sadly. It had been clear that they were already decided, and trying to hold onto them was a losing proposition. The Lapis had been having a rough time recently - it was hard to hold it against them.
     """
 

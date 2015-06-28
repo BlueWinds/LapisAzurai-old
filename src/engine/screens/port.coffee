@@ -242,6 +242,8 @@ doWorkClick = (e)->
     if job.contextReady()
       # The job is good, shift it into the "upcoming pages" array. This reverses the ordering, so "normal" jobs come first, then special ones, then plot.
       g.queue.unshift(job)
+
+  Page.checkCrewLeaving()
   # All jobs have now been processed. Trigger the first one.
   setTimeout(Game.gotoPage, 0)
   return false

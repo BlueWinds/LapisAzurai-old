@@ -40,7 +40,7 @@ Page.HireCrewMulti = class HireCrewMulti extends Page
       --
         Of the many people interested, Natalie eventually settled on #{@asArray().length.toWord()}: #{names.wordJoin()}.
 
-        Tradition dictated that a new crewmembe was entitled to a handsome signup bonus, paid before departure - they were putting their life in the hands of a captain they didn't know, after all, and should be able to leave something behind even if they never returned. After arguing with #{Math.choice names} for a while, Natalie finally convinced them to accept #{hireCost @asArray, @}β immediately, and #{wages}β daily thereafter. Natalie handed an obol coin to each recruit and told them where to find the ship in the morning.
+        Tradition dictated that a new crewmember was entitled to a handsome signup bonus, paid before departure - they were putting their life in the hands of a captain they didn't know, after all, and should be able to leave something behind even if they never returned. After arguing with #{Math.choice names} for a while, Natalie finally convinced them to accept #{hireCost @asArray, @}β immediately, and #{wages}β daily thereafter. Natalie handed an obol coin to each recruit and told them where to find the ship in the morning.
 
         #{q}Welcome aboard.</q>
     """

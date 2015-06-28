@@ -189,7 +189,6 @@ window.Page = class Page extends GameObject
     for key, val of @constructor.next
       next = new val
       next.contextFill(@context)
-      console.log next, next.couldMatch()
       if next.couldMatch() and next.isNew()
         return true
 
@@ -254,8 +253,7 @@ window.PlayerOptionPage = class PlayerOptionPage extends Page
       e.preventDefault()
       nextPage = next[$(@).html()]
       g.queue.unshift new nextPage
-      console.log('hi')
-#       Game.gotoPage()
+      Game.gotoPage()
       return false
 
     return element
