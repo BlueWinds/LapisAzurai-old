@@ -18,7 +18,7 @@ Place.Ship::jobs.storm = ShipJob.Storm = class Storm extends ShipJob
   label: "Storm"
   type: 'plot'
   conditions:
-    '|': matches: -> return Math.random() <= 10.1 and not (g.events.Storm?[0] + .28 >= g.day)
+    '|': matches: -> return Math.random() <= 0.1 and not (g.events.Storm?[0] + .28 >= g.day)
     '|events|FirstStorm': {}
     damage: {fill: stormDamage}
     sailing: '|last'
