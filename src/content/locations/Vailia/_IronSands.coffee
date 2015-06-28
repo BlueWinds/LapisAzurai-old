@@ -97,21 +97,21 @@ Job.IronSandsRest.next.push Page.IronSandsRest = class IronSandsRest extends Pag
     --> Still, it was immensely better than being outside, and the beer was decent as well as being reasonably cold. It had an odd tang to it, not entirely unpleasant. The chatter of miners eager for a new voice finally coaxed #{him} into sharing news of home, and listened eagerly to every story #{he} brought. It wasn't so bad, really.
   """
 
-Job.IronSandsRest.next.push Page.IronSandsRestJames = class IronSandsRestJames extends Page
-  conditions:
-    worker: {is: Officer.James}
-    '|officers|Kat': {}
-    James: '|officers|James'
-    Cara: '|people|Cara'
-  text: ->"""|| bg="day|storm"
-    #{@James.image 'blush', 'left'}
-    -- James swallowed and stared at his beer, not daring to look up. A half-occupied bankhouse served as the unofficial bar here in Iron Sands, and he'd come for a drink, but he was having trouble relaxing. He felt eyes on him. And every time he'd looked up he was being stared at. Not by most people, happy to mind their own business, just, with unnerving intensity by...
-
-  ||
-    #{@Cara.image 'normal', 'right'}
-    --> #{q}Cara,</q> she loomed over him, finally tired of simply staring. James shook her offered hand. She had a strong grip. #{q}What're you doing in my town, cute stuff?</q>
-
-  ||
-    #{@James.image 'blush', 'left'}
-    -- It took him a moment to realize he was being flirted with, not antagonized. James snapped his mouth shut. #{q}</q>
-  """
+# Job.IronSandsRest.next.push Page.IronSandsRestJames = class IronSandsRestJames extends Page
+#   conditions:
+#     worker: {is: Officer.James}
+#     '|officers|Kat': {}
+#     James: '|officers|James'
+#     Cara: '|people|Cara'
+#   text: ->"""|| bg="day|storm"
+#     #{@James.image 'blush', 'left'}
+#     -- James swallowed and stared at his beer, not daring to look up. A half-occupied bankhouse served as the unofficial bar here in Iron Sands, and he'd come for a drink, but he was having trouble relaxing. He felt eyes on him. And every time he'd looked up he was being stared at. Not by most people, happy to mind their own business, just, with unnerving intensity by...
+#
+#   ||
+#     #{@Cara.image 'normal', 'right'}
+#     --> #{q}Cara,</q> she loomed over him, finally tired of simply staring. James shook her offered hand. She had a strong grip. #{q}What're you doing in my town, cute stuff?</q>
+#
+#   ||
+#     #{@James.image 'blush', 'left'}
+#     -- It took him a moment to realize he was being flirted with, not antagonized. James snapped his mouth shut. #{q}</q>
+#   """
