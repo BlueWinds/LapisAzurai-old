@@ -108,9 +108,9 @@ window.Collection = class Collection
         if not value then return not target
         if typeof value is 'string' then return target is g.getItem value
 
-        unless target or value.optional then return false
+        if target?.matches and not target.matches(value) then return false
+        if not target then return value.optional
 
-        if target?.matches then return target.matches(value)
         unless partMatches(target, value) then return false
 
       return @
@@ -190,6 +190,7 @@ window.Collection = class Collection
         @[index] = @[index + 1]
         index++
       delete @[index]
+      @reArray()
 
   Object.defineProperty @::, 'reArray',
     value: (index)->
@@ -232,9 +233,6 @@ window.Collection = class Collection
     value: (compare)-> @[@.findIndex compare]
 
 Collection.partMatches = partMatches = (value, condition)->
-  unless value? or condition.optional
-    return false
-
   unless Collection.numericComparison(value, condition) then return false
 
   if condition.is and not Collection.oneOf(value, condition.is) then return false

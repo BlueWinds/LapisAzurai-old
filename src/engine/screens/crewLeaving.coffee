@@ -37,6 +37,7 @@ Page.checkCrewLeaving = ->
     g.queue.push next = new Page.CrewLeaving
     next.context =  new Collection {leaving: leavingCount}
     g.queue.push.apply(g.queue, leavingEvents)
+    g.crew.reArray()
   return
 
 Page.CrewLeaving = class CrewLeaving extends Page

@@ -98,7 +98,7 @@ ShipJob.Spirit.next.push Page.SpiritFish = class SpiritFish extends Page
     --> #{q}Let's... let's not stick around waiting for him to change his mind. Everyone, full speed.</q> Suddenly exhausted, Natalie slumped against the ship's wheel. #{q}Fuck.</q>
 
   ||
-    --> <em>+4 barels of fish</em>
+    --> <em>+4 barrels of Fish</em>
   """
   effects:
     cargo:

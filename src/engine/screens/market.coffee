@@ -244,7 +244,6 @@ marketDone = (e)->
   cargo = {}
   $('.buy tr', element).each ->
     count = parseInt $('.count', @).html(), 10 or 0
-    console.log count, $(@).attr 'item'
     if count
       cargo[$(@).attr 'item'] = count
 
@@ -252,8 +251,6 @@ marketDone = (e)->
     count = parseInt $('.count', @).html(), 10 or 0
     if $('.plus', @).html() and count
       item = cargo[$(@).attr 'item'] = -count
-
-  console.log cargo
 
   g.applyEffects {money: (earn - spend), cargo}, e.data
   Game.gotoPage()

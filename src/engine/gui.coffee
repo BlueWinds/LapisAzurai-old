@@ -120,7 +120,7 @@ $ ->
   )
 
   $(window).resize ->
-    c.css 'height', Math.min(window.innerHeight - $('.navbar').outerHeight(), 800)
+    c.css 'height', window.innerHeight - $('.navbar').outerHeight()
     $('body').css 'height', window.innerHeight
   setTimeout -> $(window).resize()
 
