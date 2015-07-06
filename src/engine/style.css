@@ -831,7 +831,6 @@ input.inline:disabled {
   left: 0;
 }
 .set-sail .bg {
-  background-image: url("../content/misc/world.png");
   background-repeat: repeat;
   background-size: 4000px 3000px;
   background-position: -2000px -1500px;

@@ -53,8 +53,14 @@ Item["Maiden's Tea"] = new Item
   price: 21
   unit: 'basket'
 
-Item["Weapons"] = new Item
+ItemWeapons = new Item
   name: "Weapons"
   description: "Bows, spears and even the occasional sword, sometimes you just need to kill some folks."
   price: 120
   unit: 'crate'
+
+Item.Paper = new Item
+  name: "Paper"
+  description: "Made of bleached wood pulp, paper is smooth, cheap and durable - a combination of properties that makes it far superior to parchment or papyrus."
+  price: 55
+  unit: 'box'

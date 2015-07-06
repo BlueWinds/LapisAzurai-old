@@ -18,7 +18,7 @@ window.Job = class Job extends Page
       # Each officer will be added to the job's context before @next is called.
       officers: Page.schema.properties.conditions
       energy: # How much energy is given to or taken away from each officer participating (also how much they need to have to participate, if taking away).
-        type: 'integer'
+        type: ['integer', 'function']
       acceptInjured: # If a person has low enough negative energy, they're considered injured, and can only do jobs with this flag.
         eq: true
         optional: true
@@ -41,8 +41,9 @@ window.Job = class Job extends Page
   type: 'normal'
 
   renderBlock: (mainKey)->
+    energy = if typeof @energy is 'function' then @energy() else @energy
     slots = for key, conditions of @officers
-      renderSlot(key, conditions, @energy)
+      renderSlot(key, conditions, energy)
 
     return """<div class="#{@type} job clearfix" data-key="#{mainKey}">
       <div class="col-xs-6">
@@ -88,9 +89,10 @@ window.Job = class Job extends Page
 
   apply: ->
     super()
-    if @energy
+    energy = if typeof @energy is 'function' then @energy() else @energy
+    if energy
       for key, person of @context when @officers[key]
-        person.add 'energy', @energy
+        person.add 'energy', energy
 
 window.ShipJob = class ShipJob extends Job
   @schema: # Similar to a normal job, but simpler and lacking a whole lot of properties.

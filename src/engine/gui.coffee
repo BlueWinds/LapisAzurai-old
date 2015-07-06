@@ -94,8 +94,8 @@ $.fn?.addTooltips = ->
   $('.person-info, .location', @).dblclick ->
     $(@).toggleClass 'show-full'
   $('div.full', @).tooltip(
-    title: 'Double click to sticky or hide this'
-    placement: 'bottom'
+    title: 'Double click to stick or hide'
+    placement: 'right'
     container: 'page.active'
   )
 
@@ -115,7 +115,7 @@ $ ->
 
   $('.navbar-brand, #game-info').dblclick -> $('.navbar-brand').toggleClass 'show-info'
   $('#game-info').tooltip(
-    title: 'Double click to sticky or hide this'
+    title: 'Double click to stick or hide'
     placement: 'bottom'
   )
 

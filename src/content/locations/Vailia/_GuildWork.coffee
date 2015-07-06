@@ -431,6 +431,67 @@ Page.GuildNatDomSure::next = Page.GuildNatDomSure2 = class GuildNatDomSure2 exte
     super()
     @context.Nat.add 'happiness', 1
 
+Page.GuildNat.next.push Page.GuildNatBottom = class GuildNatBottom extends PlayerOptionPage
+  conditions:
+    Nat: {}
+  text: ->"""|| bg="night|storm"
+    -- <q>Today sucks. No one's biting.</q> Ben frowned at her, as though his problems were somehow her fault. <q>I got nothing for you.</q>
+
+  ||
+    --> Natalie nodded. Nothing to be done about it. As she turned to leave, though, Ben grabbed at her shoulder. She shrugged his hand off and turned back. #{q}What?</q>
+
+  ||
+    --> <q>Well, want to maybe have a bit of fun anyway? I don't let people do anything rough with my girls, but...</q>
+
+  ||
+    #{@Nat.image 'normal', 'left'}
+    -- She quirked her eyebrow, waiting for him to go on.
+
+  ||
+    --> <q>I want to slap and choke and fuck someone. You want to make some money. Maybe we could help each other out?</q> He grinned, and oddly enough, for once she didn't find his stare greasy or lecherous. He was actually asking nicely.
+      #{options ['Sure', 'No thanks'], []}
+  """
+  @next: {}
+
+Page.GuildNatBottom.next['No thanks'] = Page.GuildNatBottomNo = class GuildNatBottomNo extends Page
+  ignoreNew: true
+  conditions:
+    Nat: {}
+  text: ->"""|| bg="night|storm"
+    #{@Nat.image 'normal', 'left'}
+    -- #{q}Thanks for asking, but I'm not in the mood to get beat up tonight. Maybe some other time.</q>
+
+  ||
+    --> Ben shrugged and smiled appologetically. <q>I thought you'd like that sort of thing, but I've got no other work tonight. See you around.</q>
+  """
+
+
+Page.GuildNatBottom.next['Sure'] = Page.GuildNatBottomSure = class GuildNatBottomSure extends Page
+  conditions:
+    Nat: {}
+  text: ->"""|| bg="night|storm"
+    #{@Nat.image 'normal', 'left'}
+    -- #{q}Sure, I can do that.</q> She wrapped an arm around his waist and stepped inside, pulling the door shut behind her. #{q}I don't want any bruises. I don't mark easily, but don't test it. If I start hitting rhythmically, stop what you're doing. Flailing wildly you're fine, but slap-slap-slap,</q> she demonstrated on his arm, #{q}time to stop and communicate.</q>
+
+  ||
+    --> <q>Will do. Or won't do, rather. So, slut of mine, go back to the second room on the left and get ready for me.</q>
+
+  ||
+    --> #{q}In a second.</q>
+
+  ||
+    -- Natalie removed her arm, ducked out from under his, and stepped into thi back laundry room, where the old woman who'd answered the door was stirring a steaming cauldrin of sheets. #{q}Can I ask you to check in on us every half hour?</q> Not that she thought anything was going to go wrong, but better safe than hurting.
+
+  ||
+    --> The woman raised a hand in agreement, shaking her head and muttering something about men with no sense and the women who followed them around. Natalie went to find the room.
+
+  || bg="tavern"
+    --|
+  """
+  effects:
+    money: Place.Vailia.adultPay
+
+
 Job.GuildWork.next.push Page.GuildKat = class GuildKat extends Page
   conditions:
     worker: {is: Officer.Kat}

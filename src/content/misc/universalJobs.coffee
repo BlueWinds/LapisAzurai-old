@@ -113,7 +113,7 @@ Job.universal.push Job.BedRest = class BedRest extends Job
     worker: {sick: {is: true}}
     worker2: {sick: {is: true}, optional: true}
     worker3: {sick: {is: true}, optional: true}
-  energy: 4
+  energy: -> 4 + Page.sumStat(g.crew, 'restEnergy')
   acceptInjured: true
   crew: 0
   text: ->"""When someone is injured, the best (and likely only) solution is bed rest, and lots of it. They'll get better faster with someone to look after them."""

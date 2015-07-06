@@ -10,7 +10,7 @@ Place.Nonkenia = Game::map.Nonkenia = class Nonkenia extends Place
     marketStorm: 'game/content/locations/Wilds/Forest Storm.jpg'
     tavern: Place.Vailia::images.tavern
   jobs: new Collection
-  location: [3378, 1704]
+  location: [1378, 1704]
   destinations: new Collection
     MountJulia: 12
     Alkenia: 3

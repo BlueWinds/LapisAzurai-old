@@ -169,7 +169,7 @@ Job.IntroMarket::next = Page.IntroMarket = class IntroMarket extends Page.Market
       ).help(
         target: '.progress'
         placement: 'bottom'
-        title: "The Lapis Azurai can hold #{Game.cargo} crates. Balancing provisions and supplies vs. trade goods to make a profit is an important judgement."
+        title: "The Lapis Azurai can hold #{g.cargoMax} crates. Balancing provisions and supplies vs. trade goods to make a profit is an important judgement."
       ).help(
         target: '[item="Maiden\'s Tea"]'
         placement: 'bottom'

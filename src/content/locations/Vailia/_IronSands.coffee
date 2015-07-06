@@ -11,7 +11,7 @@ Place.IronSands = Game::map.IronSands = class IronSands extends Place
     marketStorm: 'game/content/locations/Town/Port Desert Storm.jpg'
     tavern: Place.Vailia::images.tavern
   jobs: new Collection
-  location: [3471, 1948]
+  location: [1471, 1948]
   destinations: new Collection
     Vailia: 12
     MountJulia: 12
@@ -34,7 +34,7 @@ Place.IronSands::jobs.market = Job.IronSandsMarket = class IronSandsMarket exten
   next: Page.Market
 
 Game.passDay.push ->
-  if g.location isnt g.map.IronSands or g.queue[g.queue.length - 1] instanceof Page.SailDay then return
+  if g.location isnt g.map.IronSands or g.atSea() then return
   for name, officer of g.officers
     officer.add 'energy', -1
   g.map.Ship.damage += 1
@@ -81,7 +81,6 @@ Place.IronSands::firstVisit = Page.VisitIronSands = class VisitIronSands extends
     --> <em>+1 damage to the ship and <span>-1 energy</span> for all officers every day spent in Iron Sands.</em>
 """
 
-
 Place.IronSands::jobs.rest = Job.IronSandsRest = class IronSandsRest extends Job.Beach
   text: ->"""There's not much to do in Iron Sands other than drink and gamble."""
   @next: []
@@ -91,27 +90,48 @@ Job.IronSandsRest.next.push Page.IronSandsRest = class IronSandsRest extends Pag
     worker: {}
   text: ->"""|| bg="day|storm"
     #{@worker.image 'normal', 'left'}
-    -- #{@worker} flopped onto the couch and rested #{his} head against the padded surface. Even in here, in the bunkhouse that served as an unofficial inn for the miners, grit was everywhere, and when #{he}'d complained about it to the proprieter, #{he}'d only gotten a pittying look and the repeated promise that the place was swept twice a day.
+    -- #{@worker} flopped onto the couch and rested #{his} head against the padded surface. Even in here, in the bunkhouse that served as an inn for the miners, grit was everywhere, and when #{he}'d complained about it to the proprieter, #{he}'d only gotten a pittying look and the repeated promise that the place was swept twice a day.
 
   ||
     --> Still, it was immensely better than being outside, and the beer was decent as well as being reasonably cold. It had an odd tang to it, not entirely unpleasant. The chatter of miners eager for a new voice finally coaxed #{him} into sharing news of home, and listened eagerly to every story #{he} brought. It wasn't so bad, really.
   """
 
-# Job.IronSandsRest.next.push Page.IronSandsRestJames = class IronSandsRestJames extends Page
-#   conditions:
-#     worker: {is: Officer.James}
-#     '|officers|Kat': {}
-#     James: '|officers|James'
-#     Cara: '|people|Cara'
-#   text: ->"""|| bg="day|storm"
-#     #{@James.image 'blush', 'left'}
-#     -- James swallowed and stared at his beer, not daring to look up. A half-occupied bankhouse served as the unofficial bar here in Iron Sands, and he'd come for a drink, but he was having trouble relaxing. He felt eyes on him. And every time he'd looked up he was being stared at. Not by most people, happy to mind their own business, just, with unnerving intensity by...
-#
-#   ||
-#     #{@Cara.image 'normal', 'right'}
-#     --> #{q}Cara,</q> she loomed over him, finally tired of simply staring. James shook her offered hand. She had a strong grip. #{q}What're you doing in my town, cute stuff?</q>
-#
-#   ||
-#     #{@James.image 'blush', 'left'}
-#     -- It took him a moment to realize he was being flirted with, not antagonized. James snapped his mouth shut. #{q}</q>
-#   """
+Job.IronSandsRest.next.push Page.IronSandsRestJames = class IronSandsRestJames extends Page
+  conditions:
+    worker: {is: Officer.James}
+    '|officers|Kat': {}
+    James: '|officers|James'
+    Cara: '|people|Cara'
+    '|events|IronSandsRestJames': false
+  text: ->"""|| bg="day|storm"
+    #{@James.image 'blush', 'left'}
+    -- James swallowed and stared at his beer, not daring to look up. A half-occupied bunkhouse served as the tavern here in Iron Sands. He'd come for a drink, but now couldn't relax. every time he'd looked up he was being stared at. Not by most people, happy to mind their own business, just, with unnerving intensity by...
+
+  ||
+    #{@Cara.image 'normal', 'right'}
+    --> #{q}Cara,</q> she loomed over him, finally tired of simply staring. James shook her offered hand, and she sat down across from him. She had a strong grip. #{q}What're you doing in my town, cute stuff?</q>
+
+  ||
+    #{@James.image 'blush', 'left'}
+    -- It took him a moment to realize he was being flirted with, not antagonized. James snapped his mouth shut. #{q}I'm the quartermaster on the Lapis Azurai,</q> he finally managed.
+
+  ||
+    #{@Cara.image 'normal', 'right'}
+    --> #{q}Yes, James. Natalie mentioned I might find you here. I see you've settled on imported liquor - good call. The stuff Teddy brews is fine once you're already drunk, but I'd never start with it.</q>
+
+  ||
+    #{@James.image 'normal', 'left'}
+    -- #{q}It's almost like there's a bit of lime in here? I'm guessing that's the taste of the dust. Not bad, though.</q>
+
+  ||
+    #{@Cara.image 'normal', 'right'}
+    --> #{q}That's a bet you'd win. But anyway, want to come back to my place and talk about it more? I've got a cabin, much nicer than sharing a bunk with someone.</q>
+
+  ||
+    #{@James.image 'normal', 'left'}
+    -->#{q}No thanks. I, um, I don't sleep around.</q> James took a deep drink to hide his face for a moment. He'd almost, almost, gotten that out without stammering  like an idiot.
+
+  ||
+    #{@Cara.image 'sad', 'right'}
+    -- Cara didn't say anything, and finally he was forced to lower the cup or look even more awkward. She was studying him, an odd half-smile on her face. She lay a hand over his on the table and she shook her head. #{q}She doesn't like you that way, kid.</q> James blushed and looked down, and she removed her hand from his. #{q}None of my business, I know. Just make sure you're not throwing away gold looking for diamonds.</q>
+  """

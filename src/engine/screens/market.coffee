@@ -54,7 +54,7 @@ Job.Market::next = Page.Market = class Market extends Page
     workers: '|location|jobs|market|context|objectLength'
 
   text: ->
-    business = @worker.get 'business', @
+    business = @worker.get 'business'
     buy = for name, [increment, price] of @market.buy
       item = Item[name]
       increment = incrementMultiplier increment, business
@@ -68,7 +68,7 @@ Job.Market::next = Page.Market = class Market extends Page
       item = Item[name]
       sell.push item.sellRow undefined, undefined, 0, amount
 
-    cargoPercent = Math.sumObject(g.cargo) / Game.cargo * 100
+    cargoPercent = Math.sumObject(g.cargo) / g.cargoMax * 100
 
     form = """<form class="clearfix">
       <div class="col-lg-4 col-lg-offset-2 col-sm-6">
@@ -89,7 +89,7 @@ Job.Market::next = Page.Market = class Market extends Page
             This will cost <span class="spend">0β</span> and earn <span class="earn">0β</span>, leaving you with <span class="result">#{g.money}β</span>
           </div>
           <div class="block-summary">
-            <div class="progress-label" title="#{Math.sumObject g.cargo} / #{Game.cargo}">The Lapis Azurai</div>
+            <div class="progress-label" title="#{Math.sumObject g.cargo} / #{g.cargoMax}">The Lapis Azurai</div>
             <div class="progress"><div class="progress-bar" style="width: #{cargoPercent}%;"></div></div>
           </div>
         </div>
@@ -117,7 +117,7 @@ applyMarket = (element)->
     buying: {}
     selling: {}
 
-  business = @worker.get 'business', @
+  business = @worker.get 'business'
 
   $('.buy tr', element).each ->
     item = $(@).attr('item')
@@ -146,7 +146,7 @@ applyMarket = (element)->
   return element
 
 buyMore = (e)->
-  if e.data.carry is 0 or e.data.cargo is Game.cargo then return
+  if e.data.carry is 0 or e.data.cargo >= g.cargoMax then return
 
   item = $(@).parent().attr('item')
   buyData = e.data.buying[item]
@@ -188,7 +188,7 @@ sellMore = (e)->
 sellLess = (e)->
   item = $(@).parent().attr('item')
   sellData = e.data.selling[item]
-  if sellData.sold is 0 or e.data.cargo is Game.cargo then return
+  if sellData.sold is 0 or e.data.cargo >= g.cargoMax then return
 
   e.data.carry++
   e.data.cargo++
@@ -225,8 +225,8 @@ updateSummary = (data)->
   $('.earn', element).html earn + 'β'
   $('.result', element).html(total + 'β').toggleClass('negative', total < 0)
   $('.carry', element).html(data.carry).toggleClass('out', data.carry is 0)
-  $('.progress-label', element).tooltip('destroy').attr('title', "#{data.cargo} / #{Game.cargo}").addTooltips()
-  $('.progress-bar', element).css 'width', (data.cargo * 100 / Game.cargo) + '%'
+  $('.progress-label', element).tooltip('destroy').attr('title', "#{data.cargo} / #{g.cargoMax}").addTooltips()
+  $('.progress-bar', element).css 'width', (data.cargo * 100 / g.cargoMax) + '%'
 
   if total < 0 and total < g.money
     $('button', element).attr('disabled', true)

@@ -11,7 +11,7 @@ Place.Kantis = class Kantis extends Place
   images:
     port: 'game/content/locations/Vailia/Market Night.jpg'
     bar: 'game/content/locations/Vailia/Market Night.jpg'
-  jobs: new Objs
+  jobs: new Collection
     hireCrew: Job.KantisHireCrew
 
 Game::map.Kantis = Place.Kantis

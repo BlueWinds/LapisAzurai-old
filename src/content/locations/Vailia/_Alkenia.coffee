@@ -10,7 +10,7 @@ Place.Alkenia = Game::map.Alkenia = class Alkenia extends Place
     marketStorm: 'game/content/locations/Town/Port Storm.jpg'
     tavern: Place.Vailia::images.tavern
   jobs: new Collection
-  location: [3418, 1732]
+  location: [1418, 1732]
   destinations: new Collection
     MountJulia: 9
 

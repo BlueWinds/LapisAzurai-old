@@ -2,7 +2,6 @@ stormStartChance = 0.03
 stormEndChance = 0.66
 
 window.Game = class Game extends GameObject
-  @cargo: 100
   @schema:
     type: @
     properties:
@@ -58,6 +57,11 @@ window.Game = class Game extends GameObject
   cargo: new Collection
   money: 1500
   version: 0
+  mapImage: "1 - Vailia.png"
+
+  Object.defineProperty @::, 'cargoMax', {value: ->
+    return 100 + Page.sumStat('cargo', @crew)
+  }
 
   getItem: (path)->
     if typeof path is 'string'
@@ -84,11 +88,11 @@ window.Game = class Game extends GameObject
     wages = Math.sum((person.wages() for name, person of @officers))
     wages += Math.sum(person.wages() for name, person of @crew)
     $('.wages', element).html wages
-    $('.progress-bar', element).css 'width', (Math.sumObject(g.cargo) * 100 / Game.cargo) + "%"
+    $('.progress-bar', element).css 'width', (Math.sumObject(g.cargo) / g.cargoMax * 100) + "%"
     cargo = Object.keys(g.cargo).map (item)->"<tr><td>#{g.cargo[item]}</td><td>#{item}</td></tr>"
     $('.cargo').tooltip('destroy').tooltip {
       placement: 'bottom'
-      title: "<div>#{Math.sumObject g.cargo} / #{Game.cargo}</div><table class='table table-striped'>#{cargo.join "\n"}</table>"
+      title: "<div>#{Math.sumObject g.cargo} / #{g.cargoMax}</div><table class='table table-striped'>#{cargo.join "\n"}</table>"
       html: true
       template: '<div class="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner no-pad"></div></div>'
       container: 'body'
@@ -124,7 +128,7 @@ window.Game = class Game extends GameObject
           g.cargo[key] += value
           unless g.cargo[key] > 0 then delete g.cargo[key]
 
-      space = Game.cargo - Math.sumObject(g.cargo)
+      space = g.cargoMax - Math.sumObject(g.cargo)
       for key, value of adding
         unless space then break
         g.cargo[key] or= 0

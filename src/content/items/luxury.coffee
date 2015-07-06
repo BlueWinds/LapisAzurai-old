@@ -1,12 +1,12 @@
 Item.Coffee = new Luxury
   name: 'Coffee'
   description: 'Coffee Beans are shipped dried but unroasted in burlap sacks, to be prepared according to local taste at the destination.'
-  price: 15
+  price: 18
   unit: 'sack'
 
 Item.Beer = new Luxury
   name: 'Beer'
-  description: "The alcoholic beverage of choice for the masses, cheap beer is sometimes cheaper than fresh water because it's always safe to drink."
+  description: "The alcoholic beverage of choice for the masses, beer is sometimes cheaper than fresh water because it's always safe to drink."
   price: 8
   unit: 'barrel'
 

@@ -26,6 +26,7 @@ module.exports = [
 
 # Finally the content
   'content/traits/basicStats.coffee'
+  'content/traits/professions.coffee'
   'content/items/trade.coffee'
   'content/items/food.coffee'
   'content/items/luxury.coffee'
@@ -40,13 +41,14 @@ module.exports = [
   'content/people/Meghan/_.coffee'
   'content/people/Nobles/_.coffee'
   'content/people/Cara/_.coffee'
+  'content/people/GuardM/_.coffee'
 #   'content/people/Judge/_.coffee'
 
 # Generic People
   'content/people/Crew/_.coffee'
   'content/people/Crew2/_.coffee'
-  'content/people/GuardM/_.coffee'
 #   'content/people/MerchantM/_.coffee'
+#   'content/people/MerchantRich/_.coffee'
 
 # Locations
   'content/locations/Ship/_Ship.coffee'
@@ -60,14 +62,16 @@ module.exports = [
   'content/locations/Vailia/_Alkenia.coffee'
   'content/locations/Vailia/_Nonkenia.coffee'
   'content/locations/Vailia/_IronSands.coffee'
-#   'content/locations/Kantis/_Kantis.coffee'
 
-# Route content
-  'content/people/James/_preRoute.coffee'
-  'content/people/Kat/_preRoute.coffee'
-#
-# # Introduction & help
+  'content/locations/Kantis/_Tomenoi.coffee'
+
+# Introduction & help
   'content/intro/introCity.coffee'
   'content/intro/introText.coffee'
   'content/intro/firstStorm.coffee'
+
+# Story content
+  'content/locations/Kantis/_Intro.coffee'
+  'content/people/James/_preRoute.coffee'
+  'content/people/Kat/_preRoute.coffee'
 ]

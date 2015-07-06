@@ -1,14 +1,13 @@
 layers = (p)->[
   "#{p}Skin"
   "#{p}Eyes"
-  "#{p}Top"
   "#{p}Hair"
   "Cloth"
 ]
 
 Person.MerchantM = class MerchantM extends Person
   name: 'MerchantM'
-  gender: 'f'
+  gender: 'm'
   text: '#999999'
   @images:
     path: 'src/content/people/MerchantM/'

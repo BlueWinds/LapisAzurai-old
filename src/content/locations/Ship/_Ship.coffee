@@ -24,14 +24,18 @@ Place.Ship = Game::map.Ship = class Ship extends Place
   location: [0, 0]
 
   damage: 0
-  sailSpeed: -> switch
-    when @damage > heavyDamage then 1 / 3
-    when @damage > lightDamage then 2 / 3
-    else 1
+  sailSpeed: ->
+    speed = (switch
+      when @damage > heavyDamage then 1 / 3
+      when @damage > lightDamage then 2 / 3
+      else 1)
+    return speed * (if Page.sumStat('navigator', g.crew) then 1.1 else 1)
+
   shortDamage: -> switch
     when @damage > heavyDamage then "barely afloat"
     when @damage > lightDamage then "heavily damaged"
     else "lightly damaged"
+
   damageDescription: ->
     speed = g.map.Ship.sailSpeed()
     speed = if speed is 1 then '' else String.rate(speed) + ' '
@@ -39,6 +43,8 @@ Place.Ship = Game::map.Ship = class Ship extends Place
 
   applyDamage: (damage)->
     damage += @damage
+    damage = Math.max(0, Math.randomRound damage)
+
     if damage >= Place.Ship.heavyDamage
       g.officers.Nat.add('energy', (Place.Ship.heavyDamage - g.map.Ship.damage) * 2)
       g.officers.Nat.energy = Math.max(g.officers.Nat.energy, minEnergy)
@@ -48,7 +54,9 @@ Place.Ship = Game::map.Ship = class Ship extends Place
   @heavyDamage: heavyDamage
   @maxDamage: maxDamage
 
-luxHappiness = (item)-> Math.ceil(Item[item].price / 20) + 1
+luxHappiness = (item)->
+  happiness = 1 + Math.ceil(Item[item].price / 20)
+  return happiness + Page.sumStat('luxuryHappiness', g.crew)
 
 Ship::jobs.talk = ShipJob.Talk = class Talk extends ShipJob
   label: "Talk with Crew"
@@ -152,11 +160,11 @@ ShipJob.TrainCombat::next = Page.TrainCombat = class TrainCombat extends Page
     -- James divided the crew up into two teams. Half of them practiced boarding while the others repelled using oars and poles wrapped in cloth as weapons. It was still unbelievably noisy as some of the sailors got very much into the spirit, with battle cries and dramatic 'death scenes' as they were slain.
 
   ||
-    --> <em><span class="combat">+1 combat</span> for sailors with less than #{@James.combat}<br>James: <span class="energy">-2 energy</span></em>
+    --> <em><span class="combat">+1 combat</span> for sailors with less than #{@James.get 'combat'}<br>James: <span class="energy">-2 energy</span></em>
   """
   apply: ->
     super()
-    for i, sailor of g.crew when sailor.combat < @context.James.combat
+    for i, sailor of g.crew when sailor.combat < @context.James.get 'combat'
       sailor.add 'combat', 1
     @context.James.add 'energy', -2
 
@@ -175,11 +183,11 @@ ShipJob.TrainBusiness::next = Page.TrainBusiness = class TrainBusiness extends P
     -- While the world may be a vast place, the officers of the Lapis are some of the most well-traveled and educated individuals in it. Natalie can read and write, for example, which places her in the top 25% of the Vailian population, much less other nations. A bit of teaching is a fun way to pass the time.
 
   ||
-    --> <em><span class="business">+1 business</span> for sailors with less than #{@Nat.business}<br>Natalie: <span class="happiness">+1 happiness</span>, <span class="energy">-1 energy</span></em>
+    --> <em><span class="business">+1 business</span> for sailors with less than #{@Nat.get 'business'}<br>Natalie: <span class="happiness">+1 happiness</span>, <span class="energy">-1 energy</span></em>
   """
   apply: ->
     super()
-    for i, sailor of g.crew when sailor.business < @context.Nat.business
+    for i, sailor of g.crew when sailor.business < @context.Nat.get 'business'
       sailor.add 'business', 1
     @context.Nat.add 'energy', -1
     @context.Nat.add 'happiness', 1
@@ -188,8 +196,8 @@ Ship::jobs.trainSailing = ShipJob.TrainSailing = class TrainSailing extends Ship
   label: "Maintenence"
   text: ->"""Repairing the Lapis will help the crew learn to work together better.
 
-  Crew: <span class="sailing">+1 sailing</span>, <span class="happiness">-1 happiness</span>
-  Natalie: <span class="energy">-2 energy</span> #{if g.map.Ship.damage then "\nShip: -1 damage" else""}"""
+  Crew: <span class="sailing">+1 sailing</span> for sailors with less than #{@Nat.get 'sailing'}, <span class="happiness">-1 happiness</span>
+  Natalie: <span class="energy">-2 energy</span>#{if g.map.Ship.damage then "\nShip: -1 damage" else""}"""
 
 ShipJob.TrainSailing::next = Page.TrainSailing = class TrainSailing extends Page
   conditions:
@@ -199,13 +207,14 @@ ShipJob.TrainSailing::next = Page.TrainSailing = class TrainSailing extends Page
     -- Scrubbing the deck is hardly the most glamorous work, but that and a flurry of other menial tasks are necessary to keep a sailing vessel in proper shape - it's not just make-work when all their lives can depend on whether someone slips or not.
 
   ||
-    --> <em>Crew: <span class="sailing">+1 sailing</span>, <span class="happiness">-1 happiness</span><br>Natalie: <span class="energy">-2 energy</span> #{if g.map.Ship.damage then "<br>Ship: -1 damage" else ""}</em>
+    --> <em>Crew: <span class="sailing">+1 sailing</span>, <span class="happiness">-1 happiness</span><br>Natalie: <span class="energy">-2 energy</span>#{if g.map.Ship.damage then "<br>Ship: -1 damage" else ""}</em>
   """
   apply: ->
     super()
-    for i, sailor of g.crew when sailor.sailing < @context.Nat.sailing
-      sailor.add 'sailing', 1
+    for i, sailor of g.crew
       sailor.add 'happiness', -1
+      if sailor.sailing < @context.Nat.get 'sailing'
+        sailor.add 'sailing', 1
     @context.Nat.add 'energy', -2
     if g.map.Ship.damage
       g.map.Ship.applyDamage -1

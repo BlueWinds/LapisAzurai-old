@@ -9,7 +9,7 @@ Place.MountJulia = Game::map.MountJulia = class MountJulia extends Place
     marketStorm: 'game/content/locations/Wilds/Beach Storm.jpg'
     tavern: Place.Vailia::images.tavern
   jobs: new Collection
-  location: [3486, 1819]
+  location: [1486, 1819]
   destinations: new Collection
     Vailia: 9
 

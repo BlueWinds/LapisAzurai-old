@@ -215,7 +215,7 @@ Game.schema.properties.events =
 Page.sumStat = (stat, context, officers = g.officers)->
   sum = 0
   for key, person of context when officers[key] or key <= 10
-    sum += person.get stat, context
+    sum += person.get(stat)
   return sum
 
 Page.randomMatch = ->

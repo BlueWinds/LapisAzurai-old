@@ -14,6 +14,7 @@ window.his = (p = lastP)-> lastP = p; if p.gender is 'f' then 'her' else 'his'
 window.His = (p = lastP)-> lastP = p; if p.gender is 'f' then 'Her' else 'His'
 window.boy = (p = lastP)-> lastP = p; if p.gender is 'f' then 'girl' else 'boy'
 window.man = (p = lastP)-> lastP = p; if p.gender is 'f' then 'woman' else 'man'
+window.men = (p = lastP)-> lastP = p; if p.gender is 'f' then 'women' else 'men'
 he.toString = he
 He.toString = He
 him.toString = him
@@ -21,6 +22,7 @@ his.toString = his
 His.toString = His
 boy.toString = boy
 man.toString = man
+men.toString = men
 
 statSchema = {type: 'number', gte: 0, lte: 100}
 
@@ -93,9 +95,9 @@ window.Person = class Person extends GameObject
       fullStats.unshift """<tr><td class="energy">Energy</td><td>
         <span class="energy">#{@energy}</span>/<span class="endurance">#{@endurance}</span>
       </td></tr>"""
-    fullStats.push """<tr class="wages" title="Wage<br>How much Natalie pays this person daily"><td>Wage</td><td>#{@wages()}</td></tr>"""
+    fullStats.push """<tr class="wages" title="Wage<br>How much Natalie pays this person daily. Heavily influenced by happiness."><td>Wage</td><td>#{@wages().toFixed(1).replace(".0", "")}</td></tr>"""
     if @contract?
-      fullStats.push """<tr class="contract" title="Contract remaining<br>How many more days this person plans to remain with the crew"><td>Contract</td><td>#{@contract}</td></tr>"""
+      fullStats.push """<tr class="contract" title="Contract remaining<br>How many more days this person plans to remain with the crew."><td>Contract</td><td>#{@contract}</td></tr>"""
 
     traits = for name, trait of @traits
       trait.renderBlock(@)
@@ -126,13 +128,18 @@ window.Person = class Person extends GameObject
     for stat in ['business', 'sailing', 'combat']
       wage += @[stat] / 20
 
+    wage *= if @happiness < 50
+      (2 - @happiness / 50)
+    else
+      (1.666 - @happiness / 75)
+
     for key, trait of @traits when trait.wages?
       wage = if typeof trait.wages is 'function'
         trait.wages(@, wage)
       else
         wage * trait.wages
 
-    return Math.round wage
+    return wage
 
 Game.schema.properties.crew =
   type: Collection
@@ -230,7 +237,7 @@ Game.passDay.push ->
   for name, person of g.crew
     wages += person.wages()
   if wages
-    g.applyEffects {money: -wages}
+    g.applyEffects {money: -Math.randomRound(wages)}
 
   change += if g.money < 0 then -0.25 else 0.25
   for name, person of g.crew

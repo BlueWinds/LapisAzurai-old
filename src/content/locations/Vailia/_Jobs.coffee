@@ -42,6 +42,7 @@ Page.LibraryTravel.next.push Page.LibraryTravelAlkenia = class LibraryTravelAlke
   """
   apply: ->
     super()
+    g.mapImage = '2 - Alkenia.png'
     g.map.MountJulia.destinations.Alkenia = 7
 
 Page.LibraryTravel.next.push Page.LibraryTravelDirect = class LibraryTravelDirect extends Page
@@ -67,6 +68,7 @@ Page.LibraryTravel.next.push Page.LibraryTravelNonkenia = class LibraryTravelNon
   """
   apply: ->
     super()
+    g.mapImage = '3 - Nonkenia.png'
     g.map.Alkenia.destinations.Nonkenia = 3
     g.map.MountJulia.destinations.Nonkenia = 10
 
@@ -76,10 +78,25 @@ Page.LibraryTravel.next.push Page.LibraryTravelIronSands = class LibraryTravelIr
   text: ->"""|| bg="marketDay|marketStorm"
     -- With some careful searching of various travel journals and map fragments, and the (un)help of a thorny librarian, #{@worker} managed to find and copy down the details of a new route. With a detailed chart and location, the Lapis could now travel to another destination.
 
-    <strong>Iron Sands</strong> was a mining settlement to the south, run by Vailian interests, and a major source of both raw iron and steel goods. They will buy wood, bulk grain and alcohol at excellent prices.
+    <strong>Iron Sands</strong> is a mining settlement to the south, run by Vailian interests, and a major source of both raw iron and steel goods. They will buy wood, bulk grain and alcohol at excellent prices.
   """
   apply: ->
     super()
+    g.mapImage = '4 - Iron Sands.png'
+    g.map.Vailia.destinations.IronSands = 14
+    g.map.MountJulia.destinations.IronSands = 15
+
+Page.LibraryTravel.next.push Page.LibraryTravelTomenoi = class LibraryTravelTomenoi extends Page
+  conditions:
+    worker: {}
+  text: ->"""|| bg="marketDay|marketStorm"
+    -- With some careful searching of various travel journals and map fragments, and the (un)help of a thorny librarian, #{@worker} managed to find and copy down the details of a new route. With a detailed chart and location, the Lapis could now travel to another destination.
+
+    <strong>Tomenoi</strong> is a trading post halfway between Vailia and Kantis. It's mostly used as a stopover point between the two nations, though they'll buy wood, Vailian steel and tools at a decent markup.
+  """
+  apply: ->
+    super()
+    g.mapImage = '5 - Tomenoi.png'
     g.map.Vailia.destinations.IronSands = 14
     g.map.MountJulia.destinations.IronSands = 15
 
@@ -227,11 +244,11 @@ Job.Defense.next.push Page.DefenseKat = class DefenseKat extends Page
     super()
     @context.worker.add 'combat', 2
 
-pay = 4
+shipyardPay = 4
 
 Place.Vailia::jobs.shipyard = Job.Shipyard = class Shipyard extends Job
   label: "Shipyard"
-  text: ->"""Work in the shipyard. It's not particularly profitable, but can help keep the sailors out of trouble and make a little money at the same time. <em>+#{pay}β per sailor</em>"""
+  text: ->"""Work in the shipyard. It's not particularly profitable, but can help keep the sailors out of trouble and make a little money at the same time. <em>+#{shipyardPay}β per worker</em>"""
   energy: -2
   officers:
     worker: {}
@@ -246,8 +263,10 @@ Job.Shipyard::next = Page.Shipyard = class Shipyard extends Page
   text: ->"""|| bg="day"
     -- Vailia's shipyards ran constantly, taking raw iron and lumber, combining them with back-breaking labor, and turning out the finest ships in the world. Much of the process was carried out behind walls, hidden from public view - and hidden from temporary labor like #{@worker}#{if @last.length > 1 then (" and " + his + " sailors. They") else (". " + He)} spent the day debarking trees, sawing planks and sorting nails. Repetitive, brutal work, but one of the few jobs available on a day-by-day basis.
 
-    <em>+#{@last.length * pay}β</em>
+    <em>+#{@pay}β</em>
   """
   apply: ->
+    @context.pay = (shipyardPay * g.last.context.objectLength)
+    @context.pay += Page.sumStat(g.last.context, 'shipyardPay') # shipwright bonus
     super()
-    g.applyEffects {money: @context.last.length * pay}
+    g.applyEffects {money: @context.pay}

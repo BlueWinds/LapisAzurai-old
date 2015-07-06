@@ -99,7 +99,7 @@ Person.random = (baseClasses)->
   possibleTraits = for name, trait of Trait when trait.randomPoints? then trait
   opposed = []
 
-  for i in [0 ... Math.choice [0, 0, 1, 1, 1, 2, 2, 2, 2, 3]]
+  for i in [0 ... Math.choice [1, 2]]
     while (trait = Math.choice possibleTraits).name in opposed then {}
     points -= trait.randomPoints
     opposed = opposed.concat (trait.opposed or [])
@@ -112,7 +112,7 @@ Person.random = (baseClasses)->
     person[stat] += amount
     points -= amount
 
-  person.add 'happiness', Math.floor(Math.random() * 60 - 30)
+  person.add 'happiness', Math.floor(Math.random() * 60 + 20)
   person.contract *= 15
   return person
 

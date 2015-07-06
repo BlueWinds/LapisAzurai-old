@@ -1,6 +1,7 @@
 eventFrequency = 5
 foodPerPersonDaily = 0.25
-noFoodUnhappiness = 2 # Per missing unit of food
+noFoodUnhappiness = 2
+noFoodEnergy = 1
 
 minStormWood = 5
 maxStormWood = 20
@@ -11,6 +12,8 @@ maxStormSupplies = 10
 
 natEnergyPerWood = 1
 natEnergyPerSupplies = 2
+
+Game::atSea = -> g.queue[g.queue.length - 1] instanceof Page.SailDay
 
 Page.SetSail = class SetSail extends Page
   conditions:
@@ -45,15 +48,16 @@ Page.SetSail = class SetSail extends Page
     page = $.render """|| speed="slow" class="screen set-sail"
       <form><div class="bg"></div>#{locations.join('').replace(/\n/g, '')}</form>
     """
+    page.css 'background-image', 'game/content/misc/' + g.map
 
     # Triggering mousemove with touchmove so that dragscroll will work on touchscreen devices
     page.dragScroll().on 'touchmove', (e)->
       page.trigger('mousemove', e)
 
-    setTimeout ->
+    setTimeout(->
       page.scrollLeft(x)
       page.scrollTop(y)
-    , 1
+    , 1)
     $('.location img', page).click (e)->
       e.preventDefault()
       key = $(@).parent().parent().attr 'data-key'
@@ -73,7 +77,7 @@ Page.SetSail = class SetSail extends Page
   next: false
 
 sailCost = ->
-  used = {happiness: 0}
+  used = {}
   people = 0
   for name, person of g.officers
     people += person.get 'eats'
@@ -88,19 +92,15 @@ sailCost = ->
     food[item] = amount
     totalFood += amount
 
-  # If people go hungry, they get unhappy.
-  if people > totalFood
-    used.noFood = people - totalFood
-    people = totalFood
+  # If people go hungry, they get unhappy and tired.
+  if totalFood is 0
+    used.happiness = noFoodUnhappiness
+    used.energy = noFoodEnergy
 
   for i in [0...Math.min(people, totalFood)]
     f = Math.weightedChoice food
     food[f] -= 1
-    used[f] or = 0
-    used[f] -= 1
-
-  used.happiness = (used.noFood or 0) * noFoodUnhappiness
-  unless used.happiness then delete used.happiness
+    used[f] = (used[f] or 0) - 1
 
   return used
 
@@ -110,8 +110,8 @@ Page.SailDay = class SailDay extends Page
     costDescription = Item.costDescription(@cost)
 
     other = []
-    if @cost.noFood
-      other.push "Because there wasn't enough food people went hungry (<span class='happiness'>-#{@cost.noFood} happiness</span>)."
+    if @cost.happiness
+      other.push "Because there wasn't enough food people went hungry (<span class='happiness'>-#{@cost.happiness} happiness</span> sailors, <span class='energy'>-#{@cost.energy} energy</span> for officers)."
 
     ship = g.map.Ship
 
@@ -127,13 +127,15 @@ Page.SailDay = class SailDay extends Page
     cost = @context.cost = sailCost()
     super()
     for name, officer of g.officers
-      officer.add 'energy', 1
+      officer.add 'energy', 0.5
 
     g.applyEffects {cargo: cost}
 
     if cost.happiness
-      for name, person of g.crew
+      for i, person of g.crew
         person.add 'happiness', -cost.happiness
+      for i, person of g.officers
+        person.add 'energy', -cost.energy
 
     @context.days += g.map.Ship.sailSpeed()
     if @context.days < @context.daysNeeded

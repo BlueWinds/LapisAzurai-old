@@ -28,7 +28,7 @@ Game::officers.James = Officer.James = class James extends Officer
 
   traits: new Collection
     loyal: new Trait.Loyal
-      description: "James is a longtime friend, willing to stick with Natalie through thick and thin. His happiness decreases only half as quickly."
+      description: "James is willing to stick with Natalie through thick and thin. His happiness decreases only half as quickly."
     content: new Trait.Content
       description: "James travels with Natalie for reasons other than money. He takes no wage."
 

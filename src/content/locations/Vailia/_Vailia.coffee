@@ -45,7 +45,7 @@ Place.Vailia = Game::map.Vailia = class Vailia extends Place
   jobs: new Collection
     hireCrew: Job.VailiaHireCrew
     market: Job.VailiaMarket
-  location: [3600, 1831]
+  location: [1600, 1831]
   destinations: new Collection
     MountJulia: 7
 
@@ -56,7 +56,7 @@ Place.Vailia::jobs.beach = Job.Beach = class Beach extends Job
     worker3: {optional: true}
   label: 'Rest'
   text: ->"""Visit the beach, spend time wandering the city, explore a pub - all great ways to relax and restore energy."""
-  energy: 3
+  energy: -> 3 + Page.sumStat('restEnergy', g.crew)
   next: Page.randomMatch
   @next: []
 
