@@ -64,8 +64,8 @@ baseRate =
   cargo: 0
 
 genderCount = (gender)->
-  count = g.crew.filter((p)=> p.gender is gender).objectLength
-  return count + g.officers.filter((p)=> p.gender is gender).objectLength
+  count = g.crew.filter((p)-> p.gender is gender).objectLength
+  return count + g.officers.filter((p)-> p.gender is gender).objectLength
 
 Person::get = (stat)->
   value = if baseRate[stat]? then baseRate[stat]

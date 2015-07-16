@@ -16,11 +16,11 @@ ShipJob.Spirit.next.push Page.SpiritFog = class SpiritFog extends Page
     -- A grey fog descended over the ship in the night and, by the time anyone thought to wake Natalie, the Lapis was becalmed in dim water. The lightlessness dragged at spirits and numbing thoughts.
 
   ||
-    #{@Nat.image 'serious', 'center'}
+    #{@Nat.uncertain 'center'}
     --> Natalie looked around at the crew - lethargic, barely staying awake. It was unnatural the way they dragged at their tasks, when every nerve in her screamed that something was wrong. #{if g.officers.Asara then "Only Asara seemed alert, tense and silent. Nothing unusual there." else ""}
 
   ||
-    #{@Nat.image 'serious', 'center'}
+    #{@Nat.embarrassed 'center'}
     --> Drooping sails and silent waves suggested that the Lapis wasn't going anywhere soon. Haranging enthusiasm into them seemed useless. There was magic at work.
 
   ||
@@ -61,7 +61,7 @@ ShipJob.Spirit.next.push Page.SpiritFish = class SpiritFish extends Page
   conditions:
     Nat: '|officers|Nat'
   text: ->"""|| bg="Ship.deckDay"
-    #{@Nat.image 'excited', 'center'}
+    #{@Nat.happy 'center'}
     -- #{q}Nets out! Lower the sails. #{Math.choice g.crew}, get everyone on deck. We're going fishing!</q> Sailors scrambled to obey their excited captain as the water around them churned and boiled with fish. For a dozen yards in every direction the water was silver with the glint of scales, a school as large and hungry as Natalie had ever seen. If they'd been properly equipped as a fishing vessel they'd be able to make a month's catch in just a few hours, but even so she couldn't resist the chance to stock up their larder.
 
   ||

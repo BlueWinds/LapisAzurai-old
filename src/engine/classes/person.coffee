@@ -1,5 +1,6 @@
- #Setting up a whole bunch of global functions to make rendering pages more convenient.
-# lastP is always the most recent person one of these functions has been called with - using this as a default argument makes possible things like "#{He @CrewMember} hands #{his} cup to her." - notice how the second use doesn't require an argument.
+# Setting up a whole bunch of global functions to make rendering pages more convenient.
+
+# lastP is always the most recent person referenced (by one of these functions or by displaying their image or name). This makes things like "#{He @CrewMember} hands #{his} cup to her" possible - notice how the second use doesn't require an argument.
 lastP = null
 window.q = (person = lastP)->
   lastP = person
@@ -67,23 +68,28 @@ window.Person = class Person extends GameObject
   combat: 0
   description: 'If you see this in-game, it is a bug.'
 
-  image: (label, classes = '')->
-    lastP = @
-    for label in label.split('|')
-      if src = @constructor.images[label] then break
-    unless src
-      throw new Error "Can't find image '#{label}' for #{@}"
+  constructor: (data, objects, path)->
+    super(data, objects, path)
 
-    div = $ "<div class='#{classes} person #{@constructor.name}'></div>"
+    image = (label, classes)->
+      lastP = @
+      src = @constructor.images[label]
+      unless src
+        throw new Error "Can't find image '#{label}' for #{@}"
 
-    unless @constructor.colors
-      div.append "<img src='game/sprites/#{@constructor.name}/#{label}.png'>"
+      div = $ "<div class='#{classes} person #{@constructor.name}'></div>"
+
+      unless @constructor.colors
+        div.append "<img src='game/sprites/#{@constructor.name}/_#{label}.png'>"
+        return div[0].outerHTML
+
+      for layer, path of src
+        div.append "<img src='game/sprites/#{@constructor.name}/#{path}-#{@color[layer]}.png'>"
+
       return div[0].outerHTML
 
-    for layer, path of src
-      div.append "<img src='game/sprites/#{@constructor.name}/#{path}-#{@color[layer]}.png'>"
-
-    return div[0].outerHTML
+    for label of @constructor.images
+      Object.defineProperty @, label, {value: image.bind(@, label)}
 
   renderBlock: (key, classes = '')->
     stats = for stat in ['happiness', 'business', 'sailing', 'combat']

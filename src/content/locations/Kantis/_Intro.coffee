@@ -11,7 +11,7 @@ Place.Vailia::jobs.VisitKantis = Job.VisitKantis = class VisitKantis extends Job
 
 Job.VisitKantis::next = Page.VisitKantis = class VisitKantis extends Page
   conditions:
-    Natalie: {}
+    Nat: '|officers|Nat'
     Guildmaster: '|people|Guildmaster'
   text: ->"""|| bg="marketDay|marketStorm"
     -- Natalie grinned and waved at the young man at the front desk, but didn't stop – no time to chat. Without James here to tug at her wrist she was running rather late, despite having given herself plenty of time to arrive. She hurried along the familiar corridors towards Janos' office.
@@ -23,63 +23,63 @@ Job.VisitKantis::next = Page.VisitKantis = class VisitKantis extends Page
     -- Ten minutes later the door opened, and a weary looking Guildmaster held it for his guests. A stern looking older woman nodded as Natalie as she brushed past, decked in a foreign and formal dress. Janos' knuckles whitened on the doorframe, and he didn't so much as glance at Natalie as he watched the woman move sedately down the long hallway.
 
   ||
-    #{@Guildmaster.image 'skeptical', 'right'}
+    #{@Guildmaster.skeptical 'right'}
     -- Finally, once she had turned out of sight he nodded to Natalie, and gestured with one hand for her to enter. While she made herself comfortable in her usual chair, he sat down behind the desk with a sigh.
 
   ||
-    #{@Guildmaster.image 'serious', 'right'}
+    #{@Guildmaster.serious 'right'}
     --> #{q}Don't get old, Natalie. Or at least retire when you do.</q> He massaged his temples with one hand.
 
   ||
-    #{@Natalie.image 'normal', 'left'}
+    #{@Nat.happy 'left'}
     --> #{q}Any time you want to feel young again, there's dozens of women just downstairs who'd be happy to help. Not me though, I don't like geezers,</q> she stuck out her tongue.
 
   ||
-    #{@Guildmaster.image 'normal', 'right'}
+    #{@Guildmaster.normal 'right'}
     -- He laughed and leaned across to ruffle her hair.
 
   ||
-    #{@Guildmaster.image 'normal', 'right'}
+    #{@Guildmaster.normal 'right'}
     --> #{q}You always know the right thing to say. I miss Wend sometimes, and now with you gone... none of the other Children have quite the same spark. I'm going to become boring.</q> He slapped his hands on the desk, wiping the happy expression off his face, business-like demeanor returning. #{q}I hear you have returned from Tomenoi.</q>
 
   ||
-    #{@Natalie.image 'normal', 'left'}
+    #{@Nat.normal 'left'}
     -- Though she wanted more than anything to ask who the woman was – she had looked more Kantian than anything – Natalie restrained her curiosity and nodded, leaning back in her seat on crossing her knees. #{q}Tomenoi, yes sir. Would you like me to tell you about it?</q> She had guessed his intentions correctly, and he nodded. #{q}It was dirty, dusty, small, closely packed. Huddled, you might say. But well-made – no signs of neglect, and the woodworking was all first-rate. Odd that they made everything out of wood, when the island was so barren.</q>
 
   ||
-    #{@Guildmaster.image 'thoughtful', 'right'}
+    #{@Guildmaster.thoughtful 'right'}
     -- #{q}Kantis is not heavily forested, so wood is a luxury. Tomenoi is a statement of wealth, placed on our doorstep. The wood also symbolizes impermanence, openness to change.</q>
 
   ||
-    #{@Natalie.image 'serious', 'left'}
+    #{@Nat.uncertain 'left'}
     --> Natalie pondered his words, nodded. It fit with what she'd felt from the people there. Everyone seemed worried that the floor was going to drop out from under them. It hadn't been an entirely pleasant. #{q}Is there anything in specific you'd like to know?</q>
 
   ||
-    #{@Guildmaster.image 'thoughtful', 'right'}
-    -- He grilled her briefly on the prices of various goods, quantities and qualities that she'd seen for sale. It was amazing, the way he seemed to soak up information, fitting new facts into some sort of masterful puzzle only he could see. Finally, he gestured her to silence while he pondered the way the pieces fell together.
+    #{@Guildmaster.thoughtful 'right'}
+    -- He grilled her briefly on the prices of various goods, quantities and qualities that she'd seen for sale. It was amazing the way he seemed to soak up information, fitting new facts into some sort of masterful puzzle only he could see. Finally, he gestured her to silence while he pondered the way the pieces fell together.
 
   ||
-    #{@Guildmaster.image 'serious', 'right'}
+    #{@Guildmaster.serious 'right'}
     -- #{q}I will prepare a letter tonight, and have it sent to your ship. Please deliver it to Saottica. One of Kantis' outlying ports.</q>
 
   ||
-    #{@Natalie.image 'excited', 'left'}
+    #{@Nat.happy 'left'}
     -- She sat up straight, grinned, uncrossed her legs. #{q}Aye aye sir!</q>
 
   ||
-    #{@Guildmaster.image 'normal', 'right'}
+    #{@Guildmaster.normal 'right'}
     -- #{q}Stop it, you're making me feel old again,</q> he grumbled, but his smile said the opposite of his words.
 
   ||
-    #{@Natalie.image 'normal', 'left'}
+    #{@Nat.normal 'left'}
     -- Natalie stood and saluted, garnering another grumble, and turned to leave.
 
   ||
-    #{@Guildmaster.image 'normal', 'right'}
+    #{@Guildmaster.normal 'right'}
     -- #{q}Take some of our steel with you. The price in Kantis won't disappoint.</q> Though it seemed an afterthought, the delivery was too timely and smooth. The advice was, she could guess, to be her means of payment for the mission.
 
   ||
-    #{@Natalie.image 'normal', 'left'}
+    #{@Nat.happy 'left'}
     -- #{q}Aye aye sir!</q> She saluted again, and danced out before he could object.
   """
   effects:

@@ -16,7 +16,7 @@ Place.Ship::jobs.otherShip = ShipJob.OtherShip = class OtherShip extends ShipJob
   label: "Another Ship"
   type: 'special'
   conditions:
-    '|': matches: -> return Math.random() <= 0.1
+    '|': matches: -> return Math.random() <= 0.2
     '|events|FirstStorm': {}
   text: ->"""In the distance, #{Math.choice g.crew} spots another ship. It'll be easy to avoid, or you could investigate."""
 
@@ -25,7 +25,7 @@ ShipJob.OtherShip::next = Page.OtherShip = class OtherShip extends Page
     sailor:
       fill: -> Math.choice g.crew
   text: ->"""|| bg="Ship.deckDay"
-    #{@sailor.image 'normal', 'right'}
+    #{@sailor.normal 'right'}
     -- #{q @sailor}Ship ahoy!</q> #{@sailor} called out from #{his} position on the starboard side of the deck, and everyone turned to look. Natalie shaded her eyes, trying to make out anything in the bright sun."""
   next: Page.randomMatch
   @next: []
@@ -45,7 +45,7 @@ Page.OtherShip.next.push Page.Pirates = class Pirates extends PlayerOptionPage
       There was indeed a dark spot on the horizon – and watching it for several minutes, one by one everyone convinced themselves it was a ship, sailing in their direction, crossing paths at an angle.
 
     ||
-      #{g.officers.Nat.image 'normal', 'left'}
+      #{g.officers.Nat.normal 'left'}
       --   #{q}Everyone take a rest, we're letting them catch us!</q> Natalie's shouted command slowed shipboard activity to a crawl. Meeting with another vessel out in the middle of the ocean might not be the safest possible action, and it would be good to have everyone rested and alert by the time they were close in case there was trouble. James fetched his sword, buckled it on. The rest of the crew did the same. Just in case.
 
     ||
@@ -56,7 +56,7 @@ Page.OtherShip.next.push Page.Pirates = class Pirates extends PlayerOptionPage
 
 Page.Pirates.next['Fight'] = Page.PiratesFight = class PiratesFight extends Page
   text: ->"""|| bg="Ship.deckDay"
-    #{g.officers.Nat.image 'angry', 'left'}
+    #{g.officers.Nat.shouting 'left'}
     -- #{q}Yah!</q> Natalie raised one arm to the sky, her cheer echoed by that of the crew. Though outnumbered, they would put an end to this sea-born menace. The watery depths were dangerous enough on their own, without human marauders adding to the menace.
 
   ||
@@ -102,7 +102,7 @@ Page.PiratesFight.next.good = Page.PiratesFightWin = class PiratesFightWin exten
     --> She felt a surge of light-headedness, and one of the attackers screamed, dropping his suddenly red-hot sword. The other paused in disbelief, rapidly shifting eyes darting back and forth the between his companion and the woman they'd thought helpless. He charged.
 
   ||
-    #{g.officers.James.image 'angry', ''}
+    #{g.officers.James.angry ''}
     -- #{q}Yah!</q> James crashed into him, sending the pirate sprawling across the deck, and ran a sword through him before he could recover from the second bout of surprise. #{q}Get inside, Nat! Now!</q>
 
   ||
@@ -153,49 +153,49 @@ Page.PiratesFight.next.bad = Page.PiratesFightLose = class PiratesFightLose exte
 Page.PiratesFightLose::next = Page.PiratesFightLose2 = class PiratesFightLose2 extends Page
   conditions:
     James: '|officers|James'
-    Natalie: '|officers|Nat'
+    Nat: '|officers|Nat'
   text: ->"""|| bg="Ship.cabinNight" speed="slow"
-    #{@James.image 'normal', 'right'}
+    #{@James.normal 'right'}
     -- #{q}You're making a bad habit of this, you know,</q> James smiled as Natalie's eyes fluttered open. He had a bandage wrapped around one shoulder, holding the arm in a sling.
 
   ||
-    #{@Natalie.image 'sad', 'left'}
+    #{@Nat.embarrassed 'left'}
     --> #{q}I'll try. What happened?</q> She reached over to weakly grasp his good hand, echoing with a faint smile of her own.
 
   ||
-    #{@James.image 'normal', 'right'}
+    #{@James.normal 'right'}
     --> #{q}Before or after you conjured up a crazy storm and drove away the pirates?</q>
 
   ||
-    #{@Natalie.image 'sad', 'left'}
+    #{@Nat.normal 'left'}
     --> #{q}After. Did I really summon a storm?</q>
 
   ||
-    #{@James.image 'sad', 'right'}
+    #{@James.sad 'right'}
     -- #{q}I guess you must have,</q> he shook his head. If she was having trouble believing it, how was he supposed to feel? #{q}Well, they took a bunch of cargo and fled for their lives.</q>
 
   ||
-    #{@Natalie.image 'sad', 'left'}
+    #{@Nat.embarrassed 'left'}
     --> #{q}I'm sorry, James. I messed up.</q>
 
   ||
-    #{@James.image 'normal', 'right'}
+    #{@James.normal 'right'}
     -- #{q}You didn't mess up,</q> he squeezed her hand. #{q}You saved us all.</q>
 
   ||
-    #{@Natalie.image 'sad', 'left'}
+    #{@Nat.embarrassed 'left'}
     --> #{q}We wouldn't have needed saving in the first place if it hadn't been for me.</q> She shook her head, denying his right to take away her responsibility. #{q}Keep us moving. I think I'll need a few more days before I can stand up again.</q>"""
 
 Page.Pirates.next['Negotiate'] = Page.PiratesNegotiate = class PiratesNegotiate extends Page
   text: ->"""|| bg="Ship.deckDay"
-    #{g.officers.Nat.image 'excited', 'left'}
+    #{g.officers.Nat.happy 'left'}
     -- #{q}Hail!</q> Natalie waved her arm overhead enthusiastically, heading forward across the deck to be closer to her counterparts on the other ship. Seeing the Azurai wasn't attempting to flee, they slowed, coming to a bobbing halt alongside it. From up close it was entirely obvious that the other ship was a pirate vessel – no merchant would sail with such a motley band.
 
   ||
     -- <q>Sensible of 'ye to let us come up so nice and clean. We have to sink ships that run, just on principle.</q> The other captain shouted across the gap, moving so they stood opposite each other, rails and twenty feet of water in between. <q>So, goin' ta keep being sensible, and we can work out some sort of deal for your cargo that doesn't involve a whole lot of fish food?</q> His none-too-subtle ultimatum drew chuckles from his crew – they certainly outnumbered those aboard the Azurai.
 
   ||
-    #{g.officers.Nat.image 'normal', 'left'}
+    #{g.officers.Nat.normal 'left'}
     -- #{q}I'm sure we can. I'll even discount things slightly for fine upstanding gentlemen like yourselves,</q> Natalie called back, taking a gamble that acting from a position of strength would be better than seeming fearful. It drew murmurs of anger from the pirates, but an appraising eye from the captain.
 
   ||
@@ -213,8 +213,8 @@ Page.PiratesNegotiate.next.good = Page.PiratesNegotiateSuccess = class PiratesNe
     -- He hesitated, eyes darting around to his crew, torn between a desire not to antagonize a woman who could throw fire and the demand that he not lose face before the other members of the band – an excellent way to become an ex-captain.
 
   ||
-    #{g.officers.Nat.image 'normal', 'left'}
-    --> She decided to throw him a bone to help tip the scales. #{q}I do have a spare keg of fine Vailian beer, though, that's burning a hole in my hull. Perhaps you'd like to help deal with it?</q>
+    #{g.officers.Nat.normal 'left'}
+    --> She decided to throw him a bone. #{q}I do have a spare keg of fine Vailian beer, though, that's burning a hole in my hull. Perhaps you'd like to help deal with it?</q>
 
   ||
     --> The ability to bribe his crew with alcohol was enough to tilt the scales. <q>We can deal. What've you got?</q>
@@ -246,7 +246,7 @@ Page.PiratesNegotiate.next.bad = Page.PiratesNegotiateFail = class PiratesNegoti
 
 Page.Pirates.next['Flee'] = Page.PiratesFlee = class PiratesFlee extends Page
   text: ->"""|| bg="Ship.deckDay"
-    #{g.officers.Nat.image 'upset', 'left'}
+    #{g.officers.Nat.shouting 'left'}
     -- #{q}Ok, I've changed my mind. Not good. Full sail!</q> Natalie called out commands, setting the crew back in motion. They kept their weapons close at hand as they worked, canvas billowing up to catch the wind"""
   next: Page.statCheck
   stat: 'sailing'

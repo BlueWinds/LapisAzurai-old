@@ -1000,9 +1000,9 @@ page h4 {
   padding-left: 13px;
   text-align: left;
 }
-page > .person.Kat {
+page > .person.Kat, page > .person.Natalie {
   width: 43%;
 }
-page > .person.Kat img {
+page > .person.Kat img, page > .person.Natalie img {
   bottom: -115px;
 }

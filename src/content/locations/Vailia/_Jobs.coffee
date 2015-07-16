@@ -145,14 +145,14 @@ Job.Defense.next.push Page.DefenseNatalie = class DefenseNatalie extends Page
   conditions:
     worker: {is: Officer.Natalie}
   text: ->"""|| bg="marketDay|marketStorm"
-    #{@worker.image 'normal', 'left'}
+    #{@worker.normal 'left'}
     -- #{q}Hey! I heard you teach people weapons?</q> Natalie squatted down in front of the man drinking from a clay pitcher. He was rough-faced, at least six feet tall, and wore a broadsword strapped to his back. There was no denying that this was Torril, one of the more famous mercenaries in Vailia, now retired.
 
   ||
     --> <q>I do. I take it you're interested?</q>
 
   ||
-    #{@worker.image 'normal', 'left'}
+    #{@worker.normal 'left'}
     -- #{q}I captain a vessel and figured it would behoove me to know a thing or two more about this than I do.</q> She popped back to her feet and went over to the rack of wooden practice weapons, browsing through it before settling on a narrow wooden blade.
 
   ||
@@ -173,14 +173,14 @@ Job.Defense.next.push Page.DefenseJames = class DefenseJames extends Page
   conditions:
     worker: {is: Officer.James}
   text: ->"""|| bg="marketDay|marketStorm"
-    #{@worker.image 'normal', 'left'}
+    #{@worker.normal 'left'}
     -- #{q}I need some help.</q> James presented himself to Torril, a retired mercenary captain.
 
   ||
     --> <q>What sort of help?</q>
 
   ||
-    #{@worker.image 'normal', 'left'}
+    #{@worker.normal 'left'}
     --> #{q}Help with a sword.</q>
 
 
@@ -188,7 +188,7 @@ Job.Defense.next.push Page.DefenseJames = class DefenseJames extends Page
     -- <q>Why?</q>
 
   ||
-    #{@worker.image 'normal', 'left'}
+    #{@worker.normal 'left'}
     --> #{q}I'll be traveling dangerous places, and I need to protect people.</q>
 
   ||
@@ -202,14 +202,14 @@ Job.Defense.next.push Page.DefenseJames = class DefenseJames extends Page
 #   conditions:
 #     worker: {is: Officer.Asara}
 #   text: ->"""|| bg="marketDay|marketStorm"
-#     #{@worker.image 'normal', 'left'}
+#     #{@worker.normal 'left'}
 #     -- #{q}I believe you can help me,</q> Asara introduced herself to the mercenary captain without preamble.
 #
 #   ||
 #     --> He stared at her, then slowly shook his head. <q>I don't believe I know any more about the sword than you, miss.</q>
 #
 #   ||
-#     #{@worker.image 'normal', 'left'}
+#     #{@worker.normal 'left'}
 #     --> #{q}Not the sword.</q> She tapped her temple, next to her grey eyes. #{q}I have heard that you may have some experience with one of my sisters. Teach me what she could do.</q>
 #
 #   ||
@@ -220,21 +220,21 @@ Job.Defense.next.push Page.DefenseKat = class DefenseKat extends Page
   conditions:
     worker: {is: Officer.Kat}
   text: ->"""|| bg="marketDay|marketStorm"
-    #{@worker.image 'normal', 'left'}
+    #{@worker.normal 'left'}
     -- Kat slumped her way into the courtyard, managing to look as though she was being dragged even though no one was anywhere near her. #{q}I'm supposed to learn how to fight,</q> she addressed the retired mercenary.
 
   ||
     --> <q>Ah, you must be Kat. Natalie told me about you. I hear you're quick like a demon and lazy like one too.</q>
 
   ||
-    #{@worker.image 'normal', 'left'}
+    #{@worker.normal 'left'}
     --> #{q}That wasn't very nice of her.</q> Kat stuck out her tongue. #{q}Accurate though,</q> she chuckled at her sally.
 
   ||
     -- <q>Well, we'll soon work that out of you. Do you know any weapons work?</q>
 
   ||
-    #{@worker.image 'normal', 'left'}
+    #{@worker.normal 'left'}
     --> #{q}I can throw a half-brick pretty well. Usually kill a rat in one hit,</q> she grinned proudly.
 
   ||

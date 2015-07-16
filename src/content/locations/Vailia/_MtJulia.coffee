@@ -48,23 +48,23 @@ Place.MountJulia::firstVisit = Page.VisitJulia = class VisitJulia extends Page
       --> Though she could perhaps stand to hire a few more crew members to help get them through rough weather, the crew of #{g.crew.length.toWord()} was enough for now. The Azurai had been lucky so far, sailing in clear weather and steady wind - an auspicious beginning for a first voyage. Hopefully the trip home would be as smooth.
 
     || bg="Ship.deckDay"
-      #{g.officers.Nat.image 'excited', 'left'}
+      #{g.officers.Nat.happy 'left'}
       -- #{q}Tell James what you were telling me last night,</q> Natalie waved over #{sailor.name} and her Quartermaster. #{sailor.name} saluted the officers, bringing a smile to Natalie's face – she loved that feeling – and began again.
 
     ||
-      #{sailor.image 'normal', 'right'}
+      #{sailor.normal 'right'}
       --> #{q}Mount Julia's not much more than a couple of warehouses, some wharves, and an inn. At least it was last time I sailed here, about two years ago. The area's too rugged to support any farming, but the natural harbor is such a good layover on the way out from Vailia that only idiots don't take the chance to top off supplies and rest a night on shore. Begging your pardon, ma'am,</q> #{sailor.name} repeated the salute.
 
     ||
-      #{g.officers.Nat.image 'normal', 'left'}
+      #{g.officers.Nat.normal 'left'}
       -- #{q}Don't worry, we'll be staying at least a day. Thank you,</q> Natalie waved #{him sailor} away. To James, #{q g.officers.Nat}I'm intending to sell our cargo here, rather than haul it further. Slim profit, but I want to take this first trip easy. We've been lucky with the weather. Let's not push it before we have a chance to debrief and hire more crew.</q>
 
     ||
-      #{g.officers.James.image 'normal', 'right'}
+      #{g.officers.James.normal 'right'}
       --> #{q}I'll get everything cleaned up and check over the ship while you find a buyer.</q> He nodded, glancing behind them at the cargo hold. Several items hadn't been secured properly in the haste to depart, and one cask of fresh water had sprung a leak from the banging around.
 
     ||
-      #{g.officers.Nat.image 'normal', 'left'}
+      #{g.officers.Nat.normal 'left'}
       -- #{q}Good. I hardly expect to make more on this trip than I've spent in supplies and wages, but it'll be worth it for a shakedown cruise. Let's not waste time.</q>
     """
   effects:
@@ -112,14 +112,14 @@ Job.MtJuliaMarket.next.unshift Page.MtJuliaMarketIntro = class MtJuliaMarketIntr
     -- <q>What can I gettcha?</q>
 
   ||
-    #{@worker.image 'normal', 'left'}
+    #{@worker.normal 'left'}
     --> #{q}Nothing right now, thank you. Where are your parents?</q>
 
   ||
     --> <q>Out back. But I can do anything ya'need. Don't be bothering 'em.</q>
 
   ||
-    #{g.officers.Nat.image 'normal', 'left'}
+    #{g.officers.Nat.normal 'left'}
     --> #{q}Well, I suppose. I have some #{Object.keys(g.cargo).sort((a, b)->Item[b].price - Item[a].price)[0]} I'd like to unload.</q>
 
   ||
@@ -138,7 +138,7 @@ Job.MtJuliaRest.next.push Page.MtJuliaRest = class MtJuliaRest extends Page
   conditions:
     worker: {}
   text: ->"""|| bg="tavern"
-    #{@worker.image 'normal', 'left'}
+    #{@worker.normal 'left'}
     -- #{q}So, what's your name?</q> #{@worker} asked the bartender – a cute little girl, perhaps twelve. She claimed to have parents around here somewhere, but #{@worker} hadn't seen or heard them yet.
 
   ||
@@ -224,7 +224,7 @@ Job.MtJuliaCheckShip::next = Page.MtJuliaCheckShip = class MtJuliaCheckShip exte
     -- The Azurai shouldn't have taken any damage from such a minor voyage in calm weather, but it didn't hurt to check. James stripped down to his trunks – any issues would begin below the waterline on the outside of the hull long before they became visible to the occupants.
 
   ||
-    #{@James.image 'blushNude', 'left'}
+    #{@James.blushNude 'left'}
     --> The back of his neck burned as someone whistled behind him, but he refused to dignify the catcall with a glance. Let Natalie have her fun. Or one of the sailors, if they were so bold. He didn't really want to know who it was. Yes he did, actually, but he still wasn't going to turn his head to look.
 
   || bg="Ship.day"
@@ -253,15 +253,15 @@ Job.JamesJuliaWilds::next = Page.JamesJuliaWilds = class JamesJuliaWilds extends
     Nat: '|officers|Nat'
     0: {}
   text: ->"""|| bg="Ship.deckDay"
-    #{@Nat.image 'serious', 'right'}
+    #{@Nat.uncertain 'right'}
     -- #{q}I don't see what you hope to find. The bartender's a little odd, sure, but outside of Vailia <em>everywhere</em> is a little odd. This place is harmless enough. Let's not go poking it with a stick to see what we can wake up.</q>
 
   ||
-    #{@James.image 'serious', 'left'}
+    #{@James.serious 'left'}
     --> #{q}I'm not poking it with a stick, I'm just going to go take a look at that building around back. Knock on the door, say hello.</q>
 
   ||
-    #{@Nat.image 'serious', 'right'}
+    #{@Nat.embarrassed 'right'}
     --> #{q}I suppose so. Don't go exploring just because the door 'happens' to be unlocked, though.</q> She sighed and waved acceptance with one hand.
 
   || bg="day" speed="slow"

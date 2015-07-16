@@ -55,3 +55,8 @@ Game.update.push {
 Game.update.push { # Repair an issue where ship damage may have been set to NaN
   post: -> @map.Ship.damage or= 0
 }
+
+Game.update.push { # Move the "expression" layer up, and insert the new "tears" layer
+  post: -> if @officers.Nat.color.length < Officer.Natalie.colors.length
+    @officers.Nat.color.splice(1, 0, 'none')
+}

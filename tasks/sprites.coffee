@@ -48,19 +48,17 @@ module.exports = (grunt)->
             grunt.log.ok image
             nextImage err
 
-          unless person.colors
-            target = "#{spritePath}/#{person.name}/#{image}.png"
+          target = "#{spritePath}/#{person.name}/_#{image}.png"
+          buildSingleSprite scale, path, imageInfo, target, (err)->
+            unless person.colors then return logNext(err)
 
-            return buildSingleSprite scale, path, imageInfo, target, logNext
+            async.forEachOfSeries imageInfo, (png, layer, nextLayer)->
+              if createdPaths[png] then return nextLayer()
+              createdPaths[png] = true
 
-          async.forEachOfSeries imageInfo, (png, layer, nextLayer)->
-            if createdPaths[png] then return nextLayer()
-            createdPaths[png] = true
-
-            target = "#{spritePath}/#{person.name}/#{png}"
-            scale = person.images.scale or 1
-            createColorizedSprites person.colors[layer], scale, path + png + '.png', target, nextLayer
-          , logNext
+              target = "#{spritePath}/#{person.name}/#{png}"
+              createColorizedSprites person.colors[layer], scale, path + png + '.png', target, nextLayer
+            , logNext
         , nextPerson
 
       sampleImage.src = path + person.images.normal[0] + '.png'

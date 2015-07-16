@@ -166,51 +166,51 @@ Job.MeghanIntro = Place.Vailia::jobs.meetMeghan = class MeghanIntro extends Job
 
 Page.MeghanIntro = Job.MeghanIntro::next = class MeghanIntro extends Page
   conditions:
-    Natalie: {}
+    Nat: '|officers|Nat'
     Guildmaster: '|people|Guildmaster'
     Meghan: '|people|Meghan'
   text: ->"""|| bg="guildOffice"
-    #{@Guildmaster.image 'serious', 'left'}
+    #{@Guildmaster.serious 'left'}
     -- Janos glanced between Natalie and his other guest. His desk was, unusually, clear, as though he'd put away everything in preparation for Natalie's arrival. No, he wouldn't care if Natalie saw his work - he'd put it away for his other guest.
 
   ||
-    #{@Meghan.image 'normal', 'right'}
+    #{@Meghan.normal 'right'}
     --> She was a young woman, Kat's age, but otherwise completely unlike the thief. Piercingly beautiful, elegant, self-assured, she looked the part of a noblewoman. But...
 
   || speed="slow" bg="guildOfficeGrey"
-    #{@Meghan.image 'normal', 'right'}
+    #{@Meghan.normal 'right'}
     --> Power. The room was filled with it, And unlike the energy Natalie could harness in a storm, the power was already directed, contained, coiling around the girl and squeezing the air from Natalie's lungs.
 
   || speed="verySlow" bg="guildOfficeGrey2"
-    #{@Meghan.image 'normal', 'right'}
+    #{@Meghan.normal 'right'}
     -- It wasn't hostile. It wasn't aimed at all. It merely... was, dimming the rest of the world with the mere weight of the girl's existence. Natalie's magic flickered like a candle in the presence of the sun.
 
   || speed="slow" bg="guildOfficeGrey3"
-    #{@Meghan.image 'normal', 'right'}
+    #{@Meghan.normal 'right'}
     --> Natalie couldn't breathe.
 
   || bg="guildOffice"
-    #{@Meghan.image 'happy', 'right'}
+    #{@Meghan.happy 'right'}
     --> The girl smiled, and the pressure vanished, magic coiling back inside, wating until called forth again. Nat staggered with the sudden change in atmosphere and sat on down hard, hands folded in her lap. The display - clearly, that's what it had been - had worked. She was overawed and cowed.
 
   ||
-    #{@Guildmaster.image 'normal', 'right'}
+    #{@Guildmaster.normal 'right'}
     -- #{q}Natalie Rowena, allow me to introduce Lady Vailia.</q>
 
   ||
-    #{@Meghan.image 'normal', 'right'}
+    #{@Meghan.normal 'right'}
     --> #{q}Just Meghan, please.</q>
 
   ||
-    #{@Guildmaster.image 'serious', 'right'}
+    #{@Guildmaster.serious 'right'}
     -- #{q}Lady Meghan, then. She wanted to meet you, and I suggested that since you were already making the trip up here, she could join us.</q> Though the Guildmaster's neutral expression had flickered into a frown for only a moment, Natalie could read between the lines perfectly well - he hadn't wanted to introduce them at all. For Natalie's protection or his own reasons, though, that was the question.
 
   ||
-    #{@Natalie.image 'normal', 'left'}
+    #{@Nat.normal 'left'}
     --> #{q}Named after the city?</q> As curiosity overcame dread, she realized what this meeting was - a test. She hoped she hadn't failed already.
 
   ||
-    #{@Meghan.image 'happy', 'right'}
+    #{@Meghan.happy 'right'}
     -->#{q}Other way around.</q> Meghan shrugged.
 """
   effects:
@@ -220,118 +220,118 @@ Page.MeghanIntro = Job.MeghanIntro::next = class MeghanIntro extends Page
 Page.MeghanIntro2 = Page.MeghanIntro::next = class MeghanIntro2 extends Page
   conditions:
     Meghan: {}
-    Natalie: {}
+    Nat: {}
     Guildmaster: {}
   text: ->"""|| bg="guildOffice"
-    #{@Guildmaster.image 'serious', 'right'}
+    #{@Guildmaster.serious 'right'}
     -- #{q}Lady Meghan came of age a few weeks ago. I would have invited you to the celebration, but you were at sea,</q> Janos interjected. #{q}Her father was a good friend of mine.</q> <em>She isn't</em> was implied.
 
   ||
-    #{@Meghan.image 'happy', 'right'}
+    #{@Meghan.happy 'right'}
     --> #{q}It has been some time since our city hosted a sorceress of your power.</q>
 
   ||
-    #{@Natalie.image 'normal', 'left'}
+    #{@Nat.happy 'left'}
     --> Natalie laughed. "Of your power." This girl could squash her like a bug. Rumors had it that Vailia was home to the most powerful sorceress in the world. No way this could be anyone else.
 
   ||
-    #{@Natalie.image 'normal', 'left'}
+    #{@Nat.normal 'left'}
     -- #{q}Are you really the most powerful mage in the world?</q>
 
   ||
-    #{@Meghan.image 'normal', 'right'}
+    #{@Meghan.normal 'right'}
     --> #{q}The world is a big place.</q>
 
   ||
-    #{@Natalie.image 'normal', 'left'}
+    #{@Nat.normal 'left'}
     --> #{q}That's a yes in disguise, isn't it?</q>
 
   ||
-    #{@Meghan.image 'normal', 'right'}
+    #{@Meghan.normal 'right'}
     --> Meghan shrugged, but Natalie could tell she was pleased. Score one point for reading the girl's attitude correctly. Outright flattery would have gotten nowhere with someone so used to power, but curiosity and blunt truth had been the right tact.
 
   ||
-    #{@Meghan.image 'serious', 'right'}
+    #{@Meghan.serious 'right'}
     -- #{q}Who were your parents?</q>
 
   ||
-    #{@Natalie.image 'normal', 'left'}
+    #{@Nat.normal 'left'}
     --> #{q}My mother worked for the Guild, Jessie Rowena. I don't know who my father is.
 
   ||
-    #{@Meghan.image 'normal', 'right'}
+    #{@Meghan.normal 'right'}
     --> #{q}What day were you born?</q>
 
   ||
-    #{@Natalie.image 'normal', 'left'}
+    #{@Nat.normal 'left'}
     --> #{q}15th of Descending Fire, 1274.</q>
 
   ||
-    #{@Meghan.image 'normal', 'right'}
+    #{@Meghan.normal 'right'}
     -- #{q}Are you planning on having children any time soon?</q>
 
   ||
-    #{@Natalie.image 'normal', 'left'}
+    #{@Nat.normal 'left'}
     --> #{q}No plans in that direction.</q>
 
   ||
-    #{@Meghan.image 'serious', 'right'}
+    #{@Meghan.serious 'right'}
     --> Meghan pursed her lips. Natalie felt magic stir for a moment, brushing past her mind in a movement too swift and subtle to follow. Then Meghan relaxed again, and sunk back in her chair with a smile.
 """
 
 Page.MeghanIntro3 = Page.MeghanIntro2::next = class MeghanIntro3 extends Page
   conditions:
-    Natalie: {}
+    Nat: {}
     Guildmaster: {}
     Meghan: {}
   text: -> """|| bg="guildOffice"
-    #{@Meghan.image 'normal', 'right'}
+    #{@Meghan.normal 'right'}
     -- #{q}Kantis.</q>
 
   ||
-    #{@Natalie.image 'normal', 'left'}
+    #{@Nat.normal 'left'}
     --> #{q}What?</q>
 
   ||
-    #{@Meghan.image 'normal', 'right'}
+    #{@Meghan.normal 'right'}
     --> #{q}Kantis. Your father is from Kantis. Speak with me if you ever decide to go there.</q> Meghan slapped her thighs and stood, the gesture putting lie to Natalie's earlier assessment of her as elegant and refined.
 
   ||
-    #{@Meghan.image 'happy', 'right'}
+    #{@Meghan.happy 'right'}
     --> #{q}Thank you for your time, Natalie, Guildmaster. Take care.</q> She took her leave without waiting for a response.
 
   || speed="slow"
     -- With the Guildmaster and Natalie left alone, silence filled the room. Natalie watched Janos, trying to figure what he made of the visit. For her own part Natalie was inclined to dismiss it as merely Meghan assessing the threat of another mage in the city, but the Guildmaster had a far broader view of events than she did, and if there were political implications in Lady Vailia taking an interest in one of the Guild's captains, he'd be the one to know.
 
   ||
-    #{@Guildmaster.image 'thinking', 'right'}
+    #{@Guildmaster.thinking 'right'}
     --> #{q}I'm sorry, but my business will have to wait for another day. I need to think on this.</q>
 
   ||
-    #{@Natalie.image 'normal', 'left'}
+    #{@Nat.normal 'left'}
     -- #{q}Is the city really named after a family of mages?</q>
 
   ||
-    #{@Guildmaster.image 'thinking', 'right'}
+    #{@Guildmaster.thinking 'right'}
     --> #{q}Yes. I'm sure you can read about it at the library.</q>
 
   ||
-    #{@Natalie.image 'excited', 'left'}
+    #{@Nat.happy 'left'}
     --> #{q}Kantis is in the far north, right?</q>
 
   ||
-    #{@Guildmaster.image 'skeptical', 'right'}
+    #{@Guildmaster.skeptical 'right'}
     --> #{q}Yes.</q>
 
   ||
-    #{@Natalie.image 'excited', 'left'}
+    #{@Nat.happy 'left'}
     -- #{q}Don't we have some dealings with them? I heard in the market the other day that...</q>
 
   ||
-    #{@Guildmaster.image 'serious', 'right'}
+    #{@Guildmaster.serious 'right'}
     --> #{q}Another day, Natalie.</q>
 
   ||
-    #{@Natalie.image 'sad', 'left'}
+    #{@Nat.normal 'left'}
     --> #{q}...Yes sir.</q>
 """

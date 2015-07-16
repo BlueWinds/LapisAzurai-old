@@ -12,13 +12,13 @@ hireCost = (people)->
 Page.HireCrewOne = class HireCrewOne extends Page
   # '0' will be set by the hiring event
   text: ->"""|| bg="tavern"
-    #{@[0].image 'normal', 'mid-right reversed'}
+    #{@[0].normal 'left'}
     --
       Natalie talked with several sailors, but most of them weren't exactly prime material - too old, too young, sickly or untrustworthy. If they were just sailing around lakes, hauling cargo up rivers with a barge she might let them aboard anyway, but not on the open ocean. It was dangerous out there. Those terrible storms which made landfall, that tore houses from the ground and uprooted trees were nothing compared to the hurricanes that raged across open water. And the monsters. Always the monsters. Natalie had to trust her crewmates with her life.
 
       #{@[0]} was the only one who fits the bill tonight. #{He @[0]}'ll do.
   ||
-    #{g.officers.Nat.image 'normal', 'mid-left'}
+    #{g.officers.Nat.normal 'left'}
     --
       Tradition dictated that a new sailor was entitled to a handsome signup bonus, paid before departure - they were putting their life in the hands of a captain they didn't know, after all, and should be able to leave something behind even if they never returned. After a bit of negotiation, #{@[0]} finally settled for #{hireCost @asArray()}β immediately and #{@[0].wages()}β daily thereafter. Natalie handed over a one obol coin and told #{@[0]} where they're docked.
 
@@ -36,7 +36,7 @@ Page.HireCrewMulti = class HireCrewMulti extends Page
     wages = Math.sum((crew.wages() for crew in @asArray()))
     names = @asArray().map (p)->p.name
     """|| bg="night"
-      #{g.officers.Nat.image 'normal', 'mid-left'}
+      #{g.officers.Nat.normal 'left'}
       --
         Of the many people interested, Natalie eventually settled on #{@asArray().length.toWord()}: #{names.wordJoin()}.
 

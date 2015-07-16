@@ -11,38 +11,38 @@ Place.Vailia::firstVisit = Page.FirstStorm = class FirstStorm extends Page
     -- #{q @James}Natalie! <b>Nat! Get up!</b></q> James pounded on her door and shouted.
 
   ||
-    #{@Nat.image 'normal', 'center'}
+    #{@Nat.normal 'center'}
     --> #{q}What?</q> She slipped up out of bed, on her feet and shrugging on a shirt even while he answered. There was no light outside – still night. No, not night...
 
   ||
-    #{@Nat.image 'serious', 'center'}
+    #{@Nat.embarrassed 'center'}
     --> #{q @James}A storm is rolling in! I've got the crew pulling up the sails, but it's eating the horizon like you wouldn't believe...</q> He stepped out of the way as she opened the door in his face.
 
   || bg="Ship.deckStorm"
     -- In one direction lay a peaceful night – dark sky and twinkling stars, ocean quiet but growing rougher. In the other... she groaned.
 
   || bg="Ship.deckStorm"
-    #{@Nat.image 'angry', 'left'}
-    --> #{q}Take the sails in, lock down all the booms, get everyone else up,</q> she left the door swinging open and scrambled for something warmer to wear. Waxed cap, waxed jacket, stiff boots – everything she'd need for working outdoors in the worst weather the ocean could throw at them.
+    #{@Nat.shouting 'left'}
+    --> #{q}Strike the sails, lock down all the booms, get everyone else up,</q> she left the door swinging open and scrambled for something warmer to wear. Waxed cap, waxed jacket, stiff boots – everything she'd need for working outdoors in the worst weather the ocean could throw at them.
 
   || bg="Ship.storm"
     -- By the time she was dressed, the storm loomed almost overhead, howling winds whipping the water into a dark purple froth. Rain sleeted around them, drenching the deck and making everything slippery. The crew was already hard at work, battening everything down for a blow. She found James at the helm, pushed him aside and took the wheel herself.
 
   || bg="Ship.deckStorm"
-    #{@Nat.image 'serious', 'left'}
+    #{@Nat.uncertain 'left'}
     -- #{q}Not good. It's a big one,</q> Natalie had to shout to be heard over the sound of the ocean.
 
   ||
-    #{@James.image 'angry', 'right'}
+    #{@James.angry 'right'}
     --> #{q}How do you know!?</q>
 
   ||
-    #{@Nat.image 'serious', 'left'}
+    #{@Nat.uncertain 'left'}
     --> #{q @Nat}It's... it'll take five, six hours to blow past!</q> She tasted the wind, unfurling instincts seldom used. The first wave caught them from the side before she could turn the ship.
     </continue>
 
   ||
-    #{@James.image 'upset', 'right'}
+    #{@James.upset 'right'}
     --> #{q}<b>How do you know!</b></q> James repeated his question, grabbing her waist to steady her as the water washed over the deck below.
 
   ||
@@ -62,7 +62,7 @@ Page.FirstStorm::next = Page.FirstStorm2 = class FirstStorm2 extends Page
     -- Another wave towered over them, a tremendous mountain in the ocean. James managed to wrap a rope around Natalie's waist and tie it to the wheel just in time. This one didn't spill over the deck as more than a plume of spray, but surging water and gusting wind spun the ship around like a cork, and the deck tilted precipitously.
 
   || bg="Ship.deckStorm"
-    #{@James.image 'angry', 'right'}
+    #{@James.angry 'right'}
     --> James shouted something at her, but Natalie couldn't hear what he said, drowned out by howling wind that hit them almost like a solid object. He pointed. #{@sailor} hung limply from #{his} line, blood running from #{his} forehead. Natalie shook her head, made a sharp gesture of denial – James shouldn't go down there. He gritted his teeth and ignored her, untied his line and ran down the stairs.
 
   || bg="Ship.storm"
@@ -78,7 +78,7 @@ Page.FirstStorm::next = Page.FirstStorm2 = class FirstStorm2 extends Page
     -- ...
 
   || bg="Ship.deckStorm"
-    #{@Nat.image 'excited', 'left'}
+    #{@Nat.happy 'left'}
     -- James looked up at the wheel where Natalie hung onto it, dazed, looking more like a drowned rat than his best friend. In the brief lull between waves, he saw... he rubbed his eyes. She was grinning like a madwoman. #{@sailor} stirred in his arms.
 
   || bg="Ship.cabinStorm"
@@ -121,7 +121,7 @@ Page.FirstStorm2::next = Page.FirstStorm3 = class FirstStorm3 extends Page
     -- Silence.
 
   ||
-    #{@James.image 'sad', 'right'}
+    #{@James.sad 'right'}
     --> James clung to the railing, shivering, and trying not to pass out from the twin pangs of exhaustion and chill. But he was alive. They were all alive, by some miracle. The sea still rolled, waves still occasionally rose high enough to spray the deck, but it was clear they'd passed through the worst of the storm. Light grew on the horizon - dawn, slowly pressing its way through the clouds overhead.
 
   ||
@@ -137,11 +137,11 @@ Page.FirstStorm2::next = Page.FirstStorm3 = class FirstStorm3 extends Page
     --> Efficiently he stripped her, all the way down to bare skin. Any other time he would have hesitated, or at the very least been blushing and mortified as he worked, but not now. Any feelings beyond mere practicality were gone, washed away somewhere in the last six hours.
 
   ||
-    #{@James.image 'serious', 'right'}
+    #{@James.serious 'right'}
     -- He pulled the sheets up around her neck, then a blanket, then fumbled another one from a chest to lay over her. She didn't stir. Her skin still burned.
 
   ||
-    #{@James.image 'serious', 'right'}
+    #{@James.serious 'right'}
     --> He slumped to the floor, his back to her bed, and waited.
 
   ||
@@ -178,14 +178,14 @@ Job.IntroSickNat::next = Page.IntroSickNat = class IntroSickNat extends Page
     -- <q>And she hasn't moved since?</q> The priest shook his head, trying to keep pace with the young man as he pushed his way through the crowd.
 
   || bg="day"
-    #{@James.image 'serious', 'left'}
+    #{@James.serious 'left'}
     --> #{q}Right. She was burning hot at first, like a harsh fever, but she wasn't sweating at all, and looked perfectly comfortable.</q> James gave everyone apologetic looks as he bulled his way towards the ship, priest in tow, but didn't stop even when he knocked a sailor over and she began hurling curses in his direction.
 
   ||
     -- No one had expected a ship to come into dock the day after a Grandmother Storm, and even with two masts snapped, the Azurai was in remarkably good condition. No hands lost. That was news. News attracted crowds. Natalie would know how to deal with this, but that wasn't much help when Natalie was the thing that needed dealing with.
 
   ||
-    #{@James.image 'serious', 'left'}
+    #{@James.serious 'left'}
     --> James nodded to #{Math.choice g.crew}, guarding the deck, and looking somewhat overwhelmed. #{He} didn't have any answers to give about how they'd survived. None of them did.
 
   || bg="Ship.cabinDay"
@@ -199,14 +199,14 @@ Job.IntroSickNat::next = Page.IntroSickNat = class IntroSickNat extends Page
     -- After only a minute of listening to Natalie breathe, the priest shook his head as though to clear it and stood again. <q>I'm afraid there is nothing I can do. Rest, rest and time is the only solution.</q>
 
   ||
-    #{@James.image 'serious', 'left'}
+    #{@James.serious 'left'}
     --> #{q}Solution to what?</q> James pursed his lips, trying to dispel the previous thought. That it had been unfair of him to consider such a thing.
 
   ||
     --> The priest tilted his head, as though confused by the question. <q>The shock.</q>
 
   ||
-    #{@James.image 'serious', 'left'}
+    #{@James.serious 'left'}
     -- James just stared, waiting for him to go on.
 
   ||
@@ -215,7 +215,6 @@ Job.IntroSickNat::next = Page.IntroSickNat = class IntroSickNat extends Page
 
 Page.IntroSickNat::next = Page.IntroSickNat2 = class IntroSickNat2 extends Page
   conditions:
-    James: {}
     Natalie: {}
   text: ->"""|| bg="Ship.cabinDay"
     -- Given the lack of response from James, he settled for patting him on the shoulder again. <q>I'll see myself out.</q>
@@ -251,21 +250,13 @@ Mission.VailiaTradeRoutes = class VailiaTradeRoutes extends Mission
       conditions:
         '|location|destinations|Alkenia': {gt: 0}
     ,
-#       description: "Find a route to Black Sands, a major source of raw iron"
-#       conditions:
-#         '|location|destinations|BlackSands': {gt: 0}
-#     ,
+      description: "Find a route to Iron Sands, a major source of raw iron"
+      conditions:
+        '|location|destinations|IronSands': {gt: 0}
+    ,
       description: "(try the library)"
   ]
   removeWhenDone: true
-
-# Mission.VailiaFindJobs = class VailiaFindJobs extends Mission
-#   label: "Get Hired"
-#   tasks: [
-#       description: "More profitable than pure bulk shipping is a specific job from someone who needs a ship. Find one."
-#       conditions:
-#         '|day': {eq: 0} # Always false, this mission is just removed directly.
-#   ]
 
 Mission.VailiaExploreCity = class VailiaExploreCity extends Mission
   label: "Explore Vailia"
@@ -299,7 +290,7 @@ Mission.VailiaFirstMoney = class VailiaFirstMoney extends Mission
 
 Job.IntroNatAwake::next = Page.IntroNatAwake = class IntroNatAwake extends Page
   conditions:
-    Natalie: {}
+    Nat: '|officers|Nat'
   text: ->"""|| bg="Ship.cabinDay"
     -- Natalie jerked awake, pulse pounding. The ship... the ship was safe, rocking gently beneath her. Instinctively she reached out, feeling fractures and weak points... and winced back, mind burning. Like touching a half-healed wound, or pulling with a strained muscle, the minor effort she'd put forth was enough to warn her that further pressing her magic would only lead to passing out again.
 
@@ -310,20 +301,20 @@ Job.IntroNatAwake::next = Page.IntroNatAwake = class IntroNatAwake extends Page
     -- They were, she surmised, back in Vailia. Mount Julia didn't have fresh baked garlic-cheese-rolls. They. Better check who <q>they</q> were. Her last memory was of pounding power surging through her body and a wave towering over the ship, threatening to reduce the Lapis to splinters if she couldn't grip the entire vessel tightly enough.
 
   || bg="Ship.deckDay"
-    #{g.crew[0].image 'happy', 'right'}
+    #{g.crew[0].happy 'right'}
     --> #{g.crew[0]} and #{g.crew[1]} grinned at her as she stood in the doorway, blinking owlishly in the bright light. #{q g.crew[0]}Welcome back, Captain,</q> #{g.crew[0]} volunteered, with a lazy salute and a grin.
 
   ||
-    #{@Natalie.image 'normal', 'left'}
+    #{@Nat.normal 'left'}
     -- #{q}How long was I asleep?</q> Natalie rubbed her eyes, looking out on the busy port. Standing in her nightshirt and underwear, she attracted no attention. Women wearing less were an everyday sight in this city.
 
   ||`
-    #{g.crew[0].image 'normal', 'right'}
+    #{g.crew[0].normal 'right'}
     --> #{q}Two days. You passed out at the wheel, but we made it through the storm, somehow, and limped home on one sail. The quartermaster is out in the city right now. Anything you need, captain?</q>
 
   ||
-    #{@Natalie.image 'excited', 'left'}
-    --> #{q}Nope, just a little something to eat and I'll be back in action. Good work,</q> she punched #{g.crew[0]} lightly in the shoulder. #{q @Natalie}We made it. That's one for the record books.</q>
+    #{@Nat.happy 'left'}
+    --> #{q}Nope, just a little something to eat and I'll be back in action. Good work,</q> she punched #{g.crew[0]} lightly in the shoulder. #{q @Nat}We made it. That's one for the record books.</q>
 
   ||
     -- <em>New Mission: <strong>Find Trade Routes</strong></em>
@@ -336,7 +327,6 @@ Job.IntroNatAwake::next = Page.IntroNatAwake = class IntroNatAwake extends Page
       '|location|jobs|sick2': Job.IntroNatAwake
     add:
       '|missions|tradeRoutes': Mission.VailiaTradeRoutes
-#       '|missions|findJobs': Mission.VailiaFindJobs
       '|missions|exploreCity': Mission.VailiaExploreCity
       '|missions|raiseFunds': Mission.VailiaFirstMoney
       '|map|Ship|jobs|jamesUpset': ShipJob.JamesUpset

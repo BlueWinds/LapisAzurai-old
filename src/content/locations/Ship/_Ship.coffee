@@ -139,7 +139,7 @@ ShipJob.Talk.next.push Page.ShipTalkSports = class ShipTalkSports extends Page
     -- Some evenings, once most of the day's work was done, rather than lay about and rest or play music, the crew decided to be a little more energetic. Tossing items around wasn't entirely practical on a small ship, but wrestling or running games were entirely too popular. Natalie hadn't intended to participate, but she couldn't resist when #{@sailor} bowled her over on the way to one of the goals.
 
   ||
-    #{@Nat.image 'excited', 'left'}
+    #{@Nat.happy 'left'}
     -- Wrapping both arms around #{@sailor}'s thigh she clung on like a burr, hanging from #{his} leg and slowing #{him} down enough for the other team to catch up. Together Natalie and #{@sailor2} wrestled away control of the colored strip of cloth that was the aim, and #{@sailor} fled back to the other side of the ship. Natalie stuck her tongue out at #{@sailor}, and #{he} good naturedly cursed at #{his} captain before chasing the fleeing #{@sailor2}.
 
   ||
@@ -156,7 +156,7 @@ ShipJob.TrainCombat::next = Page.TrainCombat = class TrainCombat extends Page
   conditions:
     James: '|officers|James'
   text: ->"""|| bg="Ship.day"
-    #{@James.image 'angry', ''}
+    #{@James.angry ''}
     -- James divided the crew up into two teams. Half of them practiced boarding while the others repelled using oars and poles wrapped in cloth as weapons. It was still unbelievably noisy as some of the sailors got very much into the spirit, with battle cries and dramatic 'death scenes' as they were slain.
 
   ||
@@ -179,8 +179,8 @@ ShipJob.TrainBusiness::next = Page.TrainBusiness = class TrainBusiness extends P
   conditions:
     Nat: '|officers|Nat'
   text: ->"""|| bg="Ship.deckDay"
-    #{@Nat.image 'normal', ''}
-    -- While the world may be a vast place, the officers of the Lapis are some of the most well-traveled and educated individuals in it. Natalie can read and write, for example, which places her in the top 25% of the Vailian population, much less other nations. A bit of teaching is a fun way to pass the time.
+    #{@Nat.normal ''}
+    -- While the world may be a vast place, the officers of the Lapis were some of the most well-traveled and educated individuals in it. Natalie could read and write, for example, which placed her in the top 25% of the Vailian population, much less other nations. A bit of teaching was a fun way to pass the time.
 
   ||
     --> <em><span class="business">+1 business</span> for sailors with less than #{@Nat.get 'business'}<br>Natalie: <span class="happiness">+1 happiness</span>, <span class="energy">-1 energy</span></em>
@@ -203,8 +203,8 @@ ShipJob.TrainSailing::next = Page.TrainSailing = class TrainSailing extends Page
   conditions:
     Nat: '|officers|Nat'
   text: ->"""|| bg="Ship.day"
-    #{@Nat.image 'serious', ''}
-    -- Scrubbing the deck is hardly the most glamorous work, but that and a flurry of other menial tasks are necessary to keep a sailing vessel in proper shape - it's not just make-work when all their lives can depend on whether someone slips or not.
+    #{@Nat.normal ''}
+    -- Scrubbing the deck was hardly the most glamorous work, but that and a flurry of other menial tasks were necessary to keep a sailing vessel in proper shape. It's not just make-work when all their lives can depend on someone's footing.
 
   ||
     --> <em>Crew: <span class="sailing">+1 sailing</span>, <span class="happiness">-1 happiness</span><br>Natalie: <span class="energy">-2 energy</span>#{if g.map.Ship.damage then "<br>Ship: -1 damage" else ""}</em>

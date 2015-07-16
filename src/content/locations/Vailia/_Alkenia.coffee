@@ -39,28 +39,28 @@ Place.Alkenia::firstVisit = Page.AlkeniaArrive = class AlkeniaArrive extends Pag
     -- For those reasons, and others, the arrival of a ship from the east was always a welcome sight. A gaggle of children stood gaping at them as sailors hopped down from the Azurai and began to secure it to the wharf. A man bearing a clipboard and a pen waited patiently for Natalie to disembark.
 
   ||
-    #{g.officers.James.image 'normal', 'center'}
+    #{g.officers.James.normal 'center'}
     --> The instant he set foot on the dock James was swarmed by children. Looking somewhat bewildered as he tried to answer their queries all at once. He looked at Natalie for help, but she just waved with one hand and smiled.
 
   ||
     -- <q>Name, ship name, port of origin, docking fee?</q>
 
   ||
-    #{g.officers.Nat.image 'normal', 'left'}
+    #{g.officers.Nat.normal 'left'}
     --> She rattled off the answers and pressed a coin into his palm, somewhat more valuable than strictly necessary for the docking fee. Always good to make a friend.
 
   ||
     --> <q>Very well. Is there anything else I can help you with, Ms?</q> He nodded, unscrewing the lid on his inkwell to jot down a few notes.
 
   ||
-    #{g.officers.Nat.image 'normal', 'left'}
+    #{g.officers.Nat.normal 'left'}
     -- #{q}No, thank you. A local guide would not be amiss, but I wouldn't want to impose.</q>
 
   ||
     --> <q>I'm sure any one of the little scoundrels harassing your husband would be happy to help.</q>
 
   ||
-    #{g.officers.Nat.image 'normal', 'left'}
+    #{g.officers.Nat.normal 'left'}
     --> #{q}He's not... ah, yes, thank you.</q> She decided it wasn't worth arguing over."""
 
 Place.Alkenia::jobs.rest = Job.AlkeniaRest = class AlkeniaRest extends Job.Beach
@@ -192,15 +192,15 @@ ShipJob.JamesNoWeapons::next = Page.JamesNoWeapons = class JamesNoWeapons extend
     James: '|officers|James'
     Nat: '|officers|Nat'
   text: ->"""|| bg="Ship.cabinNight"
-    #{@James.image 'serious', 'left'}
+    #{@James.serious 'left'}
     -- #{q}Are you sure we should be doing this, Nat?</q> James kicked the crate, producing no sound. The bows inside were well packed. Compared to the beating they'd take during loading or unloading, a stray kick was nothing. It did waft out the scent of the pine oil sealing the contents against saltwater in case the hold flooded. #{q}I don't like being an arms merchant.</q>
 
   ||
-    #{@Nat.image 'normal', 'right'}
+    #{@Nat.normal 'right'}
     -- #{q}Alkeina's a next door neighbor. It's not like we're selling them to some bloodthirsty warlord. He's just a lumberjack. This is hunting gear anyway, bows and spears and knives.</q> The lantern swayed in her hand, casting dancing shadows across the interior of the cargo hold.
 
   ||
-    #{@James.image 'serious', 'left'}
+    #{@James.serious 'left'}
     --> #{q}I know, I know what we're doing isn't wrong. It just feels like a foot in the door. Once you do this, you're the sort of person who does it, you know? Do me a favor. Let's take these back to Vailia and sell them there.</q>
       #{options ['Carry on', 'Abandon mission'], ["<em><span class='happiness'>+2 happiness</span> for James</em>", "<em><span class='happiness'>+6 happiness</span> for James</em>"]}"""
   effects:
@@ -213,11 +213,11 @@ Page.JamesNoWeapons.next['Carry on'] = Page.JamesNoWeaponsIgnore = class JamesNo
     James: {}
     Nat: {}
   text: ->"""|| bg="Ship.cabinNight"
-    #{@Nat.image 'normal', 'right'}
+    #{@Nat.normal 'right'}
     -- She laid a hand on Jame's forearm with an encouraging smile. #{q}We won't be those sorts of people, I promise. I'm doing this to make a friend, not for money. Thank you for telling me. I really do want to hear it, even if I don't agree this time.</q>
 
   ||
-    #{@James.image 'serious', 'left'}
+    #{@James.serious 'left'}
     --> #{q}I'm glad you listened, at least. Can I say I told you so, next time?</q>He sighed, nodded, and kicked the crate again. A smile took the sting out of his words though. He wasn't the sort to say something like that without meaning it.
 
     <em><span class="happiness">+2 happiness</span> for James</em>"""
@@ -230,11 +230,11 @@ Page.JamesNoWeapons.next['Abandon mission'] = Page.JamesNoWeaponsAgree = class J
     James: {}
     Nat: {}
   text: ->"""|| bg="Ship.cabinNight"
-    #{@Nat.image 'serious', 'right'}
+    #{@Nat.uncertain 'right'}
     -- She laid a hand on Jame's forearm with an encouraging smile. #{q @Nat}We won't be those sorts of people, I promise. We'll take them back to Vailia, though I'll take a loss.</q>
 
   ||
-    #{@James.image 'normal', 'left'}
+    #{@James.normal 'left'}
     --> James tilted his head, eyebrows rising. #{q @James}I didn't think you'd actually listen. Huh.</q> His surprise turned into a pleased smile, and he patted her hand where it still lay on his arm. #{q}Thank you, Natalie.</q>
 
     <em><span class="happiness">+6 happiness</span> for James</em>"""
@@ -300,7 +300,7 @@ Job.AlkeniaRaid::next = Page.AlkeniaRaid = class AlkeniaRaid extends Page
     --> Time to get moving. They'd have to defend themselves if the Alkenians were too busy hiding from the storm.
 
   ||
-    #{@James.image 'serious', 'left' }
+    #{@James.serious 'left' }
     -- #{q}That's far enough,</q> James held up an empty hand, the other resting on the sword at his hip. He had to shout to make himself heard. #{q}Docks are off limits.</q> The sailors around him held steady, forming a grim line.
 
   ||
