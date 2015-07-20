@@ -20,7 +20,7 @@ Job.Library::next = Page.Library = class Library extends Page
 
 Page.Library.next.push Page.LibraryTravel = class LibraryTravel extends Page
   conditions:
-    '|events|LibraryTravel|length': {lt: 4, optional: true}
+    '|events|LibraryTravel|length': {lt: 0, optional: true}
     '|events|LibraryTravel':
       matches: (days)->
         return not days or days[0] < g.day - 7
@@ -32,73 +32,9 @@ Page.Library.next.push Page.LibraryTravel = class LibraryTravel extends Page
   next: Page.firstNew
   @next = []
 
-Page.LibraryTravel.next.push Page.LibraryTravelAlkenia = class LibraryTravelAlkenia extends Page
-  conditions:
-    worker: {}
-  text: ->"""|| bg="marketDay|marketStorm"
-    -- With some careful searching of various travel journals and map fragments, and the (un)help of a thorny librarian, #{@worker} managed to find and copy down the details of a new route. With a detailed chart and location, the Lapis could now travel to another destination.
-
-    Passing through Mt. Julia, one can sail to <strong>Alkenia</strong>, a moderately large independent city. The closest real settlement to Vailia, nominally independent but firmly under Vailia's influence, and welcoming to merchants. They'll buy textiles and other Vailian manufactured goods at an excellent price.
-  """
-  apply: ->
-    super()
-    g.mapImage = '2 - Alkenia.png'
-    g.map.MountJulia.destinations.Alkenia = 7
-
-Page.LibraryTravel.next.push Page.LibraryTravelDirect = class LibraryTravelDirect extends Page
-  conditions:
-    worker: {}
-  text: ->"""|| bg="marketDay|marketStorm"
-    -- With some careful searching of various travel journals and map fragments, and the (un)help of a thorny librarian, #{@worker} managed to find and copy down the details of a new route. With a detailed chart and location, the Lapis could now travel to another destination.
-
-    <strong>A direct route</strong> to Alkenia, bypassing Mount Julia to shave a day off the trip. The open ocean route was <b>more dangerous</b>, more chance of getting caught in a storm, but possibly worth it.
-  """
-  apply: ->
-    super()
-    g.map.Vailia.destinations.Alkenia = 13
-    g.map.Alkenia.destinations.Vailia = 17
-
-Page.LibraryTravel.next.push Page.LibraryTravelNonkenia = class LibraryTravelNonkenia extends Page
-  conditions:
-    worker: {}
-  text: ->"""|| bg="marketDay|marketStorm"
-    -- With some careful searching of various travel journals and map fragments, and the (un)help of a thorny librarian, #{@worker} managed to find and copy down the details of a new route. With a detailed chart and location, the Lapis could now travel to another destination.
-
-    After passing through Alkenia, one can reach <strong>Nonkenia</strong>, Alkenia's rival city and spiritual center of the continent. Though they stubbornly maintain their independence, they still welcome Vailian merchants and the quality manufactured goods they bring, with a special interest in weapons and other metalwork.
-  """
-  apply: ->
-    super()
-    g.mapImage = '3 - Nonkenia.png'
-    g.map.Alkenia.destinations.Nonkenia = 3
-    g.map.MountJulia.destinations.Nonkenia = 10
-
-Page.LibraryTravel.next.push Page.LibraryTravelIronSands = class LibraryTravelIronSands extends Page
-  conditions:
-    worker: {}
-  text: ->"""|| bg="marketDay|marketStorm"
-    -- With some careful searching of various travel journals and map fragments, and the (un)help of a thorny librarian, #{@worker} managed to find and copy down the details of a new route. With a detailed chart and location, the Lapis could now travel to another destination.
-
-    <strong>Iron Sands</strong> is a mining settlement to the south, run by Vailian interests, and a major source of both raw iron and steel goods. They will buy wood, bulk grain and alcohol at excellent prices.
-  """
-  apply: ->
-    super()
-    g.mapImage = '4 - Iron Sands.png'
-    g.map.Vailia.destinations.IronSands = 14
-    g.map.MountJulia.destinations.IronSands = 15
-
-Page.LibraryTravel.next.push Page.LibraryTravelTomenoi = class LibraryTravelTomenoi extends Page
-  conditions:
-    worker: {}
-  text: ->"""|| bg="marketDay|marketStorm"
-    -- With some careful searching of various travel journals and map fragments, and the (un)help of a thorny librarian, #{@worker} managed to find and copy down the details of a new route. With a detailed chart and location, the Lapis could now travel to another destination.
-
-    <strong>Tomenoi</strong> is a trading post halfway between Vailia and Kantis. It's mostly used as a stopover point between the two nations, though they'll buy wood, Vailian steel and tools at a decent markup.
-  """
-  apply: ->
-    super()
-    g.mapImage = '5 - Tomenoi.png'
-    g.map.Vailia.destinations.IronSands = 14
-    g.map.MountJulia.destinations.IronSands = 15
+setTimeout -> # Wait a tick, so all the various locations are loaded and can attach their events
+  Page.LibraryTravel::conditions['|events|LibraryTravel|length'].lt = Page.LibraryTravel.next.length
+, 0
 
 Page.Library.next.push Page.LibraryNap = class LibraryNap extends Page
   conditions:
@@ -259,14 +195,12 @@ Place.Vailia::jobs.shipyard = Job.Shipyard = class Shipyard extends Job
 Job.Shipyard::next = Page.Shipyard = class Shipyard extends Page
   conditions:
     worker: {}
-    last: '|last|context'
+    workers: '|last|context|objectLength'
+    pay: fill: -> shipyardPay * g.last.context.objectLength + Page.sumStat('shipyardPay', g.last.context) # shipwright bonus
   text: ->"""|| bg="day"
-    -- Vailia's shipyards ran constantly, taking raw iron and lumber, combining them with back-breaking labor, and turning out the finest ships in the world. Much of the process was carried out behind walls, hidden from public view - and hidden from temporary labor like #{@worker}#{if @last.length > 1 then (" and " + his + " sailors. They") else (". " + He)} spent the day debarking trees, sawing planks and sorting nails. Repetitive, brutal work, but one of the few jobs available on a day-by-day basis.
+    -- Vailia's shipyards ran constantly, taking raw iron and lumber, combining them with back-breaking labor, and turning out the finest ships in the world. Much of the process was carried out behind walls, hidden from public view - and hidden from temporary labor like #{@worker}#{if @workers > 1 then (" and " + his + " sailors. They") else (". " + He)} spent the day debarking trees, sawing planks and sorting nails. Repetitive, brutal work, but one of the few jobs available on a day-by-day basis.
 
     <em>+#{@pay}β</em>
   """
-  apply: ->
-    @context.pay = (shipyardPay * g.last.context.objectLength)
-    @context.pay += Page.sumStat(g.last.context, 'shipyardPay') # shipwright bonus
-    super()
-    g.applyEffects {money: @context.pay}
+  effects:
+    money: 'pay'

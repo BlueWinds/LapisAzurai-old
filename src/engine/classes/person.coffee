@@ -101,7 +101,7 @@ window.Person = class Person extends GameObject
       fullStats.unshift """<tr><td class="energy">Energy</td><td>
         <span class="energy">#{@energy}</span>/<span class="endurance">#{@endurance}</span>
       </td></tr>"""
-    fullStats.push """<tr class="wages" title="Wage<br>How much Natalie pays this person daily. Heavily influenced by happiness."><td>Wage</td><td>#{@wages().toFixed(1).replace(".0", "")}</td></tr>"""
+    fullStats.push """<tr class="wages" title="Wage<br>How much Natalie pays this person daily. Heavily influenced by happiness."><td>Wage</td><td>#{@wages().rounded()}</td></tr>"""
     if @contract?
       fullStats.push """<tr class="contract" title="Contract remaining<br>How many more days this person plans to remain with the crew."><td>Contract</td><td>#{@contract}</td></tr>"""
 
@@ -115,7 +115,7 @@ window.Person = class Person extends GameObject
       <div class="full">
         <div class="name">#{@name}</div>
         <table class="stats">#{fullStats.join ''}</table>
-        #{@image 'normal'}
+        #{@normal ''}
         <div class="description">#{@description?() or @description}</div>
         <div class="traits">#{traits.join ''}</div>
       </div>

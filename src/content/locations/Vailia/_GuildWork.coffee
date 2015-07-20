@@ -154,11 +154,11 @@ Job.SearchGuildWork.next.push Page.SearchGuildWorkJames = class SearchGuildWorkJ
 #     -- Asara hung her head despondently, clutching her arms across her chest.
 #
 #   ||
-#     #{@Nat.upset 'left'}
+#     #{@Nat.embarrassed 'left'}
 #     --> #{q}I'm sorry, Asara, please, I didn't mean you had to, it was just a thought,</q> Natalie desperately wanted to hold her shoulder, or maybe hug her, but physical contact was not a thing Asara handled well. Natalie felt like shit.</q>
 #
 #   ||
-#     #{@Nat.upset 'left'}
+#     #{@Nat.embarrassed 'left'}
 #     -- Asara hung her head despondently, clutching her arms across her chest.
 #       #{q}I'm sorry, Asara, please, I didn't mean you had to, it was just a thought,</q> Natalie desperately wanted to hold her shoulder, or maybe hug her, but physical contact was not a thing Asara handled well. Natalie felt like shit. #{q}I'm sorry I suggested it.</q>
 #
@@ -166,7 +166,7 @@ Job.SearchGuildWork.next.push Page.SearchGuildWorkJames = class SearchGuildWorkJ
 #     --> Asara started to cry.
 #
 #   ||
-#     #{@Nat.upset 'left'}
+#     #{@Nat.sad 'left'}
 #     -- #{q}Shhh, shh, it's going to be alright, no one's going to make you do anything.</q> Natalie gave in and hugged her, pressing the young woman against her chest even as she shuddered. Asara just hugged herself tighter and broke into sobs.
 #   """
 
@@ -330,7 +330,7 @@ Page.GuildNat.next.push Page.GuildNatDom = class GuildNatDom extends PlayerOptio
     -- <q>Hm, I think I have something you might enjoy. Two girls, nervous, who get scared whenever I send someone to try and grease them up. You can have whatever they'll pay you for. Minus my part, of course.</q>
 
   ||
-    #{@Nat.upset 'left'}
+    #{@Nat.uncertain 'left'}
     --> #{q}What makes you think they want anything at all, that they aren't just here on a dare?</q>
 
   ||
@@ -434,6 +434,7 @@ Page.GuildNatDomSure::next = Page.GuildNatDomSure2 = class GuildNatDomSure2 exte
 Page.GuildNat.next.push Page.GuildNatBottom = class GuildNatBottom extends PlayerOptionPage
   conditions:
     Nat: {}
+    '|events|VisitTomenoi': {}
   text: ->"""|| bg="night|storm"
     -- <q>Today sucks. No one's biting.</q> Ben frowned at her, as though his problems were somehow her fault. <q>I got nothing for you.</q>
 
@@ -491,7 +492,6 @@ Page.GuildNatBottom.next['Sure'] = Page.GuildNatBottomSure = class GuildNatBotto
   """
   effects:
     money: Place.Vailia.adultPay
-
 
 Job.GuildWork.next.push Page.GuildKat = class GuildKat extends Page
   conditions:

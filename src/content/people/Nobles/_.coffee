@@ -8,7 +8,7 @@ layer = (g, p)->[
 Game::people.Ameliss = Person.Ameliss = class Ameliss extends Person
   name: 'Ameliss'
   gender: 'f'
-  color: '#bfba6f'
+  text: '#bfba6f'
   @images:
     path: 'src/content/people/Nobles/'
 

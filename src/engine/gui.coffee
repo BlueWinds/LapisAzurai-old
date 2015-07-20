@@ -37,9 +37,6 @@ getNextDiv = ->
 
   until $('page.active + page').length
     currentPage = getNextPage(currentPage) or g.queue.shift()
-    unless currentPage
-      g.passDay()
-      currentPage = g.queue.shift()
 
     try
       currentPage.apply()
@@ -124,7 +121,7 @@ $ ->
     $('body').css 'height', window.innerHeight
   setTimeout -> $(window).resize()
 
-  c.on 'click', 'page', (e)->
+  c.on 'click', (e)->
     page = $(e.currentTarget)
 
     if e.clientX >= page.offset().left + page.width() - 28 and
@@ -230,9 +227,6 @@ validateAllObjects = ->
       item = (new item)
       item.valid()
   (new window.Game).valid()
-
-  Game.passDay.push ->
-    g.valid()
 
 keyPress = (e)->
   # Right, down

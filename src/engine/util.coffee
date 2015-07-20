@@ -26,6 +26,10 @@ Object.defineProperty Number.prototype, 'toWord', { value: ->
   }[@] or Number(@).toString()
 }
 
+Object.defineProperty Number.prototype, 'rounded', { value: ->
+  return Number(@).toFixed(1).replace(".0", "")
+}
+
 Object.defineProperty String.prototype, 'capitalize', { value: ->
   @charAt(0).toUpperCase() + @slice(1)
 }
@@ -223,7 +227,7 @@ optionList = (options, selected)->
 ###
   Based on dragScroll by James Climer. https://github.com/jaclimer/JQuery-DraggScroll
 ###
-$.fn?.dragScroll = ->
+$.fn?.dragScroll = (bounds)->
   dragging = false
   $scrollArea = $(@)
 
@@ -239,5 +243,5 @@ $.fn?.dragScroll = ->
 
   $("body").on 'mousemove touchmove', (e)->
     unless dragging then return
-    $scrollArea.scrollTop(dragging.top - e.pageY + dragging.y)
-    $scrollArea.scrollLeft(dragging.left - e.pageX + dragging.x)
+    $scrollArea.scrollLeft(Math.min(bounds.right, Math.max(bounds.left, dragging.left - e.pageX + dragging.x)))
+    $scrollArea.scrollTop(Math.min(bounds.bottom, Math.max(bounds.top, dragging.top - e.pageY + dragging.y)))

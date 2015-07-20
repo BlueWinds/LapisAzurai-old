@@ -161,10 +161,10 @@ window.Page = class Page extends GameObject
     div.data 'page', @
 
   apply: ->
+    @show()
     if @effects
       g.applyEffects @effects, @context
     g?.setGameInfo()
-    @show()
 
     g.last = @
     g.events[@constructor.name] or= []
@@ -177,7 +177,7 @@ window.Page = class Page extends GameObject
     if @ignoreNew
       return false
     unless g.events[@constructor.name]
-      return true
+      return @constructor.name
 
     if @next instanceof Page
       next = new @constructor::next
@@ -189,8 +189,8 @@ window.Page = class Page extends GameObject
     for key, val of @constructor.next
       next = new val
       next.contextFill(@context)
-      if next.couldMatch() and next.isNew()
-        return true
+      if next.couldMatch() and name = next.isNew()
+        return name
 
     return false
 
@@ -268,6 +268,8 @@ checkGetItem = (key, val)->
   return true
 
 getTarget = (val)->
+  if typeof val is 'string'
+    return g.getItem(val)
   if val.path
     target = get.getItem val.path
   if val.is

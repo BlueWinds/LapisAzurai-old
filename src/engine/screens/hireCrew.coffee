@@ -20,7 +20,7 @@ Page.HireCrewOne = class HireCrewOne extends Page
   ||
     #{g.officers.Nat.normal 'left'}
     --
-      Tradition dictated that a new sailor was entitled to a handsome signup bonus, paid before departure - they were putting their life in the hands of a captain they didn't know, after all, and should be able to leave something behind even if they never returned. After a bit of negotiation, #{@[0]} finally settled for #{hireCost @asArray()}β immediately and #{@[0].wages()}β daily thereafter. Natalie handed over a one obol coin and told #{@[0]} where they're docked.
+      Tradition dictated that a new sailor was entitled to a handsome signup bonus, paid before departure - they were putting their life in the hands of a captain they didn't know, after all, and should be able to leave something behind even if they never returned. After a bit of negotiation, #{@[0]} finally settled for #{hireCost @asArray()}β immediately and #{@[0].wages().rounded()}β daily thereafter. Natalie handed over a one obol coin and told #{@[0]} where they're docked.
 
       #{q}Welcome aboard.</q>
   """
@@ -40,7 +40,7 @@ Page.HireCrewMulti = class HireCrewMulti extends Page
       --
         Of the many people interested, Natalie eventually settled on #{@asArray().length.toWord()}: #{names.wordJoin()}.
 
-        Tradition dictated that a new crewmember was entitled to a handsome signup bonus, paid before departure - they were putting their life in the hands of a captain they didn't know, after all, and should be able to leave something behind even if they never returned. After arguing with #{Math.choice names} for a while, Natalie finally convinced them to accept #{hireCost @asArray, @}β immediately, and #{wages}β daily thereafter. Natalie handed an obol coin to each recruit and told them where to find the ship in the morning.
+        Tradition dictated that a new crewmember was entitled to a handsome signup bonus, paid before departure - they were putting their life in the hands of a captain they didn't know, after all, and should be able to leave something behind even if they never returned. After arguing with #{Math.choice names} for a while, Natalie finally convinced them to accept #{hireCost @asArray()}β immediately, and #{wages.rounded()}β daily thereafter. Natalie handed an obol coin to each recruit and told them where to find the ship in the morning.
 
         #{q}Welcome aboard.</q>
     """
@@ -112,7 +112,7 @@ Person.random = (baseClasses)->
     person[stat] += amount
     points -= amount
 
-  person.add 'happiness', Math.floor(Math.random() * 60 + 20)
+  person.happiness = Math.floor(Math.random() * 60 + 20)
   person.contract *= 15
   return person
 
@@ -177,7 +177,7 @@ Job.HireCrew::next = Page.HireCrew = class HireCrew extends Page
           <div class="block-label">Crew</div>
           #{officers.join ''}
           <div class="block-summary">
-            <span class="cost">0β</span> today, <span class="wages">#{wages}β</span> daily
+            <span class="cost">0β</span> today, <span class="wages">#{wages.rounded()}β</span> daily
           </div>
           #{crew.join ''}
         </div>
@@ -222,7 +222,7 @@ applyHire = (element)->
       wages -= person.wages()
 
     $('.block-summary .cost', element).html cost + 'β'
-    $('.block-summary .wages', element).html wages + 'β'
+    $('.block-summary .wages', element).html wages.rounded() + 'β'
 
   $('button', element).click (e)->
     e.preventDefault()

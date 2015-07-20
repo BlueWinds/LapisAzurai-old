@@ -7,7 +7,7 @@ window.Place = class Place extends GameObject
         type: 'string'
       description:
         type: ['string', 'function']
-        maxLength: 220
+        maxLength: 300
       images:
         # Required images for every location
         properties:

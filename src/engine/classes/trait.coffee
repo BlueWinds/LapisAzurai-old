@@ -4,9 +4,9 @@ window.Trait = class Trait extends GameObject
     type: @
     properties:
       label:
-        type: 'string'
+        type: ['string', 'function']
         optional: true
-        description: 'How this trait is labeled for the player. If absent, the class name is used.'
+        description: 'How this trait is labeled for the player. If absent, the class name is used. A function is invoked with the person as an argument, and should return a string.'
       description:
         type: ['string', 'function']
         description: 'A string describing the flavor of the trait, or a function taking (person) returning the same.'

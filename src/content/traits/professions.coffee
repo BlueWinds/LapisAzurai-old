@@ -51,13 +51,12 @@ Trait.Longshoreman = class Longshoreman extends Trait
   cargo: 5
 
 Trait.Steward = class Steward extends Trait
-  description: (person)->"50% chance of +1 energy for tiredest officer daily."
+  description: (person)->"50% chance of +1 energy for lowest energy officer each day."
   @randomPoints: 5
   daily: ->
     if Math.random() < 0.5
       low = g.officers.Nat
       for name, officer of g.officers
-        if officer.endurance - officer.energy > low.endurance - low.energy
+        if officer.energy > low.energy
           low = officer
-      if low.endurance > low.energy
-        low.add 'energy', 1
+      low.add 'energy', 1

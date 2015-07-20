@@ -10,6 +10,21 @@ Game::map.Tomenoi = Place.Tomenoi = class Tomenoi extends Place
     marketStorm: 'game/content/locations/Town/Port Desert Storm.jpg'
   location: [1774, 1742]
   jobs: new Collection
+  destinations: new Collection
+    Vailia: 12
+
+Page.LibraryTravel.next.push Page.LibraryTravelTomenoi = class LibraryTravelTomenoi extends Page
+  conditions:
+    worker: {}
+  text: ->"""|| bg="marketDay|marketStorm"
+    -- With some careful searching of various travel journals and map fragments, and the (un)help of a thorny librarian, #{@worker} managed to find and copy down the details of a new route. With a detailed chart and location, the Lapis could now travel to another destination.
+
+    <strong>Tomenoi</strong> is a trading post halfway between Vailia and Kantis. It's mostly used as a stopover point between the two nations, though they'll buy wood, Vailian steel and tools at a decent markup.
+  """
+  apply: ->
+    super()
+    g.mapImage = '5 - Tomenoi.png'
+    g.map.Vailia.destinations.Tomenoi = 10
 
 Game.passDay.push ->
   if g.location isnt g.map.Tomenoi or g.atSea() then return
@@ -36,14 +51,13 @@ Place.Tomenoi::jobs.market = Job.TomenoiMarket = class TomenoiMarket extends Job
 Place.Tomenoi::firstVisit = Page.VisitTomenoi = class VisitTomenoi extends Page
   conditions:
     Nat: '|officers|Nat'
-    Kat: '|officers|Kat'
   text: ->"""|| bg="storm"
     -- The keel shifted under Natalie's guidance, and the Lapis turned briefly into the wind before settling down on the other tack. She frowned in concentration - if the wind had been blowing any harder against them, she'd have settled for weighing anchor in the harbor and conducting business by boat. But the ship felt good under her hands, the crew confident and cheerful, so an upwind docking into the space between two other ships it was.
   ||
-    -- A small crowd gathered to watch them come in, shouting advice, encouragement, or in a few cases, warning them off. Natalie ignored the noise, spun the wheel, shouted to the crew.
+    --> A small crowd gathered to watch them come in, shouting advice, encouragement, or in a few cases, warning them off. Natalie ignored the noise, spun the wheel, shouted to the crew.
 
   ||
-    --> #{q}That's it, strike the sails!</q> Coasting forward on its momentum, the Lapis dipped between two of the ships already docked and inched forwards towards the pier. The crew tossed lines to the dockworkers, and suddenly everyone was shouting and hauling on ropes and pulling against the wind that wanted to push the Lapis sideways into one of the nearby ships.
+    -- #{q @Nat}That's it, strike the sails!</q> Coasting forward on its momentum, the Lapis dipped between two of the ships already docked and inched forwards towards the pier. The crew tossed lines to the dockworkers, and suddenly everyone was shouting and hauling on ropes and pulling against the wind that wanted to push the Lapis sideways into one of the nearby ships.
 
   ||
     --> All in all, a rather graceful arrival given the circumstances. Natalie grinned at Kat, at James, at #{Math.choice g.crew}, and hopped onto the pier.
@@ -61,13 +75,13 @@ Place.Tomenoi::firstVisit = Page.VisitTomenoi = class VisitTomenoi extends Page
     --> <q>Welcome to Tomenoi. Docking fee 2 obols per day,</q> His accent was heavy on the vowels and emphasis, but still easily understandable.
 
   ||
-    --> Expensive. Natalie quirked an eyebrow at the man holding out his hand. #{q}I'll give you a half.</q>
+    --> Expensive. Natalie quirked an eyebrow at the man holding out his hand. #{q @Nat}I'll give you a half.</q>
 
   ||
     --> <q>One and a half, and I make sure no one tries unload same time you do.</q>
 
   ||
-    --> #{q}You're kidding me. At Alkenia it's a quarter. Vailia doesn't even have a fee.</q>
+    --> #{q @Nat}You're kidding me. At Alkenia it's a quarter. Vailia doesn't even have a fee.</q>
 
   ||
     --> <q>One obol. Those cities don't have import food and everything else.</q>

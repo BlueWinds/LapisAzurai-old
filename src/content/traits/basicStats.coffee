@@ -80,7 +80,7 @@ Trait.Strong = class Strong extends Trait
   @randomPoints: 5
 
 Trait.Disciplined = class Disciplined extends Trait
-  description: (person)->"#{person} slowly improves their own highest stat (averaging +1 every 5 days)."
+  description: (person)->"#{person} slowly improves #{his} own highest stat (averaging +1 every 5 days)."
   @randomPoints: 5
   daily: (p)->
     if Math.random() > 0.2 then return

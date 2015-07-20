@@ -67,7 +67,7 @@ katOptions = [
 
 Job.MeetKat.next.push Page.MeetKat3 = class MeetKat3 extends PlayerOptionPage
   conditions:
-    Nat: {}
+    Nat: '|officers|Nat'
     Kat: '|people|Kat'
     Guard: '|people|AlkeniaGuard'
   text: ->"""|| bg="day"
@@ -95,24 +95,24 @@ Job.MeetKat.next.push Page.MeetKat3 = class MeetKat3 extends PlayerOptionPage
     --> #{q}She was... oof... taking my money,</q> Natalie gasped out, leaning on one arm against a nearby stone wall. #{q}Wasn't expecting a fight.</q>
 
   ||
-    #{@Guard.serious 'far-right'}
+    #{@Guard.serious 'right'}
     #{@Kat.sad 'right'}
     --> The girl became still, quickly realizing the futility of further escape attempts. She was younger than Natalie, probably, and though taller, skinny enough to shame a pole. Little more than skin and bones, really, with big, soulful eyes that made Natalie want to give her a hug.
 
   ||
     #{@Kat.sad 'right'}
-    #{@Guard.serious 'far-right'}
-    -- The guard shook the woman's bag. It rattled with the sound of silverware. <q>If I talk to the woman selling these, am I going to find they were bought properly, Kat?</q> He seemed to know her, and the exasperated tone of his voice suggested this was not the first such incident. <q>Is she going to be able to tell me what's in your bag better than you can?</q>
+    #{@Guard.serious 'right'}
+    -- The guard shook the woman's bag. It rattled with the sound of silverware. #{q}If I talk to the woman selling these, am I going to find they were bought properly, Kat?</q> He seemed to know her, and the exasperated tone of his voice suggested this was not the first such incident. #{q}Is she going to be able to tell me what's in your bag better than you can?</q>
 
   ||
-    #{@Guard.serious 'far-right'}
+    #{@Guard.serious 'right'}
     #{@Kat.sad 'right'}
     --> "Kat" didn't say anything, just shuffled her feet and hung her head. It looked like she was going to start crying at any moment.
 
   ||
     #{@Kat.sad 'right'}
-    #{@Guard.serious 'far-right'}
-    -- <q>I'm sorry for the trouble, miss.</q> He addressed Natalie, tightening his hold on the thief's arm even more until Natalie winced in sympathy.
+    #{@Guard.serious 'right'}
+    -- #{q}I'm sorry for the trouble, miss.</q> He addressed Natalie, tightening his hold on the thief's arm even more until Natalie winced in sympathy.
 
   ||
     #{@Nat.normal 'left'}
@@ -120,8 +120,8 @@ Job.MeetKat.next.push Page.MeetKat3 = class MeetKat3 extends PlayerOptionPage
 
   ||
     #{@Kat.sad 'right'}
-    #{@Guard.normal 'far-right'}
-    -- <q>If you're interested, I suspect the judge has finally had enough of her shenanigans.</q> He shook the captive waif by the shoulder. <q>There should be a trial in a week or so.</q>
+    #{@Guard.normal 'right'}
+    -- #{q}If you're interested, I suspect the judge has finally had enough of her shenanigans.</q> He shook the captive waif by the shoulder. #{q}There should be a trial in a week or so.</q>
       #{options ['Sure', 'Stolen purse?', 'Not interested'], katOptions}
 """
   effects:
@@ -141,13 +141,13 @@ Page.MeetKat3.next.Sure = Page.MeetKatSure = class MeetKatSure extends Page
     -- #{q}I'll be there.</q> Natalie took a moment to count the money in her pouch.
 
   ||
-    #{@Guard.normal 'far-right'}
+    #{@Guard.normal 'right'}
     #{@Kat.sad 'right'}
     --> Kat started to cry silently, hiccing as the guard cuffed her ear. She aimed a dispirited kick at his shin, but he didn't much seem to notice through the heavy leggings.
 
   ||
     #{@Kat.sad 'right'}
-    #{@Guard.normal 'far-right'}
+    #{@Guard.normal 'right'}
     -- #{q}Don't feel too bad for her. She and her boyfriend have been terrorizing the market for months. You're just the first fast enough to catch her in the act.</q>
 
   ||
@@ -168,13 +168,13 @@ Page.MeetKat3.next['Stolen purse?'] = Page.MeetKatMoney = class MeetKatMoney ext
     -- #{q}Any chance I can get back the other money she stole from me?</q> Natalie took a moment to count the contents of her returned pouch.
 
   ||
-    #{@Guard.normal 'far-right'}
+    #{@Guard.normal 'right'}
     #{@Kat.uncertain 'right'}
     --> #{q}No.</q> Kat finally spoke, tugging at her blouse. It looked both brand new and none too cheap. One of the shoulders was torn where Natalie had grabbed her. She stared at the rip a moment then started to cry silently. She hicced as the guard cuffed her ear.
 
   ||
     #{@Kat.sad 'right'}
-    #{@Guard.normal 'far-right'}
+    #{@Guard.normal 'right'}
     -- #{q}Don't feel too bad for her. She and her boyfriend have been terrorizing the market for months. You're just the first fast enough to catch her in the act.</q>
 
   ||
@@ -196,7 +196,7 @@ Page.MeetKat3.next['Not interested'] = Page.MeetKatNo = class MeetKatNo extends 
 
   ||
     #{@Kat.sad 'right'}
-    #{@Guard.normal 'far-right'}
+    #{@Guard.normal 'right'}
     --> #{q}Don't feel too bad for her. She and her boyfriend have been terrorizing the market for months. You're just the first fast enough to catch her in the act.</q>
 
   ||
@@ -559,7 +559,7 @@ Page.KatStorm2.next['Set up in city'] = Page.KatStormGift.next['Set up in city']
 
   ||
     #{@Kat.unimpressed 'right'}
-    --> #{q}I'm not going to be a whore, Guildswoman.</q> Kat shook her head without anger. #{q}I'm not expensive, and I've seen what happens to cheap ones. I'd rather still be in the gutter.</q>
+    --> #{q}I'm not going to be a whore.</q> Kat shook her head without anger. #{q}I'm not expensive, and I've seen what happens to cheap ones. I'd rather still be in the gutter.</q>
 
   ||
     #{@Nat.normal 'left'}

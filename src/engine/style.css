@@ -48,6 +48,17 @@ body > .container {
   position: relative;
   overflow: hidden;
 }
+#content::before {
+  color: #FFF;
+  content: "";
+  cursor: pointer;
+  font-family: "Glyphicons Halflings";
+  padding: 7px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 1001;
+}
 page {
   background-color: #151515;
   background-position: 50% 50%;
@@ -81,17 +92,6 @@ text {
   -moz-user-select: none;
   width: 1140px;
   z-index: 1;
-}
-page::before {
-  color: #FFF;
-  content: "";
-  cursor: pointer;
-  font-family: "Glyphicons Halflings";
-  padding: 7px;
-  position: absolute;
-  right: 0;
-  top: 0;
-  z-index: 2;
 }
 page.no-prev::before {
   color: #333;

@@ -1,6 +1,3 @@
-stormStartChance = 0.03
-stormEndChance = 0.66
-
 window.Game = class Game extends GameObject
   @schema:
     type: @
@@ -16,17 +13,7 @@ window.Game = class Game extends GameObject
       money:
         type: 'integer'
     strict: true
-  @passDay: [
-    ->
-      if @weather is 'calm' and Math.random() <= stormStartChance
-        @weather = 'storm'
-      else if @weather is 'storm' and Math.random() < stormEndChance
-        @weather = 'calm'
-    ->
-      unless g.queue.length
-        @queue.push new (g.location.constructor.port or Page.Port)
-      g.queue.unshift new Page.NextDay
-  ]
+  @passDay: []
   @update: [] # Update items are in the format {pre: ()->, post: ()->}, both properties optional.
 
   constructor: (gameData)->
@@ -59,7 +46,7 @@ window.Game = class Game extends GameObject
   version: 0
   mapImage: "1 - Vailia.png"
 
-  Object.defineProperty @::, 'cargoMax', {value: ->
+  Object.defineProperty @::, 'cargoMax', {get: ->
     return 100 + Page.sumStat('cargo', @crew)
   }
 
@@ -74,12 +61,6 @@ window.Game = class Game extends GameObject
     for part in path
       target = target?[part]
     return target
-
-  passDay: ->
-    @day++
-    for event in Game.passDay
-      event.call(@)
-    return
 
   setGameInfo: ->
     element = $ '.nav'

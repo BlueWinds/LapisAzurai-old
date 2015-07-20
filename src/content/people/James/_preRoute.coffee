@@ -1,7 +1,16 @@
-ShipJob.JamesUpset = class JamesUpset extends ShipJob
+Place.Ship::jobs.jamesUpset = ShipJob.JamesUpset = class JamesUpset extends ShipJob
+  conditions:
+    '|events|IntroNatAwake': {}
   label: "Talk with James"
   type: 'plot'
   text: ->"""James has been avoiding Natalie. Something is bothering him. They should talk."""
+
+ShipJob.JamesMagic = class JamesMagic extends ShipJob
+  label: "Talk with James"
+  conditions:
+    '|events|JamesUpset': matches: (days)-> days[0] + 35 < g.day
+  type: 'special'
+  text: ->"""Something is bothering James again."""
 
 ShipJob.JamesUpset::next = Page.JamesUpset = class JamesUpset extends Page
   conditions:
@@ -37,21 +46,16 @@ ShipJob.JamesUpset::next = Page.JamesUpset = class JamesUpset extends Page
   effects:
     remove:
       '|map|Ship|jobs|jamesUpset': ShipJob.JamesUpset
+    add:
+      '|map|Ship|jobs|jamesMagic': ShipJob.JamesMagic
 
-Place.Ship::jobs.jamesMagic = ShipJob.JamesMagic = class JamesMagic extends ShipJob
-  label: "Talk with James"
-  conditions:
-    '|events|JamesUpset':
-      matches: (days)-> days[0] + 35 < g.day
-  type: 'special'
-  text: ->"""Something is bothering James again."""
 
 ShipJob.JamesMagic::next = Page.JamesMagic = class JamesMagic extends PlayerOptionPage
   conditions:
     James: '|officers|James'
     Nat: '|officers|Nat'
   text: ->"""|| bg="Ship.cabinNight"
-    -- A hesitant knock. That could only mean one thing. James never hesitated to address business, no matter how bad the news. He must finally want to discuss whatever has been bothering him. Natalie hesitated a moment, then, #{q @Natalie}Enter.</q>
+    -- A hesitant knock. That could only mean one thing. James never hesitated to address business, no matter how bad the news. He must finally want to discuss whatever has been bothering him. Natalie hesitated a moment, then, #{q @Nat}Enter.</q>
 
   ||
     #{@James.serious 'left'}
@@ -81,15 +85,15 @@ ShipJob.JamesMagic::next = Page.JamesMagic = class JamesMagic extends PlayerOpti
     --> #{q}I... that's not fair...</q>
 
   ||
-    #{@Nat.uncertain 'right'}
+    #{@Nat.embarrassed 'right'}
     -- #{q}There aren't any.</q>
 
   ||
     #{@Nat.uncertain 'right'}
-    -- #{q}There aren't any. They all learn to use their magic to defend themselves, or they have a child with someone powerful who can protect them. If that secret got out, do you think a little girl without family wouldn't just disappear? Even from Vailia. In a heartbeat.</q>
+    --> #{q}There aren't any. They all learn to use their magic to defend themselves, or they have a child with someone powerful who can protect them. If that secret got out, do you think a little girl without family wouldn't just disappear? Even from Vailia. In a heartbeat.</q>
 
   ||
-    #{@Nat.shouting 'right'}
+    #{@Nat.uncertain 'right'}
     --> She'd stood up from her chair by this point. Natalie couldn't tower over him, but she could certainly press him back against the door with her unfair words. #{q}I was eight, when I learned. Could you have kept that secret for me? Not even hinted at it to your parents, when you were eight fucking years old?</q>
     #{options ["Push him away", "Start crying"], ["<em><span class='happiness'>-2 happiness</span> for Natalie</em>", "<em><span class='happiness'>+4 happiness</span> for James, <span class='happiness'>-4</span> for Natalie</em>"]}
 """
@@ -135,16 +139,19 @@ Page.JamesMagic.next['Start crying'] = Page.JamesMagicCry = class JamesMagicCry 
     -- #{q}I would have, Nat, even at eight I would have died rather than betray your trust.</q>
 
   ||
+    #{@James.sad 'center'}
     #{@Nat.crying 'right'}
     --> She burst into tears. Sobs wracked her body as she stopped struggling and clung. He let go her hand and wrapped his other arm around her, supporting them both as she sagged against his chest. She wailed and shook in his arms, letting out a tiny portion of two decades of uncertainty and fear.
 
   || speed="verySlow"
-    #{@Nat.sad 'right'}
+    #{@James.sad 'center'}
+    #{@Nat.embarrassed 'right'}
     -- It didn't take long for Natalie to cry herself out. She was too self-aware to let loose for long, and she quickly quieted and stilled. She'd hurt him, even if her fist hadn't connected.
 
   ||
-    #{@Nat.uncertain 'right'}
-    -->  She tilted her head up to look into his eyes, #{@James.color[2]} and #{@Nat.color[1]} meeting in a quick and mutually aborted glance. They both blushed and stepped back to conversational distance. His own glance downward suggested that yes, he'd suddenly become as intensely aware of the way her breasts pressed against him as she had.
+    #{@James.sad 'center'}
+    #{@Nat.embarrassed 'right'}
+    -->  She tilted her head up to look into his eyes, #{@James.color[2]} and #{@Nat.color[2]} meeting in a quick and mutually aborted glance. They both blushed and stepped back to conversational distance. His own glance downward suggested that yes, he'd suddenly become as intensely aware of the way her breasts pressed against him as she had.
 
   ||
     #{@Nat.embarrassed 'right'}

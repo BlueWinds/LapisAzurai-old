@@ -53,7 +53,7 @@ Item["Maiden's Tea"] = new Item
   price: 21
   unit: 'basket'
 
-ItemWeapons = new Item
+Item.Weapons = new Item
   name: "Weapons"
   description: "Bows, spears and even the occasional sword, sometimes you just need to kill some folks."
   price: 120

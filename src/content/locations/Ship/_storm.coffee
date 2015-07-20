@@ -1,3 +1,6 @@
+portStormChance = 0.03
+portStormEndChance = 0.66
+
 stormDamageMin = 5
 stormDamageMax = 30
 
@@ -5,6 +8,12 @@ sailPerDamageSaved = 40
 battenDownMultiplier = 1 / 2
 
 stormDamage = -> Math.random() * (stormDamageMax - stormDamageMin) + stormDamageMin
+
+Game.passDay.push ->
+  if g.weather is 'calm' and Math.random() <= portStormChance
+    g.weather = 'storm'
+  else if g.weather is 'storm' and Math.random() < portStormEndChance
+    g.weather = 'calm'
 
 intensity = (damage)->
   switch

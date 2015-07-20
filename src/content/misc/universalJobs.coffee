@@ -37,12 +37,12 @@ Job.universal.push Job.RepairShip = class RepairShip extends Job
       when @missing is 'neither' then false
       else damage <= minDamageWithoutOneItem
     lackingMaterials = switch
-      when @missing is 'both' then "Missing wood or naval supplies, #{if noRepair then '<b>nothing at all</b>' else 'little'} can be done"
+      when @missing is 'both' then "Missing both wood and naval supplies, #{if noRepair then '<b>nothing at all</b>' else 'little'} can be done"
       when @missing is 'neither' then "With both wood and naval supplies, progress will be quick"
       when @missing is 'wood' then "The lack of wood will #{if noRepair then '<b>prevent</b>' else 'slow down'} repairs"
       else "The lack of naval supplies will #{if noRepair then '<b>completely prevent</b>' else 'slow down'} repairs"
 
-    """The ship is <b title="#{@Ship.damageDescription()}">#{@Ship.shortDamage()}</b>, and could use some attention. #{lackingMaterials} #{unless noRepair then ' (' + String.rate(lackingMaterialsRepairSpeed[@missing]) + ' speed)' else ''}. Send more workers - and workers with higher <span class="sailing">sailing</span> to speed up repairs."""
+    """The ship is <b title="#{@Ship.damageDescription()}">#{@Ship.shortDamage()}</b>, and could use some attention. #{lackingMaterials}. Send more workers - and workers with higher <span class="sailing">sailing</span> to speed up repairs."""
 
 Job.RepairShip::next = Page.RepairShip = class RepairShip extends Page
   conditions:
@@ -113,15 +113,9 @@ Job.universal.push Job.BedRest = class BedRest extends Job
     worker: {sick: {is: true}}
     worker2: {sick: {is: true}, optional: true}
     worker3: {sick: {is: true}, optional: true}
-  energy: -> 4 + Page.sumStat(g.crew, 'restEnergy')
+  energy: -> 4 + Page.sumStat('restEnergy', g.crew)
   acceptInjured: true
-  crew: 0
-  text: ->"""When someone is injured, the best (and likely only) solution is bed rest, and lots of it. They'll get better faster with someone to look after them."""
-  apply: ->
-    if @context[0]
-      @context.worker.add 'energy', 1
-      @context.worker2?.add 'energy', 1
-      @context.worker3?.add 'energy', 1
+  text: ->"""When someone is injured, the best (and likely only) solution is bed rest, and lots of it."""
 
 Job.BedRest::next = Page.BedRest = class BedRest extends Page
   text: ->false

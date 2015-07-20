@@ -29,7 +29,7 @@ Place.Ship = Game::map.Ship = class Ship extends Place
       when @damage > heavyDamage then 1 / 3
       when @damage > lightDamage then 2 / 3
       else 1)
-    return speed * (if Page.sumStat('navigator', g.crew) then 1.1 else 1)
+    return speed
 
   shortDamage: -> switch
     when @damage > heavyDamage then "barely afloat"
@@ -196,7 +196,7 @@ Ship::jobs.trainSailing = ShipJob.TrainSailing = class TrainSailing extends Ship
   label: "Maintenence"
   text: ->"""Repairing the Lapis will help the crew learn to work together better.
 
-  Crew: <span class="sailing">+1 sailing</span> for sailors with less than #{@Nat.get 'sailing'}, <span class="happiness">-1 happiness</span>
+  Crew: <span class="sailing">+1 sailing</span> for sailors with less than #{g.officers.Nat.get 'sailing'}, <span class="happiness">-1 happiness</span>
   Natalie: <span class="energy">-2 energy</span>#{if g.map.Ship.damage then "\nShip: -1 damage" else""}"""
 
 ShipJob.TrainSailing::next = Page.TrainSailing = class TrainSailing extends Page

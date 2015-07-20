@@ -1,6 +1,7 @@
 Place.Vailia::jobs.VisitKantis = Job.VisitKantis = class VisitKantis extends Job
   label: "Meet with Guildmaster"
-  text: ->"#{q}Guildmaster Janos requests that you visit him this afternoon at 14:00,</q> the courier announces to Natalie as she steps off the ship. He's been waiting for her, apparently all morning."
+  type: 'plot'
+  text: ->"<q>Guildmaster Janos requests that you visit him this afternoon at 14:00,</q> the courier announces to Natalie as she steps off the ship. He's been waiting for her, apparently all morning."
   energy: -2
   officers:
     Natalie: '|officers|Nat'
@@ -41,13 +42,18 @@ Job.VisitKantis::next = Page.VisitKantis = class VisitKantis extends Page
   ||
     #{@Guildmaster.normal 'right'}
     --> #{q}You always know the right thing to say. I miss Wend sometimes, and now with you gone... none of the other Children have quite the same spark. I'm going to become boring.</q> He slapped his hands on the desk, wiping the happy expression off his face, business-like demeanor returning. #{q}I hear you have returned from Tomenoi.</q>
+"""
 
-  ||
+Page.VisitKantis::next = Page.VisitKantis2 = class VisitKantis2 extends Page
+  conditions:
+    Nat: {}
+    Guildmaster: {}
+  text: ->"""|| bg="guildOffice"
     #{@Nat.normal 'left'}
     -- Though she wanted more than anything to ask who the woman was – she had looked more Kantian than anything – Natalie restrained her curiosity and nodded, leaning back in her seat on crossing her knees. #{q}Tomenoi, yes sir. Would you like me to tell you about it?</q> She had guessed his intentions correctly, and he nodded. #{q}It was dirty, dusty, small, closely packed. Huddled, you might say. But well-made – no signs of neglect, and the woodworking was all first-rate. Odd that they made everything out of wood, when the island was so barren.</q>
 
   ||
-    #{@Guildmaster.thoughtful 'right'}
+    #{@Guildmaster.thinking 'right'}
     -- #{q}Kantis is not heavily forested, so wood is a luxury. Tomenoi is a statement of wealth, placed on our doorstep. The wood also symbolizes impermanence, openness to change.</q>
 
   ||
@@ -55,16 +61,16 @@ Job.VisitKantis::next = Page.VisitKantis = class VisitKantis extends Page
     --> Natalie pondered his words, nodded. It fit with what she'd felt from the people there. Everyone seemed worried that the floor was going to drop out from under them. It hadn't been an entirely pleasant. #{q}Is there anything in specific you'd like to know?</q>
 
   ||
-    #{@Guildmaster.thoughtful 'right'}
+    #{@Guildmaster.thinking 'right'}
     -- He grilled her briefly on the prices of various goods, quantities and qualities that she'd seen for sale. It was amazing the way he seemed to soak up information, fitting new facts into some sort of masterful puzzle only he could see. Finally, he gestured her to silence while he pondered the way the pieces fell together.
 
   ||
     #{@Guildmaster.serious 'right'}
-    -- #{q}I will prepare a letter tonight, and have it sent to your ship. Please deliver it to Saottica. One of Kantis' outlying ports.</q>
+    --> #{q}I will prepare a letter tonight, and have it sent to your ship. Please deliver it to Saottica. One of Kantis' outlying ports.</q>
 
   ||
     #{@Nat.happy 'left'}
-    -- She sat up straight, grinned, uncrossed her legs. #{q}Aye aye sir!</q>
+    --> She sat up straight, grinned, uncrossed her legs. #{q}Aye aye sir!</q>
 
   ||
     #{@Guildmaster.normal 'right'}
@@ -72,30 +78,30 @@ Job.VisitKantis::next = Page.VisitKantis = class VisitKantis extends Page
 
   ||
     #{@Nat.normal 'left'}
-    -- Natalie stood and saluted, garnering another grumble, and turned to leave.
+    --> Natalie stood and saluted, garnering another grumble, and turned to leave.
 
   ||
     #{@Guildmaster.normal 'right'}
-    -- #{q}Take some of our steel with you. The price in Kantis won't disappoint.</q> Though it seemed an afterthought, the delivery was too timely and smooth. The advice was, she could guess, to be her means of payment for the mission.
+    --> #{q}Take some of our steel with you. The price in Kantis won't disappoint.</q> Though it seemed an afterthought, the delivery was too timely and smooth. The advice was, she could guess, to be her means of payment for the mission.
 
   ||
     #{@Nat.happy 'left'}
-    -- #{q}Aye aye sir!</q> She saluted again, and danced out before he could object.
+    --> #{q}Aye aye sir!</q> She saluted again, and danced out before he could object.
   """
   effects:
     remove:
       '|location|jobs|VisitKantis': Job.VisitKantis
 
-Job.KantisRoute = class KantisRoute extends Job
-  label: "Meet with Guildmaster"
-  text: ->"#{q}Guildmaster Janos requests that you visit him this afternoon at 14:00,</q> the courier announces to Natalie as she steps off the ship. He's been waiting for her, apparently all morning."
-  energy: -2
-  officers:
-    Natalie: '|officers|Nat'
-  conditions:
-    '|events|NonkeniaDiplomats2': {}
-    '|events|VisitTomenoi': {}
-    '|officers|Kat': {}
+# Job.KantisRoute = class KantisRoute extends Job
+#   label: "Meet with Guildmaster"
+#   text: ->"#{q}Guildmaster Janos requests that you visit him this afternoon at 14:00,</q> the courier announces to Natalie as she steps off the ship. He's been waiting for her, apparently all morning."
+#   energy: -2
+#   officers:
+#     Natalie: '|officers|Nat'
+#   conditions:
+#     '|events|NonkeniaDiplomats2': {}
+#     '|events|VisitTomenoi': {}
+#     '|officers|Kat': {}
 
 Page.Library.next.push Page.VisitKantisLibrary = class VisitKantisLibrary extends Page
   conditions:

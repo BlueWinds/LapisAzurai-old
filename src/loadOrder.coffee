@@ -19,8 +19,9 @@ module.exports = [
   'engine/screens/nextDay.coffee'
   'engine/screens/port.coffee'
   'engine/screens/crewLeaving.coffee'
+  'engine/screens/setSail.coffee'
+  'engine/screens/sailDay.coffee'
   'engine/screens/sailEvent.coffee'
-  'engine/screens/sail.coffee'
   'engine/screens/hireCrew.coffee'
   'engine/screens/market.coffee'
 
@@ -58,10 +59,10 @@ module.exports = [
   'content/locations/Vailia/_Vailia.coffee'
   'content/locations/Vailia/_Jobs.coffee'
   'content/locations/Vailia/_GuildWork.coffee'
-  'content/locations/Vailia/_MtJulia.coffee'
-  'content/locations/Vailia/_Alkenia.coffee'
-  'content/locations/Vailia/_Nonkenia.coffee'
-  'content/locations/Vailia/_IronSands.coffee'
+  'content/locations/VailiaEnvirons/_MtJulia.coffee'
+  'content/locations/VailiaEnvirons/_Alkenia.coffee'
+  'content/locations/VailiaEnvirons/_Nonkenia.coffee'
+  'content/locations/VailiaEnvirons/_IronSands.coffee'
 
   'content/locations/Kantis/_Tomenoi.coffee'
 

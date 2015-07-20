@@ -30,7 +30,6 @@ Page.SailEvent = class SailEvent extends Page
       @context.push job
 
     super()
-    g.passDay()
   next: false
 
 sailClick = (element)->

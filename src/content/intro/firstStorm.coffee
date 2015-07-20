@@ -152,7 +152,6 @@ Page.FirstStorm2::next = Page.FirstStorm3 = class FirstStorm3 extends Page
 """
   apply: ->
     super()
-    g.passDay()
     @context.Nat.energy = -10
     g.map.Ship.damage = 18
   effects:
@@ -329,4 +328,3 @@ Job.IntroNatAwake::next = Page.IntroNatAwake = class IntroNatAwake extends Page
       '|missions|tradeRoutes': Mission.VailiaTradeRoutes
       '|missions|exploreCity': Mission.VailiaExploreCity
       '|missions|raiseFunds': Mission.VailiaFirstMoney
-      '|map|Ship|jobs|jamesUpset': ShipJob.JamesUpset
