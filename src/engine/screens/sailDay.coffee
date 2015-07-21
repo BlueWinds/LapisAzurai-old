@@ -64,7 +64,6 @@ Page.SailDay = class SailDay extends Page
 
     g.applyEffects {cargo: cost}
 
-
     @context.days += g.map.Ship.sailSpeed() * (if Page.sumStat('navigator', g.crew) then 1.1 else 1)
     if @context.days > @context.daysNeeded
       g.location = @context.destination
@@ -83,5 +82,3 @@ Page.SailDay = class SailDay extends Page
         g.queue.push new Page.SailEvent
       g.queue.push new Page.NextDay
       g.queue.push @
-
-  setTimeout(Game.gotoPage, 0)
