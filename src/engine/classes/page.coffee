@@ -79,8 +79,8 @@ window.Page = class Page extends GameObject
         exec: (schema, text)->
           text = text.toString()
           match = text.match(/\|\|/g)
-          if match?.length > 16
-            @report "can't have more than 15 ||s in one text block"
+          if match?.length > 26
+            @report "can't have more than 25 ||s in one text block"
       effects:
         type: 'object'
         optional: true
@@ -262,7 +262,7 @@ window.PlayerOptionPage = class PlayerOptionPage extends Page
 
 checkGetItem = (key, val)->
   target = g.getItem(key)
-  if not val and target then return false
+  if not val then return not target?
   unless target or val.optional then return false
   unless Collection.partMatches(target, val) then return false
   return true

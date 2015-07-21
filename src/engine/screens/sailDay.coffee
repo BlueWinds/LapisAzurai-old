@@ -4,7 +4,10 @@ noFoodUnhappiness = 2
 noFoodEnergy = 1
 
 sailCost = ->
-  used = {}
+  used =
+    happiness: 0
+    energy: 0.5 # Default recovery per day
+
   people = 0
   for name, person of g.officers
     people += person.get 'eats'
@@ -21,8 +24,8 @@ sailCost = ->
 
   # If people go hungry, they get unhappy and tired.
   if totalFood is 0
-    used.happiness = noFoodUnhappiness
-    used.energy = noFoodEnergy
+    used.happiness -= noFoodUnhappiness
+    used.energy -= noFoodEnergy
 
   for i in [0...Math.min(people, totalFood)]
     f = Math.weightedChoice food
@@ -53,16 +56,14 @@ Page.SailDay = class SailDay extends Page
     @context.days or= 0
     cost = @context.cost = sailCost()
     super()
+
     for name, officer of g.officers
-      officer.add 'energy', 0.5
+      officer.add 'energy', cost.energy
+    for i, person of g.crew
+      person.add 'happiness', cost.happiness
 
     g.applyEffects {cargo: cost}
 
-    if cost.happiness
-      for i, person of g.crew
-        person.add 'happiness', -cost.happiness
-      for i, person of g.officers
-        person.add 'energy', -cost.energy
 
     @context.days += g.map.Ship.sailSpeed() * (if Page.sumStat('navigator', g.crew) then 1.1 else 1)
     if @context.days > @context.daysNeeded

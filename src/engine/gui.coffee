@@ -44,7 +44,7 @@ getNextDiv = ->
       $('#content').append errorPage(currentPage, e)
 
     # If there are too many history items, remove the top one
-    while $('#content page').length > 20
+    while $('#content page').length > 40
       $('#content page').first().remove()
 
   return $('page.active + page')

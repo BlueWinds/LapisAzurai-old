@@ -1,4 +1,4 @@
-Place.Vailia::jobs.VisitKantis = Job.VisitKantis = class VisitKantis extends Job
+Place.Vailia::jobs.visitKantis = Job.VisitKantis = class VisitKantis extends Job
   label: "Meet with Guildmaster"
   type: 'plot'
   text: ->"<q>Guildmaster Janos requests that you visit him this afternoon at 14:00,</q> the courier announces to Natalie as she steps off the ship. He's been waiting for her, apparently all morning."
@@ -44,6 +44,25 @@ Job.VisitKantis::next = Page.VisitKantis = class VisitKantis extends Page
     --> #{q}You always know the right thing to say. I miss Wend sometimes, and now with you gone... none of the other Children have quite the same spark. I'm going to become boring.</q> He slapped his hands on the desk, wiping the happy expression off his face, business-like demeanor returning. #{q}I hear you have returned from Tomenoi.</q>
 """
 
+Mission.VisitKantis = class VisitKantis extends Mission
+  label: "Visit Kantis"
+  tasks: [
+      description: "Note: This mission isn't implemented yet, don't spend too much time looking. :)"
+    ,
+      description: "Find a route to Kantis"
+      conditions:
+        '|events|KantisRoute': {}
+    ,
+      description: "Visit Saottica"
+      conditions:
+        '|events|SaotticaArrive': {}
+    ,
+      description: "Deliver the Guildmaster's letter"
+      conditions:
+        '|events|KantisGuildmasterDelivery': {}
+  ]
+  removeWhenDone: true
+
 Page.VisitKantis::next = Page.VisitKantis2 = class VisitKantis2 extends Page
   conditions:
     Nat: {}
@@ -74,11 +93,11 @@ Page.VisitKantis::next = Page.VisitKantis2 = class VisitKantis2 extends Page
 
   ||
     #{@Guildmaster.normal 'right'}
-    -- #{q}Stop it, you're making me feel old again,</q> he grumbled, but his smile said the opposite of his words.
+    --> #{q}Stop it, you're making me feel old again,</q> he grumbled, but his smile said the opposite of his words.
 
   ||
     #{@Nat.normal 'left'}
-    --> Natalie stood and saluted, garnering another grumble, and turned to leave.
+    -- Natalie stood and saluted, garnering another grumble, and turned to leave.
 
   ||
     #{@Guildmaster.normal 'right'}
@@ -87,10 +106,16 @@ Page.VisitKantis::next = Page.VisitKantis2 = class VisitKantis2 extends Page
   ||
     #{@Nat.happy 'left'}
     --> #{q}Aye aye sir!</q> She saluted again, and danced out before he could object.
+
+  ||
+    #{@Nat.happy 'left'}
+    --> <em>New mission: <strong>Visit Kantis</strong></em>
   """
   effects:
     remove:
-      '|location|jobs|VisitKantis': Job.VisitKantis
+      '|location|jobs|visitKantis': Job.VisitKantis
+    add:
+      '|missions|kantisRoute': Mission.VisitKantis
 
 # Job.KantisRoute = class KantisRoute extends Job
 #   label: "Meet with Guildmaster"

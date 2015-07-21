@@ -207,7 +207,7 @@ Mission.MeetGuildmaster = class MeetGuildmaster extends Mission
   tasks: [
       description: "Natalie and James need to meet with Guildmaster Janos"
       conditions:
-        '|events|IntroVisitGuildmaster|length': {gt: 0}
+        '|events|IntroVisitGuildmaster': {}
   ]
   removeWhenDone: true
   blockSailing: true

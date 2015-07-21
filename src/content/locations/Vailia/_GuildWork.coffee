@@ -260,6 +260,7 @@ Page.GuildNatBang.next['No'] = Page.GuildNatBangNo = class GuildNatBangNo extend
   """
 
 Page.GuildNatBang.next['Sure'] = Page.GuildNatBangSure = class GuildNatBangSure extends Page
+  ignoreNew: true
   conditions:
     Nat: {}
   text: ->"""|| bg="night|storm"
@@ -352,6 +353,7 @@ Page.GuildNatDom.next['No'] = Page.GuildNatDomNo = class GuildNatDomNo extends P
   """
 
 Page.GuildNatDom.next['Sure'] = Page.GuildNatDomSure = class GuildNatDomSure extends Page
+  ignoreNew: true
   conditions:
     Nat: {}
   text: ->"""|| bg="night|storm"
@@ -434,7 +436,7 @@ Page.GuildNatDomSure::next = Page.GuildNatDomSure2 = class GuildNatDomSure2 exte
 Page.GuildNat.next.push Page.GuildNatBottom = class GuildNatBottom extends PlayerOptionPage
   conditions:
     Nat: {}
-    '|events|VisitTomenoi': {}
+    '|events|VisitKantis': {}
   text: ->"""|| bg="night|storm"
     -- <q>Today sucks. No one's biting.</q> Ben frowned at her, as though his problems were somehow her fault. <q>I got nothing for you.</q>
 
@@ -450,7 +452,7 @@ Page.GuildNat.next.push Page.GuildNatBottom = class GuildNatBottom extends Playe
     -- She quirked her eyebrow, waiting for him to go on.
 
   ||
-    --> <q>I want to slap and choke and fuck someone. You want to make some money. Maybe we could help each other out?</q> He grinned, and oddly enough, for once she didn't find his stare greasy or lecherous. He was actually asking nicely.
+    --> <q>I want to tie up and spank someone. You want to make some money. Maybe we could help each other out?</q> He grinned, and oddly enough, for once she didn't find his stare greasy or lecherous. He was actually asking nicely.
       #{options ['Sure', 'No thanks'], []}
   """
   @next: {}
@@ -469,29 +471,123 @@ Page.GuildNatBottom.next['No thanks'] = Page.GuildNatBottomNo = class GuildNatBo
 
 
 Page.GuildNatBottom.next['Sure'] = Page.GuildNatBottomSure = class GuildNatBottomSure extends Page
+  ignoreNew: true
   conditions:
     Nat: {}
   text: ->"""|| bg="night|storm"
     #{@Nat.normal 'left'}
-    -- #{q}Sure, I can do that.</q> She wrapped an arm around his waist and stepped inside, pulling the door shut behind her. #{q}I don't want any bruises. I don't mark easily, but don't test it. If I start hitting something rhythmically, stop what you're doing. Flailing wildly you're fine, but slap-slap-slap,</q> she demonstrated on his arm, #{q}time to stop and communicate.</q>
+    -- #{q}Sure, I can do that.</q> She wrapped an arm around his waist and stepped inside, pulling the door shut behind her. #{q}I don't want any bruises. I don't mark easily, but don't test it.</q>
 
   ||
     --> <q>Will do. Or won't do, rather. So, slut of mine, go back to the second room on the left and get ready for me.</q>
 
-  ||
-    --> #{q}In a second.</q>
+  || speed="slow"
+    --| Natalie had discarded all her clothes before he arrived, and sashayed around in a slow circle as the door opened. She was completely nude, as well as freshly shaven. "What do you think?" Natalie finished her turn with a flip of her hair.
 
   ||
-    -- Natalie removed her arm, ducked out from under his, and stepped into thi back laundry room, where the old woman who'd answered the door was stirring a steaming cauldrin of sheets. #{q}Can I ask you to check in on us every half hour?</q> Not that she thought anything was going to go wrong, but better safe than hurting.
+    --> Ben stepped closer. "I think..." he pressed himself against her, hands falling to her hips, "You're very cute." Leaning in, he pressed his lips to hers gently. Their hips bumped.
 
   ||
-    --> The woman waved a hand in agreement, shaking her head and muttering something about men with no sense and the women who followed them around. Natalie went to find the room.
+    --> He slid his hands up her back and dipped his fingers into her hair, playing with it gently while his tongue slipped past her lips. She pressed her body against his, placing hands on his waist. Her mouth to accepted him, letting out a happy sigh through her nose, but the kiss lasted only a second before he pulled away. "Close your eyes."
 
-  || bg="tavern"
-    --| #{TODO - include Ben scene}
+  ||
+    --> Natalie scrunched them closed, then brought her hands up to rub them before clasping them behind her back. He stepped away, and the room was quiet a moment. The drawer opened, closed again. His steps came back. Something cool and leather wrapped around her neck and he tightened it until it fit snugly. "Arms out in front, keep your eyes closed.
+
+  ||
+    --> She sucked in a breath at the sensation, then shook her head a little to test it for comfort. A metal bar hung from the front of the collar, cool metal against her throat. She held out her arms, crossed at the wrist. Though entirely curious about what other little items he has in store for her, she kept her eyes closed. "A collar? How bold," she teased.
+
+  ||
+    --> He grabbed her wrists roughly - perhaps revenge for the teasing - and separated them, carefully fastening another small leather belt around either one. He walked around and behind her and grasped the bar, pulling it back against her throat for a moment.
+
+  ||
+    --> Natalie shivered, her body reacting to the sensation of being an object on display, naked and obedient while he walked around and decorated her. It was exciting.
+
+  ||
+    --> "I think she likes it. Now hold still." He reached around and grabbed her wrists, guiding them up to her shoulders. A click, and her wrist was locked to one end of the rod hanging from her collar, palm facing forward. He attached her second wrist to the other end. "Move over to the couch. You can open your eyes."
+
+
+  || speed="slow"
+    --| Her heart raced, skin growing heated with the increasing sense of helplessness that abated somewhat as vision returned. She rattled the bar, testing the range of motion. She could only move her hands a few inches from her head.
+
+  ||
+    --> He grinned, seeming to notice the way her nipples jut out, perky little light pink buds. Or maybe he was grinning at what he was getting ready to do. "Kneel on the couch, facing the arm."
+
+  ||
+    --> Her motion to obey was made a little less graceful than normal by the ungainliness of having her hands locked up near her head. "Like this?" She rested her butt on her heels.
+
+  ||
+    --> Ben smiled and nodded, "Very good. But forward, lean over the edge." He carefully pushed her forward by the bar, so that her hands rested on the arm of the couch with her head is just above it. "Stay still for a moment."
+
+  ||
+    --> Natalie wiggled her shoulders to find a comfortable position to rest in, then settled still. It was actually rather pleasant for the moment, soft leather and comfy couch. Only the cold metal bar reminded her that he probably had more in mind than just a kiss and a massage.
+
+  ||
+    --> He knelt down beside her and looped a rope under the couch, around two of the legs. With a tug to tighten it, he tied each end to the bar, pressing her palms into the armrest.
+
+  ||
+    --> Suddenly less <em>comfortable</em> and more <em>excited</em>, Natalia rocked her hips. It was hard to be comfortable when you've just been tied to the floor - but easy for her cheeks to flush, her breaths to grow a little faster, her body to heat up. She tested her chains lightly again, finding that there is only a little room for motion unless she moved her knees off the couch entirely. "Huh, I... what now?" She shivered, and not from the cold.
+"""
+
+Page.GuildNatBottomSure::next = Page.GuildNatBottomSure2 = class GuildNatBottomSure2 extends Page
+  conditions:
+    Nat: {}
+  text: ->"""|| bg="tavern" speed="slow"
+    --| Ben crouched down, his face in front of hers. He grinned and held up a black blindfold. "I know what's next, but you don't need to until it happens..." He tied it around the back of her head, completely blocking off her sight.
+
+  ||
+    --> Natalie gasped at the sudden blackness, pressing her neck against the couch and curling the rest of her body up a little tighter. She twitched as his hands suddenly groped her butt, kneading and spreading the cheeks apart, unexpected and unexpectedly intense. A little thrill ran up her spine. She squirmed and let out a gasp.
+
+  ||
+    --> Ben patted her rear, then his touch disappeared for a moment. It was replaced by a smooth and cool board. "You should see the paddle, it's beautiful. There's a nice little heart right in the center too..." He gently rubbed her ass with the flat side. She could feel his eyes on her, and she squirmed as the paddle ran across her rump. "Hmm, it seems you want it. You're a needy little slut, aren't you?"
+
+  ||
+    --> "Well, I, ahh, if people don't know what I want, how are they going to give it to me?"
+
+  ||
+    --> "That's a good point. So, then, I'll ask..." The paddle disappeared from her rear. "Do you want this?" It connected with a wonderfully loud smack that pushed her forward slightly and made her butt jiggle.
+
+  ||
+    --> "Aah! Yes! Please!" She jerked and rattled the chains with her motion and gasped in a breath of air. Her world was blind and dark, but she knew her #{@Nat.color[0]} skin turned red easily. Making the color linger for more than a moment, though, took work. The red patch with #{@Nat.color[0]} heart would already be fading.
+
+  ||
+    --> Natalie's reaction wasn't nearly as strong for the second swing, this time, and expecting it. The transition from feeling cuddled to feeling hurt took a little while to settle in.
+
+
+  || speed="slow"
+    --| Ben gave two more smacks, no pause between them, each one aimed in precisely the same place. "Tell me what are you," he demanded.
+
+  ||
+    --> "No th-" her witticism was drowned out by a squeal, as he whacked her rump even harder. She squirmed under the blows, which ceased as suddenly as they'd begun. Given a few moments reprieve, she tried to calm down, relaxing quivering muscles. She knew her arousal must be as obvious to him as it was to her, mixing in with her reactions to the pain.
+
+  ||
+    --> Ben turned the paddle sideways and pressed the rounded corner against her pussy. "How cute. It's red and swollen, even though I haven't hit it yet." He twisted the paddle back and forth slowly, carefully spreading her and letting the edge dip slightly in. "Now, tell me what you are."
+
+  ||
+    --> Natalie moaned as her slit received attention, thighs tightening and releasing, hips rolling slightly. "Gods that hurts, I'm a slut and I love it," she groaned, her butt still stinging from the smacks.
+
+  ||
+    --> "You are such a pleasure." Even as he finished his sentence, he began hitting her in earnest. Though unpredictable at first, he soon settled into an easy rhythm, uninterrupted by the way she twisted and squirmed. Her skin burned with steady fire that no longer faded between blows. She felt so dirty and helpless, blindfolded, bound, the pain turning her body on like nothing else.
+
+  ||
+    --> Finally Ben stopped. She braced for more spanks incoming at any moment, but none came, until finally a shifting of weight indicated that he'd stepped onto the couch behind her. His hot hands rubbed her ass, massaging at the pain, dipping into her slit for just a moment. "I think that's enough for tonight. How about you?"
+
+  ||
+    --| Giddy and weak, Natalie nodded and rested backwards on her haunches, tugging at the chain binding her to the floor. She blinked rapidly as he removed the blindfold, even the dim room seeming blinding after so long in complete darkness. He held her body gently from behind with one arm while he undid the chain, then freed her wrists, making sure she didn't move too suddenly or fall off the couch.
+
+  ||
+    --> "Would you like some water?" He held a mug up to her lips, and she sipped slowly at first, then eagerly. She tried to take the cup from his hand, but her arm shook, and he gently pushed it back down and continued holding it for her. "Do you want me to hold you for a while?"
+
+  ||
+    --> Natalie rubbed her wrists and neck, and leaned back against him as an answer. Yes, she'd very much like to be held for a while now.
+
+  ||
+    --> <em><span class="energy">-2 energy</span>, <span class="money">+#{Place.Vailia.adultPay * 2}β</span></em>
   """
   effects:
-    money: Place.Vailia.adultPay
+    money: Place.Vailia.adultPay * 2
+  apply: ->
+    super()
+    @context.Nat.add 'energy', -2
 
 Job.GuildWork.next.push Page.GuildKat = class GuildKat extends Page
   conditions:
