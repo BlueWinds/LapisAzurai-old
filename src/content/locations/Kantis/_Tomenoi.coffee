@@ -84,7 +84,7 @@ Place.Tomenoi::firstVisit = Page.VisitTomenoi = class VisitTomenoi extends Page
     --> #{q @Nat}You're kidding me. At Alkenia it's a quarter. Vailia doesn't even have a fee.</q>
 
   ||
-    --> <q>One obol. Those cities don't have import food and everything else.</q>
+    --> <q>One obol. Those cities don't have to import food and everything else.</q>
 
   ||
     --> Natalie dug in her pocket. Better than anchoring in the bay and wasting time trying to move cargo by longboat.
