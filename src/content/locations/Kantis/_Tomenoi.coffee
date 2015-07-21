@@ -69,7 +69,7 @@ Place.Tomenoi::firstVisit = Page.VisitTomenoi = class VisitTomenoi extends Page
     --> She hadn't seen more than a few Alkenians in her life before now. Their ships were square rigged, solid but slow, making the journey to Vailia rather arduous for them. The few she had seen were mostly wealthy or powerful - the sort that could afford to take a month or more away from their affairs for a vacation at the center of the known world. The Alkenians were generally darker than the Vailians, golden skin and deep brown or black waves.
 
   ||
-    --> Some of the crowd were darker still, the color of polished wood. They might be desert folk, Natalie guessed, stretching her brain to remember old lessons about Kantis. Something about nomads and moon gods and land-fueds? Definitely something to read up on when she got back to Vailia.
+    --> Some of the crowd were darker still, the color of polished wood. They might be desert folk, Natalie guessed, stretching her brain to remember old lessons about Kantis. Something about nomads and moon gods and land-feuds? Definitely something to read up on when she got back to Vailia.
 
   ||
     --> <q>Welcome to Tomenoi. Docking fee 2 obols per day,</q> His accent was heavy on the vowels and emphasis, but still easily understandable.
@@ -84,7 +84,7 @@ Place.Tomenoi::firstVisit = Page.VisitTomenoi = class VisitTomenoi extends Page
     --> #{q @Nat}You're kidding me. At Alkenia it's a quarter. Vailia doesn't even have a fee.</q>
 
   ||
-    --> <q>One obol. Those cities don't have import food and everything else.</q>
+    --> <q>One obol. Those cities don't have to import food and everything else.</q>
 
   ||
     --> Natalie dug in her pocket. Better than anchoring in the bay and wasting time trying to move cargo by longboat.
