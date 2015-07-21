@@ -245,7 +245,7 @@ doWorkClick = (e)->
 
   Page.checkCrewLeaving()
   g.queue.push new Page.NextDay
-  g.queue.push new Page.Port
+  g.queue.push new (g.location.constructor.port or Page.Port)
   # All jobs have now been processed. Trigger the first one.
   setTimeout(Game.gotoPage, 0)
   return false

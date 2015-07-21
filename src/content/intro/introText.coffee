@@ -167,6 +167,7 @@ Page.Intro3 = class Intro3 extends Page
     add:
       '|missions|meet': Mission.MeetGuildmaster
       '|location|jobs|visit': Job.IntroVisitGuildmaster
+  next: Page.PortIntro
 
 
 Job.IntroVisitGuildmaster::next = Page.IntroVisitGuildmaster = class IntroVisitGuildmaster extends Page
