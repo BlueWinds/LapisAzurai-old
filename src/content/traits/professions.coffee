@@ -38,7 +38,7 @@ Trait.Blacksmith = class Blacksmith extends Trait
 Trait.Apothecary = class Apothecary extends Trait
   description: (person)->"Resting grants officers +1 energy with #{person} in the crew."
   @randomPoints: 5
-  rest: 1
+  restEnergy: 1
 
 Trait.Navigator = class Navigator extends Trait
   description: (person)->"The Lapis travels 10% faster with #{person} onboard. Doesn't stack."

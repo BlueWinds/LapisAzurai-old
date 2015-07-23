@@ -27,10 +27,13 @@ window.Game = class Game extends GameObject
       for key, value of item when typeof value is 'string' and value[0] is '|'
         item[key] = @getItem value
     unless gameData
+      @version = Game.update.length
       return
 
     # Now we recursively copy the data into our new clean game.
     recursiveCopy.call @, @, gameData
+    console.log @
+    return
 
     for i in updates
       Game.update[i].post?.call(@)
@@ -125,6 +128,7 @@ monthList = ['Ascending', 'Resplendant', 'Descending']
 seasonList = ['Wood', 'Fire', 'Earth', 'Water']
 
 recursiveCopy = (obj, data)->
+  console.log obj, data
   for key, value of data when key isnt '_'
     if typeof value is 'object'
       if value._ and not obj[key]

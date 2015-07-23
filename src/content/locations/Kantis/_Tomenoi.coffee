@@ -3,11 +3,11 @@ Game::map.Tomenoi = Place.Tomenoi = class Tomenoi extends Place
   description: ->"""Originally a Kantian military outpost, Tomenoi is now dominated by the Vailian trading post that grew up around it. It remains little more than a safe place to rest in the otherwise open ocean.
   <em>-1β daily</em>"""
   images:
-    day: 'game/content/locations/Town/Port Desert Day.jpg'
-    night: 'game/content/locations/Town/Port Desert Night.jpg'
-    storm: 'game/content/locations/Town/Port Desert Storm.jpg'
-    marketDay: 'game/content/locations/Town/Port Desert Day.jpg'
-    marketStorm: 'game/content/locations/Town/Port Desert Storm.jpg'
+    day: 'game/content/locations/VailiaEnvirons/Town Desert Day.jpg'
+    night: 'game/content/locations/VailiaEnvirons/Town Desert Night.jpg'
+    storm: 'game/content/locations/VailiaEnvirons/Town Desert Storm.jpg'
+    marketDay: 'game/content/locations/VailiaEnvirons/Town Desert Day.jpg'
+    marketStorm: 'game/content/locations/VailiaEnvirons/Town Desert Storm.jpg'
   location: [1774, 1742]
   jobs: new Collection
   destinations: new Collection

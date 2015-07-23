@@ -51,12 +51,12 @@ Game::officers.Nat = Officer.Natalie = class Natalie extends Officer
   @colors: [
     { # Skin
       light: false
-      ivory: [19, 67, 41]
-      tanned: [28, 52, -12]
-      golden: [37, 48, -30]
-      cinnamon: [30, 50, -52]
-      mocha: [27, 43, -58]
-      ebony: [23, 44, -70]
+      ivory: [16, 67, 41]
+      tanned: [26, 52, -12]
+      golden: [34, 48, -30]
+      cinnamon: [26, 50, -52]
+      mocha: [23, 43, -58]
+      ebony: [18, 44, -70]
     }
     { none: false } # Expression
     { # Eyes
@@ -71,7 +71,7 @@ Game::officers.Nat = Officer.Natalie = class Natalie extends Officer
       raven: [0, 0, -45]
       ash: false
       chestnut: [32, 40, -23]
-      copper: [19, 53, -29]
+      copper: [13, 53, -29]
       strawberry: [16, 47, 34]
       blonde: [41, 51, 38]
       green: [114, 49, 9]
