@@ -847,7 +847,7 @@ Page.KatClothesLaughing::next = Page.KatClothesLaughing2 = class KatClothesLaugh
   ||
     #{@Nat.normalNude 'left'}
     #{@Kat.normal 'far-right'}
-    --> A few minutes later, the crew was gathered back together, noticeably happier and significantly less chilly. Except Natalie. She'd gathered only a long overcoat, leaving it unbelted. Flashes of her breasts were visible as she moved, and plenty of unbroken pink flesh left any doubt she was naked underneath.
+    --> A few minutes later, the crew was gathered back together, noticeably happier and significantly less chilly. Except Natalie. She'd gathered only a long overcoat, leaving it unbelted. Flashes of her breasts were visible as she moved, and plenty of unbroken pink flesh removed any doubt she was naked underneath.
 
   ||
     #{@Nat.happyNude 'left'}

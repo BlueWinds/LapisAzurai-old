@@ -45,7 +45,7 @@ Page.CrewLeaving = class CrewLeaving extends Page
     -- As the crew dealt with the usual busines of arrival - anchors, ropes, cargo, kissing the dirt - Natalie dealt with the port authorities. A docking fee, letters to her contacts, and spreading the word that she might be looking to bring on more crew. With #{@leaving.toWord()} sailor#{if @leaving > 1 then "s" else ""} departing, she was left with #{g.crew.length.toWord()} hands, #{if g.crew.length >= 3 then "still enough crew they could set sail" else "not crew to man the ship"}.
 
   ||
-    --> James jostled past, rolling an empty water barrel out of the hold for refilling, and finally finishing her business with the dock owner, she turned to those waiting. They couldn't depart without her formal permission.
+    --> James jostled past, rolling an empty water barrel out of the hold for refilling. Finally finishing her business with the dock owner, she turned to those waiting. They couldn't depart without her formal permission.
 """
 
 Page.OneCrewLeaving = class OneCrewLeaving extends Page
@@ -76,7 +76,7 @@ Page.HappyCrewLeaving = class HappyCrewLeaving extends Page
   # context[sailor], context[officer] will be filled in when this event is triggered
   text: ->"""|| bg="day|storm"
     #{@sailor.happy 'right'}
-    -- #{@sailor} carried #{his} meager possessions over one shoulder, slung into a single canvas bag. The life of a sailor didn't allow for much in the way of material goods. #{He} did at least have a healthy purse of coin - between room and board paid for by the ship, scant free time with which to spend money and pay commensurate with an occupation that risked life and limb, crewmembers finishing their tours were well set. Those that survived, of that is.
+    -- #{@sailor} carried #{his} meager possessions over one shoulder, slung into a single canvas bag. The life of a sailor didn't allow for much in the way of material goods. #{He} did at least have a healthy purse of coin - between room and board paid for by the ship, scant free time with which to spend money and pay commensurate with an occupation that risked life and limb, crewmembers finishing their tours were well set. Those that survived, that is.
 
   ||
     #{@sailor.normal 'right'}

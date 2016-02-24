@@ -276,7 +276,7 @@ ShipJob.NonkeniaDiplomatShip::next = Page.NonkeniaDiplomatShip = class NonkeniaD
 
   ||
     #{@Nat.uncertain 'left'}
-    --> It sounded like an appology, but couldn't help but feel like the Ameliss was more annoyed at her for refusing to fault #{@crew} than anything. This was going to be a long voyage.
+    --> It sounded like an apology, but couldn't help but feel like the Ameliss was more annoyed at her for refusing to fault #{@crew} than anything. This was going to be a long voyage.
 
   ||
     #{@Nat.uncertain 'left'}

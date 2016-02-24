@@ -41,7 +41,7 @@ Page.SailDay = class SailDay extends Page
 
     other = []
     if @cost.happiness
-      other.push "Because there wasn't enough food people went hungry (<span class='happiness'>#{@cost.happiness} happiness</span> sailors, <span class='energy'>#{@cost.energy} energy</span> for officers)."
+      other.push "Because there wasn't enough food, people went hungry (<span class='happiness'>#{@cost.happiness} happiness</span> sailors, <span class='energy'>#{@cost.energy} energy</span> for officers)."
 
     ship = g.map.Ship
 

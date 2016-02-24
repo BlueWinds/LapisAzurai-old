@@ -23,7 +23,7 @@ Item.Salt = new Luxury
   unit: 'barrel'
 
 Item.Tobaco = new Luxury
-  name: "Tobaco"
+  name: "Tobacco"
   description: "Chewed or smoked, this addictive drug sees widespread use."
   price: 35
   unit: 'crate'
